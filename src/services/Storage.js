@@ -11,6 +11,7 @@ export default class Storage {
 				return await this._getNormal(key)
 			}
 		} catch (error) {
+			console.log(error)
 			return null
 		}
 	}
@@ -38,7 +39,7 @@ export default class Storage {
 
 	static async _setNormal(key, val) {
 		await AsyncStorage.setItem(`${PREFIX}${key}`, val)
-		console.debug(`saved ${key}=${await getItem(key)}`)
+		console.debug(`saved ${key}=${val}`)
 	}
 
 	static async _setSecure(key, val) {
@@ -50,11 +51,16 @@ export default class Storage {
 	}
 
 	static async removeItem(key, secure = false) {
-		if (secure === true) {
-			await RNSecureStorage.remove(`${PREFIX}${key}`)
-		} else {
-			await AsyncStorage.removeItem(`${PREFIX}${key}`)
+		try {
+			if (secure === true) {
+				await RNSecureStorage.remove(`${PREFIX}${key}`)
+			} else {
+				await AsyncStorage.removeItem(`${PREFIX}${key}`)
+			}
+			console.log(`Removed ${key}`)
+		} catch (error) {
+			console.log(error)
+			return null
 		}
-		console.log(`Removed ${key}`)
 	}
 }

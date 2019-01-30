@@ -1,6 +1,6 @@
 import React from "react"
 import { View, Text, Button, StyleSheet } from "react-native"
-import { logout } from "../actions/auth"
+import { logout } from "../../actions/auth"
 import { connect } from "react-redux"
 
 class Home extends React.Component {

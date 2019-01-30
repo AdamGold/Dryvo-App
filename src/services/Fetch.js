@@ -50,7 +50,7 @@ export default class Fetch {
 		})
 		respJSON = await resp.json()
 		console.log("response from refresh token " + JSON.stringify(respJSON))
-		saveItem(TOKEN_KEY, respJSON["auth_token"])
+		Storage.setItem(TOKEN_KEY, respJSON["auth_token"], true)
 		return { symbol: this._RESEND }
 	}
 

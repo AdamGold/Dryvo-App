@@ -87,7 +87,7 @@ export const exchangeToken = (token, callback) => {
 		resp = await fetchService.fetch("/login/exchange_token", {
 			method: "POST",
 			body: JSON.stringify({
-				token
+				exchange_token: token
 			})
 		})
 		if (resp.status != 200) {

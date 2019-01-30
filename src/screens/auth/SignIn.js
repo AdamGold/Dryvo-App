@@ -23,9 +23,11 @@ class SignIn extends React.Component {
 
 	handleOpenURL = async event => {
 		if (event.url) {
-			console.log(`Launched from deeplink ${event.url}`)
 			let url = event.url.replace("#_=_", "")
-			let token = new URLSearchParams(url).get("token")
+			console.log(`Launched from deeplink ${url}`)
+			url = new URLSearchParams(url).toString()
+			let regex = /token=(.*)/
+			const token = url.match(regex)[1]
 			console.log(`New exchange token ${token}`)
 			this.props.dispatch(
 				exchangeToken(token, userOrError => {

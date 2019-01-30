@@ -11,7 +11,6 @@ export default class Storage {
 				return await this._getNormal(key)
 			}
 		} catch (error) {
-			console.log(error)
 			return null
 		}
 	}
@@ -47,17 +46,22 @@ export default class Storage {
 		await RNSecureStorage.set(`${PREFIX}${key}`, val, {
 			accessible: ACCESSIBLE.WHEN_UNLOCKED
 		})
-		console.debug(`saved ${key}=${await getItem(key, true)}`)
+		console.debug(`saved ${key}=${val}`)
 	}
 
 	static async removeItem(key, secure = false) {
 		try {
 			if (secure === true) {
-				await RNSecureStorage.remove(`${PREFIX}${key}`)
+				if (await this.getItem(key, true)) {
+					await RNSecureStorage.remove(`${PREFIX}${key}`)
+					console.log(`Removed ${key}`)
+				}
 			} else {
-				await AsyncStorage.removeItem(`${PREFIX}${key}`)
+				if (await this.getItem(key, false)) {
+					await AsyncStorage.removeItem(`${PREFIX}${key}`)
+					console.log(`Removed ${key}`)
+				}
 			}
-			console.log(`Removed ${key}`)
 		} catch (error) {
 			console.log(error)
 			return null

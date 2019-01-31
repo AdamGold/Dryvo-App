@@ -16,7 +16,7 @@ import configureStore from "./Store"
 
 const store = configureStore()
 
-const App = createSwitchNavigator(
+const AppNav = createSwitchNavigator(
 	{
 		Teacher: Teacher,
 		Student: Student,
@@ -29,13 +29,13 @@ const App = createSwitchNavigator(
 )
 const AuthStack = createStackNavigator(
 	{ SignIn: SignIn, SignUp: SignUp },
-	{ initialRouteName: "SignIn" }
+	{ mode: "modal", initialRouteName: "SignIn" }
 )
 const Page = createAppContainer(
 	createSwitchNavigator(
 		{
 			AuthLoading: AuthLoading,
-			App: App,
+			App: AppNav,
 			Auth: AuthStack
 		},
 		{

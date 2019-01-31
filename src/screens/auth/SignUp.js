@@ -1,8 +1,9 @@
 import React from "react"
-import { View } from "react-native"
+import { View, Text } from "react-native"
 import { Input, Button } from "react-native-elements"
 import { connect } from "react-redux"
 import { register } from "../../actions/auth"
+import { API_ERROR, POP_ERROR } from "../../reducers/consts"
 
 class SignUp extends React.Component {
 	constructor(props) {
@@ -12,7 +13,19 @@ class SignUp extends React.Component {
 			email: "",
 			name: "",
 			area: "",
-			password: ""
+			password: "",
+			error: ""
+		}
+	}
+
+	componentDidUpdate() {
+		const apiErrors = this.props.errors[API_ERROR]
+		if (apiErrors.length) {
+			// we have errors
+			this.setState({
+				error: apiErrors[apiErrors.length - 1] // last error
+			})
+			this.props.dispatch({ type: POP_ERROR, errorType: API_ERROR })
 		}
 	}
 
@@ -26,6 +39,7 @@ class SignUp extends React.Component {
 	render() {
 		return (
 			<View>
+				<Text>{this.state.error}</Text>
 				<Input
 					placeholder="אימייל"
 					onChangeText={email => this.setState({ email })}
@@ -53,4 +67,10 @@ class SignUp extends React.Component {
 	}
 }
 
-export default connect()(SignUp)
+const mapStateToProps = state => {
+	return {
+		errors: state.errors
+	}
+}
+
+export default connect(mapStateToProps)(SignUp)

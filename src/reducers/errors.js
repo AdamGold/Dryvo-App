@@ -1,18 +1,16 @@
 import { API_ERROR, POP_ERROR } from "./consts"
-import { APIError } from "../error_handling"
-
-apiClassName = APIError.name
+import { updateObject } from "./utils"
 
 initialErrors = {
-	[apiClassName]: [],
+	[API_ERROR]: [],
 	other: []
 } // more errors to come
 
 export default function errorsReducer(state = initialErrors, action) {
 	switch (action.type) {
 		case API_ERROR:
-			return Object.assign({}, state, {
-				[apiClassName]: [...state[apiClassName], action.error]
+			return updateObject(state, {
+				[API_ERROR]: [...state[API_ERROR], action.error]
 			})
 		case POP_ERROR:
 			// pop one of the arrays (action.errorType)

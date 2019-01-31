@@ -18,6 +18,7 @@ class AuthLoading extends React.Component {
 		this.props.dispatch(
 			fetchUser((user = null) => {
 				if (user === null) this.props.dispatch(logout())
+				// logging out just to make sure
 				this.props.navigation.navigate(user ? "App" : "Auth")
 			})
 		)

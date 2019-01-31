@@ -43,8 +43,10 @@ export default class Fetch {
 			// don't have a refresh token, will have to login again
 			return {}
 		}
+		console.log("we have a valid refresh token")
 		resp = await fetch(ROOT_URL + "/login/refresh_token", {
 			method: "POST",
+			headers: this.defaultHeaders,
 			body: JSON.stringify({
 				refresh_token
 			})

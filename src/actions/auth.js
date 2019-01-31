@@ -1,7 +1,12 @@
 import { ROOT_URL, TOKEN_KEY, REFRESH_TOKEN_KEY } from "../consts"
 import { Linking } from "react-native"
 import Storage from "../services/Storage"
-import { LOGIN, LOGOUT, API_ERROR } from "../reducers/consts"
+import {
+	LOGIN,
+	LOGOUT,
+	API_ERROR,
+	API_BACKGROUND_ERROR
+} from "../reducers/consts"
 
 export const directLogin = (email, password, callback) => {
 	return async (dispatch, getState) => {
@@ -72,7 +77,7 @@ export const fetchUser = (callback = () => {}) => {
 			dispatch(setUser(resp.json.user))
 			callback(resp.json.user)
 		} catch (error) {
-			dispatch({ type: API_ERROR, error: error.message })
+			callback(null)
 		}
 	}
 }

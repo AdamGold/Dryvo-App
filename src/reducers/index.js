@@ -6,6 +6,6 @@ import errorsReducer from "./errors"
 const appReducer = combineReducers({
 	user: userReducer,
 	fetchService: fetchServiceReducer,
-	errors: errorsReducers
+	errors: errorsReducer
 })
 export default appReducer

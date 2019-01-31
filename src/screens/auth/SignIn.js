@@ -40,7 +40,22 @@ class SignIn extends React.Component {
 	}
 
 	async componentDidMount() {
+		/* dismiss all errors on focus
+		https://stackoverflow.com/questions/49458226/react-native-react-navigation-rerender-panel-on-goback
+		*/
+		this.willFocusSubscription = this.props.navigation.addListener(
+			"willFocus",
+			payload => {
+				this.setState({
+					error: ""
+				})
+			}
+		)
 		deepLinkingListener(this.handleOpenURL)
+	}
+
+	componentWillUnmount() {
+		this.willFocusSubscription.remove()
 	}
 
 	componentDidUpdate() {

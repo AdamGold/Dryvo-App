@@ -30,10 +30,8 @@ class SignIn extends React.Component {
 			const token = url.match(regex)[1]
 			console.log(`New exchange token ${token}`)
 			this.props.dispatch(
-				exchangeToken(token, userOrError => {
-					if (typeof userOrError === "object") {
-						this.props.navigation.navigate("App")
-					}
+				exchangeToken(token, user => {
+					this.props.navigation.navigate("App")
 				})
 			)
 		}
@@ -45,12 +43,8 @@ class SignIn extends React.Component {
 
 	login() {
 		this.props.dispatch(
-			directLogin(this.state.email, this.state.password, userOrError => {
-				if (typeof userOrError === "object") {
-					this.props.navigation.navigate("App")
-				} else {
-					// error
-				}
+			directLogin(this.state.email, this.state.password, () => {
+				this.props.navigation.navigate("App")
 			})
 		)
 	}

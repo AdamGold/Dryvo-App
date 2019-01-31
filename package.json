@@ -7,6 +7,7 @@
     "test": "jest"
   },
   "dependencies": {
+    "es6-error": "^4.1.1",
     "react": "16.6.3",
     "react-native": "0.57.8",
     "react-native-elements": "^1.0.0",

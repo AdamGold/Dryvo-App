@@ -1,5 +1,6 @@
 import { REFRESH_TOKEN_KEY, ROOT_URL, TOKEN_KEY } from "../consts"
 import Storage from "./Storage"
+import { APIError } from "../error_handling"
 
 export default class Fetch {
 	_definedExceptions = {
@@ -78,6 +79,7 @@ export default class Fetch {
 		)
 		respJSON = await this._handleExceptions(respJSON)
 		if (
+			respJSON.hasOwnProperty("symbol") &&
 			respJSON["symbol"] == this._RESEND &&
 			this.sentRequests <= this._requestsLimit
 		) {
@@ -85,6 +87,12 @@ export default class Fetch {
 			return await this.fetch(...fetchParams)
 		}
 		this.sentRequests = 0 // reset sentRequests
+		if (400 <= resp.status && resp.status < 600) {
+			// we have an error
+			let msg = respJSON
+			if (msg.hasOwnProperty("message")) msg = msg.message
+			throw new APIError(msg)
+		}
 		return { json: respJSON, status: resp.status }
 	}
 }

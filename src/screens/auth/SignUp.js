@@ -17,19 +17,11 @@ class SignUp extends React.Component {
 	}
 
 	register() {
-		try {
-			this.props.dispatch(
-				register(this.state, userOrError => {
-					if (typeof userOrError === "object") {
-						this.props.navigation.navigate("App")
-					} else {
-						// handle errors
-					}
-				})
-			)
-		} catch (error) {
-			//handle errors
-		}
+		this.props.dispatch(
+			register(this.state, () => {
+				this.props.navigation.navigate("App")
+			})
+		)
 	}
 	render() {
 		return (

@@ -1,46 +1,42 @@
 import { ROOT_URL, TOKEN_KEY, REFRESH_TOKEN_KEY } from "../consts"
 import { Linking } from "react-native"
 import Storage from "../services/Storage"
-import { LOGIN, LOGOUT } from "../reducers/consts"
+import { LOGIN, LOGOUT, API_ERROR } from "../reducers/consts"
 
 export const directLogin = (email, password, callback) => {
 	return async (dispatch, getState) => {
 		const { fetchService } = getState()
-		resp = await fetchService.fetch("/login/direct", {
-			method: "POST",
-			body: JSON.stringify({
-				email,
-				password
+		try {
+			resp = await fetchService.fetch("/login/direct", {
+				method: "POST",
+				body: JSON.stringify({
+					email,
+					password
+				})
 			})
-		})
-		if (resp.status != 200) {
-			let msg = "Error occured."
-			if (resp.json.hasOwnProperty("message")) msg = resp.json.message
-			callback(msg)
-			return
+			setTokens(resp.json.auth_token, resp.json.refresh_token)
+			dispatch(setUser(resp.json.user))
+			callback()
+		} catch (error) {
+			dispatch({ type: API_ERROR, error: error.message })
 		}
-		setTokens(resp.json.auth_token, resp.json.refresh_token)
-		dispatch(setUser(resp.json.user))
-		callback(resp.json.user)
 	}
 }
 
 export const register = (params, callback) => {
 	return async (dispatch, getState) => {
 		const { fetchService } = getState()
-		resp = await fetchService.fetch("/login/register", {
-			method: "POST",
-			body: JSON.stringify(params)
-		})
-		if (resp.status != 201) {
-			let msg = "Error occured."
-			if (resp.json.hasOwnProperty("message")) msg = resp.json.message
-			callback(msg)
-			return
+		try {
+			resp = await fetchService.fetch("/login/register", {
+				method: "POST",
+				body: JSON.stringify(params)
+			})
+			setTokens(resp.json.auth_token, resp.json.refresh_token)
+			dispatch(setUser(resp.json.user))
+			callback()
+		} catch (error) {
+			dispatch({ type: API_ERROR, error: error.message })
 		}
-		setTokens(resp.json.auth_token, resp.json.refresh_token)
-		dispatch(setUser(resp.json.user))
-		callback(resp.json.user)
 	}
 }
 
@@ -69,35 +65,33 @@ export const fetchUser = (callback = () => {}) => {
 	/* effectively checks if the token is valid */
 	return async (dispatch, getState) => {
 		const { fetchService } = getState()
-		resp = await fetchService.fetch("/user/me", {
-			method: "GET"
-		})
-		if (!("user" in resp.json) || resp.status != 200) {
-			callback()
-			return
+		try {
+			resp = await fetchService.fetch("/user/me", {
+				method: "GET"
+			})
+			dispatch(setUser(resp.json.user))
+			callback(resp.json.user)
+		} catch (error) {
+			dispatch({ type: API_ERROR, error: error.message })
 		}
-		dispatch(setUser(resp.json.user))
-		callback(resp.json.user)
 	}
 }
 
 export const exchangeToken = (token, callback) => {
 	return async (dispatch, getState) => {
 		const { fetchService } = getState()
-		resp = await fetchService.fetch("/login/exchange_token", {
-			method: "POST",
-			body: JSON.stringify({
-				exchange_token: token
+		try {
+			resp = await fetchService.fetch("/login/exchange_token", {
+				method: "POST",
+				body: JSON.stringify({
+					exchange_token: token
+				})
 			})
-		})
-		if (resp.status != 200) {
-			let msg = "Error occured."
-			if (resp.json.hasOwnProperty("message")) msg = resp.json.message
-			callback(msg)
-			return
+			setTokens(resp.json.auth_token, resp.json.refresh_token)
+			dispatch(fetchUser(callback))
+		} catch (error) {
+			dispatch({ type: API_ERROR, error: error.message })
 		}
-		setTokens(resp.json.auth_token, resp.json.refresh_token)
-		dispatch(fetchUser(callback))
 	}
 }
 

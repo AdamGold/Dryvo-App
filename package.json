@@ -22,11 +22,12 @@
 	},
 	"devDependencies": {
 		"babel-jest": "23.6.0",
+		"babel-preset-react-native": "^4.0.1",
 		"jest": "23.6.0",
+		"jest-react-native": "^18.0.0",
 		"metro-react-native-babel-preset": "0.51.1",
 		"react-test-renderer": "^16.6.3",
-		"babel-preset-react-native": "^4.0.1",
-		"jest-react-native": "^18.0.0"
+		"redux-mock-store": "^1.5.3"
 	},
 	"jest": {
 		"preset": "react-native",

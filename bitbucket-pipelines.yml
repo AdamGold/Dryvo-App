@@ -3,15 +3,14 @@
 # Only use spaces to indent your .yml configuration.
 # -----
 # You can specify a custom docker image from Docker Hub as your build environment.
-image: danlucian/react-bitbucket-pipeline
+image: node:alpine
 
 pipelines:
     default:
         - step:
               name: Test
               caches:
-                  - node_modules/
-                  - .gradle/
+                  - node
               script:
                   - npm install
                   - npm test

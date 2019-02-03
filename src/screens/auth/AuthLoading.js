@@ -6,7 +6,7 @@ import { TOKEN_KEY } from "../../consts"
 import { loadFetchService } from "../../actions/utils"
 import { fetchUser, logout } from "../../actions/auth"
 
-class AuthLoading extends React.Component {
+export class AuthLoading extends React.Component {
 	constructor(props) {
 		super(props)
 		this._bootstrapAsync()

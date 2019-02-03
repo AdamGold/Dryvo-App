@@ -1,8 +1,10 @@
 import React from "react"
-import { View } from "react-native"
+import { View, Text } from "react-native"
 import { Input, Button } from "react-native-elements"
 import { connect } from "react-redux"
 import { register } from "../../actions/auth"
+import { API_ERROR, POP_ERROR } from "../../reducers/consts"
+import { getLatestError } from "../../error_handling"
 
 class SignUp extends React.Component {
 	constructor(props) {
@@ -12,28 +14,30 @@ class SignUp extends React.Component {
 			email: "",
 			name: "",
 			area: "",
-			password: ""
+			password: "",
+			error: ""
+		}
+	}
+
+	componentDidUpdate() {
+		const error = getLatestError(this.props.errors[API_ERROR])
+		if (error) {
+			this.setState({ error })
+			this.props.dispatch({ type: POP_ERROR, errorType: API_ERROR })
 		}
 	}
 
 	register() {
-		try {
-			this.props.dispatch(
-				register(this.state, userOrError => {
-					if (typeof userOrError === "object") {
-						this.props.navigation.navigate("App")
-					} else {
-						// handle errors
-					}
-				})
-			)
-		} catch (error) {
-			//handle errors
-		}
+		this.props.dispatch(
+			register(this.state, () => {
+				this.props.navigation.navigate("App")
+			})
+		)
 	}
 	render() {
 		return (
 			<View>
+				<Text>{this.state.error}</Text>
 				<Input
 					placeholder="אימייל"
 					onChangeText={email => this.setState({ email })}
@@ -61,4 +65,10 @@ class SignUp extends React.Component {
 	}
 }
 
-export default connect()(SignUp)
+const mapStateToProps = state => {
+	return {
+		errors: state.errors
+	}
+}
+
+export default connect(mapStateToProps)(SignUp)

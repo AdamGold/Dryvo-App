@@ -1,5 +1,5 @@
 import React from "react"
-import { View, Button } from "react-native"
+import { View, Button, Text } from "react-native"
 import {
 	deepLinkingListener,
 	deepLinkingRemoveListener
@@ -7,6 +7,8 @@ import {
 import { connect } from "react-redux"
 import { exchangeToken, openFacebook, directLogin } from "../../actions/auth"
 import { Input } from "react-native-elements"
+import { API_ERROR, POP_ERROR } from "../../reducers/consts"
+import { getLatestError } from "../../error_handling"
 
 class SignIn extends React.Component {
 	constructor(props) {
@@ -14,7 +16,8 @@ class SignIn extends React.Component {
 		this.login = this.login.bind(this)
 		this.state = {
 			email: "",
-			password: ""
+			password: "",
+			error: ""
 		}
 	}
 	componentWillUnmount() {
@@ -30,27 +33,44 @@ class SignIn extends React.Component {
 			const token = url.match(regex)[1]
 			console.log(`New exchange token ${token}`)
 			this.props.dispatch(
-				exchangeToken(token, userOrError => {
-					if (typeof userOrError === "object") {
-						this.props.navigation.navigate("App")
-					}
+				exchangeToken(token, user => {
+					this.props.navigation.navigate("App")
 				})
 			)
 		}
 	}
 
 	async componentDidMount() {
+		/* dismiss all errors on focus
+		https://stackoverflow.com/questions/49458226/react-native-react-navigation-rerender-panel-on-goback
+		*/
+		this.willFocusSubscription = this.props.navigation.addListener(
+			"willFocus",
+			payload => {
+				this.setState({
+					error: ""
+				})
+			}
+		)
 		deepLinkingListener(this.handleOpenURL)
+	}
+
+	componentWillUnmount() {
+		this.willFocusSubscription.remove()
+	}
+
+	componentDidUpdate() {
+		const error = getLatestError(this.props.errors[API_ERROR])
+		if (error) {
+			this.setState({ error })
+			this.props.dispatch({ type: POP_ERROR, errorType: API_ERROR })
+		}
 	}
 
 	login() {
 		this.props.dispatch(
-			directLogin(this.state.email, this.state.password, userOrError => {
-				if (typeof userOrError === "object") {
-					this.props.navigation.navigate("App")
-				} else {
-					// error
-				}
+			directLogin(this.state.email, this.state.password, () => {
+				this.props.navigation.navigate("App")
 			})
 		)
 	}
@@ -58,6 +78,7 @@ class SignIn extends React.Component {
 	render() {
 		return (
 			<View>
+				<Text>{this.state.error}</Text>
 				<Input
 					placeholder="אימייל"
 					onChangeText={email => this.setState({ email })}
@@ -87,4 +108,10 @@ class SignIn extends React.Component {
 	}
 }
 
-export default connect()(SignIn)
+const mapStateToProps = state => {
+	return {
+		errors: state.errors
+	}
+}
+
+export default connect(mapStateToProps)(SignIn)

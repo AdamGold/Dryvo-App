@@ -1,12 +1,7 @@
 import { ROOT_URL, TOKEN_KEY, REFRESH_TOKEN_KEY } from "../consts"
 import { Linking } from "react-native"
 import Storage from "../services/Storage"
-import {
-	LOGIN,
-	LOGOUT,
-	API_ERROR,
-	API_BACKGROUND_ERROR
-} from "../reducers/consts"
+import { LOGIN, LOGOUT, API_ERROR } from "../reducers/consts"
 
 export const directLogin = (email, password, callback) => {
 	return async (dispatch, getState) => {
@@ -95,7 +90,7 @@ export const exchangeToken = (token, callback) => {
 			setTokens(resp.json.auth_token, resp.json.refresh_token)
 			dispatch(fetchUser(callback))
 		} catch (error) {
-			dispatch({ type: API_ERROR, error: error.message })
+			dispatch({ type: API_ERROR, error: "תקלה בהתחברות, אנא נסו שנית." })
 		}
 	}
 }

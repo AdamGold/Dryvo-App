@@ -8,6 +8,7 @@ import { connect } from "react-redux"
 import { exchangeToken, openFacebook, directLogin } from "../../actions/auth"
 import { Input } from "react-native-elements"
 import { API_ERROR, POP_ERROR } from "../../reducers/consts"
+import { getLatestError } from "../../error_handling"
 
 class SignIn extends React.Component {
 	constructor(props) {
@@ -59,12 +60,9 @@ class SignIn extends React.Component {
 	}
 
 	componentDidUpdate() {
-		const apiErrors = this.props.errors[API_ERROR]
-		if (apiErrors.length) {
-			// we have errors
-			this.setState({
-				error: apiErrors[apiErrors.length - 1] // last error
-			})
+		const error = getLatestError(this.props.errors[API_ERROR])
+		if (error) {
+			this.setState({ error })
 			this.props.dispatch({ type: POP_ERROR, errorType: API_ERROR })
 		}
 	}

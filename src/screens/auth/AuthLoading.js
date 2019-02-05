@@ -13,11 +13,11 @@ export class AuthLoading extends React.Component {
 	}
 
 	// Fetch the token from storage then navigate to our appropriate place
-	_bootstrapAsync = async () => {
+	_bootstrapAsync = () => {
 		this.props.dispatch(loadFetchService())
 		this.props.dispatch(
-			fetchUser((user = null) => {
-				if (user === null) this.props.dispatch(logout())
+			fetchUser(async (user = null) => {
+				if (user === null) await this.props.dispatch(logout())
 				// logging out just to make sure
 				this.props.navigation.navigate(user ? "App" : "Auth")
 			})

@@ -10,7 +10,7 @@ import { Input } from "react-native-elements"
 import { API_ERROR, POP_ERROR } from "../../reducers/consts"
 import { getLatestError } from "../../error_handling"
 
-class SignIn extends React.Component {
+export class SignIn extends React.Component {
 	constructor(props) {
 		super(props)
 		this.login = this.login.bind(this)

@@ -2,9 +2,12 @@
 global.fetch = jest.fn()
 
 // Helper to mock a success response (only once)
-fetch.mockResponseSuccess = body => {
+fetch.mockResponseSuccess = (body, status = 200) => {
 	fetch.mockImplementationOnce(() =>
-		Promise.resolve({ json: () => Promise.resolve(JSON.parse(body)) })
+		Promise.resolve({
+			status,
+			json: () => Promise.resolve(JSON.parse(body))
+		})
 	)
 }
 

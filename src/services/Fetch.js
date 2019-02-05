@@ -1,4 +1,9 @@
-import { REFRESH_TOKEN_KEY, ROOT_URL, TOKEN_KEY } from "../consts"
+import {
+	REFRESH_TOKEN_KEY,
+	ROOT_URL,
+	TOKEN_KEY,
+	DEFAULT_ERROR
+} from "../consts"
 import Storage from "./Storage"
 import { APIError } from "../error_handling"
 
@@ -52,14 +57,27 @@ export default class Fetch {
 			})
 		})
 		respJSON = await resp.json()
+		this._throwError(resp.status, respJSON)
 		console.log("response from refresh token " + JSON.stringify(respJSON))
 		await Storage.setItem(TOKEN_KEY, respJSON["auth_token"], true)
 		return { symbol: this._RESEND }
 	}
 
+	_throwError(status, json) {
+		if (400 <= status && status < 600) {
+			// we have an error
+			let msg = json
+			if (msg.hasOwnProperty("message")) msg = msg.message
+			throw new APIError(msg)
+		}
+	}
 	/* main fetch method --> calls fetch with
     exception handling */
 	async fetch(...fetchParams) {
+		if (this.sentRequests > this._requestsLimit) {
+			this.sentRequests = 0
+			throw new APIError(DEFAULT_ERROR)
+		}
 		token = await Storage.getItem(TOKEN_KEY, true)
 		fetchParams[1]["headers"] = {
 			...this.defaultHeaders,
@@ -82,19 +100,13 @@ export default class Fetch {
 		respJSON = await this._handleExceptions(respJSON)
 		if (
 			respJSON.hasOwnProperty("symbol") &&
-			respJSON["symbol"] == this._RESEND &&
-			this.sentRequests <= this._requestsLimit
+			respJSON["symbol"] == this._RESEND
 		) {
 			this.sentRequests += 1
 			return await this.fetch(...fetchParams)
 		}
 		this.sentRequests = 0 // reset sentRequests
-		if (400 <= resp.status && resp.status < 600) {
-			// we have an error
-			let msg = respJSON
-			if (msg.hasOwnProperty("message")) msg = msg.message
-			throw new APIError(msg)
-		}
+		this._throwError(resp.status, respJSON)
 		return { json: respJSON, status: resp.status }
 	}
 }

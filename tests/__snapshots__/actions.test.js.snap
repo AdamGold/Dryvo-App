@@ -24,7 +24,7 @@ Array [
 exports[`auth.js exchangeToken tests should dispatch error 1`] = `
 Array [
   Object {
-    "error": "תקלה בהתחברות, אנא נסו שנית.",
+    "error": "קרתה תקלה, אנא נסו שנית.",
     "type": "API_ERROR",
   },
 ]

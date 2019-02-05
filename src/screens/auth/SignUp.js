@@ -1,12 +1,12 @@
 import React from "react"
-import { View, Text } from "react-native"
-import { Input, Button } from "react-native-elements"
+import { View, Text, Button } from "react-native"
+import { Input } from "react-native-elements"
 import { connect } from "react-redux"
 import { register } from "../../actions/auth"
 import { API_ERROR, POP_ERROR } from "../../reducers/consts"
 import { getLatestError } from "../../error_handling"
 
-class SignUp extends React.Component {
+export class SignUp extends React.Component {
 	constructor(props) {
 		super(props)
 		this.register = this.register.bind(this)

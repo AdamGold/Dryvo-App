@@ -1,4 +1,9 @@
-import { ROOT_URL, TOKEN_KEY, REFRESH_TOKEN_KEY } from "../consts"
+import {
+	ROOT_URL,
+	TOKEN_KEY,
+	REFRESH_TOKEN_KEY,
+	DEFAULT_ERROR
+} from "../consts"
 import { Linking } from "react-native"
 import Storage from "../services/Storage"
 import { LOGIN, LOGOUT, API_ERROR } from "../reducers/consts"
@@ -17,7 +22,6 @@ const loginOrRegister = async (
 		})
 		await setTokens(resp.json.auth_token, resp.json.refresh_token)
 		dispatch(setUser(resp.json.user))
-		console.log("call callback!")
 		callback()
 	} catch (error) {
 		let msg = ""
@@ -82,9 +86,9 @@ export const fetchUser = (callback = () => {}) => {
 				method: "GET"
 			})
 			dispatch(setUser(resp.json.user))
-			callback(resp.json.user)
+			await callback(resp.json.user)
 		} catch (error) {
-			callback(undefined)
+			await callback(undefined)
 		}
 	}
 }
@@ -102,7 +106,7 @@ export const exchangeToken = (token, callback) => {
 			await setTokens(resp.json.auth_token, resp.json.refresh_token)
 			await dispatch(fetchUser(callback))
 		} catch (error) {
-			dispatch({ type: API_ERROR, error: "תקלה בהתחברות, אנא נסו שנית." })
+			dispatch({ type: API_ERROR, error: DEFAULT_ERROR })
 		}
 	}
 }

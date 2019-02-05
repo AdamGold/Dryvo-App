@@ -31,8 +31,17 @@
 	},
 	"jest": {
 		"preset": "react-native",
-		"setupTestFrameworkScriptFile": "<rootDir>/tests/mocks/allMocks.js",
+		"setupFiles": [
+			"./__mocks__/mockStorage.js",
+			"./__mocks__/mockFetch.js"
+		],
 		"coverageDirectory": "./coverage/",
-		"collectCoverage": true
+		"collectCoverage": true,
+		"collectCoverageFrom": [
+			"src/**/*.{js,jsx}",
+			"!<rootDir>/node_modules/",
+			"!<rootDir>/src/Store.js",
+			"!<rootDir>/src/reducers/index.js"
+		]
 	}
 }

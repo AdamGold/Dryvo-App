@@ -9,6 +9,9 @@ initialErrors = {
 export default function errorsReducer(state = initialErrors, action) {
 	switch (action.type) {
 		case API_ERROR:
+			if (action.error == "") {
+				action.error = "קרתה תקלה, אנא נסו שנית."
+			}
 			return updateObject(state, {
 				[API_ERROR]: [...state[API_ERROR], action.error]
 			})

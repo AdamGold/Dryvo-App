@@ -2,7 +2,7 @@ import { API_ERROR, POP_ERROR } from "./consts"
 import { DEFAULT_ERROR } from "../consts"
 import { updateObject } from "./utils"
 
-initialErrors = {
+const initialErrors = {
 	[API_ERROR]: [],
 	other: []
 } // more errors to come

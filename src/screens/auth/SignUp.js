@@ -5,6 +5,8 @@ import { connect } from "react-redux"
 import { register } from "../../actions/auth"
 import { API_ERROR, POP_ERROR } from "../../reducers/consts"
 import { getLatestError } from "../../error_handling"
+import { registerValidation } from "./validation"
+import validate from "../../actions/validate"
 
 export class SignUp extends React.Component {
 	constructor(props) {
@@ -15,20 +17,60 @@ export class SignUp extends React.Component {
 			name: "",
 			area: "",
 			password: "",
-			error: ""
+			errors: {
+				api: "",
+				emailError: "",
+				nameError: "",
+				areaError: "",
+				passwordError: ""
+			}
 		}
 	}
 
 	componentDidUpdate() {
-		const error = getLatestError(this.props.errors[API_ERROR])
-		if (error) {
-			this.setState({ error })
+		const apiError = getLatestError(this.props.errors[API_ERROR])
+		if (apiError) {
+			this.setState({ errors: { api: apiError } })
 			this.props.dispatch({ type: POP_ERROR, errorType: API_ERROR })
 		}
 	}
 
-	register() {
-		this.props.dispatch(
+	async register() {
+		await this.setState({
+			errors: {
+				api: "", // reset api error because we are sending new reqeuest
+				emailError: validate(
+					"email",
+					this.state.email,
+					registerValidation
+				),
+				nameError: validate(
+					"name",
+					this.state.name,
+					registerValidation
+				),
+				areaError: validate(
+					"area",
+					this.state.area,
+					registerValidation
+				),
+				passwordError: validate(
+					"password",
+					this.state.password,
+					registerValidation
+				)
+			}
+		})
+		let flag = false // do we have an error?
+		for (var i in this.state.errors) {
+			if (this.state.errors[i]) {
+				flag = true
+				break
+			}
+		}
+		if (flag) return
+
+		await this.props.dispatch(
 			register(this.state, () => {
 				this.props.navigation.navigate("App")
 			})
@@ -37,31 +79,79 @@ export class SignUp extends React.Component {
 	render() {
 		return (
 			<View>
-				<Text testID="rerror">{this.state.error}</Text>
+				<Text testID="rerror">{this.state.errors["api"]}</Text>
 				<Input
 					placeholder="אימייל"
 					onChangeText={email => this.setState({ email })}
+					onBlur={() => {
+						const errors = { ...this.state.errors }
+						errors.emailError = validate(
+							"email",
+							this.state.email,
+							registerValidation
+						)
+						this.setState({
+							errors
+						})
+					}}
 					value={this.state.email}
 					testID="remailInput"
+					errorMessage={this.state.errors["emailError"]}
 				/>
 				<Input
 					placeholder="שם מלא"
 					onChangeText={name => this.setState({ name })}
+					onBlur={() => {
+						const errors = { ...this.state.errors }
+						errors.nameError = validate(
+							"name",
+							this.state.name,
+							registerValidation
+						)
+						this.setState({
+							errors
+						})
+					}}
 					value={this.state.name}
 					testID="rnameInput"
+					errorMessage={this.state.errors["nameError"]}
 				/>
 				<Input
 					placeholder="עיר מגורים"
 					onChangeText={area => this.setState({ area })}
+					onBlur={() => {
+						const errors = { ...this.state.errors }
+						errors.areaError = validate(
+							"area",
+							this.state.area,
+							registerValidation
+						)
+						this.setState({
+							errors
+						})
+					}}
 					value={this.state.area}
 					testID="rareaInput"
+					errorMessage={this.state.errors["areaError"]}
 				/>
 				<Input
 					placeholder="סיסמה"
 					onChangeText={password => this.setState({ password })}
+					onBlur={() => {
+						const errors = { ...this.state.errors }
+						errors.passwordError = validate(
+							"password",
+							this.state.password,
+							registerValidation
+						)
+						this.setState({
+							errors
+						})
+					}}
 					value={this.state.password}
 					secureTextEntry={true}
 					testID="rpasswordInput"
+					errorMessage={this.state.errors["passwordError"]}
 				/>
 				<Button
 					title="הרשמה"

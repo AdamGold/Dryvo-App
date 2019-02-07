@@ -6,6 +6,8 @@ import { exchangeToken, openFacebook, directLogin } from "../../actions/auth"
 import { Input } from "react-native-elements"
 import { API_ERROR, POP_ERROR } from "../../reducers/consts"
 import { getLatestError } from "../../error_handling"
+import { loginValidation } from "./validation"
+import validate from "../../actions/validate"
 
 export class SignIn extends React.Component {
 	constructor(props) {
@@ -14,7 +16,9 @@ export class SignIn extends React.Component {
 		this.state = {
 			email: "",
 			password: "",
-			error: ""
+			error: "",
+			emailError: "",
+			passwordError: ""
 		}
 	}
 
@@ -42,7 +46,9 @@ export class SignIn extends React.Component {
 			"willFocus",
 			payload => {
 				this.setState({
-					error: ""
+					error: "",
+					passwordError: "",
+					emailError: ""
 				})
 			}
 		)
@@ -61,8 +67,22 @@ export class SignIn extends React.Component {
 		}
 	}
 
-	login() {
-		this.props.dispatch(
+	async login() {
+		const emailError = validate("email", this.state.email, loginValidation)
+		const passwordError = validate(
+			"password",
+			this.state.password,
+			loginValidation
+		)
+
+		this.setState({
+			emailError: emailError,
+			passwordError: passwordError
+		})
+
+		if (emailError || passwordError) return
+
+		await this.props.dispatch(
 			directLogin(this.state.email, this.state.password, () => {
 				this.props.navigation.navigate("App")
 			})
@@ -76,15 +96,35 @@ export class SignIn extends React.Component {
 				<Input
 					placeholder="אימייל"
 					onChangeText={email => this.setState({ email })}
+					onBlur={() => {
+						this.setState({
+							emailError: validate(
+								"email",
+								this.state.email,
+								loginValidation
+							)
+						})
+					}}
 					value={this.state.email}
 					testID="emailInput"
+					errorMessage={this.state.emailError}
 				/>
 				<Input
 					placeholder="סיסמה"
 					onChangeText={password => this.setState({ password })}
+					onBlur={() => {
+						this.setState({
+							passwordError: validate(
+								"password",
+								this.state.password,
+								loginValidation
+							)
+						})
+					}}
 					value={this.state.password}
 					secureTextEntry={true}
 					testID="passwordInput"
+					errorMessage={this.state.passwordError}
 				/>
 				<Button
 					testID="signInButton"

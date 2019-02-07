@@ -22,7 +22,8 @@
 		"redux": "^4.0.1",
 		"redux-thunk": "^2.3.0",
 		"remote-redux-devtools": "^0.5.16",
-		"rn-secure-storage": "^1.0.82"
+		"rn-secure-storage": "^1.0.82",
+		"validate.js": "^0.12.0"
 	},
 	"devDependencies": {
 		"babel-jest": "^23.6.0",

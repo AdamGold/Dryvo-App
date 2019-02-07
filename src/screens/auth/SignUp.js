@@ -37,29 +37,37 @@ export class SignUp extends React.Component {
 	render() {
 		return (
 			<View>
-				<Text>{this.state.error}</Text>
+				<Text testID="rerror">{this.state.error}</Text>
 				<Input
 					placeholder="אימייל"
 					onChangeText={email => this.setState({ email })}
 					value={this.state.email}
+					testID="remailInput"
 				/>
 				<Input
 					placeholder="שם מלא"
 					onChangeText={name => this.setState({ name })}
 					value={this.state.name}
+					testID="rnameInput"
 				/>
 				<Input
 					placeholder="עיר מגורים"
 					onChangeText={area => this.setState({ area })}
 					value={this.state.area}
+					testID="rareaInput"
 				/>
 				<Input
 					placeholder="סיסמה"
 					onChangeText={password => this.setState({ password })}
 					value={this.state.password}
 					secureTextEntry={true}
+					testID="rpasswordInput"
 				/>
-				<Button title="הרשמה" onPress={this.register} />
+				<Button
+					title="הרשמה"
+					testID="rsignUpButton"
+					onPress={this.register}
+				/>
 			</View>
 		)
 	}

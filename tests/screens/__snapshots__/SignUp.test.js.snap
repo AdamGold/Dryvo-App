@@ -2,7 +2,9 @@
 
 exports[`SignUp view renders correctly 1`] = `
 <View>
-  <Text>
+  <Text
+    testID="rerror"
+  >
     
   </Text>
   <View
@@ -41,7 +43,7 @@ exports[`SignUp view renders correctly 1`] = `
             "minHeight": 40,
           }
         }
-        testID="RNE__Input__text-input"
+        testID="remailInput"
         underlineColorAndroid="transparent"
         value=""
       />
@@ -83,7 +85,7 @@ exports[`SignUp view renders correctly 1`] = `
             "minHeight": 40,
           }
         }
-        testID="RNE__Input__text-input"
+        testID="rnameInput"
         underlineColorAndroid="transparent"
         value=""
       />
@@ -125,7 +127,7 @@ exports[`SignUp view renders correctly 1`] = `
             "minHeight": 40,
           }
         }
-        testID="RNE__Input__text-input"
+        testID="rareaInput"
         underlineColorAndroid="transparent"
         value=""
       />
@@ -168,7 +170,7 @@ exports[`SignUp view renders correctly 1`] = `
             "minHeight": 40,
           }
         }
-        testID="RNE__Input__text-input"
+        testID="rpasswordInput"
         underlineColorAndroid="transparent"
         value=""
       />
@@ -190,6 +192,7 @@ exports[`SignUp view renders correctly 1`] = `
         "opacity": 1,
       }
     }
+    testID="rsignUpButton"
   >
     <View
       style={

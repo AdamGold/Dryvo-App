@@ -2,7 +2,9 @@
 
 exports[`SignIn view renders correctly 1`] = `
 <View>
-  <Text>
+  <Text
+    testID="error"
+  >
     
   </Text>
   <View
@@ -41,7 +43,7 @@ exports[`SignIn view renders correctly 1`] = `
             "minHeight": 40,
           }
         }
-        testID="RNE__Input__text-input"
+        testID="emailInput"
         underlineColorAndroid="transparent"
         value=""
       />
@@ -84,7 +86,7 @@ exports[`SignIn view renders correctly 1`] = `
             "minHeight": 40,
           }
         }
-        testID="RNE__Input__text-input"
+        testID="passwordInput"
         underlineColorAndroid="transparent"
         value=""
       />
@@ -106,6 +108,7 @@ exports[`SignIn view renders correctly 1`] = `
         "opacity": 1,
       }
     }
+    testID="signInButton"
   >
     <View
       style={
@@ -146,6 +149,7 @@ exports[`SignIn view renders correctly 1`] = `
         "opacity": 1,
       }
     }
+    testID="signUpButton"
   >
     <View
       style={
@@ -186,6 +190,7 @@ exports[`SignIn view renders correctly 1`] = `
         "opacity": 1,
       }
     }
+    testID="facebookLogin"
   >
     <View
       style={

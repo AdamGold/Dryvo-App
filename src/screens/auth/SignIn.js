@@ -72,7 +72,7 @@ export class SignIn extends React.Component {
 	render() {
 		return (
 			<View>
-				<Text>{this.state.error}</Text>
+				<Text testID="error">{this.state.error}</Text>
 				<Input
 					placeholder="אימייל"
 					onChangeText={email => this.setState({ email })}
@@ -93,12 +93,14 @@ export class SignIn extends React.Component {
 				/>
 				<Button
 					title="הירשם"
+					testID="signUpButton"
 					onPress={() => {
 						this.props.navigation.navigate("SignUp")
 					}}
 				/>
 				<Button
 					title="התחבר עם Facebook"
+					testID="facebookLogin"
 					onPress={() => {
 						openFacebook()
 					}}

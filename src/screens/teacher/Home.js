@@ -20,7 +20,11 @@ class Home extends React.Component {
 		return (
 			<View style={styles.container}>
 				<Text>Hi!</Text>
-				<Button onPress={this.logout} title="התנתק" />
+				<Button
+					onPress={this.logout}
+					testID="logoutButton"
+					title="התנתק"
+				/>
 			</View>
 		)
 	}

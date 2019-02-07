@@ -77,14 +77,20 @@ export class SignIn extends React.Component {
 					placeholder="אימייל"
 					onChangeText={email => this.setState({ email })}
 					value={this.state.email}
+					testID="emailInput"
 				/>
 				<Input
 					placeholder="סיסמה"
 					onChangeText={password => this.setState({ password })}
 					value={this.state.password}
 					secureTextEntry={true}
+					testID="passwordInput"
 				/>
-				<Button title="התחבר" onPress={this.login} />
+				<Button
+					testID="signInButton"
+					title="התחבר"
+					onPress={this.login}
+				/>
 				<Button
 					title="הירשם"
 					onPress={() => {

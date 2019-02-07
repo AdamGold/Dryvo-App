@@ -63,7 +63,7 @@
 				"binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/dryvofront.app",
 				"build": "xcodebuild -project ios/dryvofront.xcodeproj -scheme dryvofront -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
 				"type": "ios.simulator",
-				"name": "iPhone 7"
+				"name": "iPhone X"
 			}
 		},
 		"test-runner": "jest"

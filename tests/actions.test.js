@@ -6,6 +6,7 @@ import { Platform } from "react-native"
 import mockStore from "redux-mock-store"
 import { TOKEN_KEY, REFRESH_TOKEN_KEY } from "../src/consts"
 
+let user, store
 beforeAll(() => {
 	user = { id: 1, name: "test" }
 })
@@ -20,7 +21,7 @@ describe("utils.js", () => {
 	it("should set linking listener", async () => {
 		const func = jest.fn()
 		Platform.OS = "android"
-		const listener = await utils.deepLinkingListener(func)
+		await utils.deepLinkingListener(func)
 		expect(func).toBeCalled()
 	})
 })
@@ -32,7 +33,7 @@ describe("auth.js", () => {
 		})
 		it("should (dispatch LOGIN & call callback with user)", async () => {
 			fetch.mockResponseSuccess(JSON.stringify({ user }))
-			let ret = await store.dispatch(auth.fetchUser(callback))
+			await store.dispatch(auth.fetchUser(callback))
 			expect(callback).toHaveBeenCalledWith(
 				expect.objectContaining({ name: user.name })
 			)
@@ -40,7 +41,7 @@ describe("auth.js", () => {
 		})
 		it("should call callback with undefined", async () => {
 			fetch.mockResponseFailure()
-			let ret = await store.dispatch(auth.fetchUser(callback))
+			await store.dispatch(auth.fetchUser(callback))
 			expect(callback).toHaveBeenLastCalledWith(expect.undefined)
 		})
 	})
@@ -51,22 +52,18 @@ describe("auth.js", () => {
 		})
 		it("should dispatch error", async () => {
 			fetch.mockResponseFailure()
-			let ret = await store.dispatch(
-				auth.exchangeToken("exchange-token", callback)
-			)
+			await store.dispatch(auth.exchangeToken("exchange-token", callback))
 			expect(store.getActions()).toMatchSnapshot()
 			store.clearActions()
 		})
 		it("should set tokens and dispatch login user", async () => {
-			response = {
+			const response = {
 				auth_token: "auth-test",
 				refresh_token: "refresh-test"
 			}
 			fetch.mockResponseSuccess(JSON.stringify(response))
 			fetch.mockResponseSuccess(JSON.stringify({ user }))
-			ret = await store.dispatch(
-				auth.exchangeToken("exchange-token", callback)
-			)
+			await store.dispatch(auth.exchangeToken("exchange-token", callback))
 			const token = await Storage.getItem(TOKEN_KEY, true)
 			const refresh = await Storage.getItem(REFRESH_TOKEN_KEY, true)
 			expect(token).toEqual("auth-test")

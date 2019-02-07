@@ -16,7 +16,7 @@ const loginOrRegister = async (
 	callback
 ) => {
 	try {
-		resp = await fetchService.fetch(endpoint, {
+		const resp = await fetchService.fetch(endpoint, {
 			method: "POST",
 			body: JSON.stringify(body)
 		})
@@ -82,7 +82,7 @@ export const fetchUser = (callback = () => {}) => {
 	return async (dispatch, getState) => {
 		const { fetchService } = getState()
 		try {
-			resp = await fetchService.fetch("/user/me", {
+			const resp = await fetchService.fetch("/user/me", {
 				method: "GET"
 			})
 			dispatch(setUser(resp.json.user))
@@ -97,7 +97,7 @@ export const exchangeToken = (token, callback) => {
 	return async (dispatch, getState) => {
 		const { fetchService } = getState()
 		try {
-			resp = await fetchService.fetch("/login/exchange_token", {
+			const resp = await fetchService.fetch("/login/exchange_token", {
 				method: "POST",
 				body: JSON.stringify({
 					exchange_token: token

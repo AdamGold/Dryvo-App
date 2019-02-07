@@ -1,9 +1,6 @@
 import React from "react"
 import { View, Button, Text } from "react-native"
-import {
-	deepLinkingListener,
-	deepLinkingRemoveListener
-} from "../../actions/utils"
+import { deepLinkingListener } from "../../actions/utils"
 import { connect } from "react-redux"
 import { exchangeToken, openFacebook, directLogin } from "../../actions/auth"
 import { Input } from "react-native-elements"
@@ -19,9 +16,6 @@ export class SignIn extends React.Component {
 			password: "",
 			error: ""
 		}
-	}
-	componentWillUnmount() {
-		deepLinkingRemoveListener(this.handleOpenURL)
 	}
 
 	handleOpenURL = async event => {

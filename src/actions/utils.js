@@ -9,14 +9,6 @@ export const loadFetchService = () => {
 }
 
 export const deepLinkingListener = async func => {
-	if (Platform.OS === "android") {
-		let url = await Linking.getInitialURL()
-		func({ url: url })
-	} else {
-		Linking.addEventListener("url", func)
-	}
-}
-
-export const deepLinkingRemoveListener = async func => {
-	Linking.removeEventListener("url", func)
+	let url = await Linking.getInitialURL()
+	func({ url: url })
 }

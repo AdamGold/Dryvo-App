@@ -40,6 +40,12 @@
 			"./__mocks__/mockStorage.js",
 			"./__mocks__/mockFetch.js"
 		],
+		"testMatch": [
+			"<rootDir>/tests/**/*.test.js"
+		],
+		"transform": {
+			"^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
+		},
 		"coverageDirectory": "./coverage/",
 		"collectCoverage": true,
 		"collectCoverageFrom": [

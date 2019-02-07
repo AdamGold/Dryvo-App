@@ -5,6 +5,7 @@ import renderer from "react-test-renderer"
 
 import { SignUp } from "../../src/screens/auth/SignUp"
 
+let render
 describe("SignUp", () => {
 	beforeAll(() => {
 		render = renderer.create(<SignUp />)

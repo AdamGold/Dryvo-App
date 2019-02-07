@@ -30,8 +30,7 @@ export default class Fetch {
     */
 	async _handleExceptions(json) {
 		if (this._definedExceptions.hasOwnProperty(json.message)) {
-			handling = await this[this._definedExceptions[json.message]]()
-			return handling
+			return await this[this._definedExceptions[json.message]]()
 		}
 		return json
 	}
@@ -43,20 +42,20 @@ export default class Fetch {
     */
 	async _handleExpiredToken() {
 		console.log("handling expired token")
-		refresh_token = await Storage.getItem(REFRESH_TOKEN_KEY, true)
+		const refresh_token = await Storage.getItem(REFRESH_TOKEN_KEY, true)
 		if (!refresh_token) {
 			// don't have a refresh token, will have to login again
 			return {}
 		}
 		console.log("we have a valid refresh token")
-		resp = await fetch(ROOT_URL + "/login/refresh_token", {
+		const resp = await fetch(ROOT_URL + "/login/refresh_token", {
 			method: "POST",
 			headers: this.defaultHeaders,
 			body: JSON.stringify({
 				refresh_token
 			})
 		})
-		respJSON = await resp.json()
+		const respJSON = await resp.json()
 		this._throwError(resp.status, respJSON)
 		console.log("response from refresh token " + JSON.stringify(respJSON))
 		await Storage.setItem(TOKEN_KEY, respJSON["auth_token"], true)
@@ -78,7 +77,7 @@ export default class Fetch {
 			this.sentRequests = 0
 			throw new APIError(DEFAULT_ERROR)
 		}
-		token = await Storage.getItem(TOKEN_KEY, true)
+		const token = await Storage.getItem(TOKEN_KEY, true)
 		fetchParams[1]["headers"] = {
 			...this.defaultHeaders,
 			...fetchParams[1]["headers"],
@@ -92,8 +91,8 @@ export default class Fetch {
 				" with requests sent: " +
 				this.sentRequests
 		)
-		resp = await fetch(ROOT_URL + fetchParams[0], fetchParams[1])
-		respJSON = await resp.json()
+		const resp = await fetch(ROOT_URL + fetchParams[0], fetchParams[1])
+		let respJSON = await resp.json()
 		console.log(
 			"response from " + fetchParams[0] + ": " + JSON.stringify(respJSON)
 		)

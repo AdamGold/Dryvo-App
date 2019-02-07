@@ -32,6 +32,7 @@ exports[`SignUp view renders correctly 1`] = `
     >
       <TextInput
         allowFontScaling={true}
+        onBlur={[Function]}
         onChangeText={[Function]}
         placeholder="אימייל"
         style={
@@ -74,6 +75,7 @@ exports[`SignUp view renders correctly 1`] = `
     >
       <TextInput
         allowFontScaling={true}
+        onBlur={[Function]}
         onChangeText={[Function]}
         placeholder="שם מלא"
         style={
@@ -116,6 +118,7 @@ exports[`SignUp view renders correctly 1`] = `
     >
       <TextInput
         allowFontScaling={true}
+        onBlur={[Function]}
         onChangeText={[Function]}
         placeholder="עיר מגורים"
         style={
@@ -158,6 +161,7 @@ exports[`SignUp view renders correctly 1`] = `
     >
       <TextInput
         allowFontScaling={true}
+        onBlur={[Function]}
         onChangeText={[Function]}
         placeholder="סיסמה"
         secureTextEntry={true}

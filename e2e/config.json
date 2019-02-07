@@ -1,0 +1,7 @@
+{
+	"setupTestFrameworkScriptFile": "./init.js",
+	"testEnvironment": "node",
+	"transform": {
+		"^.+\\.js$": "../node_modules/react-native/jest/preprocessor.js"
+	}
+}

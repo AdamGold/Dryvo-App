@@ -1,0 +1,90 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`auth.js directLogin tests should dispatch default error 1`] = `
+Array [
+  Object {
+    "error": "",
+    "type": "API_ERROR",
+  },
+]
+`;
+
+exports[`auth.js directLogin tests should set tokens, dispatch login user and call callback 1`] = `
+Array [
+  Object {
+    "type": "LOGIN",
+    "user": Object {
+      "id": 1,
+      "name": "test",
+    },
+  },
+]
+`;
+
+exports[`auth.js exchangeToken tests should dispatch error 1`] = `
+Array [
+  Object {
+    "error": "קרתה תקלה, אנא נסו שנית.",
+    "type": "API_ERROR",
+  },
+]
+`;
+
+exports[`auth.js exchangeToken tests should set tokens and dispatch login user 1`] = `
+Array [
+  Object {
+    "type": "LOGIN",
+    "user": Object {
+      "id": 1,
+      "name": "test",
+    },
+  },
+]
+`;
+
+exports[`auth.js fetchUser test should (dispatch LOGIN & call callback with user) 1`] = `
+Array [
+  Object {
+    "type": "LOGIN",
+    "user": Object {
+      "id": 1,
+      "name": "test",
+    },
+  },
+]
+`;
+
+exports[`auth.js logout tests should dispatch logout and remove tokens 1`] = `
+Array [
+  Object {
+    "type": "LOGOUT",
+  },
+]
+`;
+
+exports[`auth.js register tests should dispatch default error 1`] = `
+Array [
+  Object {
+    "error": "",
+    "type": "API_ERROR",
+  },
+]
+`;
+
+exports[`auth.js register tests should set tokens, dispatch login user and call callback 1`] = `
+Array [
+  Object {
+    "type": "LOGIN",
+    "user": Object {
+      "id": 1,
+      "name": "test",
+    },
+  },
+]
+`;
+
+exports[`utils.js should return load fetch service 1`] = `
+Object {
+  "type": "LOAD_FETCH_SERVICE",
+}
+`;

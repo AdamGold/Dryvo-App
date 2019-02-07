@@ -1,32 +1,71 @@
 {
-  "name": "dryvofront",
-  "version": "0.0.1",
-  "private": true,
-  "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest"
-  },
-  "dependencies": {
-    "es6-error": "^4.1.1",
-    "react": "16.6.3",
-    "react-native": "0.57.8",
-    "react-native-elements": "^1.0.0",
-    "react-native-gesture-handler": "^1.0.15",
-    "react-native-vector-icons": "^6.2.0",
-    "react-navigation": "^3.0.9",
-    "react-redux": "^6.0.0",
-    "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0",
-    "remote-redux-devtools": "^0.5.16",
-    "rn-secure-storage": "^1.0.82"
-  },
-  "devDependencies": {
-    "babel-jest": "23.6.0",
-    "jest": "23.6.0",
-    "metro-react-native-babel-preset": "0.51.1",
-    "react-test-renderer": "16.6.3"
-  },
-  "jest": {
-    "preset": "react-native"
-  }
+	"name": "dryvofront",
+	"version": "0.0.1",
+	"private": true,
+	"scripts": {
+		"start": "node node_modules/react-native/local-cli/cli.js start",
+		"test": "jest"
+	},
+	"dependencies": {
+		"@babel/core": "^7.2.2",
+		"@babel/preset-env": "^7.3.1",
+		"es6-error": "^4.1.1",
+		"es6-symbol": "^3.1.1",
+		"react": "16.6.3",
+		"react-dom": "^16.7.0",
+		"react-native": "0.57.8",
+		"react-native-elements": "^1.0.0",
+		"react-native-gesture-handler": "^1.0.15",
+		"react-native-vector-icons": "^6.2.0",
+		"react-navigation": "^3.0.9",
+		"react-redux": "^6.0.0",
+		"redux": "^4.0.1",
+		"redux-thunk": "^2.3.0",
+		"remote-redux-devtools": "^0.5.16",
+		"rn-secure-storage": "^1.0.82"
+	},
+	"devDependencies": {
+		"babel-jest": "^23.6.0",
+		"babel-preset-react-native": "^4.0.1",
+		"detox": "^10.0.5",
+		"jest": "23.6.0",
+		"jest-react-native": "^18.0.0",
+		"metro-react-native-babel-preset": "^0.51.1",
+		"react-test-renderer": "^16.7.0",
+		"redux-mock-store": "^1.5.3"
+	},
+	"jest": {
+		"preset": "react-native",
+		"setupFiles": [
+			"./__mocks__/mockStorage.js",
+			"./__mocks__/mockFetch.js"
+		],
+		"testMatch": [
+			"<rootDir>/tests/**/*.test.js"
+		],
+		"transform": {
+			"^.+\\.js$": "<rootDir>/node_modules/react-native/jest/preprocessor.js"
+		},
+		"coverageDirectory": "./coverage/",
+		"collectCoverage": true,
+		"collectCoverageFrom": [
+			"<rootDir>/src/**/*.{js,jsx}",
+			"!<rootDir>/src/**/index.js",
+			"!<rootDir>/src/App.js",
+			"!<rootDir>/node_modules/",
+			"!<rootDir>/src/Store.js",
+			"!<rootDir>/src/reducers/index.js"
+		]
+	},
+	"detox": {
+		"configurations": {
+			"ios.sim.debug": {
+				"binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/dryvofront.app",
+				"build": "xcodebuild -project ios/dryvofront.xcodeproj -scheme dryvofront -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+				"type": "ios.simulator",
+				"name": "iPhone X"
+			}
+		},
+		"test-runner": "jest"
+	}
 }

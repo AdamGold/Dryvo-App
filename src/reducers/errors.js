@@ -1,7 +1,8 @@
 import { API_ERROR, POP_ERROR } from "./consts"
+import { DEFAULT_ERROR } from "../consts"
 import { updateObject } from "./utils"
 
-initialErrors = {
+const initialErrors = {
 	[API_ERROR]: [],
 	other: []
 } // more errors to come
@@ -9,6 +10,9 @@ initialErrors = {
 export default function errorsReducer(state = initialErrors, action) {
 	switch (action.type) {
 		case API_ERROR:
+			if (action.error == "") {
+				action.error = DEFAULT_ERROR
+			}
 			return updateObject(state, {
 				[API_ERROR]: [...state[API_ERROR], action.error]
 			})

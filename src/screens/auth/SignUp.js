@@ -1,12 +1,12 @@
 import React from "react"
-import { View, Text } from "react-native"
-import { Input, Button } from "react-native-elements"
+import { View, Text, Button } from "react-native"
+import { Input } from "react-native-elements"
 import { connect } from "react-redux"
 import { register } from "../../actions/auth"
 import { API_ERROR, POP_ERROR } from "../../reducers/consts"
 import { getLatestError } from "../../error_handling"
 
-class SignUp extends React.Component {
+export class SignUp extends React.Component {
 	constructor(props) {
 		super(props)
 		this.register = this.register.bind(this)
@@ -37,29 +37,37 @@ class SignUp extends React.Component {
 	render() {
 		return (
 			<View>
-				<Text>{this.state.error}</Text>
+				<Text testID="rerror">{this.state.error}</Text>
 				<Input
 					placeholder="אימייל"
 					onChangeText={email => this.setState({ email })}
 					value={this.state.email}
+					testID="remailInput"
 				/>
 				<Input
 					placeholder="שם מלא"
 					onChangeText={name => this.setState({ name })}
 					value={this.state.name}
+					testID="rnameInput"
 				/>
 				<Input
 					placeholder="עיר מגורים"
 					onChangeText={area => this.setState({ area })}
 					value={this.state.area}
+					testID="rareaInput"
 				/>
 				<Input
 					placeholder="סיסמה"
 					onChangeText={password => this.setState({ password })}
 					value={this.state.password}
 					secureTextEntry={true}
+					testID="rpasswordInput"
 				/>
-				<Button title="הרשמה" onPress={this.register} />
+				<Button
+					title="הרשמה"
+					testID="rsignUpButton"
+					onPress={this.register}
+				/>
 			</View>
 		)
 	}

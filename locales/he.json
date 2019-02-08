@@ -1,0 +1,25 @@
+{
+	"default_error": "קרתה תקלה, אנא נסו שנית.",
+	"signup": {
+		"name": "שם מלא",
+		"area": "עיר מגורים",
+		"signup_button": "הרשמה"
+	},
+	"signin": {
+		"login_button": "התחבר",
+		"signup_button": "הרשם",
+		"facebook_login": "התחבר עם Facebook",
+		"email": "אימייל",
+		"password": "סיסמה",
+		"invalid_email": "האימייל אינו תקני.",
+		"invalid_password": "סיסמתך צריכה לכלו חמישה תווים לפחות.",
+		"invalid_field": "שדה זה הוא חובה."
+	},
+	"teacher": {
+		"home": {
+			"current_lesson": "שיעור נוכחי",
+			"next_lesson": "שיעור הבא",
+			"monthly_amount": "סכום חודשי"
+		}
+	}
+}

@@ -81,7 +81,7 @@ export class SignUp extends React.Component {
 			<View>
 				<Text testID="rerror">{this.state.errors["api"]}</Text>
 				<Input
-					placeholder="אימייל"
+					placeholder={strings("signin.email")}
 					onChangeText={email => this.setState({ email })}
 					onBlur={() => {
 						const errors = { ...this.state.errors }
@@ -99,7 +99,7 @@ export class SignUp extends React.Component {
 					errorMessage={this.state.errors["emailError"]}
 				/>
 				<Input
-					placeholder="שם מלא"
+					placeholder={strings("signup.name")}
 					onChangeText={name => this.setState({ name })}
 					onBlur={() => {
 						const errors = { ...this.state.errors }
@@ -117,7 +117,7 @@ export class SignUp extends React.Component {
 					errorMessage={this.state.errors["nameError"]}
 				/>
 				<Input
-					placeholder="עיר מגורים"
+					placeholder={strings("signup.area")}
 					onChangeText={area => this.setState({ area })}
 					onBlur={() => {
 						const errors = { ...this.state.errors }
@@ -135,7 +135,7 @@ export class SignUp extends React.Component {
 					errorMessage={this.state.errors["areaError"]}
 				/>
 				<Input
-					placeholder="סיסמה"
+					placeholder={strings("signin.password")}
 					onChangeText={password => this.setState({ password })}
 					onBlur={() => {
 						const errors = { ...this.state.errors }
@@ -154,7 +154,7 @@ export class SignUp extends React.Component {
 					errorMessage={this.state.errors["passwordError"]}
 				/>
 				<Button
-					title="הרשמה"
+					title={strings("signup.signup_button")}
 					testID="rsignUpButton"
 					onPress={this.register}
 				/>

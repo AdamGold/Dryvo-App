@@ -13,7 +13,7 @@ class Home extends React.Component {
 	render() {
 		return (
 			<ScrollView style={styles.container}>
-				<View style={styles.welcomeHeader}>
+				<View testID="welcomeHeader" style={styles.welcomeHeader}>
 					<Image
 						style={styles.profilePic}
 						source={{

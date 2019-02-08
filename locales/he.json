@@ -6,8 +6,8 @@
 		"signup_button": "הרשמה"
 	},
 	"signin": {
-		"login_button": "התחבר",
-		"signup_button": "הרשם",
+		"login_button": "התחברות",
+		"signup_button": "הרשמה",
 		"facebook_login": "התחבר עם Facebook",
 		"email": "אימייל",
 		"password": "סיסמה",

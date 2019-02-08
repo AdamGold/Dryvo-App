@@ -7,6 +7,7 @@ import { API_ERROR, POP_ERROR } from "../../reducers/consts"
 import { getLatestError } from "../../error_handling"
 import { registerValidation } from "./validation"
 import validate from "../../actions/validate"
+import { strings } from "../../i18n"
 
 export class SignUp extends React.Component {
 	constructor(props) {

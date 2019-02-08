@@ -48,6 +48,6 @@ public class MainApplication extends Application implements ReactApplication {
   public void onCreate() {
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
-    I18nUtil.getInstance().allowRTL(this, false);
+    I18nUtil.getInstance().allowRTL(this, true);
   }
 }

@@ -131,7 +131,7 @@ exports[`SignIn view renders correctly 1`] = `
           ]
         }
       >
-        התחבר
+        התחברות
       </Text>
     </View>
   </View>
@@ -172,7 +172,7 @@ exports[`SignIn view renders correctly 1`] = `
           ]
         }
       >
-        הירשם
+        הרשמה
       </Text>
     </View>
   </View>

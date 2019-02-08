@@ -1,14 +1,16 @@
+import { strings } from "../../i18n"
+
 export const loginValidation = {
 	email: {
 		email: {
-			message: "^האימייל אינו תקני."
+			message: "^" + strings("signin.invalid_email")
 		}
 	},
 
 	password: {
 		length: {
 			minimum: 5,
-			message: "^סיסמתך צריכה לכלול לפחות חמישה תווים."
+			message: "^" + strings("signin.invalid_password")
 		}
 	}
 }
@@ -16,28 +18,28 @@ export const loginValidation = {
 export const registerValidation = {
 	email: {
 		email: {
-			message: "^האימייל אינו תקני."
+			message: "^" + strings("signin.invalid_email")
 		}
 	},
 
 	name: {
 		length: {
 			minimum: 1,
-			message: "^שדה השם הוא חובה."
+			message: "^" + strings("signin.invalid_field")
 		}
 	},
 
 	area: {
 		length: {
 			minimum: 1,
-			message: "^שדה האיזור מגורים הוא חובה."
+			message: "^" + strings("signin.invalid_field")
 		}
 	},
 
 	password: {
 		length: {
 			minimum: 5,
-			message: "^סיסמתך צריכה לכלול לפחות חמישה תווים."
+			message: "^" + strings("signin.invalid_email")
 		}
 	}
 }

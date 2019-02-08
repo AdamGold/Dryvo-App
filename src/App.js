@@ -5,6 +5,7 @@ import {
 	createStackNavigator,
 	createAppContainer
 } from "react-navigation"
+import { SafeAreaView } from "react-native"
 import NormalUser from "./screens/normal_user"
 import Teacher from "./screens/teacher"
 import Student from "./screens/student"
@@ -13,6 +14,7 @@ import SignIn from "./screens/auth/SignIn"
 import SignUp from "./screens/auth/SignUp"
 import AuthLoading from "./screens/auth/AuthLoading"
 import configureStore from "./Store"
+import { setCustomText } from "react-native-global-props"
 
 const store = configureStore()
 
@@ -44,11 +46,22 @@ const Page = createAppContainer(
 	)
 )
 
+const customTextProps = {
+	style: {
+		fontFamily: "Assistant-Regular",
+		fontSize: 16,
+		color: "black"
+	}
+}
+setCustomText(customTextProps)
+
 export default class App extends Component {
 	render() {
 		return (
 			<Provider store={store}>
-				<Page />
+				<SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
+					<Page />
+				</SafeAreaView>
 			</Provider>
 		)
 	}

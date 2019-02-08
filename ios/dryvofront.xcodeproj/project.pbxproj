@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -57,6 +56,12 @@
 		E19309530CDE4580A29D4884 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55062D345AA74BD787AAAA1E /* Entypo.ttf */; };
 		F147F954A01F415E99B8A621 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B7086BD27064708BC1C0038 /* SimpleLineIcons.ttf */; };
 		FB71924AB27B45FB89F7CD06 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 82C17BF03890467281D0FE80 /* FontAwesome5_Solid.ttf */; };
+		D520F0C1312A40A2A8E97291 /* Assistant-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A0A87E27BACB4A638347BA6E /* Assistant-Bold.ttf */; };
+		3B36923C3F15451BB92B1657 /* Assistant-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA3DD1A2A44144E6ACBBD895 /* Assistant-ExtraBold.ttf */; };
+		92544278947243E79603B9FB /* Assistant-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EDE2EC1D48CC47F69B8328F9 /* Assistant-ExtraLight.ttf */; };
+		79AD93968B554D16B1B6AD18 /* Assistant-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD34499C10384CCA9ACFED45 /* Assistant-Light.ttf */; };
+		09BDB68DB64E45A4BDF06970 /* Assistant-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 66B6DF9977A449838FA4DDDA /* Assistant-Regular.ttf */; };
+		237E244F267B40E9AA2B9CA3 /* Assistant-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F24664C4EFAA4957A75FD172 /* Assistant-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -404,6 +409,7 @@
 		93BD7B7F6A8D445487A7282A /* libRNVectorIcons-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNVectorIcons-tvOS.a"; sourceTree = "<group>"; };
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		AE7A3168A5104A819D49AA9B /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		C04B40F4220DB661006F67C3 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		CDB8896AF01B4EEA93151636 /* RNSecureStorage.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNSecureStorage.xcodeproj; path = "../node_modules/rn-secure-storage/ios/RNSecureStorage.xcodeproj"; sourceTree = "<group>"; };
 		DC61FA9E2F8F4328956FD0E1 /* libRNGestureHandler.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNGestureHandler.a; sourceTree = "<group>"; };
 		E5455D54A99A4212AE6A5D47 /* libRNSecureStorage.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNSecureStorage.a; sourceTree = "<group>"; };
@@ -412,6 +418,12 @@
 		FAA2AB3497F346C2B35D997A /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		FACEA6A4119A4245A345EF47 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		FF4E8D5343284714AC2D280B /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
+		A0A87E27BACB4A638347BA6E /* Assistant-Bold.ttf */ = {isa = PBXFileReference; name = "Assistant-Bold.ttf"; path = "../assets/fonts/Assistant-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		DA3DD1A2A44144E6ACBBD895 /* Assistant-ExtraBold.ttf */ = {isa = PBXFileReference; name = "Assistant-ExtraBold.ttf"; path = "../assets/fonts/Assistant-ExtraBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		EDE2EC1D48CC47F69B8328F9 /* Assistant-ExtraLight.ttf */ = {isa = PBXFileReference; name = "Assistant-ExtraLight.ttf"; path = "../assets/fonts/Assistant-ExtraLight.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		BD34499C10384CCA9ACFED45 /* Assistant-Light.ttf */ = {isa = PBXFileReference; name = "Assistant-Light.ttf"; path = "../assets/fonts/Assistant-Light.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		66B6DF9977A449838FA4DDDA /* Assistant-Regular.ttf */ = {isa = PBXFileReference; name = "Assistant-Regular.ttf"; path = "../assets/fonts/Assistant-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		F24664C4EFAA4957A75FD172 /* Assistant-SemiBold.ttf */ = {isa = PBXFileReference; name = "Assistant-SemiBold.ttf"; path = "../assets/fonts/Assistant-SemiBold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -614,6 +626,12 @@
 				FAA2AB3497F346C2B35D997A /* Octicons.ttf */,
 				1B7086BD27064708BC1C0038 /* SimpleLineIcons.ttf */,
 				AE7A3168A5104A819D49AA9B /* Zocial.ttf */,
+				A0A87E27BACB4A638347BA6E /* Assistant-Bold.ttf */,
+				DA3DD1A2A44144E6ACBBD895 /* Assistant-ExtraBold.ttf */,
+				EDE2EC1D48CC47F69B8328F9 /* Assistant-ExtraLight.ttf */,
+				BD34499C10384CCA9ACFED45 /* Assistant-Light.ttf */,
+				66B6DF9977A449838FA4DDDA /* Assistant-Regular.ttf */,
+				F24664C4EFAA4957A75FD172 /* Assistant-SemiBold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1240,6 +1258,12 @@
 				7CC040D71255444BB59ABF54 /* Octicons.ttf in Resources */,
 				F147F954A01F415E99B8A621 /* SimpleLineIcons.ttf in Resources */,
 				3AA970F696754DFFABB7C2A1 /* Zocial.ttf in Resources */,
+				D520F0C1312A40A2A8E97291 /* Assistant-Bold.ttf in Resources */,
+				3B36923C3F15451BB92B1657 /* Assistant-ExtraBold.ttf in Resources */,
+				92544278947243E79603B9FB /* Assistant-ExtraLight.ttf in Resources */,
+				79AD93968B554D16B1B6AD18 /* Assistant-Light.ttf in Resources */,
+				09BDB68DB64E45A4BDF06970 /* Assistant-Regular.ttf in Resources */,
+				237E244F267B40E9AA2B9CA3 /* Assistant-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1346,6 +1370,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				13B07FB21A68108700A75B9A /* Base */,
+				C04B40F4220DB661006F67C3 /* he */,
 			);
 			name = LaunchScreen.xib;
 			path = dryvofront;
@@ -1626,6 +1651,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -1679,6 +1705,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;

@@ -11,11 +11,13 @@
 		"@babel/preset-env": "^7.3.1",
 		"es6-error": "^4.1.1",
 		"es6-symbol": "^3.1.1",
+		"i18n-js": "^3.2.1",
 		"react": "16.6.3",
 		"react-dom": "^16.7.0",
 		"react-native": "0.57.8",
 		"react-native-elements": "^1.0.0",
 		"react-native-gesture-handler": "^1.0.15",
+		"react-native-global-props": "^1.1.5",
 		"react-native-vector-icons": "^6.2.0",
 		"react-navigation": "^3.0.9",
 		"react-redux": "^6.0.0",
@@ -68,5 +70,10 @@
 			}
 		},
 		"test-runner": "jest"
+	},
+	"rnpm": {
+		"assets": [
+			"./assets/fonts"
+		]
 	}
 }

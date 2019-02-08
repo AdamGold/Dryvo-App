@@ -8,6 +8,7 @@ import { API_ERROR, POP_ERROR } from "../../reducers/consts"
 import { getLatestError } from "../../error_handling"
 import { loginValidation } from "./validation"
 import validate from "../../actions/validate"
+import { strings } from "../../i18n"
 
 export class SignIn extends React.Component {
 	constructor(props) {
@@ -94,7 +95,7 @@ export class SignIn extends React.Component {
 			<View>
 				<Text testID="error">{this.state.error}</Text>
 				<Input
-					placeholder="אימייל"
+					placeholder={strings("signin.email")}
 					onChangeText={email => this.setState({ email })}
 					onBlur={() => {
 						this.setState({
@@ -110,7 +111,7 @@ export class SignIn extends React.Component {
 					errorMessage={this.state.emailError}
 				/>
 				<Input
-					placeholder="סיסמה"
+					placeholder={strings("signin.password")}
 					onChangeText={password => this.setState({ password })}
 					onBlur={() => {
 						this.setState({
@@ -128,18 +129,18 @@ export class SignIn extends React.Component {
 				/>
 				<Button
 					testID="signInButton"
-					title="התחבר"
+					title={strings("signin.login_button")}
 					onPress={this.login}
 				/>
 				<Button
-					title="הירשם"
+					title={strings("signin.signup_button")}
 					testID="signUpButton"
 					onPress={() => {
 						this.props.navigation.navigate("SignUp")
 					}}
 				/>
 				<Button
-					title="התחבר עם Facebook"
+					title={strings("signin.facebook_login")}
 					testID="facebookLogin"
 					onPress={() => {
 						openFacebook()

@@ -19,7 +19,8 @@
 		"home": {
 			"current_lesson": "שיעור נוכחי",
 			"next_lesson": "שיעור הבא",
-			"monthly_amount": "סכום חודשי"
+			"monthly_amount": "סכום חודשי",
+			"welcome": "שלום, {{name}}"
 		}
 	}
 }

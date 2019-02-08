@@ -14,7 +14,7 @@ import SignIn from "./screens/auth/SignIn"
 import SignUp from "./screens/auth/SignUp"
 import AuthLoading from "./screens/auth/AuthLoading"
 import configureStore from "./Store"
-import { I18nManager } from "react-native"
+import { setCustomText } from "react-native-global-props"
 
 const store = configureStore()
 
@@ -45,6 +45,14 @@ const Page = createAppContainer(
 		}
 	)
 )
+
+const customTextProps = {
+	style: {
+		fontFamily: "Assistant-Regular",
+		color: "black"
+	}
+}
+setCustomText(customTextProps)
 
 export default class App extends Component {
 	render() {

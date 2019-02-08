@@ -49,6 +49,7 @@ const Page = createAppContainer(
 const customTextProps = {
 	style: {
 		fontFamily: "Assistant-Regular",
+		fontSize: 16,
 		color: "black"
 	}
 }

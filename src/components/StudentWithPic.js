@@ -12,7 +12,7 @@ export default class ShadowRect extends React.Component {
 							"https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80"
 					}}
 				/>
-				<Text style={{ flex: 1 }}>{this.props.name}</Text>
+				<Text style={styles.name}>{this.props.name}</Text>
 			</View>
 		)
 	}
@@ -20,8 +20,14 @@ export default class ShadowRect extends React.Component {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
+		flex: 0.5,
 		flexDirection: "row"
+	},
+	name: {
+		flex: 0.8,
+		marginTop: 5,
+		marginRight: 5,
+		fontWeight: "bold"
 	},
 	pic: {
 		width: 34,

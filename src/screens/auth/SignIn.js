@@ -1,6 +1,9 @@
 import React from "react"
 import { View, Button, Text } from "react-native"
-import { deepLinkingListener } from "../../actions/utils"
+import {
+	deepLinkingListener,
+	deepLinkingRemoveListener
+} from "../../actions/utils"
 import { connect } from "react-redux"
 import { exchangeToken, openFacebook, directLogin } from "../../actions/auth"
 import { Input } from "react-native-elements"
@@ -53,11 +56,12 @@ export class SignIn extends React.Component {
 				})
 			}
 		)
-		deepLinkingListener(this.handleOpenURL)
+		await deepLinkingListener(this.handleOpenURL)
 	}
 
 	componentWillUnmount() {
 		this.willFocusSubscription.remove()
+		await deepLinkingRemoveListener(this.handleOpenURL)
 	}
 
 	componentDidUpdate() {

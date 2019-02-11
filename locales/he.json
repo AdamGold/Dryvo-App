@@ -1,5 +1,11 @@
 {
+	"tabs": {
+		"notifications_title": "התראות"
+	},
 	"default_error": "קרתה תקלה, אנא נסו שנית.",
+	"edit": "עריכה",
+	"approve": "אישור",
+	"postpone": "דחייה",
 	"signup": {
 		"name": "שם מלא",
 		"area": "עיר מגורים",
@@ -23,6 +29,10 @@
 			"welcome": "שלום, {{name}}",
 			"full_schedule": "לו״ז מלא",
 			"add_payment": "הוסף תשלום"
+		},
+		"notifications": {
+			"new_lesson": "רוצה לקבוע שיעור",
+			"title": "התראות"
 		}
 	}
 }

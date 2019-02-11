@@ -2,8 +2,10 @@ import React from "react"
 import { ScrollView, View, Text, Image, StyleSheet } from "react-native"
 import { connect } from "react-redux"
 import ShadowRect from "../../components/ShadowRect"
-import StudentWithPic from "../../components/StudentWithPic"
+import UserWithPic from "../../components/UserWithPic"
 import { strings } from "../../i18n"
+import LessonRow from "../../components/LessonRow"
+import Separator from "../../components/Separator"
 
 class Home extends React.Component {
 	constructor(props) {
@@ -26,27 +28,33 @@ class Home extends React.Component {
 					</Text>
 				</View>
 				<ShadowRect style={styles.schedule}>
-					<Text style={styles.rectTitle}>
+					<Text style={styles.rectTitle} testID="schedule">
 						{strings("teacher.home.current_lesson")}
 					</Text>
-					<View style={styles.lessonRow}>
-						<StudentWithPic name="רונן רוזנטל" />
+					<LessonRow style={styles.lessonRow}>
+						<UserWithPic
+							name="רונן רוזנטל"
+							nameStyle={styles.nameStyle}
+						/>
 						<Text style={styles.hour}>13:00-13:40</Text>
-					</View>
-					<View style={styles.seperator} />
+					</LessonRow>
+					<Separator />
 					<Text style={styles.rectTitle}>
 						{strings("teacher.home.next_lesson")}
 					</Text>
-					<View style={styles.lessonRow}>
-						<StudentWithPic name="רונן רוזנטל" />
+					<LessonRow style={styles.lessonRow}>
+						<UserWithPic
+							name="שי גל"
+							nameStyle={styles.nameStyle}
+						/>
 						<Text style={styles.hour}>13:00-13:40</Text>
-					</View>
+					</LessonRow>
 				</ShadowRect>
 				<Text style={styles.fullSchedule}>
 					{strings("teacher.home.full_schedule")}
 				</Text>
 				<ShadowRect>
-					<Text style={styles.rectTitle}>
+					<Text testID="monthlyAmount" style={styles.rectTitle}>
 						{strings("teacher.home.monthly_amount")}
 					</Text>
 					<View style={styles.amountView}>
@@ -55,15 +63,23 @@ class Home extends React.Component {
 							{strings("teacher.home.add_payment")}
 						</Text>
 					</View>
-					<View style={styles.seperator} />
-					<View style={{ ...styles.lessonRow, ...{ marginTop: 0 } }}>
-						<StudentWithPic name="רונן רוזנטל" />
+					<Separator />
+					<LessonRow
+						style={{ ...styles.lessonRow, ...{ marginTop: 0 } }}
+					>
+						<UserWithPic
+							name="רונן רוזנטל"
+							nameStyle={styles.nameStyle}
+						/>
 						<Text style={styles.amountOfStudent}>200₪</Text>
-					</View>
-					<View style={styles.lessonRow}>
-						<StudentWithPic name="רונן רוזנטל" />
+					</LessonRow>
+					<LessonRow style={styles.lessonRow}>
+						<UserWithPic
+							name="רונן רוזנטל"
+							nameStyle={styles.nameStyle}
+						/>
 						<Text style={styles.amountOfStudent}>200₪</Text>
-					</View>
+					</LessonRow>
 				</ShadowRect>
 			</ScrollView>
 		)
@@ -98,22 +114,12 @@ const styles = StyleSheet.create({
 	},
 	lessonRow: {
 		marginTop: 20,
-		flex: 1,
-		flexDirection: "row",
-		maxHeight: 34,
-		alignItems: "center"
-	},
-	seperator: {
-		width: "100%",
-		borderBottomColor: "rgb(212, 212, 212)",
-		borderBottomWidth: 1,
-		marginTop: 20,
-		marginBottom: 20
+		maxHeight: 34
 	},
 	hour: {
-		flex: 0.5,
+		flex: 1,
 		marginRight: "auto",
-		marginTop: -2
+		marginTop: -8
 	},
 	fullSchedule: {
 		color: "rgb(12, 116, 244)",
@@ -140,8 +146,11 @@ const styles = StyleSheet.create({
 	amountOfStudent: {
 		flex: 0.5,
 		marginRight: "auto",
-		marginTop: -2,
+		marginTop: -8,
 		color: "rgb(24, 199, 20)"
+	},
+	nameStyle: {
+		marginTop: 4
 	}
 })
 

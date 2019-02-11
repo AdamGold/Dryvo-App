@@ -4,7 +4,10 @@ import { View, StyleSheet } from "react-native"
 export default class ShadowRect extends React.Component {
 	render() {
 		return (
-			<View style={{ ...this.props.style, ...styles.container }}>
+			<View
+				testID={this.props.testID}
+				style={{ ...this.props.style, ...styles.container }}
+			>
 				{this.props.children}
 			</View>
 		)

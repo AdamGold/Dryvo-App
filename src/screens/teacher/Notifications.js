@@ -1,7 +1,10 @@
 import React from "react"
-import { View, Text, Button, StyleSheet } from "react-native"
+import { View, Text, Button, StyleSheet, ScrollView } from "react-native"
 import { logout } from "../../actions/auth"
 import { connect } from "react-redux"
+import { strings } from "../../i18n"
+import Notification from "../../components/Notification"
+import PageTitle from "../../components/PageTitle"
 
 class Home extends React.Component {
 	constructor(props) {
@@ -18,23 +21,47 @@ class Home extends React.Component {
 	}
 	render() {
 		return (
-			<View style={styles.container}>
-				<Text>Hi!</Text>
-				<Button
-					onPress={this.logout}
-					testID="logoutButton"
-					title="התנתק"
-				/>
-			</View>
+			<ScrollView style={styles.container}>
+				<View style={styles.notifications}>
+					<PageTitle title={strings("teacher.notifications.title")} />
+					<Notification
+						style={styles.notification}
+						name="חגית שטיין"
+						type="new_lesson"
+						date="10.02"
+						hours="10:00-10:40"
+					/>
+					<Notification
+						style={styles.notification}
+						name="חגית שטיין"
+						type="new_lesson"
+						date="10.02"
+						hours="10:00-10:40"
+					/>
+					<Notification
+						style={styles.notification}
+						name="חגית שטיין"
+						type="new_lesson"
+						date="10.02"
+						hours="10:00-10:40"
+					/>
+				</View>
+			</ScrollView>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
 	container: {
+		flex: 1
+	},
+	notifications: {
 		flex: 1,
-		justifyContent: "center"
-	}
+		paddingRight: 30,
+		paddingLeft: 30,
+		marginTop: 20
+	},
+	notification: {}
 })
 
 export default connect()(Home)

@@ -4,7 +4,6 @@ import { connect } from "react-redux"
 
 class UserLoading extends React.Component {
 	componentWillMount() {
-		console.log(this.props.user)
 		if (this.props.user.hasOwnProperty("teacher_id")) {
 			// it's a teacher
 			this.props.navigation.navigate("Teacher")
@@ -17,7 +16,6 @@ class UserLoading extends React.Component {
 		}
 	}
 
-	// Render any loading content that you like here
 	render() {
 		return (
 			<View style={styles.container}>

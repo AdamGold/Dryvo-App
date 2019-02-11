@@ -61,7 +61,7 @@ const setTokens = async (token, refresh_token) => {
 	await Storage.setItem(REFRESH_TOKEN_KEY, refresh_token, true)
 }
 
-const setUser = user => {
+export const setUser = user => {
 	return dispatch => {
 		dispatch({ type: LOGIN, user: user })
 	}

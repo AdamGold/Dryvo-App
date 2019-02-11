@@ -1,0 +1,14 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "e2eFiles",
+			"command": "RN_SRC_EXT=e2e.js react-native start", // Could be any other shell command
+			"type": "shell",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}

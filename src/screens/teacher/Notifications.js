@@ -7,23 +7,19 @@ import Notification from "../../components/Notification"
 import PageTitle from "../../components/PageTitle"
 import NotificationButtons from "./NotificationButtons"
 
-class Home extends React.Component {
-	constructor(props) {
-		super(props)
-		this.logout = this.logout.bind(this)
-	}
-
-	logout() {
-		this.props.dispatch(
-			logout(() => {
-				this.props.navigation.navigate("Auth")
-			})
-		)
+class Notifications extends React.Component {
+	static navigationOptions = () => {
+		return {
+			title: "notifications",
+			tabBarLabel: strings("tabs.notifications_title"),
+			tabBarAccessibilityLabel: strings("tabs.notifications_title"),
+			tabBarTestID: "NotificationsTab"
+		}
 	}
 	render() {
 		return (
 			<ScrollView style={styles.container}>
-				<View style={styles.notifications}>
+				<View testID="NotificationsView" style={styles.notifications}>
 					<PageTitle title={strings("teacher.notifications.title")} />
 					<Notification
 						style={styles.notification}
@@ -71,4 +67,4 @@ const styles = StyleSheet.create({
 	notification: {}
 })
 
-export default connect()(Home)
+export default connect()(Notifications)

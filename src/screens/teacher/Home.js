@@ -28,7 +28,7 @@ class Home extends React.Component {
 					</Text>
 				</View>
 				<ShadowRect style={styles.schedule}>
-					<Text style={styles.rectTitle}>
+					<Text style={styles.rectTitle} testID="schedule">
 						{strings("teacher.home.current_lesson")}
 					</Text>
 					<LessonRow style={styles.lessonRow}>
@@ -54,7 +54,7 @@ class Home extends React.Component {
 					{strings("teacher.home.full_schedule")}
 				</Text>
 				<ShadowRect>
-					<Text style={styles.rectTitle}>
+					<Text testID="monthlyAmount" style={styles.rectTitle}>
 						{strings("teacher.home.monthly_amount")}
 					</Text>
 					<View style={styles.amountView}>

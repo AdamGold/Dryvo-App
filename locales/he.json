@@ -1,4 +1,7 @@
 {
+	"tabs": {
+		"notifications_title": "התראות"
+	},
 	"default_error": "קרתה תקלה, אנא נסו שנית.",
 	"edit": "עריכה",
 	"approve": "אישור",

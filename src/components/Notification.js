@@ -1,6 +1,6 @@
 import React, { Fragment } from "react"
 import { StyleSheet, View, Text } from "react-native"
-import StudentWithPic from "./StudentWithPic"
+import UserWithPic from "./UserWithPic"
 import LessonRow from "./LessonRow"
 import { strings } from "../i18n"
 import Separator from "./Separator"
@@ -14,7 +14,7 @@ export default class Notification extends React.Component {
 		return (
 			<Fragment>
 				<LessonRow style={this.props.style}>
-					<StudentWithPic
+					<UserWithPic
 						name={this.props.name}
 						extra={extras[this.props.type]}
 						width={54}
@@ -25,36 +25,7 @@ export default class Notification extends React.Component {
 						<Text style={styles.hour}>{this.props.hours}</Text>
 					</View>
 				</LessonRow>
-				<View style={styles.buttons}>
-					<View
-						style={{
-							...styles.button,
-							...{ backgroundColor: "rgb(12,116,244)" }
-						}}
-					>
-						<Text style={styles.buttonText}>
-							{strings("approve")}
-						</Text>
-					</View>
-					<View
-						style={{
-							...styles.button,
-							...{ backgroundColor: "rgb(197,197,197)" }
-						}}
-					>
-						<Text style={styles.buttonText}>{strings("edit")}</Text>
-					</View>
-					<View
-						style={{
-							...styles.button,
-							...{ backgroundColor: "rgb(240,8,48)" }
-						}}
-					>
-						<Text style={styles.buttonText}>
-							{strings("postpone")}
-						</Text>
-					</View>
-				</View>
+				<View style={styles.buttons}>{this.props.children}</View>
 				<Separator />
 			</Fragment>
 		)
@@ -84,17 +55,5 @@ const styles = StyleSheet.create({
 		marginTop: 16,
 		flexDirection: "row",
 		justifyContent: "space-between"
-	},
-	button: {
-		flex: 0.33,
-		alignItems: "center",
-		padding: 8,
-		borderRadius: 3,
-		backgroundColor: "#000"
-	},
-	buttonText: {
-		fontSize: 14,
-		color: "#fff",
-		fontWeight: "bold"
 	}
 })

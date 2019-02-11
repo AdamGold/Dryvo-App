@@ -2,7 +2,7 @@ import React from "react"
 import { ScrollView, View, Text, Image, StyleSheet } from "react-native"
 import { connect } from "react-redux"
 import ShadowRect from "../../components/ShadowRect"
-import StudentWithPic from "../../components/StudentWithPic"
+import UserWithPic from "../../components/UserWithPic"
 import { strings } from "../../i18n"
 import LessonRow from "../../components/LessonRow"
 import Separator from "../../components/Separator"
@@ -32,7 +32,7 @@ class Home extends React.Component {
 						{strings("teacher.home.current_lesson")}
 					</Text>
 					<LessonRow style={styles.lessonRow}>
-						<StudentWithPic
+						<UserWithPic
 							name="רונן רוזנטל"
 							nameStyle={styles.nameStyle}
 						/>
@@ -43,7 +43,7 @@ class Home extends React.Component {
 						{strings("teacher.home.next_lesson")}
 					</Text>
 					<LessonRow style={styles.lessonRow}>
-						<StudentWithPic
+						<UserWithPic
 							name="שי גל"
 							nameStyle={styles.nameStyle}
 						/>
@@ -67,14 +67,14 @@ class Home extends React.Component {
 					<LessonRow
 						style={{ ...styles.lessonRow, ...{ marginTop: 0 } }}
 					>
-						<StudentWithPic
+						<UserWithPic
 							name="רונן רוזנטל"
 							nameStyle={styles.nameStyle}
 						/>
 						<Text style={styles.amountOfStudent}>200₪</Text>
 					</LessonRow>
 					<LessonRow style={styles.lessonRow}>
-						<StudentWithPic
+						<UserWithPic
 							name="רונן רוזנטל"
 							nameStyle={styles.nameStyle}
 						/>

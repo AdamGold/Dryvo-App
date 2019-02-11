@@ -56,10 +56,10 @@ export class SignIn extends React.Component {
 				})
 			}
 		)
-		await deepLinkingListener(this.handleOpenURL)
+		deepLinkingListener(this.handleOpenURL)
 	}
 
-	componentWillUnmount() {
+	async componentWillUnmount() {
 		this.willFocusSubscription.remove()
 		await deepLinkingRemoveListener(this.handleOpenURL)
 	}

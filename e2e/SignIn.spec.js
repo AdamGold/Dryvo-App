@@ -11,8 +11,8 @@ describe("Sign In", () => {
 
 	it("should login", async () => {
 		await element(by.id("emailInput")).clearText()
-		await element(by.id("emailInput")).typeText("T@t.com")
-		await element(by.id("passwordInput")).typeText("t3st!ng")
+		await element(by.id("emailInput")).typeText("t@t.com")
+		await element(by.id("passwordInput")).typeText("testing")
 		await element(by.id("signInButton")).tap()
 		await waitFor(element(by.id("logoutButton")))
 			.toBeVisible()

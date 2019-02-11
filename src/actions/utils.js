@@ -1,5 +1,4 @@
 import { Platform, Linking } from "react-native"
-import FetchService from "../services/Fetch"
 import { LOAD_FETCH_SERVICE } from "../reducers/consts"
 
 export const loadFetchService = () => {

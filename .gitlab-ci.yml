@@ -1,0 +1,14 @@
+image: jpkrause/react-native-gitlab-ci-build
+
+stages:
+    - test
+
+test:
+    stage: test
+    before_script:
+        - npm install
+    script:
+        - npm test
+    cache:
+        paths:
+            - node_modules/

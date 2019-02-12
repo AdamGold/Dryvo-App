@@ -4,12 +4,17 @@ import { connect } from "react-redux"
 import ShadowRect from "../../components/ShadowRect"
 import UserWithPic from "../../components/UserWithPic"
 import { strings } from "../../i18n"
-import LessonRow from "../../components/LessonRow"
+import Row from "../../components/Row"
 import Separator from "../../components/Separator"
 
-class Home extends React.Component {
-	constructor(props) {
-		super(props)
+export class Home extends React.Component {
+	static navigationOptions = () => {
+		return {
+			title: "home",
+			tabBarLabel: strings("tabs.home"),
+			tabBarAccessibilityLabel: strings("tabs.home"),
+			tabBarTestID: "HomeTab"
+		}
 	}
 
 	render() {
@@ -31,24 +36,24 @@ class Home extends React.Component {
 					<Text style={styles.rectTitle} testID="schedule">
 						{strings("teacher.home.current_lesson")}
 					</Text>
-					<LessonRow style={styles.lessonRow}>
+					<Row style={styles.lessonRow}>
 						<UserWithPic
 							name="רונן רוזנטל"
 							nameStyle={styles.nameStyle}
 						/>
 						<Text style={styles.hour}>13:00-13:40</Text>
-					</LessonRow>
+					</Row>
 					<Separator />
 					<Text style={styles.rectTitle}>
 						{strings("teacher.home.next_lesson")}
 					</Text>
-					<LessonRow style={styles.lessonRow}>
+					<Row style={styles.lessonRow}>
 						<UserWithPic
 							name="שי גל"
 							nameStyle={styles.nameStyle}
 						/>
 						<Text style={styles.hour}>13:00-13:40</Text>
-					</LessonRow>
+					</Row>
 				</ShadowRect>
 				<Text style={styles.fullSchedule}>
 					{strings("teacher.home.full_schedule")}
@@ -64,22 +69,20 @@ class Home extends React.Component {
 						</Text>
 					</View>
 					<Separator />
-					<LessonRow
-						style={{ ...styles.lessonRow, ...{ marginTop: 0 } }}
-					>
+					<Row style={{ ...styles.lessonRow, ...{ marginTop: 0 } }}>
 						<UserWithPic
 							name="רונן רוזנטל"
 							nameStyle={styles.nameStyle}
 						/>
 						<Text style={styles.amountOfStudent}>200₪</Text>
-					</LessonRow>
-					<LessonRow style={styles.lessonRow}>
+					</Row>
+					<Row style={styles.lessonRow}>
 						<UserWithPic
 							name="רונן רוזנטל"
 							nameStyle={styles.nameStyle}
 						/>
 						<Text style={styles.amountOfStudent}>200₪</Text>
-					</LessonRow>
+					</Row>
 				</ShadowRect>
 			</ScrollView>
 		)
@@ -110,7 +113,8 @@ const styles = StyleSheet.create({
 	rectTitle: {
 		fontSize: 16,
 		fontWeight: "bold",
-		color: "rgb(121, 121, 121)"
+		color: "rgb(121, 121, 121)",
+		alignSelf: "flex-start"
 	},
 	lessonRow: {
 		marginTop: 20,

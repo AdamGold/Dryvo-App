@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ShadowRect view renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "backgroundColor": "#fff",
+      "borderRadius": 4,
+      "elevation": 6,
+      "flex": 1,
+      "marginLeft": 26,
+      "marginRight": 26,
+      "minHeight": 320,
+      "padding": 20,
+      "shadowColor": "#000",
+      "shadowOffset": Object {
+        "height": 6,
+        "width": 0,
+      },
+      "shadowOpacity": 0.09,
+      "shadowRadius": 20,
+    }
+  }
+>
+  <Text>
+    test
+  </Text>
+</View>
+`;

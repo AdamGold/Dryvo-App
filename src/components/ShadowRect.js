@@ -17,7 +17,6 @@ export default class ShadowRect extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: "flex-start",
 		backgroundColor: "#fff",
 		shadowColor: "#000",
 		shadowOffset: {

@@ -1,7 +1,7 @@
 import React, { Fragment } from "react"
 import { StyleSheet, View, Text } from "react-native"
 import UserWithPic from "./UserWithPic"
-import LessonRow from "./LessonRow"
+import Row from "./Row"
 import { strings } from "../i18n"
 import Separator from "./Separator"
 
@@ -13,7 +13,7 @@ export default class Notification extends React.Component {
 	render() {
 		return (
 			<Fragment>
-				<LessonRow style={this.props.style}>
+				<Row style={this.props.style}>
 					<UserWithPic
 						name={this.props.name}
 						extra={extras[this.props.type]}
@@ -24,7 +24,7 @@ export default class Notification extends React.Component {
 						<Text style={styles.date}>{this.props.date}</Text>
 						<Text style={styles.hour}>{this.props.hours}</Text>
 					</View>
-				</LessonRow>
+				</Row>
 				<View style={styles.buttons}>{this.props.children}</View>
 				<Separator />
 			</Fragment>

@@ -1,5 +1,5 @@
 import React from "react"
-import { View, ScrollView, StyleSheet } from "react-native"
+import { View, StyleSheet } from "react-native"
 
 export default class ShadowRect extends React.Component {
 	render() {

@@ -5,46 +5,20 @@ import i18n from "i18n-js"
 import he from "../locales/he.json"
 import { LocaleConfig } from "react-native-calendars"
 
-LocaleConfig.locales["he"] = {
-	monthNames: [
-		"ינואר",
-		"פברואר",
-		"מרץ",
-		"אפריל",
-		"מאי",
-		"יוני",
-		"יולי",
-		"אוגוסט",
-		"ספטמבר",
-		"אוקטובר",
-		"נובמבר",
-		"דצמבר"
-	],
-	monthNamesShort: [
-		"ינו.",
-		"פבר.",
-		"מרץ",
-		"אפר.",
-		"מאי",
-		"יוני",
-		"יולי",
-		"אוג.",
-		"ספט.",
-		"אוק.",
-		"נוב.",
-		"דצב."
-	],
-	dayNames: ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"],
-	dayNamesShort: ["א", "ב", "ג", "ד", "ה", "ו", "ש"]
-}
-
-LocaleConfig.defaultLocale = "he"
-
 // Define the supported translations
 i18n.translations = {
 	he
 }
 i18n.locale = "he"
+
+LocaleConfig.locales["he"] = {
+	monthNames: i18n.t("monthNames"),
+	monthNamesShort: i18n.t("monthNamesShort"),
+	dayNames: i18n.t("dayNames"),
+	dayNamesShort: i18n.t("dayNamesShort")
+}
+
+LocaleConfig.defaultLocale = "he"
 
 // Allow RTL alignment in RTL languages
 ReactNative.I18nManager.allowRTL(true)

@@ -62,7 +62,7 @@ class NewLesson extends React.Component {
 							placeholder={strings("teacher.new_lesson.date")}
 							onChangeText={date => this.setState({ date })}
 							value={this.state.date}
-							testID="dateInput"
+							testID="lessonDateInput"
 							inputContainerStyle={styles.input}
 							errorMessage={this.state.errors["date"]}
 							textAlign={"right"}
@@ -156,7 +156,7 @@ class NewLesson extends React.Component {
 					<TouchableHighlight
 						ref={touchable => (this._touchable = touchable)}
 					>
-						<View style={styles.submitButton}>
+						<View testID="finishButton" style={styles.submitButton}>
 							<Text style={styles.submitText}>></Text>
 						</View>
 					</TouchableHighlight>

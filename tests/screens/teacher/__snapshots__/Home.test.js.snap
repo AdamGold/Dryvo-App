@@ -1,0 +1,469 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Home view renders correctly 1`] = `
+<RCTScrollView
+  style={
+    Object {
+      "flex": 1,
+      "marginTop": 20,
+    }
+  }
+>
+  <View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "alignSelf": "center",
+          "marginBottom": 20,
+        }
+      }
+      testID="welcomeHeader"
+    >
+      <Image
+        source={
+          Object {
+            "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+          }
+        }
+        style={
+          Object {
+            "borderRadius": 37,
+            "height": 74,
+            "marginBottom": 16,
+            "width": 74,
+          }
+        }
+      />
+      <Text
+        style={
+          Object {
+            "fontFamily": "Assistant-Light",
+            "fontSize": 24,
+          }
+        }
+      >
+        שלום, משה
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "backgroundColor": "#fff",
+          "borderRadius": 4,
+          "elevation": 6,
+          "flex": 1,
+          "marginLeft": 26,
+          "marginRight": 26,
+          "minHeight": 230,
+          "padding": 20,
+          "shadowColor": "#000",
+          "shadowOffset": Object {
+            "height": 6,
+            "width": 0,
+          },
+          "shadowOpacity": 0.09,
+          "shadowRadius": 20,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "alignSelf": "flex-start",
+            "color": "rgb(121, 121, 121)",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          }
+        }
+        testID="schedule"
+      >
+        שיעור נוכחי
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "flexDirection": "row",
+            "marginTop": 20,
+            "maxHeight": 34,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flex": 1,
+              "flexDirection": "row",
+            }
+          }
+        >
+          <Image
+            source={
+              Object {
+                "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+              }
+            }
+            style={
+              Object {
+                "borderRadius": 17,
+                "height": 34,
+                "width": 34,
+              }
+            }
+          />
+          <View
+            style={
+              Object {
+                "alignItems": "flex-start",
+                "flexDirection": "column",
+                "marginLeft": 16,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                  "marginTop": 4,
+                }
+              }
+            >
+              רונן רוזנטל
+            </Text>
+            <Text />
+          </View>
+        </View>
+        <Text
+          style={
+            Object {
+              "flex": 1,
+              "marginRight": "auto",
+              "marginTop": -8,
+            }
+          }
+        >
+          13:00-13:40
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "borderBottomColor": "rgb(212, 212, 212)",
+            "borderBottomWidth": 1,
+            "marginBottom": 20,
+            "marginTop": 20,
+            "width": "100%",
+          }
+        }
+      />
+      <Text
+        style={
+          Object {
+            "alignSelf": "flex-start",
+            "color": "rgb(121, 121, 121)",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        שיעור הבא
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "flexDirection": "row",
+            "marginTop": 20,
+            "maxHeight": 34,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flex": 1,
+              "flexDirection": "row",
+            }
+          }
+        >
+          <Image
+            source={
+              Object {
+                "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+              }
+            }
+            style={
+              Object {
+                "borderRadius": 17,
+                "height": 34,
+                "width": 34,
+              }
+            }
+          />
+          <View
+            style={
+              Object {
+                "alignItems": "flex-start",
+                "flexDirection": "column",
+                "marginLeft": 16,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                  "marginTop": 4,
+                }
+              }
+            >
+              שי גל
+            </Text>
+            <Text />
+          </View>
+        </View>
+        <Text
+          style={
+            Object {
+              "flex": 1,
+              "marginRight": "auto",
+              "marginTop": -8,
+            }
+          }
+        >
+          13:00-13:40
+        </Text>
+      </View>
+    </View>
+    <Text
+      style={
+        Object {
+          "alignSelf": "center",
+          "color": "rgb(12, 116, 244)",
+          "fontWeight": "bold",
+          "marginBottom": 24,
+          "marginTop": 24,
+        }
+      }
+    >
+      לו״ז מלא
+    </Text>
+    <View
+      style={
+        Object {
+          "backgroundColor": "#fff",
+          "borderRadius": 4,
+          "elevation": 6,
+          "flex": 1,
+          "marginLeft": 26,
+          "marginRight": 26,
+          "padding": 20,
+          "shadowColor": "#000",
+          "shadowOffset": Object {
+            "height": 6,
+            "width": 0,
+          },
+          "shadowOpacity": 0.09,
+          "shadowRadius": 20,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "alignSelf": "flex-start",
+            "color": "rgb(121, 121, 121)",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          }
+        }
+        testID="monthlyAmount"
+      >
+        סכום חודשי
+      </Text>
+      <View
+        style={
+          Object {
+            "alignSelf": "center",
+            "marginTop": 16,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "rgb(24, 199, 20)",
+              "fontFamily": "Assistant-Light",
+              "fontSize": 44,
+            }
+          }
+        >
+          13,800₪
+        </Text>
+        <Text
+          style={
+            Object {
+              "alignSelf": "center",
+              "color": "rgb(12, 116, 244)",
+              "fontWeight": "bold",
+              "marginTop": 16,
+            }
+          }
+        >
+          הוסף תשלום
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "borderBottomColor": "rgb(212, 212, 212)",
+            "borderBottomWidth": 1,
+            "marginBottom": 20,
+            "marginTop": 20,
+            "width": "100%",
+          }
+        }
+      />
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "flexDirection": "row",
+            "marginTop": 0,
+            "maxHeight": 34,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flex": 1,
+              "flexDirection": "row",
+            }
+          }
+        >
+          <Image
+            source={
+              Object {
+                "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+              }
+            }
+            style={
+              Object {
+                "borderRadius": 17,
+                "height": 34,
+                "width": 34,
+              }
+            }
+          />
+          <View
+            style={
+              Object {
+                "alignItems": "flex-start",
+                "flexDirection": "column",
+                "marginLeft": 16,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                  "marginTop": 4,
+                }
+              }
+            >
+              רונן רוזנטל
+            </Text>
+            <Text />
+          </View>
+        </View>
+        <Text
+          style={
+            Object {
+              "color": "rgb(24, 199, 20)",
+              "flex": 0.5,
+              "marginRight": "auto",
+              "marginTop": -8,
+            }
+          }
+        >
+          200₪
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flex": 1,
+            "flexDirection": "row",
+            "marginTop": 20,
+            "maxHeight": 34,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flex": 1,
+              "flexDirection": "row",
+            }
+          }
+        >
+          <Image
+            source={
+              Object {
+                "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+              }
+            }
+            style={
+              Object {
+                "borderRadius": 17,
+                "height": 34,
+                "width": 34,
+              }
+            }
+          />
+          <View
+            style={
+              Object {
+                "alignItems": "flex-start",
+                "flexDirection": "column",
+                "marginLeft": 16,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                  "marginTop": 4,
+                }
+              }
+            >
+              רונן רוזנטל
+            </Text>
+            <Text />
+          </View>
+        </View>
+        <Text
+          style={
+            Object {
+              "color": "rgb(24, 199, 20)",
+              "flex": 0.5,
+              "marginRight": "auto",
+              "marginTop": -8,
+            }
+          }
+        >
+          200₪
+        </Text>
+      </View>
+    </View>
+  </View>
+</RCTScrollView>
+`;

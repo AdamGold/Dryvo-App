@@ -21,7 +21,19 @@ describe("Content test", () => {
 		await element(by.id("NotificationsTab")).tap()
 	})
 
-	it("should have notifications view", async () => {
+	it("should have notifications view and buttons", async () => {
 		await expect(element(by.id("NotificationsView"))).toBeVisible()
+		await expect(element(by.id("approve"))).toBeVisible()
+		await element(by.id("NewLessonTab")).tap()
+	})
+
+	it("should have calendar with scrollable schedule view", async () => {
+		await expect(element(by.id("scheduleList"))).toBeVisible()
+		await element(by.id("continueButton")).tap()
+	})
+
+	it("should have new lesson form with keyboard focused", async () => {
+		await expect(element(by.id("lessonDateInput"))).toBeVisible()
+		await expect(element(by.id("finishButton"))).toBeVisible()
 	})
 })

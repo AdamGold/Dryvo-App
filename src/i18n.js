@@ -12,10 +12,10 @@ i18n.translations = {
 i18n.locale = "he"
 
 LocaleConfig.locales["he"] = {
-	monthNames: i18n.t("monthNames"),
-	monthNamesShort: i18n.t("monthNamesShort"),
-	dayNames: i18n.t("dayNames"),
-	dayNamesShort: i18n.t("dayNamesShort")
+	monthNames: i18n.t("date.month_names"),
+	monthNamesShort: i18n.t("date.abbr_month_names"),
+	dayNames: i18n.t("date.day_names"),
+	dayNamesShort: i18n.t("date.abbr_day_names")
 }
 
 LocaleConfig.defaultLocale = "he"
@@ -27,6 +27,10 @@ ReactNative.I18nManager.forceRTL(true)
 // The method we'll use instead of a regular string
 export function strings(name, params = {}) {
 	return i18n.t(name, params)
+}
+
+export function dates(format, date) {
+	return i18n.l(format, date)
 }
 
 export default i18n

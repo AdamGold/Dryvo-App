@@ -7,18 +7,18 @@ import {
 	FlatList
 } from "react-native"
 import { connect } from "react-redux"
-import { strings } from "../../i18n"
+import { strings, dates } from "../../i18n"
 import { CalendarList } from "react-native-calendars"
 import ShadowRect from "../../components/ShadowRect"
-import LessonRow from "../../components/LessonRow"
+import Row from "../../components/Row"
 import UserWithPic from "../../components/UserWithPic"
 import Separator from "../../components/Separator"
 
-class ChooseDate extends React.Component {
+export class ChooseDate extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			selected: Date().toString()
+			selected: new Date().toJSON().slice(0, 10)
 		}
 	}
 	render() {
@@ -63,10 +63,6 @@ class ChooseDate extends React.Component {
 					}}
 					// Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
 					monthFormat={"MMMM"}
-					// Handler which gets executed when visible month changes in calendar. Default = undefined
-					onMonthChange={month => {
-						console.log("month changed", month)
-					}}
 					// Handler which gets executed when press arrow icon left. It receive a callback can go back month
 					onPressArrowLeft={substractMonth => substractMonth()}
 					// Handler which gets executed when press arrow icon left. It receive a callback can go next month
@@ -86,22 +82,25 @@ class ChooseDate extends React.Component {
 					)}
 				/>
 				<View style={styles.scheduleContainer}>
-					<Text style={styles.scheduleTitle}>9 בינואר 2019</Text>
+					<Text testID="dateString" style={styles.scheduleTitle}>
+						{dates("date.formats.short", this.state.selected)}
+					</Text>
 					<ShadowRect style={styles.schedule}>
 						<FlatList
 							ItemSeparatorComponent={() => <Separator />}
+							testID="scheduleList"
 							data={[
 								{ title: "רועי ונונו", key: "item1" },
 								{ title: "דוד אמסלם", key: "item2" }
 							]}
 							renderItem={({ item }) => (
-								<LessonRow style={styles.lessonRow}>
+								<Row style={styles.lessonRow}>
 									<UserWithPic
 										name={item.title}
 										nameStyle={styles.nameStyle}
 									/>
 									<Text style={styles.hour}>13:00-13:40</Text>
-								</LessonRow>
+								</Row>
 							)}
 						/>
 					</ShadowRect>
@@ -113,7 +112,7 @@ class ChooseDate extends React.Component {
 						})
 					}}
 				>
-					<View style={styles.floatButton}>
+					<View testID="continueButton" style={styles.floatButton}>
 						<Text style={styles.buttonText}>
 							{strings("teacher.new_lesson.continue")}
 						</Text>

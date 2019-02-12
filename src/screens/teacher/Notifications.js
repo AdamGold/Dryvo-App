@@ -7,7 +7,7 @@ import Notification from "../../components/Notification"
 import PageTitle from "../../components/PageTitle"
 import NotificationButtons from "./NotificationButtons"
 
-class Notifications extends React.Component {
+export class Notifications extends React.Component {
 	static navigationOptions = () => {
 		return {
 			title: "notifications",

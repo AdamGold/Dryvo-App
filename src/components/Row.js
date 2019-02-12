@@ -1,10 +1,10 @@
 import React from "react"
 import { StyleSheet, View } from "react-native"
 
-export default class LessonRow extends React.Component {
+export default class Row extends React.Component {
 	render() {
 		return (
-			<View style={{ ...styles.lessonRow, ...this.props.style }}>
+			<View style={{ ...styles.row, ...this.props.style }}>
 				{this.props.children}
 			</View>
 		)
@@ -12,7 +12,7 @@ export default class LessonRow extends React.Component {
 }
 
 const styles = StyleSheet.create({
-	lessonRow: {
+	row: {
 		flex: 1,
 		flexDirection: "row",
 		alignItems: "center"

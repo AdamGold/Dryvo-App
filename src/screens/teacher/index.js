@@ -26,7 +26,7 @@ export default createBottomTabNavigator({
 			title: "add",
 			tabBarLabel: strings("tabs.add"),
 			tabBarAccessibilityLabel: strings("tabs.add"),
-			tabBarTestID: "AddTab"
+			tabBarTestID: "NewLessonTab"
 		}
 	}
 })

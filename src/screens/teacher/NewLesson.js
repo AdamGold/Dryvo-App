@@ -6,15 +6,7 @@ import Notification from "../../components/Notification"
 import PageTitle from "../../components/PageTitle"
 import NotificationButtons from "./NotificationButtons"
 
-class Add extends React.Component {
-	static navigationOptions = () => {
-		return {
-			title: "add",
-			tabBarLabel: strings("tabs.add"),
-			tabBarAccessibilityLabel: strings("tabs.add"),
-			tabBarTestID: "AddTab"
-		}
-	}
+class NewLesson extends React.Component {
 	render() {
 		return <ScrollView style={styles.container} />
 	}
@@ -33,4 +25,4 @@ const styles = StyleSheet.create({
 	notification: {}
 })
 
-export default connect()(Add)
+export default connect()(NewLesson)

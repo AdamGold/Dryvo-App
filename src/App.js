@@ -33,6 +33,8 @@ const AuthStack = createStackNavigator(
 	{ SignIn: SignIn, SignUp: SignUp },
 	{ mode: "modal", initialRouteName: "SignIn" }
 )
+
+const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV" : null
 const Page = createAppContainer(
 	createSwitchNavigator(
 		{
@@ -60,7 +62,7 @@ export default class App extends Component {
 		return (
 			<Provider store={store}>
 				<SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
-					<Page />
+					<Page persistenceKey={navigationPersistenceKey} />
 				</SafeAreaView>
 			</Provider>
 		)

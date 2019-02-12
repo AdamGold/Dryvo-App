@@ -1,5 +1,5 @@
 import React from "react"
-import { View, StyleSheet } from "react-native"
+import { View, ScrollView, StyleSheet } from "react-native"
 
 export default class ShadowRect extends React.Component {
 	render() {
@@ -17,7 +17,6 @@ export default class ShadowRect extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		alignItems: "flex-start",
 		backgroundColor: "#fff",
 		shadowColor: "#000",
 		shadowOffset: {

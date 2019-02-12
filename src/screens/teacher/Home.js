@@ -8,8 +8,13 @@ import LessonRow from "../../components/LessonRow"
 import Separator from "../../components/Separator"
 
 class Home extends React.Component {
-	constructor(props) {
-		super(props)
+	static navigationOptions = () => {
+		return {
+			title: "home",
+			tabBarLabel: strings("tabs.home"),
+			tabBarAccessibilityLabel: strings("tabs.home"),
+			tabBarTestID: "HomeTab"
+		}
 	}
 
 	render() {
@@ -110,7 +115,8 @@ const styles = StyleSheet.create({
 	rectTitle: {
 		fontSize: 16,
 		fontWeight: "bold",
-		color: "rgb(121, 121, 121)"
+		color: "rgb(121, 121, 121)",
+		alignSelf: "flex-start"
 	},
 	lessonRow: {
 		marginTop: 20,

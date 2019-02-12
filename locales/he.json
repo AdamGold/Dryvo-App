@@ -1,5 +1,6 @@
 {
 	"tabs": {
+		"home": "בית",
 		"notifications_title": "התראות",
 		"add": "הוספת שיעור"
 	},
@@ -34,6 +35,16 @@
 		"notifications": {
 			"new_lesson": "רוצה לקבוע שיעור",
 			"title": "התראות"
+		},
+		"new_lesson": {
+			"title": "הוספת שיעור",
+			"continue": "המשיכו",
+			"date": "תאריך",
+			"hour": "שעה",
+			"name_of_student": "שם התלמיד/ה",
+			"meetup": "מקום איסוף",
+			"dropoff": "מקום הורדה",
+			"topics": "נושאים"
 		}
 	}
 }

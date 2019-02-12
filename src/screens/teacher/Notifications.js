@@ -1,5 +1,5 @@
 import React from "react"
-import { View, Text, Button, StyleSheet, ScrollView } from "react-native"
+import { View, Text, Button, StyleSheet, FlatList } from "react-native"
 import { logout } from "../../actions/auth"
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
@@ -18,38 +18,25 @@ class Notifications extends React.Component {
 	}
 	render() {
 		return (
-			<ScrollView style={styles.container}>
+			<View style={styles.container}>
 				<View testID="NotificationsView" style={styles.notifications}>
 					<PageTitle title={strings("teacher.notifications.title")} />
-					<Notification
-						style={styles.notification}
-						name="חגית שטיין"
-						type="new_lesson"
-						date="10.02"
-						hours="10:00-10:40"
-					>
-						<NotificationButtons />
-					</Notification>
-					<Notification
-						style={styles.notification}
-						name="חגית שטיין"
-						type="new_lesson"
-						date="10.02"
-						hours="10:00-10:40"
-					>
-						<NotificationButtons />
-					</Notification>
-					<Notification
-						style={styles.notification}
-						name="חגית שטיין"
-						type="new_lesson"
-						date="10.02"
-						hours="10:00-10:40"
-					>
-						<NotificationButtons />
-					</Notification>
+					<FlatList
+						data={[{ title: "Title Text", key: "item1" }]}
+						renderItem={({ item }) => (
+							<Notification
+								style={styles.notification}
+								name="חגית שטיין"
+								type="new_lesson"
+								date="10.02"
+								hours="10:00-10:40"
+							>
+								<NotificationButtons />
+							</Notification>
+						)}
+					/>
 				</View>
-			</ScrollView>
+			</View>
 		)
 	}
 }

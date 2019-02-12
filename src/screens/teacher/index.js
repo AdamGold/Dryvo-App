@@ -6,6 +6,7 @@ import Home from "./Home"
 import Notifications from "./Notifications"
 import ChooseDate from "./ChooseDate"
 import NewLesson from "./NewLesson"
+import Students from "./Students"
 import { strings } from "../../i18n"
 
 export default createBottomTabNavigator({
@@ -28,5 +29,6 @@ export default createBottomTabNavigator({
 			tabBarAccessibilityLabel: strings("tabs.add"),
 			tabBarTestID: "NewLessonTab"
 		}
-	}
+	},
+	Students: Students
 })

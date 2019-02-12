@@ -98,6 +98,8 @@ export class ChooseDate extends React.Component {
 									<UserWithPic
 										name={item.title}
 										nameStyle={styles.nameStyle}
+										width={42}
+										height={42}
 									/>
 									<Text style={styles.hour}>13:00-13:40</Text>
 								</Row>

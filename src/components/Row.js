@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 		alignItems: "center"
 	},
 	leftSide: {
-		flex: 0.5,
+		flex: 1,
 		marginRight: "auto",
 		alignItems: "flex-end",
 		marginTop: -8

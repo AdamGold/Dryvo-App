@@ -19,8 +19,10 @@ const styles = StyleSheet.create({
 		flexDirection: "row"
 	},
 	leftSide: {
-		flex: 0.7,
-		marginLeft: "auto"
+		flex: 1,
+		alignItems: "flex-end",
+		marginLeft: "auto",
+		marginTop: -5
 	},
 	title: {
 		fontSize: 20,

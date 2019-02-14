@@ -23,16 +23,24 @@ export class NewStudent extends React.Component {
 		return (
 			<View style={styles.container}>
 				<View style={styles.headerRow}>
-					<Button
-						icon={<Icon name="arrow-forward" type="material" />}
-						onPress={() => {
-							this.props.navigation.goBack()
-						}}
-						type="clear"
-					/>
 					<PageTitle
 						style={styles.title}
 						title={strings("teacher.students.add")}
+						leftSide={
+							<Button
+								icon={
+									<Icon
+										name="ios-close"
+										type="ionicon"
+										size={36}
+									/>
+								}
+								onPress={() => {
+									this.props.navigation.goBack()
+								}}
+								type="clear"
+							/>
+						}
 					/>
 				</View>
 				<View
@@ -85,12 +93,12 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	title: {
-		marginLeft: 12,
 		marginTop: 4
 	},
 	headerRow: {
-		flexDirection: "row",
 		flex: 1,
+		paddingLeft: 26,
+		paddingRight: 26,
 		maxHeight: 50
 	},
 	studentsSearchView: { padding: 26, paddingTop: 0 },

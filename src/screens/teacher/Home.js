@@ -1,11 +1,19 @@
 import React from "react"
-import { ScrollView, View, Text, Image, StyleSheet } from "react-native"
+import {
+	ScrollView,
+	View,
+	Text,
+	Image,
+	StyleSheet,
+	TouchableHighlight
+} from "react-native"
 import { connect } from "react-redux"
 import ShadowRect from "../../components/ShadowRect"
 import UserWithPic from "../../components/UserWithPic"
 import { strings } from "../../i18n"
 import Row from "../../components/Row"
 import Separator from "../../components/Separator"
+import { Icon } from "react-native-elements"
 
 export class Home extends React.Component {
 	static navigationOptions = () => {
@@ -59,13 +67,38 @@ export class Home extends React.Component {
 						/>
 					</Row>
 				</ShadowRect>
-				<Text style={styles.fullSchedule}>
-					{strings("teacher.home.full_schedule")}
-				</Text>
+				<TouchableHighlight
+					onPress={() => {
+						this.props.navigation.navigate("Students")
+					}}
+				>
+					<View style={styles.fullScheduleView}>
+						<Text style={styles.fullSchedule}>
+							{strings("teacher.home.full_schedule")}
+						</Text>
+						<Icon
+							size={20}
+							color="rgb(12, 116, 244)"
+							name="ios-arrow-dropleft-circle"
+							type="ionicon"
+						/>
+					</View>
+				</TouchableHighlight>
 				<ShadowRect>
-					<Text testID="monthlyAmount" style={styles.rectTitle}>
-						{strings("teacher.home.monthly_amount")}
-					</Text>
+					<View style={{ flex: 1, flexDirection: "row" }}>
+						<Text testID="monthlyAmount" style={styles.rectTitle}>
+							{strings("teacher.home.monthly_amount")}
+						</Text>
+						<View
+							style={{
+								flex: 1,
+								alignItems: "flex-end",
+								marginRight: "auto"
+							}}
+						>
+							<Icon name="arrow-back" type="material" size={20} />
+						</View>
+					</View>
 					<View style={styles.amountView}>
 						<Text style={styles.amount}>13,800₪</Text>
 						<Text style={styles.addPayment}>
@@ -132,13 +165,19 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		maxHeight: 34
 	},
-	hour: {},
+	fullScheduleView: {
+		flexDirection: "row",
+		flex: 1,
+		alignSelf: "center",
+		alignItems: "center",
+		marginTop: 24,
+		marginBottom: 24
+	},
 	fullSchedule: {
 		color: "rgb(12, 116, 244)",
-		marginTop: 24,
-		marginBottom: 24,
-		alignSelf: "center",
-		fontWeight: "bold"
+		marginTop: -4,
+		fontWeight: "bold",
+		marginRight: 8
 	},
 	amountView: {
 		marginTop: 16,

@@ -4,7 +4,10 @@ import { StyleSheet, Text, View } from "react-native"
 export default class Row extends React.Component {
 	render() {
 		return (
-			<View style={{ ...styles.button, ...this.props.style }}>
+			<View
+				style={{ ...styles.button, ...this.props.style }}
+				testID={this.props.testID}
+			>
 				<Text style={styles.text}>{this.props.title}</Text>
 			</View>
 		)

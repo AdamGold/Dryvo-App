@@ -46,6 +46,7 @@ export class Students extends React.Component {
 						leftSide={
 							<TouchableHighlight>
 								<FlatButton
+									testID="addStudentButton"
 									title={strings("teacher.students.add")}
 								/>
 							</TouchableHighlight>

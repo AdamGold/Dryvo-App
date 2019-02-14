@@ -94,14 +94,20 @@ export class ChooseDate extends React.Component {
 								{ title: "דוד אמסלם", key: "item2" }
 							]}
 							renderItem={({ item }) => (
-								<Row style={styles.lessonRow}>
+								<Row
+									style={styles.lessonRow}
+									leftSide={
+										<Text style={styles.hour}>
+											13:00-13:40
+										</Text>
+									}
+								>
 									<UserWithPic
 										name={item.title}
 										nameStyle={styles.nameStyle}
 										width={42}
 										height={42}
 									/>
-									<Text style={styles.hour}>13:00-13:40</Text>
 								</Row>
 							)}
 						/>
@@ -145,9 +151,7 @@ const styles = StyleSheet.create({
 	},
 	schedule: { minHeight: 230, marginTop: 24 },
 	hour: {
-		flex: 1,
-		marginRight: "auto",
-		marginTop: -8,
+		marginTop: -2,
 		color: "rgb(12,116,244)"
 	},
 	nameStyle: {

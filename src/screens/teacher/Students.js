@@ -71,7 +71,17 @@ export class Students extends React.Component {
 							{ title: "Title Text", key: "item4" }
 						]}
 						renderItem={({ item }) => (
-							<Row style={styles.row}>
+							<Row
+								style={styles.row}
+								leftSide={
+									<Icon
+										style={styles.arrow}
+										name="ios-arrow-back"
+										type="ionicon"
+										color="#000"
+									/>
+								}
+							>
 								<Icon
 									name="error"
 									type="ionicons"
@@ -89,12 +99,6 @@ export class Students extends React.Component {
 									imageContainerStyle={
 										styles.imageContainerStyle
 									}
-								/>
-								<Icon
-									style={styles.arrow}
-									name="ios-arrow-back"
-									type="ionicon"
-									color="#000"
 								/>
 							</Row>
 						)}
@@ -124,8 +128,7 @@ const styles = StyleSheet.create({
 	},
 	arrow: {
 		flex: 1,
-		marginRight: "auto",
-		marginTop: -8
+		marginRight: "auto"
 	},
 	userWithPic: { marginLeft: 10 },
 	imageContainerStyle: {

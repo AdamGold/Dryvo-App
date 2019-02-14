@@ -36,23 +36,27 @@ export class Home extends React.Component {
 					<Text style={styles.rectTitle} testID="schedule">
 						{strings("teacher.home.current_lesson")}
 					</Text>
-					<Row style={styles.lessonRow}>
+					<Row
+						style={styles.lessonRow}
+						leftSide={<Text style={styles.hour}>13:00-13:40</Text>}
+					>
 						<UserWithPic
 							name="רונן רוזנטל"
 							nameStyle={styles.nameStyle}
 						/>
-						<Text style={styles.hour}>13:00-13:40</Text>
 					</Row>
 					<Separator />
 					<Text style={styles.rectTitle}>
 						{strings("teacher.home.next_lesson")}
 					</Text>
-					<Row style={styles.lessonRow}>
+					<Row
+						style={styles.lessonRow}
+						leftSide={<Text style={styles.hour}>13:00-13:40</Text>}
+					>
 						<UserWithPic
 							name="שי גל"
 							nameStyle={styles.nameStyle}
 						/>
-						<Text style={styles.hour}>13:00-13:40</Text>
 					</Row>
 				</ShadowRect>
 				<Text style={styles.fullSchedule}>
@@ -69,19 +73,27 @@ export class Home extends React.Component {
 						</Text>
 					</View>
 					<Separator />
-					<Row style={{ ...styles.lessonRow, ...{ marginTop: 0 } }}>
+					<Row
+						style={{ ...styles.lessonRow, ...{ marginTop: 0 } }}
+						leftSide={
+							<Text style={styles.amountOfStudent}>200₪</Text>
+						}
+					>
 						<UserWithPic
 							name="רונן רוזנטל"
 							nameStyle={styles.nameStyle}
 						/>
-						<Text style={styles.amountOfStudent}>200₪</Text>
 					</Row>
-					<Row style={styles.lessonRow}>
+					<Row
+						style={styles.lessonRow}
+						leftSide={
+							<Text style={styles.amountOfStudent}>200₪</Text>
+						}
+					>
 						<UserWithPic
 							name="רונן רוזנטל"
 							nameStyle={styles.nameStyle}
 						/>
-						<Text style={styles.amountOfStudent}>200₪</Text>
 					</Row>
 				</ShadowRect>
 			</ScrollView>
@@ -120,11 +132,7 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		maxHeight: 34
 	},
-	hour: {
-		flex: 1,
-		marginRight: "auto",
-		marginTop: -8
-	},
+	hour: {},
 	fullSchedule: {
 		color: "rgb(12, 116, 244)",
 		marginTop: 24,
@@ -148,9 +156,6 @@ const styles = StyleSheet.create({
 		alignSelf: "center"
 	},
 	amountOfStudent: {
-		flex: 0.5,
-		marginRight: "auto",
-		marginTop: -8,
 		color: "rgb(24, 199, 20)"
 	},
 	nameStyle: {

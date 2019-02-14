@@ -13,17 +13,21 @@ export default class Notification extends React.Component {
 	render() {
 		return (
 			<Fragment>
-				<Row style={this.props.style}>
+				<Row
+					style={this.props.style}
+					leftSide={
+						<View style={styles.dateAndHour}>
+							<Text style={styles.date}>{this.props.date}</Text>
+							<Text style={styles.hour}>{this.props.hours}</Text>
+						</View>
+					}
+				>
 					<UserWithPic
 						name={this.props.name}
 						extra={extras[this.props.type]}
 						width={54}
 						height={54}
 					/>
-					<View style={styles.dateAndHour}>
-						<Text style={styles.date}>{this.props.date}</Text>
-						<Text style={styles.hour}>{this.props.hours}</Text>
-					</View>
 				</Row>
 				<View style={styles.buttons}>{this.props.children}</View>
 				<Separator />
@@ -36,11 +40,7 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1
 	},
-	dateAndHour: {
-		flex: 0.5,
-		marginRight: "auto",
-		marginTop: -8
-	},
+	dateAndHour: { flex: 1, marginTop: 5 },
 	date: {
 		fontSize: 22,
 		fontFamily: "Assistant-Light"

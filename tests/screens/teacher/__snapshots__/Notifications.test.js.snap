@@ -19,18 +19,34 @@ exports[`Notifications view renders correctly 1`] = `
     }
     testID="NotificationsView"
   >
-    <Text
+    <View
       style={
         Object {
-          "alignSelf": "flex-start",
-          "fontSize": 24,
-          "fontWeight": "bold",
-          "marginBottom": 20,
+          "flexDirection": "row",
         }
       }
     >
-      התראות
-    </Text>
+      <Text
+        style={
+          Object {
+            "alignSelf": "flex-start",
+            "fontSize": 20,
+            "fontWeight": "bold",
+            "marginBottom": 20,
+          }
+        }
+      >
+        התראות
+      </Text>
+      <View
+        style={
+          Object {
+            "flex": 0.7,
+            "marginLeft": "auto",
+          }
+        }
+      />
+    </View>
     <RCTScrollView
       data={
         Array [
@@ -84,20 +100,22 @@ exports[`Notifications view renders correctly 1`] = `
                 }
               }
             >
-              <Image
-                source={
-                  Object {
-                    "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+              <View>
+                <Image
+                  source={
+                    Object {
+                      "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+                    }
                   }
-                }
-                style={
-                  Object {
-                    "borderRadius": 27,
-                    "height": 54,
-                    "width": 54,
+                  style={
+                    Object {
+                      "borderRadius": 27,
+                      "height": 54,
+                      "width": 54,
+                    }
                   }
-                }
-              />
+                />
+              </View>
               <View
                 style={
                   Object {
@@ -124,33 +142,43 @@ exports[`Notifications view renders correctly 1`] = `
             <View
               style={
                 Object {
+                  "alignItems": "flex-end",
                   "flex": 0.5,
                   "marginRight": "auto",
                   "marginTop": -8,
                 }
               }
             >
-              <Text
+              <View
                 style={
                   Object {
-                    "fontFamily": "Assistant-Light",
-                    "fontSize": 22,
+                    "flex": 1,
+                    "marginTop": 5,
                   }
                 }
               >
-                10.02
-              </Text>
-              <Text
-                style={
-                  Object {
-                    "color": "rgb(12, 116, 244)",
-                    "fontSize": 14,
-                    "fontWeight": "bold",
+                <Text
+                  style={
+                    Object {
+                      "fontFamily": "Assistant-Light",
+                      "fontSize": 22,
+                    }
                   }
-                }
-              >
-                10:00-10:40
-              </Text>
+                >
+                  10.02
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "color": "rgb(12, 116, 244)",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                    }
+                  }
+                >
+                  10:00-10:40
+                </Text>
+              </View>
             </View>
           </View>
           <View

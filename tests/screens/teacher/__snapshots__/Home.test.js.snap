@@ -99,20 +99,22 @@ exports[`Home view renders correctly 1`] = `
             }
           }
         >
-          <Image
-            source={
-              Object {
-                "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+          <View>
+            <Image
+              source={
+                Object {
+                  "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+                }
               }
-            }
-            style={
-              Object {
-                "borderRadius": 17,
-                "height": 34,
-                "width": 34,
+              style={
+                Object {
+                  "borderRadius": 17,
+                  "height": 34,
+                  "width": 34,
+                }
               }
-            }
-          />
+            />
+          </View>
           <View
             style={
               Object {
@@ -135,17 +137,22 @@ exports[`Home view renders correctly 1`] = `
             <Text />
           </View>
         </View>
-        <Text
+        <View
           style={
             Object {
-              "flex": 1,
+              "alignItems": "flex-end",
+              "flex": 0.5,
               "marginRight": "auto",
               "marginTop": -8,
             }
           }
         >
-          13:00-13:40
-        </Text>
+          <Text
+            style={Object {}}
+          >
+            13:00-13:40
+          </Text>
+        </View>
       </View>
       <View
         style={
@@ -189,20 +196,22 @@ exports[`Home view renders correctly 1`] = `
             }
           }
         >
-          <Image
-            source={
-              Object {
-                "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+          <View>
+            <Image
+              source={
+                Object {
+                  "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+                }
               }
-            }
-            style={
-              Object {
-                "borderRadius": 17,
-                "height": 34,
-                "width": 34,
+              style={
+                Object {
+                  "borderRadius": 17,
+                  "height": 34,
+                  "width": 34,
+                }
               }
-            }
-          />
+            />
+          </View>
           <View
             style={
               Object {
@@ -225,17 +234,22 @@ exports[`Home view renders correctly 1`] = `
             <Text />
           </View>
         </View>
-        <Text
+        <View
           style={
             Object {
-              "flex": 1,
+              "alignItems": "flex-end",
+              "flex": 0.5,
               "marginRight": "auto",
               "marginTop": -8,
             }
           }
         >
-          13:00-13:40
-        </Text>
+          <Text
+            style={Object {}}
+          >
+            13:00-13:40
+          </Text>
+        </View>
       </View>
     </View>
     <Text
@@ -346,20 +360,22 @@ exports[`Home view renders correctly 1`] = `
             }
           }
         >
-          <Image
-            source={
-              Object {
-                "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+          <View>
+            <Image
+              source={
+                Object {
+                  "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+                }
               }
-            }
-            style={
-              Object {
-                "borderRadius": 17,
-                "height": 34,
-                "width": 34,
+              style={
+                Object {
+                  "borderRadius": 17,
+                  "height": 34,
+                  "width": 34,
+                }
               }
-            }
-          />
+            />
+          </View>
           <View
             style={
               Object {
@@ -382,18 +398,26 @@ exports[`Home view renders correctly 1`] = `
             <Text />
           </View>
         </View>
-        <Text
+        <View
           style={
             Object {
-              "color": "rgb(24, 199, 20)",
+              "alignItems": "flex-end",
               "flex": 0.5,
               "marginRight": "auto",
               "marginTop": -8,
             }
           }
         >
-          200₪
-        </Text>
+          <Text
+            style={
+              Object {
+                "color": "rgb(24, 199, 20)",
+              }
+            }
+          >
+            200₪
+          </Text>
+        </View>
       </View>
       <View
         style={
@@ -414,20 +438,22 @@ exports[`Home view renders correctly 1`] = `
             }
           }
         >
-          <Image
-            source={
-              Object {
-                "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+          <View>
+            <Image
+              source={
+                Object {
+                  "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+                }
               }
-            }
-            style={
-              Object {
-                "borderRadius": 17,
-                "height": 34,
-                "width": 34,
+              style={
+                Object {
+                  "borderRadius": 17,
+                  "height": 34,
+                  "width": 34,
+                }
               }
-            }
-          />
+            />
+          </View>
           <View
             style={
               Object {
@@ -450,18 +476,26 @@ exports[`Home view renders correctly 1`] = `
             <Text />
           </View>
         </View>
-        <Text
+        <View
           style={
             Object {
-              "color": "rgb(24, 199, 20)",
+              "alignItems": "flex-end",
               "flex": 0.5,
               "marginRight": "auto",
               "marginTop": -8,
             }
           }
         >
-          200₪
-        </Text>
+          <Text
+            style={
+              Object {
+                "color": "rgb(24, 199, 20)",
+              }
+            }
+          >
+            200₪
+          </Text>
+        </View>
       </View>
     </View>
   </View>

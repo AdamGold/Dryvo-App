@@ -20,20 +20,22 @@ Array [
         }
       }
     >
-      <Image
-        source={
-          Object {
-            "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+      <View>
+        <Image
+          source={
+            Object {
+              "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+            }
           }
-        }
-        style={
-          Object {
-            "borderRadius": 27,
-            "height": 54,
-            "width": 54,
+          style={
+            Object {
+              "borderRadius": 27,
+              "height": 54,
+              "width": 54,
+            }
           }
-        }
-      />
+        />
+      </View>
       <View
         style={
           Object {
@@ -60,33 +62,43 @@ Array [
     <View
       style={
         Object {
+          "alignItems": "flex-end",
           "flex": 0.5,
           "marginRight": "auto",
           "marginTop": -8,
         }
       }
     >
-      <Text
+      <View
         style={
           Object {
-            "fontFamily": "Assistant-Light",
-            "fontSize": 22,
+            "flex": 1,
+            "marginTop": 5,
           }
         }
       >
-        test
-      </Text>
-      <Text
-        style={
-          Object {
-            "color": "rgb(12, 116, 244)",
-            "fontSize": 14,
-            "fontWeight": "bold",
+        <Text
+          style={
+            Object {
+              "fontFamily": "Assistant-Light",
+              "fontSize": 22,
+            }
           }
-        }
-      >
-        test-test
-      </Text>
+        >
+          test
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "rgb(12, 116, 244)",
+              "fontSize": 14,
+              "fontWeight": "bold",
+            }
+          }
+        >
+          test-test
+        </Text>
+      </View>
     </View>
   </View>,
   <View

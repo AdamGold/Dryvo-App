@@ -14,5 +14,19 @@ exports[`Row view renders correctly 1`] = `
   <Text>
     test
   </Text>
+  <View
+    style={
+      Object {
+        "alignItems": "flex-end",
+        "flex": 0.5,
+        "marginRight": "auto",
+        "marginTop": -8,
+      }
+    }
+  >
+    <Text>
+      Test
+    </Text>
+  </View>
 </View>
 `;

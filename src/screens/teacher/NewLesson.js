@@ -8,10 +8,9 @@ import {
 	ScrollView
 } from "react-native"
 import { connect } from "react-redux"
-import { Input, Button } from "react-native-elements"
+import { Input, Button, Icon } from "react-native-elements"
 import { strings } from "../../i18n"
 import PageTitle from "../../components/PageTitle"
-import Icon from "react-native-vector-icons/Ionicons"
 
 class NewLesson extends React.Component {
 	constructor(props) {
@@ -28,19 +27,14 @@ class NewLesson extends React.Component {
 	}
 	render() {
 		return (
-			<View style={{ flex: 1 }}>
+			<View style={{ flex: 1, marginTop: 20 }}>
 				<View style={styles.headerRow}>
 					<Button
-						icon={
-							<Icon
-								name="md-arrow-round-forward"
-								size={15}
-								color="white"
-							/>
-						}
+						icon={<Icon name="arrow-forward" type="material" />}
 						onPress={() => {
 							this.props.navigation.goBack()
 						}}
+						type="clear"
 					/>
 					<PageTitle
 						style={styles.title}
@@ -49,7 +43,7 @@ class NewLesson extends React.Component {
 				</View>
 				<KeyboardAvoidingView
 					behavior="height"
-					keyboardVerticalOffset={42}
+					keyboardVerticalOffset={62}
 					style={styles.container}
 				>
 					<ScrollView
@@ -168,15 +162,17 @@ class NewLesson extends React.Component {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1
+		flex: 1,
+		marginTop: -20
 	},
 	title: {
-		marginLeft: 12
+		marginLeft: 12,
+		marginTop: 4
 	},
 	headerRow: {
 		flexDirection: "row",
 		flex: 1,
-		maxHeight: 60
+		maxHeight: 50
 	},
 	formContainer: {
 		width: 340,

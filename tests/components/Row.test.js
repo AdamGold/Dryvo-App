@@ -9,7 +9,7 @@ describe("Row", () => {
 	test("view renders correctly", () => {
 		const tree = renderer
 			.create(
-				<Row style={{ maxHeight: 30 }}>
+				<Row leftSide={<Text>Test</Text>} style={{ maxHeight: 30 }}>
 					<Text>test</Text>
 				</Row>
 			)

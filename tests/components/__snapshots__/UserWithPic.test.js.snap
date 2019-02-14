@@ -10,20 +10,22 @@ exports[`UserWithPic view renders correctly 1`] = `
     }
   }
 >
-  <Image
-    source={
-      Object {
-        "uri": "http://example.com",
+  <View>
+    <Image
+      source={
+        Object {
+          "uri": "http://example.com",
+        }
       }
-    }
-    style={
-      Object {
-        "borderRadius": 50,
-        "height": 100,
-        "width": 100,
+      style={
+        Object {
+          "borderRadius": 50,
+          "height": 100,
+          "width": 100,
+        }
       }
-    }
-  />
+    />
+  </View>
   <View
     style={
       Object {

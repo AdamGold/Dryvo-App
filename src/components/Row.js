@@ -6,6 +6,7 @@ export default class Row extends React.Component {
 		return (
 			<View style={{ ...styles.row, ...this.props.style }}>
 				{this.props.children}
+				<View style={styles.leftSide}>{this.props.leftSide}</View>
 			</View>
 		)
 	}
@@ -16,5 +17,11 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: "row",
 		alignItems: "center"
+	},
+	leftSide: {
+		flex: 0.5,
+		marginRight: "auto",
+		alignItems: "flex-end",
+		marginTop: -8
 	}
 })

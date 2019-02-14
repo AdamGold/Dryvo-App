@@ -7,6 +7,7 @@ import UserWithPic from "../../components/UserWithPic"
 import Separator from "../../components/Separator"
 import { SearchBar, Button, Icon } from "react-native-elements"
 import PageTitle from "../../components/PageTitle"
+import { MAIN_PADDING } from "../../consts"
 
 export class NewStudent extends React.Component {
 	constructor(props) {
@@ -97,8 +98,8 @@ const styles = StyleSheet.create({
 	},
 	headerRow: {
 		flex: 1,
-		paddingLeft: 26,
-		paddingRight: 26,
+		paddingLeft: MAIN_PADDING,
+		paddingRight: MAIN_PADDING,
 		maxHeight: 50
 	},
 	studentsSearchView: { padding: 26, paddingTop: 0 },

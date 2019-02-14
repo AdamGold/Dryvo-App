@@ -1,5 +1,6 @@
 import React from "react"
 import { View, StyleSheet } from "react-native"
+import { MAIN_PADDING } from "../consts"
 
 export default class ShadowRect extends React.Component {
 	render() {
@@ -26,8 +27,8 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.09,
 		shadowRadius: 20,
 		elevation: 6,
-		marginLeft: 26,
-		marginRight: 26,
+		marginLeft: MAIN_PADDING,
+		marginRight: MAIN_PADDING,
 		borderRadius: 4,
 		padding: 20
 	}

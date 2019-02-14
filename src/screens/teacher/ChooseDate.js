@@ -14,6 +14,7 @@ import Row from "../../components/Row"
 import UserWithPic from "../../components/UserWithPic"
 import Separator from "../../components/Separator"
 import { Icon } from "react-native-elements"
+import { MAIN_PADDING } from "../../consts"
 
 export class ChooseDate extends React.Component {
 	constructor(props) {
@@ -145,7 +146,7 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		color: "rgb(121, 121, 121)",
 		alignSelf: "flex-start",
-		marginLeft: 26
+		marginLeft: MAIN_PADDING
 	},
 	schedule: { minHeight: 230, marginTop: 24 },
 	hour: {

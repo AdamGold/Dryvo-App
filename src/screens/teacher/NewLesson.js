@@ -11,6 +11,7 @@ import { connect } from "react-redux"
 import { Input, Button, Icon } from "react-native-elements"
 import { strings } from "../../i18n"
 import PageTitle from "../../components/PageTitle"
+import { MAIN_PADDING } from "../../consts"
 
 class NewLesson extends React.Component {
 	constructor(props) {
@@ -277,7 +278,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		flex: 1,
 		maxHeight: 50,
-		paddingLeft: 26
+		paddingLeft: MAIN_PADDING
 	},
 	formContainer: {
 		width: 340,

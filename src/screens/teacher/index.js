@@ -47,7 +47,7 @@ export default createBottomTabNavigator({
 			title: "students",
 			tabBarLabel: strings("tabs.students"),
 			tabBarAccessibilityLabel: strings("tabs.students"),
-			tabBarTestID: "StudentsTabs"
+			tabBarTestID: "StudentsTab"
 		}
 	}
 })

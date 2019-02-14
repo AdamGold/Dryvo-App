@@ -56,6 +56,7 @@ export class NewStudent extends React.Component {
 						inputStyle={styles.search}
 						textAlign="right"
 						autoFocus={true}
+						testID="searchBar"
 					/>
 					<Separator />
 					<FlatList

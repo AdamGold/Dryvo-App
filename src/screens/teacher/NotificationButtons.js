@@ -6,7 +6,11 @@ export default class NotificationButtons extends React.Component {
 	render() {
 		return (
 			<Fragment>
-				<TouchableHighlight testID="approve" style={styles.touchable}>
+				<TouchableHighlight
+					underlayColor="#ffffff00"
+					testID="approve"
+					style={styles.touchable}
+				>
 					<View
 						style={{
 							...styles.button,
@@ -18,7 +22,10 @@ export default class NotificationButtons extends React.Component {
 						</Text>
 					</View>
 				</TouchableHighlight>
-				<TouchableHighlight style={styles.touchable}>
+				<TouchableHighlight
+					underlayColor="#ffffff00"
+					style={styles.touchable}
+				>
 					<View
 						style={{
 							...styles.button,
@@ -28,7 +35,10 @@ export default class NotificationButtons extends React.Component {
 						<Text style={styles.buttonText}>{strings("edit")}</Text>
 					</View>
 				</TouchableHighlight>
-				<TouchableHighlight style={styles.touchable}>
+				<TouchableHighlight
+					underlayColor="#ffffff00"
+					style={styles.touchable}
+				>
 					<View
 						style={{
 							...styles.button,

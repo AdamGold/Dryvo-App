@@ -30,6 +30,9 @@ describe("Content test", () => {
 	it("should have list of students and a touchable add student button", async () => {
 		await expect(element(by.id("addStudentButton"))).toBeVisible()
 		await expect(element(by.id("StudentsView"))).toBeVisible()
+		await element(by.id("addStudentButton")).tap()
+		await expect(element(by.id("StudentsSearchView"))).toBeVisible()
+		await element(by.label("return")).tap() // close keyboard
 		await element(by.id("NewLessonTab")).tap()
 	})
 

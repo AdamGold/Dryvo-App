@@ -114,6 +114,7 @@ export class ChooseDate extends React.Component {
 					</ShadowRect>
 				</View>
 				<TouchableHighlight
+					underlayColor="#ffffff00"
 					onPress={() => {
 						this.props.navigation.navigate("NewLesson", {
 							date: this.state.selected

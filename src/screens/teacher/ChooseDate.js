@@ -13,6 +13,8 @@ import ShadowRect from "../../components/ShadowRect"
 import Row from "../../components/Row"
 import UserWithPic from "../../components/UserWithPic"
 import Separator from "../../components/Separator"
+import { Icon } from "react-native-elements"
+import { MAIN_PADDING } from "../../consts"
 
 export class ChooseDate extends React.Component {
 	constructor(props) {
@@ -63,23 +65,19 @@ export class ChooseDate extends React.Component {
 					}}
 					// Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
 					monthFormat={"MMMM"}
-					// Handler which gets executed when press arrow icon left. It receive a callback can go back month
-					onPressArrowLeft={substractMonth => substractMonth()}
-					// Handler which gets executed when press arrow icon left. It receive a callback can go next month
-					onPressArrowRight={addMonth => addMonth()}
-					// Hide month navigation arrows. Default = false
-					hideArrows={false}
-					// Do not show days of other months in month page. Default = false
-					hideExtraDays={false}
 					renderArrow={direction => (
 						<Icon
 							name={
 								direction === "left"
-									? "arrow-forward"
-									: "arrow-back"
+									? "keyboard-arrow-right"
+									: "keyboard-arrow-left"
 							}
+							type="material"
 						/>
 					)}
+					hideArrows={false}
+					// Do not show days of other months in month page.
+					hideExtraDays={false}
 				/>
 				<View style={styles.scheduleContainer}>
 					<Text testID="dateString" style={styles.scheduleTitle}>
@@ -148,7 +146,7 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		color: "rgb(121, 121, 121)",
 		alignSelf: "flex-start",
-		marginLeft: 26
+		marginLeft: MAIN_PADDING
 	},
 	schedule: { minHeight: 230, marginTop: 24 },
 	hour: {

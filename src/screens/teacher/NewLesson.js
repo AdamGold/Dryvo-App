@@ -11,6 +11,7 @@ import { connect } from "react-redux"
 import { Input, Button, Icon } from "react-native-elements"
 import { strings } from "../../i18n"
 import PageTitle from "../../components/PageTitle"
+import { MAIN_PADDING } from "../../consts"
 
 class NewLesson extends React.Component {
 	constructor(props) {
@@ -21,10 +22,19 @@ class NewLesson extends React.Component {
 			studentName: "",
 			meetup: "",
 			dropoff: "",
-			topics: [],
+			topics: "",
 			errors: {}
 		}
 	}
+
+	onFocus = input => {
+		this.setState({ [`${input}Color`]: "rgb(12,116,244)" })
+	}
+
+	onBlur = input => {
+		this.setState({ [`${input}Color`]: undefined })
+	}
+
 	render() {
 		return (
 			<View style={{ flex: 1, marginTop: 20 }}>
@@ -57,7 +67,11 @@ class NewLesson extends React.Component {
 							onChangeText={date => this.setState({ date })}
 							value={this.state.date}
 							testID="lessonDateInput"
-							inputContainerStyle={styles.input}
+							inputContainerStyle={styles.inputContainer}
+							inputStyle={{
+								...styles.input,
+								...{ color: this.state["dateColor"] || "#000" }
+							}}
 							errorMessage={this.state.errors["date"]}
 							textAlign={"right"}
 							autoFocus={true}
@@ -65,13 +79,27 @@ class NewLesson extends React.Component {
 							onSubmitEditing={() => {
 								this.hourInput.focus()
 							}}
+							leftIcon={
+								<Icon
+									name="date-range"
+									type="material"
+									size={24}
+									color={this.state["dateColor"]}
+								/>
+							}
+							onFocus={() => this.onFocus("date")}
+							onBlur={() => this.onBlur("date")}
 						/>
 						<Input
 							placeholder={strings("teacher.new_lesson.hour")}
 							onChangeText={hour => this.setState({ hour })}
 							value={this.state.hour}
 							testID="hourInput"
-							inputContainerStyle={styles.input}
+							inputContainerStyle={styles.inputContainer}
+							inputStyle={{
+								...styles.input,
+								...{ color: this.state["hourColor"] || "#000" }
+							}}
 							errorMessage={this.state.errors["hour"]}
 							textAlign={"right"}
 							ref={input => {
@@ -80,6 +108,19 @@ class NewLesson extends React.Component {
 							onSubmitEditing={() => {
 								this.studentInput.focus()
 							}}
+							leftIcon={
+								<Icon
+									name="access-time"
+									type="material"
+									size={24}
+									color={this.state["hourColor"] || "#000"}
+								/>
+							}
+							placeholderTextColor={
+								this.state["hourColor"] || "lightgray"
+							}
+							onFocus={() => this.onFocus("hour")}
+							onBlur={() => this.onBlur("hour")}
 						/>
 						<Input
 							placeholder={strings(
@@ -90,7 +131,13 @@ class NewLesson extends React.Component {
 							}
 							value={this.state.studentName}
 							testID="studentNameInput"
-							inputContainerStyle={styles.input}
+							inputContainerStyle={styles.inputContainer}
+							inputStyle={{
+								...styles.input,
+								...{
+									color: this.state["studentColor"] || "#000"
+								}
+							}}
 							errorMessage={this.state.errors["studentName"]}
 							textAlign={"right"}
 							ref={input => {
@@ -99,13 +146,32 @@ class NewLesson extends React.Component {
 							onSubmitEditing={() => {
 								this.meetupInput.focus()
 							}}
+							leftIcon={
+								<Icon
+									name="person-outline"
+									type="material"
+									size={24}
+									color={this.state["studentColor"] || "#000"}
+								/>
+							}
+							placeholderTextColor={
+								this.state["studentColor"] || "lightgray"
+							}
+							onFocus={() => this.onFocus("student")}
+							onBlur={() => this.onBlur("student")}
 						/>
 						<Input
 							placeholder={strings("teacher.new_lesson.meetup")}
 							onChangeText={meetup => this.setState({ meetup })}
 							value={this.state.meetup}
 							testID="meetupInput"
-							inputContainerStyle={styles.input}
+							inputContainerStyle={styles.inputContainer}
+							inputStyle={{
+								...styles.input,
+								...{
+									color: this.state["meetupColor"] || "#000"
+								}
+							}}
 							errorMessage={this.state.errors["meetup"]}
 							textAlign={"right"}
 							ref={input => {
@@ -115,13 +181,32 @@ class NewLesson extends React.Component {
 								this.dropoffInput.focus()
 								this._scrollView.scrollToEnd()
 							}}
+							leftIcon={
+								<Icon
+									name="navigation"
+									type="feather"
+									size={24}
+									color={this.state["meetupColor"] || "#000"}
+								/>
+							}
+							placeholderTextColor={
+								this.state["meetupColor"] || "lightgray"
+							}
+							onFocus={() => this.onFocus("meetup")}
+							onBlur={() => this.onBlur("meetup")}
 						/>
 						<Input
 							placeholder={strings("teacher.new_lesson.dropoff")}
 							onChangeText={dropoff => this.setState({ dropoff })}
 							value={this.state.dropoff}
 							testID="dropoffInput"
-							inputContainerStyle={styles.input}
+							inputContainerStyle={styles.inputContainer}
+							inputStyle={{
+								...styles.input,
+								...{
+									color: this.state["dropoffColor"] || "#000"
+								}
+							}}
 							errorMessage={this.state.errors["dropoff"]}
 							textAlign={"right"}
 							ref={input => {
@@ -130,13 +215,27 @@ class NewLesson extends React.Component {
 							onSubmitEditing={() => {
 								this.topicsInput.focus()
 							}}
+							leftIcon={
+								<Icon
+									name="map-pin"
+									type="feather"
+									size={24}
+									color={this.state["dropoffColor"] || "#000"}
+								/>
+							}
+							placeholderTextColor={
+								this.state["dropoffColor"] || "lightgray"
+							}
+							onFocus={() => this.onFocus("dropoff")}
+							onBlur={() => this.onBlur("dropoff")}
 						/>
 						<Input
 							placeholder={strings("teacher.new_lesson.topics")}
 							onChangeText={date => this.setState({ date })}
 							value={this.state.topics}
 							testID="dateInput"
-							inputContainerStyle={styles.input}
+							inputContainerStyle={styles.inputContainer}
+							inputStyle={styles.input}
 							errorMessage={this.state.errors["date"]}
 							textAlign={"right"}
 							ref={input => {
@@ -152,7 +251,12 @@ class NewLesson extends React.Component {
 						ref={touchable => (this._touchable = touchable)}
 					>
 						<View testID="finishButton" style={styles.submitButton}>
-							<Text style={styles.submitText}>></Text>
+							<Icon
+								name="ios-done-all"
+								type="ionicon"
+								size={36}
+								color="#fff"
+							/>
 						</View>
 					</TouchableHighlight>
 				</KeyboardAvoidingView>
@@ -168,12 +272,13 @@ const styles = StyleSheet.create({
 	},
 	title: {
 		marginLeft: 12,
-		marginTop: 4
+		marginTop: 5
 	},
 	headerRow: {
 		flexDirection: "row",
 		flex: 1,
-		maxHeight: 50
+		maxHeight: 50,
+		paddingLeft: MAIN_PADDING
 	},
 	formContainer: {
 		width: 340,
@@ -190,16 +295,14 @@ const styles = StyleSheet.create({
 		alignItems: "center",
 		justifyContent: "center"
 	},
-	submitText: {
-		color: "#fff",
-		fontSize: 20,
-		fontWeight: "bold"
-	},
-	input: {
+	inputContainer: {
 		borderBottomColor: "rgb(200,200,200)",
 		borderBottomWidth: 1,
 		paddingBottom: 8,
 		marginTop: 24
+	},
+	input: {
+		paddingLeft: 12
 	}
 })
 

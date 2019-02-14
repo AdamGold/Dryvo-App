@@ -6,24 +6,21 @@ import {
 	StyleSheet,
 	FlatList
 } from "react-native"
-import { createStackNavigator } from "react-navigation"
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
 import Row from "../../components/Row"
-import PageTitle from "../../components/PageTitle"
 import UserWithPic from "../../components/UserWithPic"
-import { Icon, SearchBar } from "react-native-elements"
-import FlatButton from "../../components/FlatButton"
+import Separator from "../../components/Separator"
+import { SearchBar, Button, Icon } from "react-native-elements"
+import PageTitle from "../../components/PageTitle"
 
-export class Students extends React.Component {
+export class NewStudent extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			search: ""
 		}
-		this.updateSearch = this.updateSearch.bind(this)
 	}
-
 	updateSearch = search => {
 		this.setState({ search })
 	}
@@ -31,25 +28,23 @@ export class Students extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<View testID="StudentsView" style={styles.students}>
+				<View style={styles.headerRow}>
+					<Button
+						icon={<Icon name="arrow-forward" type="material" />}
+						onPress={() => {
+							this.props.navigation.goBack()
+						}}
+						type="clear"
+					/>
 					<PageTitle
 						style={styles.title}
-						title={strings("tabs.students")}
-						leftSide={
-							<TouchableHighlight
-								underlayColor="#ffffff00"
-								onPress={() => {
-									this.props.navigation.navigate("NewStudent")
-								}}
-							>
-								<FlatButton
-									testID="addStudentButton"
-									title={strings("teacher.students.add")}
-								/>
-							</TouchableHighlight>
-						}
+						title={strings("teacher.students.add")}
 					/>
-
+				</View>
+				<View
+					style={styles.studentsSearchView}
+					testID="StudentsSearchView"
+				>
 					<SearchBar
 						placeholder={strings("teacher.students.search")}
 						onChangeText={this.updateSearch}
@@ -60,31 +55,23 @@ export class Students extends React.Component {
 						cancelButtonTitle={strings("teacher.students.cancel")}
 						inputStyle={styles.search}
 						textAlign="right"
+						autoFocus={true}
 					/>
+					<Separator />
 					<FlatList
-						data={[
-							{ title: "Title Text", key: "item1" },
-							{ title: "Title Text", key: "item2" },
-							{ title: "Title Text", key: "item3" },
-							{ title: "Title Text", key: "item4" }
-						]}
+						data={[{ title: "Title Text", key: "item1" }]}
 						renderItem={({ item }) => (
 							<Row
 								style={styles.row}
 								leftSide={
 									<Icon
 										style={styles.arrow}
-										name="ios-arrow-back"
+										name="ios-add"
 										type="ionicon"
 										color="#000"
 									/>
 								}
 							>
-								<Icon
-									name="error"
-									type="ionicons"
-									color="rgb(24,199,20)"
-								/>
 								<UserWithPic
 									name="רונן רוזנטל"
 									extra={`${strings(
@@ -111,39 +98,26 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1
 	},
-	students: {
+	title: {
+		marginLeft: 12,
+		marginTop: 4
+	},
+	headerRow: {
+		flexDirection: "row",
 		flex: 1,
-		paddingRight: 30,
-		paddingLeft: 20,
-		marginTop: 20
+		maxHeight: 50
 	},
-	title: { marginBottom: 0 },
-	row: {
-		marginTop: 24
-	},
-	nameStyle: {
-		marginTop: 6
-	},
-	arrow: {
-		flex: 1,
-		marginRight: "auto"
-	},
-	userWithPic: { marginLeft: 10 },
-	imageContainerStyle: {
-		padding: 2,
-		borderColor: "rgb(24,199,20)",
-		borderWidth: 2,
-		borderRadius: 37
-	},
+	studentsSearchView: { padding: 26, paddingTop: 0 },
 	searchBarContainer: {
 		backgroundColor: "transparent",
 		paddingBottom: 0,
-		paddingTop: 0,
-		marginTop: 20
+		paddingTop: 0
 	},
 	inputContainerStyle: {
 		borderRadius: 30,
 		paddingLeft: 8,
+		paddingTop: 6,
+		paddingBottom: 6,
 		width: "100%",
 		marginLeft: 0,
 		marginRight: 0
@@ -155,4 +129,5 @@ const styles = StyleSheet.create({
 		marginLeft: 0
 	}
 })
-export default connect()(Students)
+
+export default connect()(NewStudent)

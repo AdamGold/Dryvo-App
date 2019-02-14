@@ -7,6 +7,7 @@ import Notifications from "./Notifications"
 import ChooseDate from "./ChooseDate"
 import NewLesson from "./NewLesson"
 import Students from "./Students"
+import NewStudent from "./NewStudent"
 import { strings } from "../../i18n"
 
 export default createBottomTabNavigator({
@@ -30,5 +31,23 @@ export default createBottomTabNavigator({
 			tabBarTestID: "NewLessonTab"
 		}
 	},
-	Students: Students
+	Students: {
+		screen: createStackNavigator(
+			{ Students: Students, NewStudent: NewStudent },
+			{
+				mode: "modal",
+				initialRouteName: "Students",
+				headerMode: "none",
+				navigationOptions: {
+					headerVisible: false
+				}
+			}
+		),
+		navigationOptions: {
+			title: "students",
+			tabBarLabel: strings("tabs.students"),
+			tabBarAccessibilityLabel: strings("tabs.students"),
+			tabBarTestID: "StudentsTabs"
+		}
+	}
 })

@@ -148,6 +148,7 @@ class NewLesson extends React.Component {
 						/>
 					</ScrollView>
 					<TouchableHighlight
+						underlayColor="#ffffff00"
 						ref={touchable => (this._touchable = touchable)}
 					>
 						<View testID="finishButton" style={styles.submitButton}>

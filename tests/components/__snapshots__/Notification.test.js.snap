@@ -63,7 +63,7 @@ Array [
       style={
         Object {
           "alignItems": "flex-end",
-          "flex": 0.5,
+          "flex": 1,
           "marginRight": "auto",
           "marginTop": -8,
         }

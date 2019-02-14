@@ -41,8 +41,10 @@ exports[`Notifications view renders correctly 1`] = `
       <View
         style={
           Object {
-            "flex": 0.7,
+            "alignItems": "flex-end",
+            "flex": 1,
             "marginLeft": "auto",
+            "marginTop": -5,
           }
         }
       />
@@ -143,7 +145,7 @@ exports[`Notifications view renders correctly 1`] = `
               style={
                 Object {
                   "alignItems": "flex-end",
-                  "flex": 0.5,
+                  "flex": 1,
                   "marginRight": "auto",
                   "marginTop": -8,
                 }

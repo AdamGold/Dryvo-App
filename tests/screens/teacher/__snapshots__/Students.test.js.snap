@@ -41,8 +41,10 @@ exports[`Students view renders correctly 1`] = `
       <View
         style={
           Object {
-            "flex": 0.7,
+            "alignItems": "flex-end",
+            "flex": 1,
             "marginLeft": "auto",
+            "marginTop": -5,
           }
         }
       >
@@ -65,6 +67,7 @@ exports[`Students view renders correctly 1`] = `
                 "borderRadius": 24,
                 "height": 40,
                 "justifyContent": "center",
+                "width": 140,
               }
             }
             testID="addStudentButton"
@@ -507,7 +510,7 @@ exports[`Students view renders correctly 1`] = `
               style={
                 Object {
                   "alignItems": "flex-end",
-                  "flex": 0.5,
+                  "flex": 1,
                   "marginRight": "auto",
                   "marginTop": -8,
                 }
@@ -738,7 +741,7 @@ exports[`Students view renders correctly 1`] = `
               style={
                 Object {
                   "alignItems": "flex-end",
-                  "flex": 0.5,
+                  "flex": 1,
                   "marginRight": "auto",
                   "marginTop": -8,
                 }
@@ -969,7 +972,7 @@ exports[`Students view renders correctly 1`] = `
               style={
                 Object {
                   "alignItems": "flex-end",
-                  "flex": 0.5,
+                  "flex": 1,
                   "marginRight": "auto",
                   "marginTop": -8,
                 }
@@ -1200,7 +1203,7 @@ exports[`Students view renders correctly 1`] = `
               style={
                 Object {
                   "alignItems": "flex-end",
-                  "flex": 0.5,
+                  "flex": 1,
                   "marginRight": "auto",
                   "marginTop": -8,
                 }

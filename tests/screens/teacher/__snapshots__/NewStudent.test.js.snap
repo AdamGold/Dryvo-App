@@ -474,9 +474,9 @@ exports[`Students view renders correctly 1`] = `
                   }
                   style={
                     Object {
-                      "borderRadius": 27,
-                      "height": 54,
-                      "width": 54,
+                      "borderRadius": 32,
+                      "height": 64,
+                      "width": 64,
                     }
                   }
                 />
@@ -493,15 +493,15 @@ exports[`Students view renders correctly 1`] = `
                 <Text
                   style={
                     Object {
+                      "fontSize": 18,
                       "fontWeight": "bold",
+                      "marginTop": 14,
                     }
                   }
                 >
                   רונן רוזנטל
                 </Text>
-                <Text>
-                  מספר שיעורים: 13
-                </Text>
+                <Text />
               </View>
             </View>
             <View

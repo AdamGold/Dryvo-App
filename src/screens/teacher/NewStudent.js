@@ -1,11 +1,5 @@
 import React from "react"
-import {
-	View,
-	Text,
-	TouchableHighlight,
-	StyleSheet,
-	FlatList
-} from "react-native"
+import { View, StyleSheet, FlatList } from "react-native"
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
 import Row from "../../components/Row"
@@ -63,10 +57,8 @@ export class NewStudent extends React.Component {
 						data={[{ title: "Title Text", key: "item1" }]}
 						renderItem={({ item }) => (
 							<Row
-								style={styles.row}
 								leftSide={
 									<Icon
-										style={styles.arrow}
 										name="ios-add"
 										type="ionicon"
 										color="#000"
@@ -75,16 +67,9 @@ export class NewStudent extends React.Component {
 							>
 								<UserWithPic
 									name="רונן רוזנטל"
-									extra={`${strings(
-										"teacher.students.lesson_num"
-									)}: 13`}
 									nameStyle={styles.nameStyle}
-									width={54}
-									height={54}
-									style={styles.userWithPic}
-									imageContainerStyle={
-										styles.imageContainerStyle
-									}
+									width={64}
+									height={64}
 								/>
 							</Row>
 						)}
@@ -128,6 +113,10 @@ const styles = StyleSheet.create({
 		paddingLeft: 6,
 		fontSize: 14,
 		marginLeft: 0
+	},
+	nameStyle: {
+		fontSize: 18,
+		marginTop: 14
 	}
 })
 

@@ -6,7 +6,6 @@ import {
 	StyleSheet,
 	FlatList
 } from "react-native"
-import { createStackNavigator } from "react-navigation"
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
 import Row from "../../components/Row"

@@ -45,7 +45,8 @@
 			"name_of_student": "שם התלמיד/ה",
 			"meetup": "מקום איסוף",
 			"dropoff": "מקום הורדה",
-			"topics": "נושאים"
+			"topics": "נושאים",
+			"new_lesson": "יצירת שיעור"
 		},
 		"students": {
 			"search": "חיפוש תלמיד",

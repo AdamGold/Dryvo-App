@@ -34,7 +34,7 @@ const AuthStack = createStackNavigator(
 	{ mode: "modal", initialRouteName: "SignIn" }
 )
 
-const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV3" : null
+const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV4" : null
 const Page = createAppContainer(
 	createSwitchNavigator(
 		{

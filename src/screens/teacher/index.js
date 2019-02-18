@@ -9,13 +9,14 @@ import ChooseDate from "./ChooseDate"
 import NewLesson from "./NewLesson"
 import Students from "./Students"
 import NewStudent from "./NewStudent"
+import Schedule from "./Schedule"
 import { strings } from "../../i18n"
 import { Icon } from "react-native-elements"
 
 export default createBottomTabNavigator(
 	{
 		Home: Home,
-		Notifications: Notifications,
+		Schedule: Schedule,
 		Add: {
 			screen: createStackNavigator(
 				{ ChooseDate: ChooseDate, NewLesson: NewLesson },
@@ -34,6 +35,7 @@ export default createBottomTabNavigator(
 				tabBarTestID: "NewLessonTab"
 			}
 		},
+		Notifications: Notifications,
 		Students: {
 			screen: createStackNavigator(
 				{ Students: Students, NewStudent: NewStudent },

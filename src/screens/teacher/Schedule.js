@@ -15,7 +15,7 @@ import { Icon } from "react-native-elements"
 import Separator from "../../components/Separator"
 import { calendarTheme, MAIN_PADDING } from "../../consts"
 
-export class Students extends React.Component {
+export class Schedule extends React.Component {
 	static navigationOptions = () => {
 		return {
 			title: "schedule",
@@ -32,7 +32,7 @@ export class Students extends React.Component {
 	}
 
 	renderItem = (item, firstItemInDay) => {
-		style = {}
+		let style = {}
 		if (firstItemInDay) {
 			style = { marginTop: 20 }
 		}
@@ -186,4 +186,4 @@ const styles = StyleSheet.create({
 	},
 	userWithPic: { marginLeft: 10 }
 })
-export default connect()(Students)
+export default connect()(Schedule)

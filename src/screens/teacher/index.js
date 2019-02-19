@@ -16,7 +16,7 @@ import { Icon } from "react-native-elements"
 export default createBottomTabNavigator(
 	{
 		Home: Home,
-		Schedule: Schedule,
+		Notifications: Notifications,
 		Add: {
 			screen: createStackNavigator(
 				{ ChooseDate: ChooseDate, NewLesson: NewLesson },
@@ -35,7 +35,7 @@ export default createBottomTabNavigator(
 				tabBarTestID: "NewLessonTab"
 			}
 		},
-		Notifications: Notifications,
+		Schedule: Schedule,
 		Students: {
 			screen: createStackNavigator(
 				{ Students: Students, NewStudent: NewStudent },
@@ -70,6 +70,8 @@ export default createBottomTabNavigator(
 					iconName = "add-circle"
 				} else if (routeName === "Students") {
 					iconName = "people"
+				} else if (routeName == "Schedule") {
+					iconName = "date-range"
 				}
 
 				// You can return any component that you like here!

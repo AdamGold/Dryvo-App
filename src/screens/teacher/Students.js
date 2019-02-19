@@ -26,7 +26,36 @@ export class Students extends React.Component {
 	updateSearch = search => {
 		this.setState({ search })
 	}
-
+	renderItem = item => {
+		return (
+			<Row
+				style={styles.row}
+				leftSide={
+					<Icon
+						style={styles.arrow}
+						name="ios-arrow-back"
+						type="ionicon"
+						color="#000"
+					/>
+				}
+			>
+				<Icon name="error" type="ionicons" color="rgb(24,199,20)" />
+				<UserWithPic
+					name="רונן רוזנטל"
+					extra={
+						<Text>
+							${strings("teacher.students.lesson_num")}: 13
+						</Text>
+					}
+					nameStyle={styles.nameStyle}
+					width={54}
+					height={54}
+					style={styles.userWithPic}
+					imageContainerStyle={styles.imageContainerStyle}
+				/>
+			</Row>
+		)
+	}
 	render() {
 		return (
 			<View style={styles.container}>
@@ -67,38 +96,7 @@ export class Students extends React.Component {
 							{ title: "Title Text", key: "item3" },
 							{ title: "Title Text", key: "item4" }
 						]}
-						renderItem={({ item }) => (
-							<Row
-								style={styles.row}
-								leftSide={
-									<Icon
-										style={styles.arrow}
-										name="ios-arrow-back"
-										type="ionicon"
-										color="#000"
-									/>
-								}
-							>
-								<Icon
-									name="error"
-									type="ionicons"
-									color="rgb(24,199,20)"
-								/>
-								<UserWithPic
-									name="רונן רוזנטל"
-									extra={`${strings(
-										"teacher.students.lesson_num"
-									)}: 13`}
-									nameStyle={styles.nameStyle}
-									width={54}
-									height={54}
-									style={styles.userWithPic}
-									imageContainerStyle={
-										styles.imageContainerStyle
-									}
-								/>
-							</Row>
-						)}
+						renderItem={this.renderItem}
 					/>
 				</View>
 			</View>

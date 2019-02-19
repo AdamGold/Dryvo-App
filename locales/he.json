@@ -43,8 +43,8 @@
 			"date": "תאריך",
 			"hour": "שעה",
 			"name_of_student": "שם התלמיד/ה",
-			"meetup": "מקום איסוף",
-			"dropoff": "מקום הורדה",
+			"meetup": "איסוף",
+			"dropoff": "הורדה",
 			"topics": "נושאים",
 			"new_lesson": "יצירת שיעור"
 		},
@@ -53,6 +53,9 @@
 			"lesson_num": "מספר שיעורים",
 			"cancel": "ביטול",
 			"add": "הוספת תלמיד/ה"
+		},
+		"schedule": {
+			"calendar": "לוח שנה"
 		}
 	},
 	"date": {

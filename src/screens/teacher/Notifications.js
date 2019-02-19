@@ -16,6 +16,19 @@ export class Notifications extends React.Component {
 			tabBarTestID: "NotificationsTab"
 		}
 	}
+	renderItem = item => {
+		return (
+			<Notification
+				style={styles.notification}
+				name="חגית שטיין"
+				type="new_lesson"
+				date="10.02"
+				hours="10:00-10:40"
+			>
+				<NotificationButtons />
+			</Notification>
+		)
+	}
 	render() {
 		return (
 			<View style={styles.container}>
@@ -23,17 +36,7 @@ export class Notifications extends React.Component {
 					<PageTitle title={strings("teacher.notifications.title")} />
 					<FlatList
 						data={[{ title: "Title Text", key: "item1" }]}
-						renderItem={({ item }) => (
-							<Notification
-								style={styles.notification}
-								name="חגית שטיין"
-								type="new_lesson"
-								date="10.02"
-								hours="10:00-10:40"
-							>
-								<NotificationButtons />
-							</Notification>
-						)}
+						renderItem={this.renderItem}
 					/>
 				</View>
 			</View>

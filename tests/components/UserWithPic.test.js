@@ -15,7 +15,7 @@ describe("UserWithPic", () => {
 					height={100}
 					img={url}
 					nameStyle={{ maxHeight: 30 }}
-					extra="test"
+					extra={<Text>test</Text>}
 					name="test"
 				/>
 			)

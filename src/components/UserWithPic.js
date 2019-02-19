@@ -27,7 +27,7 @@ export default class UserWithPic extends React.Component {
 					<Text style={{ ...styles.name, ...this.props.nameStyle }}>
 						{this.props.name}
 					</Text>
-					<Text>{this.props.extra}</Text>
+					<View>{this.props.extra}</View>
 				</View>
 			</View>
 		)

@@ -45,9 +45,11 @@ exports[`UserWithPic view renders correctly 1`] = `
     >
       test
     </Text>
-    <Text>
-      test
-    </Text>
+    <View>
+      <Text>
+        test
+      </Text>
+    </View>
   </View>
 </View>
 `;

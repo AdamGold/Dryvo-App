@@ -1,6 +1,5 @@
 import React from "react"
-import { View, Text, Button, StyleSheet, FlatList } from "react-native"
-import { logout } from "../../actions/auth"
+import { View, StyleSheet, FlatList } from "react-native"
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
 import Notification from "../../components/Notification"
@@ -15,6 +14,10 @@ export class Notifications extends React.Component {
 			tabBarAccessibilityLabel: strings("tabs.notifications_title"),
 			tabBarTestID: "NotificationsTab"
 		}
+	}
+	constructor(props) {
+		// only here for the test suite to work
+		super(props)
 	}
 	renderItem = item => {
 		return (

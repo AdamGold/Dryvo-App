@@ -136,9 +136,11 @@ exports[`Notifications view renders correctly 1`] = `
                 >
                   חגית שטיין
                 </Text>
-                <Text>
-                  רוצה לקבוע שיעור
-                </Text>
+                <View>
+                  <Text>
+                    רוצה לקבוע שיעור
+                  </Text>
+                </View>
               </View>
             </View>
             <View

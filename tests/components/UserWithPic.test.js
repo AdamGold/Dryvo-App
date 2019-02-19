@@ -1,5 +1,5 @@
 import React from "react"
-
+import { Text } from "react-native"
 import renderer from "react-test-renderer"
 
 import UserWithPic from "../../src/components/UserWithPic"

@@ -14,7 +14,7 @@ import Row from "../../components/Row"
 import UserWithPic from "../../components/UserWithPic"
 import Separator from "../../components/Separator"
 import { Icon } from "react-native-elements"
-import { MAIN_PADDING } from "../../consts"
+import { MAIN_PADDING, calendarTheme } from "../../consts"
 
 export class ChooseDate extends React.Component {
 	constructor(props) {
@@ -23,28 +23,35 @@ export class ChooseDate extends React.Component {
 			selected: new Date().toJSON().slice(0, 10)
 		}
 	}
+	renderArrow = direction => (
+		<Icon
+			name={
+				direction === "left"
+					? "keyboard-arrow-right"
+					: "keyboard-arrow-left"
+			}
+			type="material"
+		/>
+	)
+	renderItem = item => (
+		<Row
+			style={styles.lessonRow}
+			leftSide={<Text style={styles.hour}>13:00-13:40</Text>}
+		>
+			<UserWithPic
+				name={item.title}
+				nameStyle={styles.nameStyle}
+				width={42}
+				height={42}
+			/>
+		</Row>
+	)
 	render() {
 		return (
 			<View style={styles.container}>
 				<CalendarList
 					style={styles.calendar}
-					theme={{
-						textSectionTitleColor: "#000",
-						dayTextColor: "#000",
-						textDisabledColor: "rgb(155,155,155)",
-						textDayFontFamily: "Assistant",
-						textMonthFontFamily: "Assistant",
-						textDayHeaderFontFamily: "Assistant",
-						todayTextColor: "#000",
-						selectedDayTextColor: "#fff",
-						selectedDayBackgroundColor: "rgb(12,116,244)",
-						textMonthFontWeight: "bold",
-						textDayFontWeight: "500",
-						selectedDayfontWeight: "bold",
-						textDayFontSize: 16,
-						textMonthFontSize: 16,
-						textDayHeaderFontSize: 16
-					}}
+					theme={calendarTheme}
 					// Enable horizontal scrolling, default = false
 					horizontal={true}
 					// Enable paging on horizontal, default = false
@@ -65,16 +72,7 @@ export class ChooseDate extends React.Component {
 					}}
 					// Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
 					monthFormat={"MMMM"}
-					renderArrow={direction => (
-						<Icon
-							name={
-								direction === "left"
-									? "keyboard-arrow-right"
-									: "keyboard-arrow-left"
-							}
-							type="material"
-						/>
-					)}
+					renderArrow={this.renderArrow}
 					hideArrows={false}
 					// Do not show days of other months in month page.
 					hideExtraDays={false}
@@ -91,23 +89,7 @@ export class ChooseDate extends React.Component {
 								{ title: "רועי ונונו", key: "item1" },
 								{ title: "דוד אמסלם", key: "item2" }
 							]}
-							renderItem={({ item }) => (
-								<Row
-									style={styles.lessonRow}
-									leftSide={
-										<Text style={styles.hour}>
-											13:00-13:40
-										</Text>
-									}
-								>
-									<UserWithPic
-										name={item.title}
-										nameStyle={styles.nameStyle}
-										width={42}
-										height={42}
-									/>
-								</Row>
-							)}
+							renderItem={this.renderItem}
 						/>
 					</ShadowRect>
 				</View>

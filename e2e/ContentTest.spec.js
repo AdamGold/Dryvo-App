@@ -33,6 +33,12 @@ describe("Content test", () => {
 		await element(by.id("addStudentButton")).tap()
 		await expect(element(by.id("StudentsSearchView"))).toBeVisible()
 		await element(by.label("return")).tap() // close keyboard
+		await element(by.id("ScheduleTab")).tap()
+	})
+
+	it("should have schedule view with calendar", async () => {
+		await expect(element(by.id("ScheduleView"))).toBeVisible()
+		// TODO add more logic
 		await element(by.id("NewLessonTab")).tap()
 	})
 

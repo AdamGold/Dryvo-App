@@ -67,23 +67,25 @@ export class Home extends React.Component {
 						/>
 					</Row>
 				</ShadowRect>
-				<TouchableHighlight
-					onPress={() => {
-						this.props.navigation.navigate("Students")
-					}}
-				>
-					<View style={styles.fullScheduleView}>
+
+				<View style={styles.fullScheduleView}>
+					<TouchableHighlight
+						underlayColor="lightgray"
+						onPress={() => {
+							this.props.navigation.navigate("Students")
+						}}
+					>
 						<Text style={styles.fullSchedule}>
 							{strings("teacher.home.full_schedule")}
 						</Text>
-						<Icon
-							size={20}
-							color="rgb(12, 116, 244)"
-							name="ios-arrow-dropleft-circle"
-							type="ionicon"
-						/>
-					</View>
-				</TouchableHighlight>
+					</TouchableHighlight>
+					<Icon
+						size={20}
+						color="rgb(12, 116, 244)"
+						name="ios-arrow-dropleft-circle"
+						type="ionicon"
+					/>
+				</View>
 				<ShadowRect>
 					<View style={{ flex: 1, flexDirection: "row" }}>
 						<Text testID="monthlyAmount" style={styles.rectTitle}>

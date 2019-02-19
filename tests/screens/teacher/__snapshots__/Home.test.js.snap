@@ -134,7 +134,7 @@ exports[`Home view renders correctly 1`] = `
             >
               רונן רוזנטל
             </Text>
-            <Text />
+            <View />
           </View>
         </View>
         <View
@@ -229,7 +229,7 @@ exports[`Home view renders correctly 1`] = `
             >
               שי גל
             </Text>
-            <Text />
+            <View />
           </View>
         </View>
         <View
@@ -249,27 +249,27 @@ exports[`Home view renders correctly 1`] = `
       </View>
     </View>
     <View
-      accessible={true}
-      isTVSelectable={true}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={null}
+      style={
+        Object {
+          "alignItems": "center",
+          "alignSelf": "center",
+          "flex": 1,
+          "flexDirection": "row",
+          "marginBottom": 24,
+          "marginTop": 24,
+        }
+      }
     >
       <View
-        style={
-          Object {
-            "alignItems": "center",
-            "alignSelf": "center",
-            "flex": 1,
-            "flexDirection": "row",
-            "marginBottom": 24,
-            "marginTop": 24,
-          }
-        }
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={null}
       >
         <Text
           style={
@@ -283,78 +283,78 @@ exports[`Home view renders correctly 1`] = `
         >
           לו״ז מלא
         </Text>
-        <View>
-          <View
-            style={
-              Object {
-                "alignItems": "center",
-                "backgroundColor": "transparent",
-                "justifyContent": "center",
-              }
+      </View>
+      <View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "transparent",
+              "justifyContent": "center",
             }
-            theme={
-              Object {
-                "colors": Object {
-                  "disabled": "hsl(208, 8%, 90%)",
-                  "divider": "#bcbbc1",
-                  "error": "#ff190c",
-                  "grey0": "#393e42",
-                  "grey1": "#43484d",
-                  "grey2": "#5e6977",
-                  "grey3": "#86939e",
-                  "grey4": "#bdc6cf",
-                  "grey5": "#e1e8ee",
-                  "greyOutline": "#bbb",
-                  "platform": Object {
-                    "android": Object {
-                      "error": "#f44336",
-                      "primary": "#2196f3",
-                      "secondary": "#9C27B0",
-                      "success": "#4caf50",
-                      "warning": "#ffeb3b",
-                    },
-                    "ios": Object {
-                      "error": "#ff3b30",
-                      "primary": "#007aff",
-                      "secondary": "#5856d6",
-                      "success": "#4cd964",
-                      "warning": "#ffcc00",
-                    },
+          }
+          theme={
+            Object {
+              "colors": Object {
+                "disabled": "hsl(208, 8%, 90%)",
+                "divider": "#bcbbc1",
+                "error": "#ff190c",
+                "grey0": "#393e42",
+                "grey1": "#43484d",
+                "grey2": "#5e6977",
+                "grey3": "#86939e",
+                "grey4": "#bdc6cf",
+                "grey5": "#e1e8ee",
+                "greyOutline": "#bbb",
+                "platform": Object {
+                  "android": Object {
+                    "error": "#f44336",
+                    "primary": "#2196f3",
+                    "secondary": "#9C27B0",
+                    "success": "#4caf50",
+                    "warning": "#ffeb3b",
                   },
-                  "primary": "#2089dc",
-                  "searchBg": "#303337",
-                  "secondary": "#8F0CE8",
-                  "success": "#52c41a",
-                  "warning": "#faad14",
+                  "ios": Object {
+                    "error": "#ff3b30",
+                    "primary": "#007aff",
+                    "secondary": "#5856d6",
+                    "success": "#4cd964",
+                    "warning": "#ffcc00",
+                  },
                 },
-              }
+                "primary": "#2089dc",
+                "searchBg": "#303337",
+                "secondary": "#8F0CE8",
+                "success": "#52c41a",
+                "warning": "#faad14",
+              },
             }
-            underlayColor="white"
+          }
+          underlayColor="white"
+        >
+          <Text
+            allowFontScaling={false}
+            style={
+              Array [
+                Object {
+                  "color": "rgb(12, 116, 244)",
+                  "fontSize": 20,
+                },
+                Object {
+                  "backgroundColor": "transparent",
+                },
+                Object {
+                  "fontFamily": "Ionicons",
+                  "fontStyle": "normal",
+                  "fontWeight": "normal",
+                },
+                Object {},
+              ]
+            }
+            testID="iconIcon"
           >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": "rgb(12, 116, 244)",
-                    "fontSize": 20,
-                  },
-                  Object {
-                    "backgroundColor": "transparent",
-                  },
-                  Object {
-                    "fontFamily": "Ionicons",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
-                ]
-              }
-              testID="iconIcon"
-            >
-              
-            </Text>
-          </View>
+            
+          </Text>
         </View>
       </View>
     </View>
@@ -580,7 +580,7 @@ exports[`Home view renders correctly 1`] = `
             >
               רונן רוזנטל
             </Text>
-            <Text />
+            <View />
           </View>
         </View>
         <View
@@ -658,7 +658,7 @@ exports[`Home view renders correctly 1`] = `
             >
               רונן רוזנטל
             </Text>
-            <Text />
+            <View />
           </View>
         </View>
         <View

@@ -251,12 +251,7 @@ class NewLesson extends React.Component {
 						ref={touchable => (this._touchable = touchable)}
 					>
 						<View testID="finishButton" style={styles.submitButton}>
-							<Icon
-								name="ios-done-all"
-								type="ionicon"
-								size={36}
-								color="#fff"
-							/>
+							<Text>{strings("teacher.new_lesson.done")}</Text>
 						</View>
 					</TouchableHighlight>
 				</KeyboardAvoidingView>

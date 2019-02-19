@@ -24,7 +24,7 @@ export default class Notification extends React.Component {
 				>
 					<UserWithPic
 						name={this.props.name}
-						extra={extras[this.props.type]}
+						extra={<Text>{extras[this.props.type]}</Text>}
 						width={54}
 						height={54}
 					/>

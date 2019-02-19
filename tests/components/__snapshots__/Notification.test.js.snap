@@ -54,9 +54,11 @@ Array [
         >
           test
         </Text>
-        <Text>
-          רוצה לקבוע שיעור
-        </Text>
+        <View>
+          <Text>
+            רוצה לקבוע שיעור
+          </Text>
+        </View>
       </View>
     </View>
     <View

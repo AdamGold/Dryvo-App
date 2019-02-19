@@ -13,8 +13,8 @@ exports[`Students view renders correctly 1`] = `
       Object {
         "flex": 1,
         "marginTop": 20,
-        "paddingLeft": 20,
-        "paddingRight": 30,
+        "paddingLeft": 26,
+        "paddingRight": 26,
       }
     }
     testID="StudentsView"
@@ -501,9 +501,13 @@ exports[`Students view renders correctly 1`] = `
                 >
                   רונן רוזנטל
                 </Text>
-                <Text>
-                  מספר שיעורים: 13
-                </Text>
+                <View>
+                  <Text>
+                    $
+                    מספר שיעורים
+                    : 13
+                  </Text>
+                </View>
               </View>
             </View>
             <View
@@ -732,9 +736,13 @@ exports[`Students view renders correctly 1`] = `
                 >
                   רונן רוזנטל
                 </Text>
-                <Text>
-                  מספר שיעורים: 13
-                </Text>
+                <View>
+                  <Text>
+                    $
+                    מספר שיעורים
+                    : 13
+                  </Text>
+                </View>
               </View>
             </View>
             <View
@@ -963,9 +971,13 @@ exports[`Students view renders correctly 1`] = `
                 >
                   רונן רוזנטל
                 </Text>
-                <Text>
-                  מספר שיעורים: 13
-                </Text>
+                <View>
+                  <Text>
+                    $
+                    מספר שיעורים
+                    : 13
+                  </Text>
+                </View>
               </View>
             </View>
             <View
@@ -1194,9 +1206,13 @@ exports[`Students view renders correctly 1`] = `
                 >
                   רונן רוזנטל
                 </Text>
-                <Text>
-                  מספר שיעורים: 13
-                </Text>
+                <View>
+                  <Text>
+                    $
+                    מספר שיעורים
+                    : 13
+                  </Text>
+                </View>
               </View>
             </View>
             <View

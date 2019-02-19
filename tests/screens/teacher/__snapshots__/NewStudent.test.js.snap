@@ -504,7 +504,7 @@ exports[`Students view renders correctly 1`] = `
                 >
                   רונן רוזנטל
                 </Text>
-                <Text />
+                <View />
               </View>
             </View>
             <View

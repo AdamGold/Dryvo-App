@@ -43,9 +43,10 @@
 			"date": "תאריך",
 			"hour": "שעה",
 			"name_of_student": "שם התלמיד/ה",
-			"meetup": "מקום איסוף",
-			"dropoff": "מקום הורדה",
-			"topics": "נושאים"
+			"meetup": "איסוף",
+			"dropoff": "הורדה",
+			"topics": "נושאים",
+			"done": "יצירת שיעור"
 		},
 		"students": {
 			"search": "חיפוש תלמיד",

@@ -1,5 +1,5 @@
 import React from "react"
-
+import { Text } from "react-native"
 import renderer from "react-test-renderer"
 
 import UserWithPic from "../../src/components/UserWithPic"
@@ -15,7 +15,7 @@ describe("UserWithPic", () => {
 					height={100}
 					img={url}
 					nameStyle={{ maxHeight: 30 }}
-					extra="test"
+					extra={<Text>test</Text>}
 					name="test"
 				/>
 			)

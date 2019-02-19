@@ -13,6 +13,7 @@ import PageTitle from "../../components/PageTitle"
 import UserWithPic from "../../components/UserWithPic"
 import { Icon, SearchBar } from "react-native-elements"
 import FlatButton from "../../components/FlatButton"
+import { MAIN_PADDING } from "../../consts"
 
 export class Students extends React.Component {
 	constructor(props) {
@@ -110,8 +111,8 @@ const styles = StyleSheet.create({
 	},
 	students: {
 		flex: 1,
-		paddingRight: 30,
-		paddingLeft: 20,
+		paddingRight: MAIN_PADDING,
+		paddingLeft: MAIN_PADDING,
 		marginTop: 20
 	},
 	title: { marginBottom: 0 },

@@ -46,16 +46,13 @@
 			"meetup": "איסוף",
 			"dropoff": "הורדה",
 			"topics": "נושאים",
-			"new_lesson": "יצירת שיעור"
+			"done": "יצירת שיעור"
 		},
 		"students": {
 			"search": "חיפוש תלמיד",
 			"lesson_num": "מספר שיעורים",
 			"cancel": "ביטול",
 			"add": "הוספת תלמיד/ה"
-		},
-		"schedule": {
-			"calendar": "לוח שנה"
 		}
 	},
 	"date": {

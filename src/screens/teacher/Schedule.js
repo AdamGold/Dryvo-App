@@ -86,7 +86,7 @@ export class Schedule extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<View testID="StudentsView" style={styles.students}>
+				<View testID="ScheduleView" style={styles.schedule}>
 					<Agenda
 						items={{
 							"2019-02-19": [
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
 		color: "rgb(12,116,244)",
 		marginTop: 6
 	},
-	students: {
+	schedule: {
 		flex: 1,
 		paddingRight: MAIN_PADDING,
 		paddingLeft: MAIN_PADDING,

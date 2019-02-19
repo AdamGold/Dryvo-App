@@ -13,8 +13,8 @@ exports[`Students view renders correctly 1`] = `
       Object {
         "flex": 1,
         "marginTop": 20,
-        "paddingLeft": 20,
-        "paddingRight": 30,
+        "paddingLeft": 26,
+        "paddingRight": 26,
       }
     }
     testID="StudentsView"

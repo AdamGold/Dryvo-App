@@ -37,7 +37,9 @@ export class Home extends React.Component {
 						}}
 					/>
 					<Text style={styles.welcomeText}>
-						{strings("teacher.home.welcome", { name: "משה" })}
+						{strings("teacher.home.welcome", {
+							name: this.props.user["name"]
+						})}
 					</Text>
 				</View>
 				<ShadowRect style={styles.schedule}>
@@ -72,7 +74,7 @@ export class Home extends React.Component {
 					<TouchableHighlight
 						underlayColor="lightgray"
 						onPress={() => {
-							this.props.navigation.navigate("Students")
+							this.props.navigation.navigate("Schedule")
 						}}
 					>
 						<Text style={styles.fullSchedule}>
@@ -204,4 +206,10 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default connect()(Home)
+function mapStateToProps(state) {
+	return {
+		user: state.user
+	}
+}
+
+export default connect(mapStateToProps)(Home)

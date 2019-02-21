@@ -6,7 +6,7 @@ import { TOKEN_KEY } from "../../consts"
 import { loadFetchService } from "../../actions/utils"
 import { fetchUser, logout } from "../../actions/auth"
 
-class AuthLoading extends React.Component {
+export class AuthLoading extends React.Component {
 	constructor(props) {
 		super(props)
 		this._bootstrapAsync()
@@ -15,9 +15,10 @@ class AuthLoading extends React.Component {
 	// Fetch the token from storage then navigate to our appropriate place
 	_bootstrapAsync = async () => {
 		this.props.dispatch(loadFetchService())
-		this.props.dispatch(
-			fetchUser((user = null) => {
-				if (user === null) this.props.dispatch(logout())
+		await this.props.dispatch(
+			fetchUser(async (user = null) => {
+				if (user === null) await this.props.dispatch(logout())
+				// logging out just to make sure
 				this.props.navigation.navigate(user ? "App" : "Auth")
 			})
 		)

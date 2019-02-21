@@ -1,6 +1,6 @@
 import React from "react"
 import { View, Text, Button, StyleSheet } from "react-native"
-import { logout } from "../actions/auth"
+import { logout } from "../../actions/auth"
 import { connect } from "react-redux"
 
 class Home extends React.Component {
@@ -20,7 +20,11 @@ class Home extends React.Component {
 		return (
 			<View style={styles.container}>
 				<Text>Hi!</Text>
-				<Button onPress={this.logout} title="התנתק" />
+				<Button
+					onPress={this.logout}
+					testID="logoutButton"
+					title="התנתק"
+				/>
 			</View>
 		)
 	}

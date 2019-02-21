@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`UserWithPic view renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+      "flexDirection": "row",
+      "width": 100,
+    }
+  }
+>
+  <View>
+    <Image
+      source={
+        Object {
+          "uri": "http://example.com",
+        }
+      }
+      style={
+        Object {
+          "borderRadius": 50,
+          "height": 100,
+          "width": 100,
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "flex-start",
+        "flexDirection": "column",
+        "marginLeft": 16,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "fontWeight": "bold",
+          "maxHeight": 30,
+        }
+      }
+    >
+      test
+    </Text>
+    <View>
+      <Text>
+        test
+      </Text>
+    </View>
+  </View>
+</View>
+`;

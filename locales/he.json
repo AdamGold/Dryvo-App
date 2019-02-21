@@ -1,0 +1,95 @@
+{
+	"tabs": {
+		"home": "בית",
+		"notifications_title": "התראות",
+		"add": "הוספת שיעור",
+		"students": "התלמידים שלי"
+	},
+	"default_error": "קרתה תקלה, אנא נסו שנית.",
+	"edit": "עריכה",
+	"approve": "אישור",
+	"postpone": "דחייה",
+	"signup": {
+		"name": "שם מלא",
+		"area": "עיר מגורים",
+		"signup_button": "הרשמה"
+	},
+	"signin": {
+		"login_button": "התחברות",
+		"signup_button": "הרשמה",
+		"facebook_login": "התחבר עם Facebook",
+		"email": "אימייל",
+		"password": "סיסמה",
+		"invalid_email": "האימייל אינו תקני.",
+		"invalid_password": "סיסמתך צריכה לכלו חמישה תווים לפחות.",
+		"invalid_field": "שדה זה הוא חובה."
+	},
+	"teacher": {
+		"home": {
+			"current_lesson": "שיעור נוכחי",
+			"next_lesson": "שיעור הבא",
+			"monthly_amount": "סכום חודשי",
+			"welcome": "שלום, {{name}}",
+			"full_schedule": "לו״ז מלא",
+			"add_payment": "הוסף תשלום"
+		},
+		"notifications": {
+			"new_lesson": "רוצה לקבוע שיעור",
+			"title": "התראות"
+		},
+		"new_lesson": {
+			"title": "הוספת שיעור",
+			"continue": "המשיכו",
+			"date": "תאריך",
+			"hour": "שעה",
+			"name_of_student": "שם התלמיד/ה",
+			"meetup": "איסוף",
+			"dropoff": "הורדה",
+			"topics": "נושאים",
+			"done": "יצירת שיעור"
+		},
+		"students": {
+			"search": "חיפוש תלמיד",
+			"lesson_num": "מספר שיעורים",
+			"cancel": "ביטול",
+			"add": "הוספת תלמיד/ה"
+		}
+	},
+	"date": {
+		"formats": {
+			"short": "%A, %d %B"
+		},
+		"day_names": ["ראשון", "שני", "שלישי", "רביעי", "חמישי", "שישי", "שבת"],
+		"abbr_day_names": ["א", "ב", "ג", "ד", "ה", "ו", "ש"],
+		"month_names": [
+			null,
+			"ינואר",
+			"פברואר",
+			"מרץ",
+			"אפריל",
+			"מאי",
+			"יוני",
+			"יולי",
+			"אוגוסט",
+			"ספטמבר",
+			"אוקטובר",
+			"נובמבר",
+			"דצמבר"
+		],
+		"abbr_month_names": [
+			null,
+			"ינו.",
+			"פבר.",
+			"מרץ",
+			"אפר.",
+			"מאי",
+			"יוני",
+			"יולי",
+			"אוג.",
+			"ספט.",
+			"אוק.",
+			"נוב.",
+			"דצב."
+		]
+	}
+}

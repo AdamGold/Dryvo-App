@@ -1,0 +1,330 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Notifications view renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "flex": 1,
+        "marginTop": 20,
+        "paddingLeft": 30,
+        "paddingRight": 30,
+      }
+    }
+    testID="NotificationsView"
+  >
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "alignSelf": "flex-start",
+            "fontSize": 20,
+            "fontWeight": "bold",
+            "marginBottom": 20,
+          }
+        }
+      >
+        התראות
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "flex-end",
+            "flex": 1,
+            "marginLeft": "auto",
+            "marginTop": -5,
+          }
+        }
+      />
+    </View>
+    <RCTScrollView
+      data={
+        Array [
+          Object {
+            "key": "item1",
+            "title": "Title Text",
+          },
+        ]
+      }
+      disableVirtualization={false}
+      getItem={[Function]}
+      getItemCount={[Function]}
+      horizontal={false}
+      initialNumToRender={10}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      numColumns={1}
+      onContentSizeChange={[Function]}
+      onEndReachedThreshold={2}
+      onLayout={[Function]}
+      onMomentumScrollEnd={[Function]}
+      onScroll={[Function]}
+      onScrollBeginDrag={[Function]}
+      onScrollEndDrag={[Function]}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      stickyHeaderIndices={Array []}
+      updateCellsBatchingPeriod={50}
+      viewabilityConfigCallbackPairs={Array []}
+      windowSize={21}
+    >
+      <View>
+        <View
+          onLayout={[Function]}
+          style={null}
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "flex": 1,
+                "flexDirection": "row",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "flex": 1,
+                  "flexDirection": "row",
+                }
+              }
+            >
+              <View>
+                <Image
+                  source={
+                    Object {
+                      "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+                    }
+                  }
+                  style={
+                    Object {
+                      "borderRadius": 27,
+                      "height": 54,
+                      "width": 54,
+                    }
+                  }
+                />
+              </View>
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                    "flexDirection": "column",
+                    "marginLeft": 16,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "fontWeight": "bold",
+                    }
+                  }
+                >
+                  חגית שטיין
+                </Text>
+                <View>
+                  <Text>
+                    רוצה לקבוע שיעור
+                  </Text>
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "alignItems": "flex-end",
+                  "flex": 1,
+                  "marginRight": "auto",
+                  "marginTop": -8,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "flex": 1,
+                    "marginTop": 5,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "fontFamily": "Assistant-Light",
+                      "fontSize": 22,
+                    }
+                  }
+                >
+                  10.02
+                </Text>
+                <Text
+                  style={
+                    Object {
+                      "color": "rgb(12, 116, 244)",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                    }
+                  }
+                >
+                  10:00-10:40
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "flex": 1,
+                "flexDirection": "row",
+                "justifyContent": "space-between",
+                "marginTop": 16,
+              }
+            }
+          >
+            <View
+              accessible={true}
+              isTVSelectable={true}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "flex": 0.33,
+                }
+              }
+              testID="approve"
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "rgb(12,116,244)",
+                    "borderRadius": 3,
+                    "padding": 8,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "color": "#fff",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                    }
+                  }
+                >
+                  אישור
+                </Text>
+              </View>
+            </View>
+            <View
+              accessible={true}
+              isTVSelectable={true}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "flex": 0.33,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "rgb(197,197,197)",
+                    "borderRadius": 3,
+                    "padding": 8,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "color": "#fff",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                    }
+                  }
+                >
+                  עריכה
+                </Text>
+              </View>
+            </View>
+            <View
+              accessible={true}
+              isTVSelectable={true}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "flex": 0.33,
+                }
+              }
+            >
+              <View
+                style={
+                  Object {
+                    "alignItems": "center",
+                    "backgroundColor": "rgb(240,8,48)",
+                    "borderRadius": 3,
+                    "padding": 8,
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "color": "#fff",
+                      "fontSize": 14,
+                      "fontWeight": "bold",
+                    }
+                  }
+                >
+                  דחייה
+                </Text>
+              </View>
+            </View>
+          </View>
+          <View
+            style={
+              Object {
+                "borderBottomColor": "rgb(212, 212, 212)",
+                "borderBottomWidth": 1,
+                "marginBottom": 20,
+                "marginTop": 20,
+                "width": "100%",
+              }
+            }
+          />
+        </View>
+      </View>
+    </RCTScrollView>
+  </View>
+</View>
+`;

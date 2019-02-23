@@ -1,11 +1,12 @@
-import React from "react"
+import React, { Fragment } from "react"
 import {
 	ScrollView,
 	View,
 	Text,
 	Image,
 	StyleSheet,
-	TouchableHighlight
+	TouchableHighlight,
+	FlatList
 } from "react-native"
 import { connect } from "react-redux"
 import ShadowRect from "../../components/ShadowRect"
@@ -14,6 +15,7 @@ import { strings } from "../../i18n"
 import Row from "../../components/Row"
 import Separator from "../../components/Separator"
 import { Icon } from "react-native-elements"
+import moment from "moment"
 
 export class Home extends React.Component {
 	static navigationOptions = () => {
@@ -25,7 +27,102 @@ export class Home extends React.Component {
 		}
 	}
 
+	constructor(props) {
+		super(props)
+		this.state = {
+			items: [],
+			payments: []
+		}
+
+		this._getItems()
+		this._getPayments()
+	}
+
+	_getItems = async () => {
+		const now = new Date().toISOString()
+		const resp = await this.props.fetchService.fetch(
+			"/lessons/?limit=2&is_approved=true&date=ge:" + now,
+			{ method: "GET" }
+		)
+		this.setState({
+			items: [...this.state.items, ...resp.json["data"]]
+		})
+	}
+
+	_getPayments = async () => {
+		const date = new Date()
+		var firstDay = new Date(date.getFullYear(), date.getMonth(), 1)
+		var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0)
+		const resp = await this.props.fetchService.fetch(
+			"/lessons/payments?order_by=created_at desc&created_at=ge:" +
+				firstDay.toISOString() +
+				"&created_at=le:" +
+				lastDay.toISOString(),
+			{ method: "GET" }
+		)
+		this.setState({
+			payments: [...this.state.payments, ...resp.json["data"]]
+		})
+	}
+
+	renderItem = ({ item, index }) => {
+		const date = item.date
+		return (
+			<Row
+				key={`item${item.id}`}
+				style={styles.lessonRow}
+				leftSide={
+					<Text style={styles.hour}>
+						{moment(date).format("HH:mm")} -{" "}
+						{moment(date)
+							.add(item.duration, "minutes")
+							.format("HH:mm")}
+					</Text>
+				}
+			>
+				<UserWithPic
+					name={item.student.user.name}
+					nameStyle={styles.nameStyle}
+				/>
+			</Row>
+		)
+	}
+
+	renderPaymentItem = ({ item, index }) => {
+		let firstItemStyles = {}
+		if (index == 0) {
+			firstItemStyles = { marginTop: 0 }
+		}
+		return (
+			<Row
+				style={{ ...styles.paymentRow, ...firstItemStyles }}
+				leftSide={
+					<Text style={styles.amountOfStudent}>{item.amount}₪</Text>
+				}
+			>
+				<UserWithPic
+					name={item.student.user.name}
+					nameStyle={styles.nameStyle}
+				/>
+			</Row>
+		)
+	}
+
+	lessonsSeperator = () => {
+		return (
+			<Fragment>
+				<Separator />
+				<Text style={styles.rectTitle}>
+					{strings("teacher.home.next_lesson")}
+				</Text>
+			</Fragment>
+		)
+	}
 	render() {
+		var sum = 0
+		for (var i = 0, _len = this.state.payments.length; i < _len; i++) {
+			sum += this.state.payments[i]["amount"]
+		}
 		return (
 			<ScrollView style={styles.container}>
 				<View testID="welcomeHeader" style={styles.welcomeHeader}>
@@ -46,28 +143,12 @@ export class Home extends React.Component {
 					<Text style={styles.rectTitle} testID="schedule">
 						{strings("teacher.home.current_lesson")}
 					</Text>
-					<Row
-						style={styles.lessonRow}
-						leftSide={<Text style={styles.hour}>13:00-13:40</Text>}
-					>
-						<UserWithPic
-							name="רונן רוזנטל"
-							nameStyle={styles.nameStyle}
-						/>
-					</Row>
-					<Separator />
-					<Text style={styles.rectTitle}>
-						{strings("teacher.home.next_lesson")}
-					</Text>
-					<Row
-						style={styles.lessonRow}
-						leftSide={<Text style={styles.hour}>13:00-13:40</Text>}
-					>
-						<UserWithPic
-							name="שי גל"
-							nameStyle={styles.nameStyle}
-						/>
-					</Row>
+					<FlatList
+						data={this.state.items}
+						renderItem={this.renderItem}
+						ItemSeparatorComponent={this.lessonsSeperator}
+						keyExtractor={item => `item${item.id}`}
+					/>
 				</ShadowRect>
 
 				<View style={styles.fullScheduleView}>
@@ -104,34 +185,17 @@ export class Home extends React.Component {
 						</View>
 					</View>
 					<View style={styles.amountView}>
-						<Text style={styles.amount}>13,800₪</Text>
+						<Text style={styles.amount}>{sum}₪</Text>
 						<Text style={styles.addPayment}>
 							{strings("teacher.home.add_payment")}
 						</Text>
 					</View>
 					<Separator />
-					<Row
-						style={{ ...styles.lessonRow, ...{ marginTop: 0 } }}
-						leftSide={
-							<Text style={styles.amountOfStudent}>200₪</Text>
-						}
-					>
-						<UserWithPic
-							name="רונן רוזנטל"
-							nameStyle={styles.nameStyle}
-						/>
-					</Row>
-					<Row
-						style={styles.lessonRow}
-						leftSide={
-							<Text style={styles.amountOfStudent}>200₪</Text>
-						}
-					>
-						<UserWithPic
-							name="רונן רוזנטל"
-							nameStyle={styles.nameStyle}
-						/>
-					</Row>
+					<FlatList
+						data={this.state.payments.slice(0, 2)}
+						renderItem={this.renderPaymentItem}
+						keyExtractor={item => `item${item.id}`}
+					/>
 				</ShadowRect>
 			</ScrollView>
 		)
@@ -203,12 +267,17 @@ const styles = StyleSheet.create({
 	},
 	nameStyle: {
 		marginTop: 4
+	},
+	paymentRow: {
+		maxHeight: 34,
+		marginTop: 20
 	}
 })
 
 function mapStateToProps(state) {
 	return {
-		user: state.user
+		user: state.user,
+		fetchService: state.fetchService
 	}
 }
 

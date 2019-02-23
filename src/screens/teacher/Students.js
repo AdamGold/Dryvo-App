@@ -27,7 +27,7 @@ export class Students extends React.Component {
 	updateSearch = search => {
 		this.setState({ search })
 	}
-	renderItem = item => {
+	renderItem = ({ item, index }) => {
 		return (
 			<Row
 				style={styles.row}

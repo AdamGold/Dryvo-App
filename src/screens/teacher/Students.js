@@ -19,17 +19,47 @@ export class Students extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			search: ""
+			search: "",
+			students: [],
+			page: 1,
+			nextUrl: ""
 		}
 		this.updateSearch = this.updateSearch.bind(this)
+		this._getStudents = this._getStudents.bind(this)
+
+		this._getStudents()
+	}
+
+	_constructAPIUrl = (extra = "") => {
+		if (extra) extra = "&" + extra
+		return "/teacher/students?limit=10&page=" + this.state.page + extra
+	}
+
+	_getStudents = async () => {
+		resp = await this.props.fetchService.fetch(this._constructAPIUrl(), {
+			method: "GET"
+		})
+		this.setState({
+			students: [...this.state.students, ...resp.json["data"]],
+			nextUrl: resp.json["next_url"]
+		})
 	}
 
 	updateSearch = search => {
-		this.setState({ search })
+		this.setState({ search }, async () => {
+			resp = await this.props.fetchService.fetch(
+				this._constructAPIUrl("name=" + search),
+				{ method: "GET" }
+			)
+			this.setState({
+				students: resp.json["data"]
+			})
+		})
 	}
 	renderItem = ({ item, index }) => {
 		return (
 			<Row
+				key={`item${item.student_id}`}
 				style={styles.row}
 				leftSide={
 					<Icon
@@ -40,12 +70,12 @@ export class Students extends React.Component {
 					/>
 				}
 			>
-				<Icon name="error" type="ionicons" color="rgb(24,199,20)" />
 				<UserWithPic
-					name="רונן רוזנטל"
+					name={item.user.name}
 					extra={
 						<Text>
-							${strings("teacher.students.lesson_num")}: 13
+							{strings("teacher.students.lesson_num")}:{" "}
+							{item.new_lesson_number}
 						</Text>
 					}
 					nameStyle={styles.nameStyle}
@@ -57,6 +87,19 @@ export class Students extends React.Component {
 			</Row>
 		)
 	}
+
+	endReached = () => {
+		if (!this.state.nextUrl) return
+		this.setState(
+			{
+				page: this.state.page + 1
+			},
+			() => {
+				this._getStudents()
+			}
+		)
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -89,15 +132,13 @@ export class Students extends React.Component {
 						cancelButtonTitle={strings("teacher.students.cancel")}
 						inputStyle={styles.search}
 						textAlign="right"
+						cancelButtonTitle={""}
 					/>
 					<FlatList
-						data={[
-							{ title: "Title Text", key: "item1" },
-							{ title: "Title Text", key: "item2" },
-							{ title: "Title Text", key: "item3" },
-							{ title: "Title Text", key: "item4" }
-						]}
+						data={this.state.students}
 						renderItem={this.renderItem}
+						onEndReached={this.endReached}
+						keyExtractor={item => `item${item.student_id}`}
 					/>
 				</View>
 			</View>
@@ -153,4 +194,11 @@ const styles = StyleSheet.create({
 		marginLeft: 0
 	}
 })
-export default connect()(Students)
+
+function mapStateToProps(state) {
+	return {
+		fetchService: state.fetchService
+	}
+}
+
+export default connect(mapStateToProps)(Students)

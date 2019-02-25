@@ -14,6 +14,7 @@ import UserWithPic from "../../components/UserWithPic"
 import { Icon } from "react-native-elements"
 import Separator from "../../components/Separator"
 import { calendarTheme, MAIN_PADDING } from "../../consts"
+import moment from "moment"
 
 export class Schedule extends React.Component {
 	static navigationOptions = () => {
@@ -26,9 +27,49 @@ export class Schedule extends React.Component {
 	}
 	constructor(props) {
 		super(props)
+		const date = new Date()
 		this.state = {
-			selected: new Date().toJSON().slice(0, 10)
+			selected: date.toJSON().slice(0, 10),
+			items: {}
 		}
+		this._getItems(date)
+	}
+
+	_getItems = async date => {
+		console.log(date)
+		let timestamp
+		let dateString
+		if (date.hasOwnProperty("timestamp")) {
+			timestamp = date.timestamp
+			dateString = date.dateString
+		} else {
+			timestamp = date.getTime()
+			dateString = date.toJSON().slice(0, 10)
+		}
+		if (this.state.items.hasOwnProperty(dateString))
+			// date already exists in our list
+			return
+		const startOfDay = moment
+			.unix(timestamp / 1000) // division by 1000 to get epoch https://stackoverflow.com/questions/3367415/get-epoch-for-a-specific-date-using-javascript
+			.utc()
+			.startOf("day")
+		const endOfDay = moment
+			.unix(timestamp / 1000)
+			.utc()
+			.endOf("day")
+		const resp = await this.props.fetchService.fetch(
+			"/lessons/?is_approved=true&date=ge:" +
+				startOfDay.toISOString() +
+				"&date=le:" +
+				endOfDay.toISOString(),
+			{ method: "GET" }
+		)
+		this.setState(prevState => ({
+			items: {
+				...prevState.items,
+				[dateString]: resp.json["data"]
+			}
+		}))
 	}
 
 	renderItem = (item, firstItemInDay) => {
@@ -36,22 +77,44 @@ export class Schedule extends React.Component {
 		if (firstItemInDay) {
 			style = { marginTop: 20 }
 		}
+		const date = item.date
+		let dropoff
+		let meetup
+		if (item.dropoff_place) {
+			dropoff = (
+				<Text style={styles.places}>
+					{strings("teacher.new_lesson.dropoff")}:{" "}
+					{droitem.dropoff_place.namepoff}
+				</Text>
+			)
+		}
+		if (item.meetup_place) {
+			meetup = (
+				<Text style={styles.places}>
+					{strings("teacher.new_lesson.meetup")}:{" "}
+					{item.meetup_place.name}
+				</Text>
+			)
+		}
 		return (
 			<Row
 				style={{ ...styles.row, ...style }}
-				leftSide={<Text style={styles.hour}>10:00-10:40</Text>}
+				leftSide={
+					<Text style={styles.hour}>
+						{moment(date).format("HH:mm")} -{" "}
+						{moment(date)
+							.add(item.duration, "minutes")
+							.format("HH:mm")}
+					</Text>
+				}
 			>
 				<UserWithPic
-					name="רונן רוזנטל (שיעור 25)"
+					name={`${item.student.user.name}(${item.lesson_number})`}
 					imageContainerStyle={styles.imageContainerStyle}
 					extra={
 						<Fragment>
-							<Text style={styles.places}>
-								{strings("teacher.new_lesson.meetup")}: האומן 5
-							</Text>
-							<Text style={styles.places}>
-								{strings("teacher.new_lesson.dropoff")}: רוטשילד
-							</Text>
+							{meetup}
+							{dropoff}
 						</Fragment>
 					}
 					nameStyle={styles.nameStyle}
@@ -83,27 +146,26 @@ export class Schedule extends React.Component {
 			</View>
 		)
 	}
+
+	renderEmpty = () => {
+		return <Text>Hello empty</Text>
+	}
 	render() {
 		return (
 			<View style={styles.container}>
 				<View testID="ScheduleView" style={styles.schedule}>
 					<Agenda
-						items={{
-							"2019-02-19": [
-								{ text: "item 1 - any js object" },
-								{ text: "item 1 - any js object" }
-							],
-							"2019-02-20": [{ text: "item 3 - any js object" }]
-						}}
-						// callback that fires when the calendar is opened or closed
-						onCalendarToggled={calendarOpened => {
-							console.log(calendarOpened)
-						}}
+						items={this.state.items}
 						// callback that gets called on day press
 						onDayPress={day => {
-							this.setState({
-								selected: day.dateString
-							})
+							this.setState(
+								{
+									selected: day.dateString
+								},
+								() => {
+									this._getItems(day)
+								}
+							)
 						}}
 						// initially selected day
 						selected={Date()}
@@ -115,10 +177,9 @@ export class Schedule extends React.Component {
 						renderItem={this.renderItem}
 						// specify how each date should be rendered. day can be undefined if the item is not first in that day.
 						renderDay={(day, item) => undefined}
+						renderEmptyDate={this.renderEmpty}
 						// specify what should be rendered instead of ActivityIndicator
-						renderEmptyData={() => {
-							return <Text>Hello empty</Text>
-						}}
+						renderEmptyData={this.renderEmpty}
 						// specify your item comparison function for increased performance
 						rowHasChanged={(r1, r2) => {
 							return r1.text !== r2.text
@@ -186,4 +247,10 @@ const styles = StyleSheet.create({
 	},
 	userWithPic: { marginLeft: 10 }
 })
-export default connect()(Schedule)
+
+mapStateToProps = state => {
+	return {
+		fetchService: state.fetchService
+	}
+}
+export default connect(mapStateToProps)(Schedule)

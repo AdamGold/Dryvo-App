@@ -12,8 +12,8 @@ i18n.translations = {
 i18n.locale = "he"
 
 LocaleConfig.locales["he"] = {
-	monthNames: i18n.t("date.month_names"),
-	monthNamesShort: i18n.t("date.abbr_month_names"),
+	monthNames: i18n.t("date.month_names").slice(1),
+	monthNamesShort: i18n.t("date.abbr_month_names").slice(1),
 	dayNames: i18n.t("date.day_names"),
 	dayNamesShort: i18n.t("date.abbr_day_names")
 }

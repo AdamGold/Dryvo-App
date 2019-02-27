@@ -16,6 +16,7 @@ import Row from "../../components/Row"
 import Separator from "../../components/Separator"
 import { Icon } from "react-native-elements"
 import moment from "moment"
+import Hours from "../../components/Hours"
 
 export class Home extends React.Component {
 	static navigationOptions = () => {
@@ -71,14 +72,7 @@ export class Home extends React.Component {
 			<Row
 				key={`item${item.id}`}
 				style={styles.lessonRow}
-				leftSide={
-					<Text style={styles.hour}>
-						{moment(date).format("HH:mm")} -{" "}
-						{moment(date)
-							.add(item.duration, "minutes")
-							.format("HH:mm")}
-					</Text>
-				}
+				leftSide={<Hours duration={item.duration} date={date} />}
 			>
 				<UserWithPic
 					name={item.student.user.name}

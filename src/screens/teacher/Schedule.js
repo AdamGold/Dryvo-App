@@ -15,6 +15,8 @@ import { Icon } from "react-native-elements"
 import Separator from "../../components/Separator"
 import { calendarTheme, MAIN_PADDING } from "../../consts"
 import moment from "moment"
+import Hours from "../../components/Hours"
+import { getStartAndEndOfDay } from "../../actions/lessons"
 
 export class Schedule extends React.Component {
 	static navigationOptions = () => {
@@ -33,39 +35,23 @@ export class Schedule extends React.Component {
 			items: {}
 		}
 		this._getItems(date)
+		this.onDayPress = this.onDayPress.bind(this)
 	}
 
 	_getItems = async date => {
-		console.log(date)
-		let timestamp
-		let dateString
-		if (date.hasOwnProperty("timestamp")) {
-			timestamp = date.timestamp
-			dateString = date.dateString
-		} else {
-			timestamp = date.getTime()
-			dateString = date.toJSON().slice(0, 10)
-		}
-		const startOfDay = moment
-			.unix(timestamp / 1000) // division by 1000 to get epoch https://stackoverflow.com/questions/3367415/get-epoch-for-a-specific-date-using-javascript
-			.utc()
-			.startOf("day")
-		const endOfDay = moment
-			.unix(timestamp / 1000)
-			.utc()
-			.endOf("day")
+		const dates = getStartAndEndOfDay(date)
 		const resp = await this.props.fetchService.fetch(
 			"/lessons/?is_approved=true&date=ge:" +
-				startOfDay.toISOString() +
+				dates.startOfDay.toISOString() +
 				"&date=le:" +
-				endOfDay.toISOString(),
+				dates.endOfDay.toISOString(),
 			{ method: "GET" }
 		)
 		if (!resp.json["data"]) return
 		this.setState(prevState => ({
 			items: {
 				...prevState.items,
-				[dateString]: resp.json["data"]
+				[dates.dateString]: resp.json["data"]
 			}
 		}))
 	}
@@ -97,14 +83,7 @@ export class Schedule extends React.Component {
 		return (
 			<Row
 				style={{ ...styles.row, ...style }}
-				leftSide={
-					<Text style={styles.hour}>
-						{moment(date).format("HH:mm")} -{" "}
-						{moment(date)
-							.add(item.duration, "minutes")
-							.format("HH:mm")}
-					</Text>
-				}
+				leftSide={<Hours duration={item.duration} date={date} />}
 			>
 				<UserWithPic
 					name={`${item.student.user.name}(${item.lesson_number})`}
@@ -148,6 +127,17 @@ export class Schedule extends React.Component {
 	renderEmpty = () => {
 		return <Text>Hello empty</Text>
 	}
+
+	onDayPress = day => {
+		this.setState(
+			{
+				selected: day.dateString
+			},
+			() => {
+				this._getItems(day)
+			}
+		)
+	}
 	render() {
 		return (
 			<View style={styles.container}>
@@ -155,16 +145,7 @@ export class Schedule extends React.Component {
 					<Agenda
 						items={this.state.items}
 						// callback that gets called on day press
-						onDayPress={day => {
-							this.setState(
-								{
-									selected: day.dateString
-								},
-								() => {
-									this._getItems(day)
-								}
-							)
-						}}
+						onDayPress={this.onDayPress}
 						// initially selected day
 						selected={Date()}
 						// Max amount of months allowed to scroll to the past. Default = 50

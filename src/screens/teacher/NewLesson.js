@@ -1,6 +1,8 @@
 import React from "react"
 import {
 	KeyboardAvoidingView,
+	Keyboard,
+	Platform,
 	Text,
 	StyleSheet,
 	View,
@@ -12,19 +14,50 @@ import { Input, Button, Icon } from "react-native-elements"
 import { strings } from "../../i18n"
 import PageTitle from "../../components/PageTitle"
 import { MAIN_PADDING } from "../../consts"
+import NewLessonInput from "../../components/NewLessonInput"
 
 class NewLesson extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			date: this.props.navigation.getParam("date"),
-			hour: "",
-			studentName: "",
-			meetup: "",
-			dropoff: "",
-			topics: "",
 			errors: {}
 		}
+		this.inputs = {
+			date: {
+				autoFocus: true,
+				iconName: "date-range"
+			},
+			hour: {
+				iconName: "access-time"
+			},
+			studentName: {
+				iconName: "person-outline"
+			},
+			meetup: {
+				iconName: "navigation",
+				iconType: "feather",
+				onSubmitEditing: () => {
+					this.dropoffInput.focus()
+					this._scrollView.scrollTo({ y: 50, animated: true })
+				}
+			},
+			dropoff: {
+				iconName: "map-pin",
+				iconType: "feather",
+				onSubmitEditing: () => {
+					this._touchable.touchableHandlePress()
+				}
+			}
+		}
+		Object.keys(this.inputs).forEach(input => {
+			if (input == "date") {
+				this.state[input] = this.props.navigation.getParam("date")
+			} else {
+				this.state[input] = ""
+			}
+		})
+		this.setRef = this.setRef.bind(this)
+		this.onChangeText = this.onChangeText.bind(this)
 	}
 
 	onFocus = input => {
@@ -35,6 +68,35 @@ class NewLesson extends React.Component {
 		this.setState({ [`${input}Color`]: undefined })
 	}
 
+	onChangeText = (name, value) => this.setState({ [name]: value })
+
+	setRef = (input, name) => {
+		this[`${name}Input`] = input
+	}
+
+	renderInputs = () => {
+		const keys = Object.keys(this.inputs)
+		return keys.map((name, index) => {
+			const props = this.inputs[name]
+			const next = keys[index + 1]
+			return (
+				<NewLessonInput
+					key={`key${index}`}
+					name={name}
+					autoFocus={props.autoFocus}
+					setRef={this.setRef}
+					onFocus={this.onFocus}
+					onBlur={this.onBlur}
+					onChangeText={this.onChangeText}
+					iconName={props.iconName}
+					next={() => this[`${next}Input`]}
+					state={this.state}
+					iconType={props.iconType}
+					onSubmitEditing={props.onSubmitEditing}
+				/>
+			)
+		})
+	}
 	render() {
 		return (
 			<View style={{ flex: 1, marginTop: 20 }}>
@@ -52,7 +114,7 @@ class NewLesson extends React.Component {
 					/>
 				</View>
 				<KeyboardAvoidingView
-					behavior="height"
+					behavior="padding"
 					keyboardVerticalOffset={62}
 					style={styles.container}
 				>
@@ -62,196 +124,16 @@ class NewLesson extends React.Component {
 						style={styles.formContainer}
 					>
 						<Text testID="error">{this.state.error}</Text>
-						<Input
-							placeholder={strings("teacher.new_lesson.date")}
-							onChangeText={date => this.setState({ date })}
-							value={this.state.date}
-							testID="lessonDateInput"
-							inputContainerStyle={styles.inputContainer}
-							inputStyle={{
-								...styles.input,
-								...{ color: this.state["dateColor"] || "#000" }
-							}}
-							errorMessage={this.state.errors["date"]}
-							textAlign={"right"}
-							autoFocus={true}
-							blurOnSubmit={false}
-							onSubmitEditing={() => {
-								this.hourInput.focus()
-							}}
-							leftIcon={
-								<Icon
-									name="date-range"
-									type="material"
-									size={24}
-									color={this.state["dateColor"]}
-								/>
-							}
-							onFocus={() => this.onFocus("date")}
-							onBlur={() => this.onBlur("date")}
-						/>
-						<Input
-							placeholder={strings("teacher.new_lesson.hour")}
-							onChangeText={hour => this.setState({ hour })}
-							value={this.state.hour}
-							testID="hourInput"
-							inputContainerStyle={styles.inputContainer}
-							inputStyle={{
-								...styles.input,
-								...{ color: this.state["hourColor"] || "#000" }
-							}}
-							errorMessage={this.state.errors["hour"]}
-							textAlign={"right"}
-							ref={input => {
-								this.hourInput = input
-							}}
-							onSubmitEditing={() => {
-								this.studentInput.focus()
-							}}
-							leftIcon={
-								<Icon
-									name="access-time"
-									type="material"
-									size={24}
-									color={this.state["hourColor"] || "#000"}
-								/>
-							}
-							placeholderTextColor={
-								this.state["hourColor"] || "lightgray"
-							}
-							onFocus={() => this.onFocus("hour")}
-							onBlur={() => this.onBlur("hour")}
-						/>
-						<Input
-							placeholder={strings(
-								"teacher.new_lesson.name_of_student"
-							)}
-							onChangeText={studentName =>
-								this.setState({ studentName })
-							}
-							value={this.state.studentName}
-							testID="studentNameInput"
-							inputContainerStyle={styles.inputContainer}
-							inputStyle={{
-								...styles.input,
-								...{
-									color: this.state["studentColor"] || "#000"
-								}
-							}}
-							errorMessage={this.state.errors["studentName"]}
-							textAlign={"right"}
-							ref={input => {
-								this.studentInput = input
-							}}
-							onSubmitEditing={() => {
-								this.meetupInput.focus()
-							}}
-							leftIcon={
-								<Icon
-									name="person-outline"
-									type="material"
-									size={24}
-									color={this.state["studentColor"] || "#000"}
-								/>
-							}
-							placeholderTextColor={
-								this.state["studentColor"] || "lightgray"
-							}
-							onFocus={() => this.onFocus("student")}
-							onBlur={() => this.onBlur("student")}
-						/>
-						<Input
-							placeholder={strings("teacher.new_lesson.meetup")}
-							onChangeText={meetup => this.setState({ meetup })}
-							value={this.state.meetup}
-							testID="meetupInput"
-							inputContainerStyle={styles.inputContainer}
-							inputStyle={{
-								...styles.input,
-								...{
-									color: this.state["meetupColor"] || "#000"
-								}
-							}}
-							errorMessage={this.state.errors["meetup"]}
-							textAlign={"right"}
-							ref={input => {
-								this.meetupInput = input
-							}}
-							onSubmitEditing={() => {
-								this.dropoffInput.focus()
-								this._scrollView.scrollToEnd()
-							}}
-							leftIcon={
-								<Icon
-									name="navigation"
-									type="feather"
-									size={24}
-									color={this.state["meetupColor"] || "#000"}
-								/>
-							}
-							placeholderTextColor={
-								this.state["meetupColor"] || "lightgray"
-							}
-							onFocus={() => this.onFocus("meetup")}
-							onBlur={() => this.onBlur("meetup")}
-						/>
-						<Input
-							placeholder={strings("teacher.new_lesson.dropoff")}
-							onChangeText={dropoff => this.setState({ dropoff })}
-							value={this.state.dropoff}
-							testID="dropoffInput"
-							inputContainerStyle={styles.inputContainer}
-							inputStyle={{
-								...styles.input,
-								...{
-									color: this.state["dropoffColor"] || "#000"
-								}
-							}}
-							errorMessage={this.state.errors["dropoff"]}
-							textAlign={"right"}
-							ref={input => {
-								this.dropoffInput = input
-							}}
-							onSubmitEditing={() => {
-								this.topicsInput.focus()
-							}}
-							leftIcon={
-								<Icon
-									name="map-pin"
-									type="feather"
-									size={24}
-									color={this.state["dropoffColor"] || "#000"}
-								/>
-							}
-							placeholderTextColor={
-								this.state["dropoffColor"] || "lightgray"
-							}
-							onFocus={() => this.onFocus("dropoff")}
-							onBlur={() => this.onBlur("dropoff")}
-						/>
-						<Input
-							placeholder={strings("teacher.new_lesson.topics")}
-							onChangeText={date => this.setState({ date })}
-							value={this.state.topics}
-							testID="dateInput"
-							inputContainerStyle={styles.inputContainer}
-							inputStyle={styles.input}
-							errorMessage={this.state.errors["date"]}
-							textAlign={"right"}
-							ref={input => {
-								this.topicsInput = input
-							}}
-							onSubmitEditing={() => {
-								this._touchable.touchableHandlePress()
-							}}
-						/>
+						{this.renderInputs()}
 					</ScrollView>
 					<TouchableHighlight
 						underlayColor="#ffffff00"
 						ref={touchable => (this._touchable = touchable)}
 					>
 						<View testID="finishButton" style={styles.submitButton}>
-							<Text>{strings("teacher.new_lesson.done")}</Text>
+							<Text style={styles.doneText}>
+								{strings("teacher.new_lesson.done")}
+							</Text>
 						</View>
 					</TouchableHighlight>
 				</KeyboardAvoidingView>
@@ -289,6 +171,10 @@ const styles = StyleSheet.create({
 		alignSelf: "center",
 		alignItems: "center",
 		justifyContent: "center"
+	},
+	doneText: {
+		color: "#fff",
+		fontWeight: "bold"
 	},
 	inputContainer: {
 		borderBottomColor: "rgb(200,200,200)",

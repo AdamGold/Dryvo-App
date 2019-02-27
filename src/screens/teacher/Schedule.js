@@ -46,9 +46,6 @@ export class Schedule extends React.Component {
 			timestamp = date.getTime()
 			dateString = date.toJSON().slice(0, 10)
 		}
-		if (this.state.items.hasOwnProperty(dateString))
-			// date already exists in our list
-			return
 		const startOfDay = moment
 			.unix(timestamp / 1000) // division by 1000 to get epoch https://stackoverflow.com/questions/3367415/get-epoch-for-a-specific-date-using-javascript
 			.utc()
@@ -64,6 +61,7 @@ export class Schedule extends React.Component {
 				endOfDay.toISOString(),
 			{ method: "GET" }
 		)
+		if (!resp.json["data"]) return
 		this.setState(prevState => ({
 			items: {
 				...prevState.items,
@@ -178,8 +176,6 @@ export class Schedule extends React.Component {
 						// specify how each date should be rendered. day can be undefined if the item is not first in that day.
 						renderDay={(day, item) => undefined}
 						renderEmptyDate={this.renderEmpty}
-						// specify what should be rendered instead of ActivityIndicator
-						renderEmptyData={this.renderEmpty}
 						// specify your item comparison function for increased performance
 						rowHasChanged={(r1, r2) => {
 							return r1.text !== r2.text

@@ -33,7 +33,7 @@ export class ChooseDate extends React.Component {
 			type="material"
 		/>
 	)
-	renderItem = item => (
+	renderItem = ({ item, index }) => (
 		<Row
 			style={styles.lessonRow}
 			leftSide={<Text style={styles.hour}>13:00-13:40</Text>}

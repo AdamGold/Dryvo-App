@@ -10,18 +10,23 @@ export default class NewLessonInput extends React.Component {
 		if (this.props.iconType) iconType = this.props.iconType
 		return (
 			<Input
-				placeholder={strings(`teacher.new_lesson.${name}`)}
+				placeholder={
+					strings(`teacher.new_lesson.${name}`) +
+					this.props.extraPlaceholder
+				}
 				onChangeText={value => this.props.onChangeText(name, value)}
 				value={this.props.state[name]}
 				testID={`${name}Input`}
-				inputContainerStyle={styles.inputContainer}
+				inputContainerStyle={{
+					...styles.inputContainer,
+					...this.props.style
+				}}
 				inputStyle={{
 					...styles.input,
 					...{
 						color: this.props.state[`${name}Color`] || "#000"
 					}
 				}}
-				errorMessage={this.props.state.errors[name]}
 				textAlign={"right"}
 				autoFocus={this.props.autoFocus || false}
 				ref={input => {
@@ -48,6 +53,8 @@ export default class NewLessonInput extends React.Component {
 				}
 				onFocus={() => this.props.onFocus(name)}
 				onBlur={() => this.props.onBlur(name)}
+				editable={this.props.editable}
+				selectTextOnFocus={this.props.selectTextOnFocus}
 			/>
 		)
 	}

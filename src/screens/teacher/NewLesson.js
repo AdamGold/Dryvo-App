@@ -15,23 +15,43 @@ import { strings } from "../../i18n"
 import PageTitle from "../../components/PageTitle"
 import { MAIN_PADDING } from "../../consts"
 import NewLessonInput from "../../components/NewLessonInput"
+import Hours from "../../components/Hours"
 
 class NewLesson extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			errors: {}
+			date: this.props.navigation.getParam("date"),
+			error: "",
+			hours: [],
+			students: [],
+			dateAndTime: ""
 		}
 		this.inputs = {
 			date: {
-				autoFocus: true,
-				iconName: "date-range"
+				iconName: "date-range",
+				editable: false,
+				selectTextOnFocus: false,
+				style: {
+					borderBottomWidth: 0
+				}
 			},
-			hour: {
-				iconName: "access-time"
+			duration: {
+				iconName: "swap-horiz",
+				extraPlaceholder: ` (${strings(
+					"teacher.new_lesson.default"
+				)}: ${this.props.user.lesson_duration.toString()})`,
+				onBlur: input => {
+					this._getAvailableHours()
+					this.onBlur(input)
+				}
 			},
 			studentName: {
-				iconName: "person-outline"
+				iconName: "person-outline",
+				onChangeText: (name, value) => {
+					this.onChangeText(name, value)
+					this._getStudents(value)
+				}
 			},
 			meetup: {
 				iconName: "navigation",
@@ -50,14 +70,49 @@ class NewLesson extends React.Component {
 			}
 		}
 		Object.keys(this.inputs).forEach(input => {
-			if (input == "date") {
-				this.state[input] = this.props.navigation.getParam("date")
-			} else {
+			if (!this.state[input]) {
 				this.state[input] = ""
 			}
 		})
 		this.setRef = this.setRef.bind(this)
 		this.onChangeText = this.onChangeText.bind(this)
+		this._onHourPress = this._onHourPress.bind(this)
+
+		this._getAvailableHours()
+	}
+
+	_getAvailableHours = async () => {
+		console.log(this.state.duration)
+		const resp = await this.props.fetchService.fetch(
+			`/teacher/${this.props.user.teacher_id}/available_hours`,
+			{
+				method: "POST",
+				body: JSON.stringify({
+					date: this.state.date,
+					duration:
+						this.state.duration || this.props.user.lesson_duration
+				})
+			}
+		)
+		this.setState({
+			hours: resp.json["data"]
+		})
+	}
+
+	_getStudents = async (name = "") => {
+		const resp = await this.props.fetchService.fetch(
+			"/teacher/students?name=" + name,
+			{
+				method: "GET"
+			}
+		)
+		let names = []
+		Object.entries(resp.json["data"]).map(([key, value]) => {
+			names.push(value.user.name)
+		})
+		this.setState({
+			students: names
+		})
 	}
 
 	onFocus = input => {
@@ -83,20 +138,50 @@ class NewLesson extends React.Component {
 				<NewLessonInput
 					key={`key${index}`}
 					name={name}
+					editable={props.editable}
+					selectTextOnFocus={props.selectTextOnFocus}
 					autoFocus={props.autoFocus}
 					setRef={this.setRef}
 					onFocus={this.onFocus}
-					onBlur={this.onBlur}
-					onChangeText={this.onChangeText}
+					onBlur={props.onBlur || this.onBlur}
+					onChangeText={props.onChangeText || this.onChangeText}
 					iconName={props.iconName}
 					next={() => this[`${next}Input`]}
 					state={this.state}
 					iconType={props.iconType}
 					onSubmitEditing={props.onSubmitEditing}
+					extraPlaceholder={props.extraPlaceholder || ""}
+					style={props.style}
 				/>
 			)
 		})
 	}
+
+	_onHourPress = date => {
+		this.setState({
+			dateAndTime: date
+		})
+	}
+
+	renderHours = () => {
+		return this.state.hours.map((hours, index) => {
+			return (
+				<TouchableHighlight
+					key={`hours${index}`}
+					onPress={() => this._onHourPress(hours[0])}
+				>
+					<View style={styles.hours}>
+						<Hours
+							style={styles.hoursText}
+							date={hours[0]}
+							duration={this.state.duration}
+						/>
+					</View>
+				</TouchableHighlight>
+			)
+		})
+	}
+
 	render() {
 		return (
 			<View style={{ flex: 1, marginTop: 20 }}>
@@ -120,11 +205,16 @@ class NewLesson extends React.Component {
 				>
 					<ScrollView
 						ref={ref => (this._scrollView = ref)}
-						keyboardShouldPersistTaps="always"
 						style={styles.formContainer}
 					>
 						<Text testID="error">{this.state.error}</Text>
 						{this.renderInputs()}
+						<Text style={styles.hoursTitle}>
+							{strings("teacher.new_lesson.hour")}
+						</Text>
+						<View style={styles.hoursRows}>
+							{this.renderHours()}
+						</View>
 					</ScrollView>
 					<TouchableHighlight
 						underlayColor="#ffffff00"
@@ -184,7 +274,32 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		paddingLeft: 12
+	},
+	hoursRows: {
+		flex: 1,
+		flexWrap: "wrap",
+		flexDirection: "row",
+		justifyContent: "flex-start"
+	},
+	hours: {
+		padding: 8
+	},
+	hoursText: {
+		fontWeight: "bold"
+	},
+	hoursTitle: {
+		fontWeight: "bold",
+		alignSelf: "flex-start",
+		marginTop: 16,
+		marginBottom: 8,
+		fontSize: 18
 	}
 })
 
-export default connect()(NewLesson)
+mapStateToProps = state => {
+	return {
+		fetchService: state.fetchService,
+		user: state.user
+	}
+}
+export default connect(mapStateToProps)(NewLesson)

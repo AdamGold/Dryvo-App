@@ -43,10 +43,12 @@
 			"date": "תאריך",
 			"hour": "שעה",
 			"studentName": "שם התלמיד/ה",
+			"duration": "אורך השיעור",
 			"meetup": "איסוף",
 			"dropoff": "הורדה",
 			"topics": "נושאים",
-			"done": "יצירת שיעור"
+			"done": "יצירת שיעור",
+			"default": "ברירת מחדל"
 		},
 		"students": {
 			"search": "חיפוש תלמיד",

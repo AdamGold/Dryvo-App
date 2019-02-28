@@ -20,6 +20,17 @@ export class NewStudent extends React.Component {
 		this.setState({ search })
 	}
 
+	renderItem = ({ item }) => (
+		<Row leftSide={<Icon name="ios-add" type="ionicon" color="#000" />}>
+			<UserWithPic
+				name="רונן רוזנטל"
+				nameStyle={styles.nameStyle}
+				width={64}
+				height={64}
+			/>
+		</Row>
+	)
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -64,24 +75,7 @@ export class NewStudent extends React.Component {
 					<Separator />
 					<FlatList
 						data={[{ title: "Title Text", key: "item1" }]}
-						renderItem={({ item }) => (
-							<Row
-								leftSide={
-									<Icon
-										name="ios-add"
-										type="ionicon"
-										color="#000"
-									/>
-								}
-							>
-								<UserWithPic
-									name="רונן רוזנטל"
-									nameStyle={styles.nameStyle}
-									width={64}
-									height={64}
-								/>
-							</Row>
-						)}
+						renderItem={this.renderItem}
 					/>
 				</View>
 			</View>

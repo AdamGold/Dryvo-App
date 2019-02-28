@@ -1,6 +1,8 @@
 import React from "react"
 import {
 	KeyboardAvoidingView,
+	Keyboard,
+	Platform,
 	Text,
 	StyleSheet,
 	View,
@@ -11,20 +13,121 @@ import { connect } from "react-redux"
 import { Input, Button, Icon } from "react-native-elements"
 import { strings } from "../../i18n"
 import PageTitle from "../../components/PageTitle"
-import { MAIN_PADDING } from "../../consts"
+import {
+	MAIN_PADDING,
+	floatButton,
+	API_DATE_FORMAT,
+	DEFAULT_DURATION
+} from "../../consts"
+import NewLessonInput from "../../components/NewLessonInput"
+import Hours from "../../components/Hours"
+import InputSelectionButton from "../../components/InputSelectionButton"
+import moment from "moment"
+import { getHoursDiff } from "../../actions/utils"
+import { API_ERROR } from "../../reducers/consts"
 
 class NewLesson extends React.Component {
 	constructor(props) {
 		super(props)
+		duration = this.props.user.lesson_duration || DEFAULT_DURATION
 		this.state = {
 			date: this.props.navigation.getParam("date"),
-			hour: "",
-			studentName: "",
-			meetup: "",
-			dropoff: "",
-			topics: "",
-			errors: {}
+			error: "",
+			hours: [],
+			students: [],
+			selectedStudent: {},
+			dateAndTime: "",
+			defaultDuration: duration.toString()
 		}
+		this._initializeInputs = this._initializeInputs.bind(this)
+		this.setRef = this.setRef.bind(this)
+		this.onChangeText = this.onChangeText.bind(this)
+		this._onHourPress = this._onHourPress.bind(this)
+		this._onStudentPress = this._onStudentPress.bind(this)
+		this.createLesson = this.createLesson.bind(this)
+
+		this._initializeInputs()
+		this._getAvailableHours()
+	}
+
+	_initializeInputs = () => {
+		this.inputs = {
+			duration: {
+				iconName: "swap-horiz",
+				extraPlaceholder: ` (${strings(
+					"teacher.new_lesson.default"
+				)}: ${this.state.defaultDuration})`,
+				onBlur: input => {
+					this._getAvailableHours()
+					this.onBlur(input)
+				},
+				style: { marginTop: 0 }
+			},
+			studentName: {
+				iconName: "person-outline",
+				below: this.renderStudents,
+				onChangeText: (name, value) => {
+					this.onChangeText(name, value)
+					this._getStudents(value)
+				}
+			},
+			meetup: {
+				iconName: "navigation",
+				iconType: "feather",
+				onSubmitEditing: () => {
+					this.dropoffInput.focus()
+					this._scrollView.scrollTo({ y: 50, animated: true })
+				}
+			},
+			dropoff: {
+				iconName: "map-pin",
+				iconType: "feather",
+				onSubmitEditing: () => {
+					this._touchable.touchableHandlePress()
+				}
+			},
+			hour: {
+				iconName: "access-time",
+				below: this.renderHours,
+				editable: false,
+				selectTextOnFocus: false
+			}
+		}
+		Object.keys(this.inputs).forEach(input => {
+			if (!this.state[input]) {
+				this.state[input] = ""
+			}
+		})
+	}
+
+	_getAvailableHours = async () => {
+		const resp = await this.props.fetchService.fetch(
+			`/teacher/${this.props.user.teacher_id}/available_hours`,
+			{
+				method: "POST",
+				body: JSON.stringify({
+					date: this.state.date,
+					duration:
+						this.state.duration || this.props.user.lesson_duration
+				})
+			}
+		)
+		this.setState({
+			hours: resp.json["data"]
+		})
+	}
+
+	_getStudents = async (name = "") => {
+		if (name.length < 3) return
+		const resp = await this.props.fetchService.fetch(
+			"/teacher/students?name=" + name,
+			{
+				method: "GET"
+			}
+		)
+		this.setState({
+			students: resp.json["data"]
+		})
 	}
 
 	onFocus = input => {
@@ -33,6 +136,147 @@ class NewLesson extends React.Component {
 
 	onBlur = input => {
 		this.setState({ [`${input}Color`]: undefined })
+	}
+
+	onChangeText = (name, value) => this.setState({ [name]: value })
+
+	setRef = (input, name) => {
+		this[`${name}Input`] = input
+	}
+
+	renderInputs = () => {
+		const keys = Object.keys(this.inputs)
+		return keys.map((name, index) => {
+			const props = this.inputs[name]
+			const next = keys[index + 1]
+			return (
+				<NewLessonInput
+					key={`key${index}`}
+					name={name}
+					editable={props.editable}
+					selectTextOnFocus={props.selectTextOnFocus}
+					autoFocus={props.autoFocus}
+					setRef={this.setRef}
+					onFocus={this.onFocus}
+					onBlur={props.onBlur || this.onBlur}
+					onChangeText={props.onChangeText || this.onChangeText}
+					iconName={props.iconName}
+					next={() => this[`${next}Input`]}
+					state={this.state}
+					iconType={props.iconType}
+					onSubmitEditing={props.onSubmitEditing}
+					extraPlaceholder={props.extraPlaceholder || ""}
+					style={props.style}
+					below={props.below}
+				/>
+			)
+		})
+	}
+
+	_onHourPress = date => {
+		const hours = getHoursDiff(
+			date,
+			this.state.duration || this.state.defaultDuration
+		)
+		this.setState({
+			hour: hours["start"] + " - " + hours["end"],
+			dateAndTime: moment.utc(date).format(API_DATE_FORMAT)
+		})
+	}
+
+	renderHours = () => {
+		return this.state.hours.map((hours, index) => {
+			let selected = false
+			let selectedTextStyle
+			if (
+				this.state.dateAndTime ==
+				moment.utc(hours[0]).format(API_DATE_FORMAT)
+			) {
+				selected = true
+				selectedTextStyle = { color: "#fff" }
+			}
+			return (
+				<InputSelectionButton
+					selected={selected}
+					key={`hours${index}`}
+					onPress={() => this._onHourPress(hours[0])}
+				>
+					<Hours
+						style={{
+							...styles.hoursText,
+							...selectedTextStyle
+						}}
+						date={hours[0]}
+						duration={
+							this.state.duration || this.state.defaultDuration
+						}
+					/>
+				</InputSelectionButton>
+			)
+		})
+	}
+
+	_onStudentPress = student => {
+		this.setState({
+			student,
+			studentName: student.user.name
+		})
+	}
+
+	renderStudents = () => {
+		return this.state.students.map((student, index) => {
+			let selected = false
+			let selectedTextStyle
+			if (this.state.student == student) {
+				selected = true
+				selectedTextStyle = { color: "#fff" }
+			}
+			return (
+				<InputSelectionButton
+					selected={selected}
+					key={`student${index}`}
+					onPress={() => this._onStudentPress(student)}
+				>
+					<Text
+						style={{
+							...styles.hoursText,
+							...selectedTextStyle
+						}}
+					>
+						{student.user.name}
+					</Text>
+				</InputSelectionButton>
+			)
+		})
+	}
+
+	createLesson = async () => {
+		try {
+			const resp = await this.props.fetchService.fetch("/lessons/", {
+				method: "POST",
+				body: JSON.stringify({
+					date: moment.utc(this.state.dateAndTime).toISOString(),
+					student_id: this.state.student.student_id,
+					meetup_place: this.state.meetup,
+					dropoff_place: this.state.dropoff
+				})
+			})
+			const lessonId = resp.json["data"]["id"]
+			// TODO update topics
+			/*
+			const topicsResp = await this.props.fetchService.fetch(
+				`/lessons/${lessonId}/topics`,
+				{
+					method: "POST",
+					body: JSON.stringify({ topics: {progress: [], finished: []} })
+				}
+			) */
+			this.props.navigation.goBack()
+		} catch (error) {
+			let msg = ""
+			if (error && error.hasOwnProperty("message")) msg = error.message
+			this.props.dispatch({ type: API_ERROR, error: msg })
+		}
 	}
 
 	render() {
@@ -50,208 +294,36 @@ class NewLesson extends React.Component {
 						style={styles.title}
 						title={strings("teacher.new_lesson.title")}
 					/>
+					<View style={styles.selectedDateView}>
+						<Icon type="material" name="date-range" />
+						<Text style={styles.selectedDate}>
+							{this.state.date}
+						</Text>
+					</View>
 				</View>
 				<KeyboardAvoidingView
-					behavior="height"
+					behavior="padding"
 					keyboardVerticalOffset={62}
 					style={styles.container}
 				>
 					<ScrollView
 						ref={ref => (this._scrollView = ref)}
-						keyboardShouldPersistTaps="always"
 						style={styles.formContainer}
+						keyboardDismissMode="on-drag"
+						keyboardShouldPersistTaps="always"
 					>
 						<Text testID="error">{this.state.error}</Text>
-						<Input
-							placeholder={strings("teacher.new_lesson.date")}
-							onChangeText={date => this.setState({ date })}
-							value={this.state.date}
-							testID="lessonDateInput"
-							inputContainerStyle={styles.inputContainer}
-							inputStyle={{
-								...styles.input,
-								...{ color: this.state["dateColor"] || "#000" }
-							}}
-							errorMessage={this.state.errors["date"]}
-							textAlign={"right"}
-							autoFocus={true}
-							blurOnSubmit={false}
-							onSubmitEditing={() => {
-								this.hourInput.focus()
-							}}
-							leftIcon={
-								<Icon
-									name="date-range"
-									type="material"
-									size={24}
-									color={this.state["dateColor"]}
-								/>
-							}
-							onFocus={() => this.onFocus("date")}
-							onBlur={() => this.onBlur("date")}
-						/>
-						<Input
-							placeholder={strings("teacher.new_lesson.hour")}
-							onChangeText={hour => this.setState({ hour })}
-							value={this.state.hour}
-							testID="hourInput"
-							inputContainerStyle={styles.inputContainer}
-							inputStyle={{
-								...styles.input,
-								...{ color: this.state["hourColor"] || "#000" }
-							}}
-							errorMessage={this.state.errors["hour"]}
-							textAlign={"right"}
-							ref={input => {
-								this.hourInput = input
-							}}
-							onSubmitEditing={() => {
-								this.studentInput.focus()
-							}}
-							leftIcon={
-								<Icon
-									name="access-time"
-									type="material"
-									size={24}
-									color={this.state["hourColor"] || "#000"}
-								/>
-							}
-							placeholderTextColor={
-								this.state["hourColor"] || "lightgray"
-							}
-							onFocus={() => this.onFocus("hour")}
-							onBlur={() => this.onBlur("hour")}
-						/>
-						<Input
-							placeholder={strings(
-								"teacher.new_lesson.name_of_student"
-							)}
-							onChangeText={studentName =>
-								this.setState({ studentName })
-							}
-							value={this.state.studentName}
-							testID="studentNameInput"
-							inputContainerStyle={styles.inputContainer}
-							inputStyle={{
-								...styles.input,
-								...{
-									color: this.state["studentColor"] || "#000"
-								}
-							}}
-							errorMessage={this.state.errors["studentName"]}
-							textAlign={"right"}
-							ref={input => {
-								this.studentInput = input
-							}}
-							onSubmitEditing={() => {
-								this.meetupInput.focus()
-							}}
-							leftIcon={
-								<Icon
-									name="person-outline"
-									type="material"
-									size={24}
-									color={this.state["studentColor"] || "#000"}
-								/>
-							}
-							placeholderTextColor={
-								this.state["studentColor"] || "lightgray"
-							}
-							onFocus={() => this.onFocus("student")}
-							onBlur={() => this.onBlur("student")}
-						/>
-						<Input
-							placeholder={strings("teacher.new_lesson.meetup")}
-							onChangeText={meetup => this.setState({ meetup })}
-							value={this.state.meetup}
-							testID="meetupInput"
-							inputContainerStyle={styles.inputContainer}
-							inputStyle={{
-								...styles.input,
-								...{
-									color: this.state["meetupColor"] || "#000"
-								}
-							}}
-							errorMessage={this.state.errors["meetup"]}
-							textAlign={"right"}
-							ref={input => {
-								this.meetupInput = input
-							}}
-							onSubmitEditing={() => {
-								this.dropoffInput.focus()
-								this._scrollView.scrollToEnd()
-							}}
-							leftIcon={
-								<Icon
-									name="navigation"
-									type="feather"
-									size={24}
-									color={this.state["meetupColor"] || "#000"}
-								/>
-							}
-							placeholderTextColor={
-								this.state["meetupColor"] || "lightgray"
-							}
-							onFocus={() => this.onFocus("meetup")}
-							onBlur={() => this.onBlur("meetup")}
-						/>
-						<Input
-							placeholder={strings("teacher.new_lesson.dropoff")}
-							onChangeText={dropoff => this.setState({ dropoff })}
-							value={this.state.dropoff}
-							testID="dropoffInput"
-							inputContainerStyle={styles.inputContainer}
-							inputStyle={{
-								...styles.input,
-								...{
-									color: this.state["dropoffColor"] || "#000"
-								}
-							}}
-							errorMessage={this.state.errors["dropoff"]}
-							textAlign={"right"}
-							ref={input => {
-								this.dropoffInput = input
-							}}
-							onSubmitEditing={() => {
-								this.topicsInput.focus()
-							}}
-							leftIcon={
-								<Icon
-									name="map-pin"
-									type="feather"
-									size={24}
-									color={this.state["dropoffColor"] || "#000"}
-								/>
-							}
-							placeholderTextColor={
-								this.state["dropoffColor"] || "lightgray"
-							}
-							onFocus={() => this.onFocus("dropoff")}
-							onBlur={() => this.onBlur("dropoff")}
-						/>
-						<Input
-							placeholder={strings("teacher.new_lesson.topics")}
-							onChangeText={date => this.setState({ date })}
-							value={this.state.topics}
-							testID="dateInput"
-							inputContainerStyle={styles.inputContainer}
-							inputStyle={styles.input}
-							errorMessage={this.state.errors["date"]}
-							textAlign={"right"}
-							ref={input => {
-								this.topicsInput = input
-							}}
-							onSubmitEditing={() => {
-								this._touchable.touchableHandlePress()
-							}}
-						/>
+						{this.renderInputs()}
 					</ScrollView>
 					<TouchableHighlight
 						underlayColor="#ffffff00"
 						ref={touchable => (this._touchable = touchable)}
+						onPress={this.createLesson}
 					>
 						<View testID="finishButton" style={styles.submitButton}>
-							<Text>{strings("teacher.new_lesson.done")}</Text>
+							<Text style={styles.doneText}>
+								{strings("teacher.new_lesson.done")}
+							</Text>
 						</View>
 					</TouchableHighlight>
 				</KeyboardAvoidingView>
@@ -262,8 +334,7 @@ class NewLesson extends React.Component {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
-		marginTop: -20
+		flex: 1
 	},
 	title: {
 		marginLeft: 12,
@@ -275,20 +346,28 @@ const styles = StyleSheet.create({
 		maxHeight: 50,
 		paddingLeft: MAIN_PADDING
 	},
+	selectedDateView: {
+		flex: 1,
+		flexDirection: "row",
+		justifyContent: "flex-end",
+		alignItems: "center",
+		marginRight: MAIN_PADDING,
+		marginTop: -10
+	},
+	selectedDate: {
+		marginLeft: 6,
+		fontSize: 14,
+		fontWeight: "bold"
+	},
 	formContainer: {
 		width: 340,
-		maxWidth: 340,
+		marginBottom: 70,
 		alignSelf: "center"
 	},
-	submitButton: {
-		position: "absolute",
-		bottom: 0,
-		backgroundColor: "rgb(12,116,244)",
-		height: 56,
-		width: "100%",
-		alignSelf: "center",
-		alignItems: "center",
-		justifyContent: "center"
+	submitButton: floatButton,
+	doneText: {
+		color: "#fff",
+		fontWeight: "bold"
 	},
 	inputContainer: {
 		borderBottomColor: "rgb(200,200,200)",
@@ -298,7 +377,16 @@ const styles = StyleSheet.create({
 	},
 	input: {
 		paddingLeft: 12
+	},
+	hoursText: {
+		color: "gray"
 	}
 })
 
-export default connect()(NewLesson)
+mapStateToProps = state => {
+	return {
+		fetchService: state.fetchService,
+		user: state.user
+	}
+}
+export default connect(mapStateToProps)(NewLesson)

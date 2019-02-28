@@ -43,7 +43,7 @@ exports[`Home view renders correctly 1`] = `
           }
         }
       >
-        שלום, משה
+        שלום, test
       </Text>
     </View>
     <View
@@ -80,173 +80,33 @@ exports[`Home view renders correctly 1`] = `
       >
         שיעור נוכחי
       </Text>
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flex": 1,
-            "flexDirection": "row",
-            "marginTop": 20,
-            "maxHeight": 34,
-          }
-        }
+      <RCTScrollView
+        ItemSeparatorComponent={[Function]}
+        data={Array []}
+        disableVirtualization={false}
+        getItem={[Function]}
+        getItemCount={[Function]}
+        horizontal={false}
+        initialNumToRender={10}
+        keyExtractor={[Function]}
+        maxToRenderPerBatch={10}
+        numColumns={1}
+        onContentSizeChange={[Function]}
+        onEndReachedThreshold={2}
+        onLayout={[Function]}
+        onMomentumScrollEnd={[Function]}
+        onScroll={[Function]}
+        onScrollBeginDrag={[Function]}
+        onScrollEndDrag={[Function]}
+        renderItem={[Function]}
+        scrollEventThrottle={50}
+        stickyHeaderIndices={Array []}
+        updateCellsBatchingPeriod={50}
+        viewabilityConfigCallbackPairs={Array []}
+        windowSize={21}
       >
-        <View
-          style={
-            Object {
-              "flex": 1,
-              "flexDirection": "row",
-            }
-          }
-        >
-          <View>
-            <Image
-              source={
-                Object {
-                  "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
-                }
-              }
-              style={
-                Object {
-                  "borderRadius": 17,
-                  "height": 34,
-                  "width": 34,
-                }
-              }
-            />
-          </View>
-          <View
-            style={
-              Object {
-                "alignItems": "flex-start",
-                "flexDirection": "column",
-                "marginLeft": 16,
-              }
-            }
-          >
-            <Text
-              style={
-                Object {
-                  "fontWeight": "bold",
-                  "marginTop": 4,
-                }
-              }
-            >
-              רונן רוזנטל
-            </Text>
-            <View />
-          </View>
-        </View>
-        <View
-          style={
-            Object {
-              "alignItems": "flex-end",
-              "flex": 1,
-              "marginRight": "auto",
-              "marginTop": -8,
-            }
-          }
-        >
-          <Text>
-            13:00-13:40
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "borderBottomColor": "rgb(212, 212, 212)",
-            "borderBottomWidth": 1,
-            "marginBottom": 20,
-            "marginTop": 20,
-            "width": "100%",
-          }
-        }
-      />
-      <Text
-        style={
-          Object {
-            "alignSelf": "flex-start",
-            "color": "rgb(121, 121, 121)",
-            "fontSize": 16,
-            "fontWeight": "bold",
-          }
-        }
-      >
-        שיעור הבא
-      </Text>
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flex": 1,
-            "flexDirection": "row",
-            "marginTop": 20,
-            "maxHeight": 34,
-          }
-        }
-      >
-        <View
-          style={
-            Object {
-              "flex": 1,
-              "flexDirection": "row",
-            }
-          }
-        >
-          <View>
-            <Image
-              source={
-                Object {
-                  "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
-                }
-              }
-              style={
-                Object {
-                  "borderRadius": 17,
-                  "height": 34,
-                  "width": 34,
-                }
-              }
-            />
-          </View>
-          <View
-            style={
-              Object {
-                "alignItems": "flex-start",
-                "flexDirection": "column",
-                "marginLeft": 16,
-              }
-            }
-          >
-            <Text
-              style={
-                Object {
-                  "fontWeight": "bold",
-                  "marginTop": 4,
-                }
-              }
-            >
-              שי גל
-            </Text>
-            <View />
-          </View>
-        </View>
-        <View
-          style={
-            Object {
-              "alignItems": "flex-end",
-              "flex": 1,
-              "marginRight": "auto",
-              "marginTop": -8,
-            }
-          }
-        >
-          <Text>
-            13:00-13:40
-          </Text>
-        </View>
-      </View>
+        <View />
+      </RCTScrollView>
     </View>
     <View
       style={
@@ -500,7 +360,8 @@ exports[`Home view renders correctly 1`] = `
             }
           }
         >
-          13,800₪
+          0
+          ₪
         </Text>
         <Text
           style={
@@ -526,162 +387,32 @@ exports[`Home view renders correctly 1`] = `
           }
         }
       />
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flex": 1,
-            "flexDirection": "row",
-            "marginTop": 0,
-            "maxHeight": 34,
-          }
-        }
+      <RCTScrollView
+        data={Array []}
+        disableVirtualization={false}
+        getItem={[Function]}
+        getItemCount={[Function]}
+        horizontal={false}
+        initialNumToRender={10}
+        keyExtractor={[Function]}
+        maxToRenderPerBatch={10}
+        numColumns={1}
+        onContentSizeChange={[Function]}
+        onEndReachedThreshold={2}
+        onLayout={[Function]}
+        onMomentumScrollEnd={[Function]}
+        onScroll={[Function]}
+        onScrollBeginDrag={[Function]}
+        onScrollEndDrag={[Function]}
+        renderItem={[Function]}
+        scrollEventThrottle={50}
+        stickyHeaderIndices={Array []}
+        updateCellsBatchingPeriod={50}
+        viewabilityConfigCallbackPairs={Array []}
+        windowSize={21}
       >
-        <View
-          style={
-            Object {
-              "flex": 1,
-              "flexDirection": "row",
-            }
-          }
-        >
-          <View>
-            <Image
-              source={
-                Object {
-                  "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
-                }
-              }
-              style={
-                Object {
-                  "borderRadius": 17,
-                  "height": 34,
-                  "width": 34,
-                }
-              }
-            />
-          </View>
-          <View
-            style={
-              Object {
-                "alignItems": "flex-start",
-                "flexDirection": "column",
-                "marginLeft": 16,
-              }
-            }
-          >
-            <Text
-              style={
-                Object {
-                  "fontWeight": "bold",
-                  "marginTop": 4,
-                }
-              }
-            >
-              רונן רוזנטל
-            </Text>
-            <View />
-          </View>
-        </View>
-        <View
-          style={
-            Object {
-              "alignItems": "flex-end",
-              "flex": 1,
-              "marginRight": "auto",
-              "marginTop": -8,
-            }
-          }
-        >
-          <Text
-            style={
-              Object {
-                "color": "rgb(24, 199, 20)",
-              }
-            }
-          >
-            200₪
-          </Text>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flex": 1,
-            "flexDirection": "row",
-            "marginTop": 20,
-            "maxHeight": 34,
-          }
-        }
-      >
-        <View
-          style={
-            Object {
-              "flex": 1,
-              "flexDirection": "row",
-            }
-          }
-        >
-          <View>
-            <Image
-              source={
-                Object {
-                  "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
-                }
-              }
-              style={
-                Object {
-                  "borderRadius": 17,
-                  "height": 34,
-                  "width": 34,
-                }
-              }
-            />
-          </View>
-          <View
-            style={
-              Object {
-                "alignItems": "flex-start",
-                "flexDirection": "column",
-                "marginLeft": 16,
-              }
-            }
-          >
-            <Text
-              style={
-                Object {
-                  "fontWeight": "bold",
-                  "marginTop": 4,
-                }
-              }
-            >
-              רונן רוזנטל
-            </Text>
-            <View />
-          </View>
-        </View>
-        <View
-          style={
-            Object {
-              "alignItems": "flex-end",
-              "flex": 1,
-              "marginRight": "auto",
-              "marginTop": -8,
-            }
-          }
-        >
-          <Text
-            style={
-              Object {
-                "color": "rgb(24, 199, 20)",
-              }
-            }
-          >
-            200₪
-          </Text>
-        </View>
-      </View>
+        <View />
+      </RCTScrollView>
     </View>
   </View>
 </RCTScrollView>

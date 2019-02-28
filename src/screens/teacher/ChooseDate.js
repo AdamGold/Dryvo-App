@@ -14,15 +14,35 @@ import Row from "../../components/Row"
 import UserWithPic from "../../components/UserWithPic"
 import Separator from "../../components/Separator"
 import { Icon } from "react-native-elements"
-import { MAIN_PADDING, calendarTheme } from "../../consts"
+import { MAIN_PADDING, calendarTheme, floatButton } from "../../consts"
+import Hours from "../../components/Hours"
+import { getStartAndEndOfDay } from "../../actions/lessons"
 
 export class ChooseDate extends React.Component {
 	constructor(props) {
 		super(props)
+		const date = new Date()
 		this.state = {
-			selected: new Date().toJSON().slice(0, 10)
+			day: date,
+			selected: date.toJSON().slice(0, 10),
+			items: []
 		}
+		this._getItems(date)
+		this.onDayPress = this.onDayPress.bind(this)
 	}
+	componentDidMount() {
+		this.willFocusSubscription = this.props.navigation.addListener(
+			"willFocus",
+			payload => {
+				this._getItems(this.state.day)
+			}
+		)
+	}
+
+	componentWillUnmount() {
+		this.willFocusSubscription.remove()
+	}
+
 	renderArrow = direction => (
 		<Icon
 			name={
@@ -33,19 +53,44 @@ export class ChooseDate extends React.Component {
 			type="material"
 		/>
 	)
-	renderItem = item => (
+	renderItem = ({ item, index }) => (
 		<Row
+			key={`item${item.id}`}
 			style={styles.lessonRow}
-			leftSide={<Text style={styles.hour}>13:00-13:40</Text>}
+			leftSide={<Hours duration={item.duration} date={item.date} />}
 		>
 			<UserWithPic
-				name={item.title}
+				name={item.student.user.name}
 				nameStyle={styles.nameStyle}
 				width={42}
 				height={42}
 			/>
 		</Row>
 	)
+	_getItems = async date => {
+		const dates = getStartAndEndOfDay(date)
+		const resp = await this.props.fetchService.fetch(
+			"/lessons/?is_approved=true&date=ge:" +
+				dates.startOfDay.toISOString() +
+				"&date=le:" +
+				dates.endOfDay.toISOString(),
+			{ method: "GET" }
+		)
+		this.setState({
+			items: resp.json["data"]
+		})
+	}
+	onDayPress = day => {
+		this.setState(
+			{
+				day: day,
+				selected: day.dateString
+			},
+			() => {
+				this._getItems(day)
+			}
+		)
+	}
 	render() {
 		return (
 			<View style={styles.container}>
@@ -65,11 +110,7 @@ export class ChooseDate extends React.Component {
 						}
 					}}
 					// Handler which gets executed on day press. Default = undefined
-					onDayPress={day => {
-						this.setState({
-							selected: day.dateString
-						})
-					}}
+					onDayPress={this.onDayPress}
 					// Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
 					monthFormat={"MMMM"}
 					renderArrow={this.renderArrow}
@@ -85,11 +126,10 @@ export class ChooseDate extends React.Component {
 						<FlatList
 							ItemSeparatorComponent={() => <Separator />}
 							testID="scheduleList"
-							data={[
-								{ title: "רועי ונונו", key: "item1" },
-								{ title: "דוד אמסלם", key: "item2" }
-							]}
+							data={this.state.items}
 							renderItem={this.renderItem}
+							style={{ marginBottom: 50 }}
+							keyExtractor={item => `item${item.id}`}
 						/>
 					</ShadowRect>
 				</View>
@@ -142,25 +182,7 @@ const styles = StyleSheet.create({
 	lessonRow: {
 		marginTop: 12
 	},
-	floatButton: {
-		position: "absolute",
-		bottom: 22,
-		backgroundColor: "rgb(12,116,244)",
-		width: 280,
-		height: 56,
-		borderRadius: 28,
-		alignSelf: "center",
-		alignItems: "center",
-		justifyContent: "center",
-		shadowColor: "rgb(12,116,244)",
-		shadowOffset: {
-			width: 0,
-			height: 8
-		},
-		shadowOpacity: 0.5,
-		shadowRadius: 16,
-		elevation: 8
-	},
+	floatButton: floatButton,
 	buttonText: {
 		color: "#fff",
 		fontSize: 20,
@@ -168,4 +190,9 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default connect()(ChooseDate)
+mapStateToProps = state => {
+	return {
+		fetchService: state.fetchService
+	}
+}
+export default connect(mapStateToProps)(ChooseDate)

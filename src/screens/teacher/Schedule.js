@@ -14,6 +14,9 @@ import UserWithPic from "../../components/UserWithPic"
 import { Icon } from "react-native-elements"
 import Separator from "../../components/Separator"
 import { calendarTheme, MAIN_PADDING } from "../../consts"
+import moment from "moment"
+import Hours from "../../components/Hours"
+import { getStartAndEndOfDay } from "../../actions/lessons"
 
 export class Schedule extends React.Component {
 	static navigationOptions = () => {
@@ -26,9 +29,31 @@ export class Schedule extends React.Component {
 	}
 	constructor(props) {
 		super(props)
+		const date = new Date()
 		this.state = {
-			selected: new Date().toJSON().slice(0, 10)
+			selected: date.toJSON().slice(0, 10),
+			items: {}
 		}
+		this._getItems(date)
+		this.onDayPress = this.onDayPress.bind(this)
+	}
+
+	_getItems = async date => {
+		const dates = getStartAndEndOfDay(date)
+		const resp = await this.props.fetchService.fetch(
+			"/lessons/?is_approved=true&date=ge:" +
+				dates.startOfDay.toISOString() +
+				"&date=le:" +
+				dates.endOfDay.toISOString(),
+			{ method: "GET" }
+		)
+		if (!resp.json["data"]) return
+		this.setState(prevState => ({
+			items: {
+				...prevState.items,
+				[dates.dateString]: resp.json["data"]
+			}
+		}))
 	}
 
 	renderItem = (item, firstItemInDay) => {
@@ -36,22 +61,37 @@ export class Schedule extends React.Component {
 		if (firstItemInDay) {
 			style = { marginTop: 20 }
 		}
+		const date = item.date
+		let dropoff
+		let meetup
+		if (item.dropoff_place) {
+			dropoff = (
+				<Text style={styles.places}>
+					{strings("teacher.new_lesson.dropoff")}:{" "}
+					{item.dropoff_place.namepoff}
+				</Text>
+			)
+		}
+		if (item.meetup_place) {
+			meetup = (
+				<Text style={styles.places}>
+					{strings("teacher.new_lesson.meetup")}:{" "}
+					{item.meetup_place.name}
+				</Text>
+			)
+		}
 		return (
 			<Row
 				style={{ ...styles.row, ...style }}
-				leftSide={<Text style={styles.hour}>10:00-10:40</Text>}
+				leftSide={<Hours duration={item.duration} date={date} />}
 			>
 				<UserWithPic
-					name="רונן רוזנטל (שיעור 25)"
+					name={`${item.student.user.name}(${item.lesson_number})`}
 					imageContainerStyle={styles.imageContainerStyle}
 					extra={
 						<Fragment>
-							<Text style={styles.places}>
-								{strings("teacher.new_lesson.meetup")}: האומן 5
-							</Text>
-							<Text style={styles.places}>
-								{strings("teacher.new_lesson.dropoff")}: רוטשילד
-							</Text>
+							{meetup}
+							{dropoff}
 						</Fragment>
 					}
 					nameStyle={styles.nameStyle}
@@ -83,28 +123,29 @@ export class Schedule extends React.Component {
 			</View>
 		)
 	}
+
+	renderEmpty = () => {
+		return <Text>Hello empty</Text>
+	}
+
+	onDayPress = day => {
+		this.setState(
+			{
+				selected: day.dateString
+			},
+			() => {
+				this._getItems(day)
+			}
+		)
+	}
 	render() {
 		return (
 			<View style={styles.container}>
 				<View testID="ScheduleView" style={styles.schedule}>
 					<Agenda
-						items={{
-							"2019-02-19": [
-								{ text: "item 1 - any js object" },
-								{ text: "item 1 - any js object" }
-							],
-							"2019-02-20": [{ text: "item 3 - any js object" }]
-						}}
-						// callback that fires when the calendar is opened or closed
-						onCalendarToggled={calendarOpened => {
-							console.log(calendarOpened)
-						}}
+						items={this.state.items}
 						// callback that gets called on day press
-						onDayPress={day => {
-							this.setState({
-								selected: day.dateString
-							})
-						}}
+						onDayPress={this.onDayPress}
 						// initially selected day
 						selected={Date()}
 						// Max amount of months allowed to scroll to the past. Default = 50
@@ -115,10 +156,7 @@ export class Schedule extends React.Component {
 						renderItem={this.renderItem}
 						// specify how each date should be rendered. day can be undefined if the item is not first in that day.
 						renderDay={(day, item) => undefined}
-						// specify what should be rendered instead of ActivityIndicator
-						renderEmptyData={() => {
-							return <Text>Hello empty</Text>
-						}}
+						renderEmptyDate={this.renderEmpty}
 						// specify your item comparison function for increased performance
 						rowHasChanged={(r1, r2) => {
 							return r1.text !== r2.text
@@ -186,4 +224,10 @@ const styles = StyleSheet.create({
 	},
 	userWithPic: { marginLeft: 10 }
 })
-export default connect()(Schedule)
+
+function mapStateToProps(state) {
+	return {
+		fetchService: state.fetchService
+	}
+}
+export default connect(mapStateToProps)(Schedule)

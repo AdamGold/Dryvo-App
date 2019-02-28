@@ -24,6 +24,7 @@ export class SignIn extends React.Component {
 			emailError: "",
 			passwordError: ""
 		}
+		this.handleOpenURL = this.handleOpenURL.bind(this)
 	}
 
 	handleOpenURL = async event => {

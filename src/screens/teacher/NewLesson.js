@@ -19,6 +19,7 @@ import Hours from "../../components/Hours"
 import InputSelectionButton from "../../components/InputSelectionButton"
 import moment from "moment"
 import { getHoursDiff } from "../../actions/utils"
+import { API_ERROR } from "../../reducers/consts"
 
 class NewLesson extends React.Component {
 	constructor(props) {
@@ -53,7 +54,8 @@ class NewLesson extends React.Component {
 				onBlur: input => {
 					this._getAvailableHours()
 					this.onBlur(input)
-				}
+				},
+				style: { marginTop: 0 }
 			},
 			studentName: {
 				iconName: "person-outline",
@@ -110,6 +112,7 @@ class NewLesson extends React.Component {
 	}
 
 	_getStudents = async (name = "") => {
+		if (name.length < 3) return
 		const resp = await this.props.fetchService.fetch(
 			"/teacher/students?name=" + name,
 			{
@@ -242,24 +245,32 @@ class NewLesson extends React.Component {
 	}
 
 	createLesson = async () => {
-		const resp = await this.props.fetchService.fetch("/lessons/", {
-			method: "POST",
-			body: JSON.stringify({
-				date: this.state.dateAndTime,
-				student_id: this.state.student.student_id,
-				meetup_place: this.state.meetup,
-				dropoff_place: this.state.dropoff
-			})
-		})
-		const lessonId = resp.json["data"]["id"]
-		// TODO update topics
-		const topicsResp = this.props.fetchService.fetch(
-			`/lessons/${lessonId}}/topics`,
-			{
+		try {
+			const resp = await this.props.fetchService.fetch("/lessons/", {
 				method: "POST",
-				body: JSON.stringify({ progress: [], finished: [] })
-			}
-		)
+				body: JSON.stringify({
+					date: moment.utc(this.state.dateAndTime).toISOString(),
+					student_id: this.state.student.student_id,
+					meetup_place: this.state.meetup,
+					dropoff_place: this.state.dropoff
+				})
+			})
+			const lessonId = resp.json["data"]["id"]
+			// TODO update topics
+			/*
+			const topicsResp = await this.props.fetchService.fetch(
+				`/lessons/${lessonId}/topics`,
+				{
+					method: "POST",
+					body: JSON.stringify({ topics: {progress: [], finished: []} })
+				}
+			) */
+			this.props.navigation.goBack()
+		} catch (error) {
+			let msg = ""
+			if (error && error.hasOwnProperty("message")) msg = error.message
+			this.props.dispatch({ type: API_ERROR, error: msg })
+		}
 	}
 
 	render() {
@@ -345,7 +356,6 @@ const styles = StyleSheet.create({
 	formContainer: {
 		width: 340,
 		marginBottom: 70,
-		marginTop: -40,
 		alignSelf: "center"
 	},
 	submitButton: floatButton,

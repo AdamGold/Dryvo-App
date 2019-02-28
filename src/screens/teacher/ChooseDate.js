@@ -29,6 +29,19 @@ export class ChooseDate extends React.Component {
 		this._getItems(date)
 		this.onDayPress = this.onDayPress.bind(this)
 	}
+	componentDidMount() {
+		this.willFocusSubscription = this.props.navigation.addListener(
+			"willFocus",
+			payload => {
+				this._getItems(new Date())
+			}
+		)
+	}
+
+	componentWillUnmount() {
+		this.willFocusSubscription.remove()
+	}
+
 	renderArrow = direction => (
 		<Icon
 			name={
@@ -46,7 +59,7 @@ export class ChooseDate extends React.Component {
 			leftSide={<Hours duration={item.duration} date={item.date} />}
 		>
 			<UserWithPic
-				name={item.title}
+				name={item.student.user.name}
 				nameStyle={styles.nameStyle}
 				width={42}
 				height={42}
@@ -113,6 +126,8 @@ export class ChooseDate extends React.Component {
 							testID="scheduleList"
 							data={this.state.items}
 							renderItem={this.renderItem}
+							style={{ marginBottom: 50 }}
+							keyExtractor={item => `item${item.id}`}
 						/>
 					</ShadowRect>
 				</View>

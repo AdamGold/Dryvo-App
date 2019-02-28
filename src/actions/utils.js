@@ -1,5 +1,6 @@
 import { Platform, Linking } from "react-native"
 import { LOAD_FETCH_SERVICE } from "../reducers/consts"
+import moment from "moment"
 
 export const loadFetchService = () => {
 	return {
@@ -19,4 +20,14 @@ export const deepLinkingListener = async func => {
 
 export const deepLinkingRemoveListener = async func => {
 	Linking.removeEventListener("url", func)
+}
+
+export const getHoursDiff = (date, duration) => {
+	const start = moment.utc(date).format("HH:mm")
+	const end = moment
+		.utc(date)
+		.add(duration, "minutes")
+		.format("HH:mm")
+
+	return { start, end }
 }

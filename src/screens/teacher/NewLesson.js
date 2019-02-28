@@ -13,9 +13,12 @@ import { connect } from "react-redux"
 import { Input, Button, Icon } from "react-native-elements"
 import { strings } from "../../i18n"
 import PageTitle from "../../components/PageTitle"
-import { MAIN_PADDING } from "../../consts"
+import { MAIN_PADDING, floatButton, API_DATE_FORMAT } from "../../consts"
 import NewLessonInput from "../../components/NewLessonInput"
 import Hours from "../../components/Hours"
+import InputSelectionButton from "../../components/InputSelectionButton"
+import moment from "moment"
+import { getHoursDiff } from "../../actions/utils"
 
 class NewLesson extends React.Component {
 	constructor(props) {
@@ -25,22 +28,28 @@ class NewLesson extends React.Component {
 			error: "",
 			hours: [],
 			students: [],
-			dateAndTime: ""
+			selectedStudent: {},
+			dateAndTime: "",
+			defaultDuration: this.props.user.lesson_duration.toString()
 		}
+		this._initializeInputs = this._initializeInputs.bind(this)
+		this.setRef = this.setRef.bind(this)
+		this.onChangeText = this.onChangeText.bind(this)
+		this._onHourPress = this._onHourPress.bind(this)
+		this._onStudentPress = this._onStudentPress.bind(this)
+		this.createLesson = this.createLesson.bind(this)
+
+		this._initializeInputs()
+		this._getAvailableHours()
+	}
+
+	_initializeInputs = () => {
 		this.inputs = {
-			date: {
-				iconName: "date-range",
-				editable: false,
-				selectTextOnFocus: false,
-				style: {
-					borderBottomWidth: 0
-				}
-			},
 			duration: {
 				iconName: "swap-horiz",
 				extraPlaceholder: ` (${strings(
 					"teacher.new_lesson.default"
-				)}: ${this.props.user.lesson_duration.toString()})`,
+				)}: ${this.state.defaultDuration})`,
 				onBlur: input => {
 					this._getAvailableHours()
 					this.onBlur(input)
@@ -48,6 +57,7 @@ class NewLesson extends React.Component {
 			},
 			studentName: {
 				iconName: "person-outline",
+				below: this.renderStudents,
 				onChangeText: (name, value) => {
 					this.onChangeText(name, value)
 					this._getStudents(value)
@@ -67,6 +77,12 @@ class NewLesson extends React.Component {
 				onSubmitEditing: () => {
 					this._touchable.touchableHandlePress()
 				}
+			},
+			hour: {
+				iconName: "access-time",
+				below: this.renderHours,
+				editable: false,
+				selectTextOnFocus: false
 			}
 		}
 		Object.keys(this.inputs).forEach(input => {
@@ -74,15 +90,9 @@ class NewLesson extends React.Component {
 				this.state[input] = ""
 			}
 		})
-		this.setRef = this.setRef.bind(this)
-		this.onChangeText = this.onChangeText.bind(this)
-		this._onHourPress = this._onHourPress.bind(this)
-
-		this._getAvailableHours()
 	}
 
 	_getAvailableHours = async () => {
-		console.log(this.state.duration)
 		const resp = await this.props.fetchService.fetch(
 			`/teacher/${this.props.user.teacher_id}/available_hours`,
 			{
@@ -106,12 +116,8 @@ class NewLesson extends React.Component {
 				method: "GET"
 			}
 		)
-		let names = []
-		Object.entries(resp.json["data"]).map(([key, value]) => {
-			names.push(value.user.name)
-		})
 		this.setState({
-			students: names
+			students: resp.json["data"]
 		})
 	}
 
@@ -152,34 +158,108 @@ class NewLesson extends React.Component {
 					onSubmitEditing={props.onSubmitEditing}
 					extraPlaceholder={props.extraPlaceholder || ""}
 					style={props.style}
+					below={props.below}
 				/>
 			)
 		})
 	}
 
 	_onHourPress = date => {
+		const hours = getHoursDiff(
+			date,
+			this.state.duration || this.state.defaultDuration
+		)
 		this.setState({
-			dateAndTime: date
+			hour: hours["start"] + " - " + hours["end"],
+			dateAndTime: moment.utc(date).format(API_DATE_FORMAT)
 		})
 	}
 
 	renderHours = () => {
 		return this.state.hours.map((hours, index) => {
+			let selected = false
+			let selectedTextStyle
+			if (
+				this.state.dateAndTime ==
+				moment.utc(hours[0]).format(API_DATE_FORMAT)
+			) {
+				selected = true
+				selectedTextStyle = { color: "#fff" }
+			}
 			return (
-				<TouchableHighlight
+				<InputSelectionButton
+					selected={selected}
 					key={`hours${index}`}
 					onPress={() => this._onHourPress(hours[0])}
 				>
-					<View style={styles.hours}>
-						<Hours
-							style={styles.hoursText}
-							date={hours[0]}
-							duration={this.state.duration}
-						/>
-					</View>
-				</TouchableHighlight>
+					<Hours
+						style={{
+							...styles.hoursText,
+							...selectedTextStyle
+						}}
+						date={hours[0]}
+						duration={
+							this.state.duration || this.state.defaultDuration
+						}
+					/>
+				</InputSelectionButton>
 			)
 		})
+	}
+
+	_onStudentPress = student => {
+		this.setState({
+			student,
+			studentName: student.user.name
+		})
+	}
+
+	renderStudents = () => {
+		return this.state.students.map((student, index) => {
+			let selected = false
+			let selectedTextStyle
+			if (this.state.student == student) {
+				selected = true
+				selectedTextStyle = { color: "#fff" }
+			}
+			return (
+				<InputSelectionButton
+					selected={selected}
+					key={`student${index}`}
+					onPress={() => this._onStudentPress(student)}
+				>
+					<Text
+						style={{
+							...styles.hoursText,
+							...selectedTextStyle
+						}}
+					>
+						{student.user.name}
+					</Text>
+				</InputSelectionButton>
+			)
+		})
+	}
+
+	createLesson = async () => {
+		const resp = await this.props.fetchService.fetch("/lessons/", {
+			method: "POST",
+			body: JSON.stringify({
+				date: this.state.dateAndTime,
+				student_id: this.state.student.student_id,
+				meetup_place: this.state.meetup,
+				dropoff_place: this.state.dropoff
+			})
+		})
+		const lessonId = resp.json["data"]["id"]
+		// TODO update topics
+		const topicsResp = this.props.fetchService.fetch(
+			`/lessons/${lessonId}}/topics`,
+			{
+				method: "POST",
+				body: JSON.stringify({ progress: [], finished: [] })
+			}
+		)
 	}
 
 	render() {
@@ -197,6 +277,12 @@ class NewLesson extends React.Component {
 						style={styles.title}
 						title={strings("teacher.new_lesson.title")}
 					/>
+					<View style={styles.selectedDateView}>
+						<Icon type="material" name="date-range" />
+						<Text style={styles.selectedDate}>
+							{this.state.date}
+						</Text>
+					</View>
 				</View>
 				<KeyboardAvoidingView
 					behavior="padding"
@@ -206,19 +292,16 @@ class NewLesson extends React.Component {
 					<ScrollView
 						ref={ref => (this._scrollView = ref)}
 						style={styles.formContainer}
+						keyboardDismissMode="on-drag"
+						keyboardShouldPersistTaps="always"
 					>
 						<Text testID="error">{this.state.error}</Text>
 						{this.renderInputs()}
-						<Text style={styles.hoursTitle}>
-							{strings("teacher.new_lesson.hour")}
-						</Text>
-						<View style={styles.hoursRows}>
-							{this.renderHours()}
-						</View>
 					</ScrollView>
 					<TouchableHighlight
 						underlayColor="#ffffff00"
 						ref={touchable => (this._touchable = touchable)}
+						onPress={this.createLesson}
 					>
 						<View testID="finishButton" style={styles.submitButton}>
 							<Text style={styles.doneText}>
@@ -234,8 +317,7 @@ class NewLesson extends React.Component {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
-		marginTop: -20
+		flex: 1
 	},
 	title: {
 		marginLeft: 12,
@@ -247,21 +329,26 @@ const styles = StyleSheet.create({
 		maxHeight: 50,
 		paddingLeft: MAIN_PADDING
 	},
+	selectedDateView: {
+		flex: 1,
+		flexDirection: "row",
+		justifyContent: "flex-end",
+		alignItems: "center",
+		marginRight: MAIN_PADDING,
+		marginTop: -10
+	},
+	selectedDate: {
+		marginLeft: 6,
+		fontSize: 14,
+		fontWeight: "bold"
+	},
 	formContainer: {
 		width: 340,
-		maxWidth: 340,
+		marginBottom: 70,
+		marginTop: -40,
 		alignSelf: "center"
 	},
-	submitButton: {
-		position: "absolute",
-		bottom: 0,
-		backgroundColor: "rgb(12,116,244)",
-		height: 56,
-		width: "100%",
-		alignSelf: "center",
-		alignItems: "center",
-		justifyContent: "center"
-	},
+	submitButton: floatButton,
 	doneText: {
 		color: "#fff",
 		fontWeight: "bold"
@@ -275,24 +362,8 @@ const styles = StyleSheet.create({
 	input: {
 		paddingLeft: 12
 	},
-	hoursRows: {
-		flex: 1,
-		flexWrap: "wrap",
-		flexDirection: "row",
-		justifyContent: "flex-start"
-	},
-	hours: {
-		padding: 8
-	},
 	hoursText: {
-		fontWeight: "bold"
-	},
-	hoursTitle: {
-		fontWeight: "bold",
-		alignSelf: "flex-start",
-		marginTop: 16,
-		marginBottom: 8,
-		fontSize: 18
+		color: "gray"
 	}
 })
 

@@ -14,7 +14,7 @@ import Row from "../../components/Row"
 import UserWithPic from "../../components/UserWithPic"
 import Separator from "../../components/Separator"
 import { Icon } from "react-native-elements"
-import { MAIN_PADDING, calendarTheme } from "../../consts"
+import { MAIN_PADDING, calendarTheme, floatButton } from "../../consts"
 import Hours from "../../components/Hours"
 import { getStartAndEndOfDay } from "../../actions/lessons"
 
@@ -165,25 +165,7 @@ const styles = StyleSheet.create({
 	lessonRow: {
 		marginTop: 12
 	},
-	floatButton: {
-		position: "absolute",
-		bottom: 22,
-		backgroundColor: "rgb(12,116,244)",
-		width: 280,
-		height: 56,
-		borderRadius: 28,
-		alignSelf: "center",
-		alignItems: "center",
-		justifyContent: "center",
-		shadowColor: "rgb(12,116,244)",
-		shadowOffset: {
-			width: 0,
-			height: 8
-		},
-		shadowOpacity: 0.5,
-		shadowRadius: 16,
-		elevation: 8
-	},
+	floatButton: floatButton,
 	buttonText: {
 		color: "#fff",
 		fontSize: 20,

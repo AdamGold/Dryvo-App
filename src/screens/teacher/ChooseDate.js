@@ -23,6 +23,7 @@ export class ChooseDate extends React.Component {
 		super(props)
 		const date = new Date()
 		this.state = {
+			day: date,
 			selected: date.toJSON().slice(0, 10),
 			items: []
 		}
@@ -33,7 +34,7 @@ export class ChooseDate extends React.Component {
 		this.willFocusSubscription = this.props.navigation.addListener(
 			"willFocus",
 			payload => {
-				this._getItems(new Date())
+				this._getItems(this.state.day)
 			}
 		)
 	}
@@ -82,6 +83,7 @@ export class ChooseDate extends React.Component {
 	onDayPress = day => {
 		this.setState(
 			{
+				day: day,
 				selected: day.dateString
 			},
 			() => {

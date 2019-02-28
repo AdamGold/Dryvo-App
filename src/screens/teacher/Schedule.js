@@ -68,7 +68,7 @@ export class Schedule extends React.Component {
 			dropoff = (
 				<Text style={styles.places}>
 					{strings("teacher.new_lesson.dropoff")}:{" "}
-					{droitem.dropoff_place.namepoff}
+					{item.dropoff_place.namepoff}
 				</Text>
 			)
 		}
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
 	userWithPic: { marginLeft: 10 }
 })
 
-mapStateToProps = state => {
+function mapStateToProps(state) {
 	return {
 		fetchService: state.fetchService
 	}

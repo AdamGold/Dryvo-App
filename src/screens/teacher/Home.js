@@ -32,7 +32,8 @@ export class Home extends React.Component {
 		super(props)
 		this.state = {
 			items: [],
-			payments: []
+			payments: [],
+			sum: 0
 		}
 
 		this._getItems()
@@ -61,8 +62,13 @@ export class Home extends React.Component {
 				lastDay.toISOString(),
 			{ method: "GET" }
 		)
+		var sum = 0
+		for (var i = 0, _len = resp.json["data"].length; i < _len; i++) {
+			sum += resp.json["data"][i]["amount"]
+		}
 		this.setState({
-			payments: [...this.state.payments, ...resp.json["data"]]
+			payments: [...this.state.payments, ...resp.json["data"]],
+			sum
 		})
 	}
 
@@ -113,10 +119,6 @@ export class Home extends React.Component {
 		)
 	}
 	render() {
-		var sum = 0
-		for (var i = 0, _len = this.state.payments.length; i < _len; i++) {
-			sum += this.state.payments[i]["amount"]
-		}
 		return (
 			<ScrollView style={styles.container}>
 				<View testID="welcomeHeader" style={styles.welcomeHeader}>
@@ -179,7 +181,7 @@ export class Home extends React.Component {
 						</View>
 					</View>
 					<View style={styles.amountView}>
-						<Text style={styles.amount}>{sum}₪</Text>
+						<Text style={styles.amount}>{this.state.sum}₪</Text>
 						<Text style={styles.addPayment}>
 							{strings("teacher.home.add_payment")}
 						</Text>

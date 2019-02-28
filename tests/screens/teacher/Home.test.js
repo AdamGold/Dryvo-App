@@ -6,6 +6,7 @@ import renderer from "react-test-renderer"
 import { Home } from "../../../src/screens/teacher/Home"
 
 const fetchService = new FetchService()
+jest.useFakeTimers()
 describe("Home", () => {
 	test("view renders correctly", () => {
 		const user = { name: "test" }

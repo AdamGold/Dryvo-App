@@ -48,7 +48,7 @@ describe("Content test", () => {
 	})
 
 	it("should have new lesson form with keyboard focused", async () => {
-		await expect(element(by.id("lessonDateInput"))).toBeVisible()
+		await expect(element(by.id("hourInput"))).toBeVisible()
 		await expect(element(by.id("finishButton"))).toBeVisible()
 	})
 })

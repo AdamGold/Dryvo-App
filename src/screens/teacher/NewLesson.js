@@ -13,7 +13,12 @@ import { connect } from "react-redux"
 import { Input, Button, Icon } from "react-native-elements"
 import { strings } from "../../i18n"
 import PageTitle from "../../components/PageTitle"
-import { MAIN_PADDING, floatButton, API_DATE_FORMAT } from "../../consts"
+import {
+	MAIN_PADDING,
+	floatButton,
+	API_DATE_FORMAT,
+	DEFAULT_DURATION
+} from "../../consts"
 import NewLessonInput from "../../components/NewLessonInput"
 import Hours from "../../components/Hours"
 import InputSelectionButton from "../../components/InputSelectionButton"
@@ -24,6 +29,7 @@ import { API_ERROR } from "../../reducers/consts"
 class NewLesson extends React.Component {
 	constructor(props) {
 		super(props)
+		duration = this.props.user.lesson_duration || DEFAULT_DURATION
 		this.state = {
 			date: this.props.navigation.getParam("date"),
 			error: "",
@@ -31,7 +37,7 @@ class NewLesson extends React.Component {
 			students: [],
 			selectedStudent: {},
 			dateAndTime: "",
-			defaultDuration: this.props.user.lesson_duration.toString()
+			defaultDuration: duration.toString()
 		}
 		this._initializeInputs = this._initializeInputs.bind(this)
 		this.setRef = this.setRef.bind(this)

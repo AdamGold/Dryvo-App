@@ -13,17 +13,33 @@ export class NewStudent extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			search: ""
+			search: "",
+			students: []
 		}
+
+		this._getStudents = this._getStudents.bind(this)
 	}
+
 	updateSearch = search => {
-		this.setState({ search })
+		this.setState({ search }, () => {
+			this._getStudents()
+		})
+	}
+
+	_getStudents = async () => {
+		const resp = await this.props.fetchService.fetch(
+			"/user/search?name=" + this.state.search,
+			{ method: "GET" }
+		)
+		this.setState({
+			students: resp.json["data"]
+		})
 	}
 
 	renderItem = ({ item }) => (
 		<Row leftSide={<Icon name="ios-add" type="ionicon" color="#000" />}>
 			<UserWithPic
-				name="רונן רוזנטל"
+				name={item.user.name}
 				nameStyle={styles.nameStyle}
 				width={64}
 				height={64}
@@ -74,7 +90,7 @@ export class NewStudent extends React.Component {
 					/>
 					<Separator />
 					<FlatList
-						data={[{ title: "Title Text", key: "item1" }]}
+						data={this.state.students}
 						renderItem={this.renderItem}
 					/>
 				</View>
@@ -123,4 +139,10 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default connect()(NewStudent)
+function mapStateToProps(state) {
+	return {
+		fetchService: state.fetchService
+	}
+}
+
+export default connect(mapStateToProps)(NewStudent)

@@ -1,5 +1,11 @@
 import React from "react"
-import { View, StyleSheet, FlatList } from "react-native"
+import {
+	View,
+	StyleSheet,
+	FlatList,
+	TouchableHighlight,
+	ScrollView
+} from "react-native"
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
 import Row from "../../components/Row"
@@ -8,28 +14,74 @@ import Separator from "../../components/Separator"
 import { SearchBar, Button, Icon } from "react-native-elements"
 import PageTitle from "../../components/PageTitle"
 import { MAIN_PADDING } from "../../consts"
+import { API_ERROR } from "../../reducers/consts"
 
 export class NewStudent extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			search: ""
+			search: "",
+			users: []
 		}
-	}
-	updateSearch = search => {
-		this.setState({ search })
+
+		this._getUsers = this._getUsers.bind(this)
+		this.assignUser = this.assignUser.bind(this)
 	}
 
-	renderItem = ({ item }) => (
-		<Row leftSide={<Icon name="ios-add" type="ionicon" color="#000" />}>
-			<UserWithPic
-				name="רונן רוזנטל"
-				nameStyle={styles.nameStyle}
-				width={64}
-				height={64}
-			/>
-		</Row>
-	)
+	updateSearch = search => {
+		this.setState({ search }, () => {
+			this._getUsers()
+		})
+	}
+
+	assignUser = async user => {
+		try {
+			const resp = await this.props.fetchService.fetch(
+				"/user/make_student?user_id=" + user.id,
+				{ method: "GET" }
+			)
+			this.props.navigation.goBack()
+		} catch (error) {
+			console.log(error)
+			let msg = ""
+			if (error && error.hasOwnProperty("message")) msg = error.message
+			this.props.dispatch({ type: API_ERROR, error: msg })
+		}
+	}
+	_getUsers = async () => {
+		const resp = await this.props.fetchService.fetch(
+			"/user/search?name=" + this.state.search,
+			{ method: "GET" }
+		)
+		this.setState({
+			users: resp.json["data"]
+		})
+	}
+
+	renderItem = ({ item, index }) => {
+		return (
+			<TouchableHighlight
+				underlayColor="#f9f9f9"
+				key={`user${item.id}`}
+				onPress={() => {
+					this.assignUser(item)
+				}}
+			>
+				<Row
+					leftSide={
+						<Icon name="ios-add" type="ionicon" color="#000" />
+					}
+				>
+					<UserWithPic
+						name={item.name}
+						nameStyle={styles.nameStyle}
+						width={64}
+						height={64}
+					/>
+				</Row>
+			</TouchableHighlight>
+		)
+	}
 
 	render() {
 		return (
@@ -74,8 +126,10 @@ export class NewStudent extends React.Component {
 					/>
 					<Separator />
 					<FlatList
-						data={[{ title: "Title Text", key: "item1" }]}
+						data={this.state.users}
+						keyboardShouldPersistTaps="always"
 						renderItem={this.renderItem}
+						keyExtractor={item => `user${item.id}`}
 					/>
 				</View>
 			</View>
@@ -123,4 +177,10 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default connect()(NewStudent)
+function mapStateToProps(state) {
+	return {
+		fetchService: state.fetchService
+	}
+}
+
+export default connect(mapStateToProps)(NewStudent)

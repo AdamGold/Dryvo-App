@@ -416,20 +416,14 @@ exports[`Students view renders correctly 1`] = `
       }
     />
     <RCTScrollView
-      data={
-        Array [
-          Object {
-            "key": "item1",
-            "title": "Title Text",
-          },
-        ]
-      }
+      data={Array []}
       disableVirtualization={false}
       getItem={[Function]}
       getItemCount={[Function]}
       horizontal={false}
       initialNumToRender={10}
       keyExtractor={[Function]}
+      keyboardShouldPersistTaps="always"
       maxToRenderPerBatch={10}
       numColumns={1}
       onContentSizeChange={[Function]}
@@ -446,154 +440,7 @@ exports[`Students view renders correctly 1`] = `
       viewabilityConfigCallbackPairs={Array []}
       windowSize={21}
     >
-      <View>
-        <View
-          onLayout={[Function]}
-          style={null}
-        >
-          <View
-            style={
-              Object {
-                "alignItems": "center",
-                "flex": 1,
-                "flexDirection": "row",
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "flex": 1,
-                  "flexDirection": "row",
-                }
-              }
-            >
-              <View>
-                <Image
-                  source={
-                    Object {
-                      "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
-                    }
-                  }
-                  style={
-                    Object {
-                      "borderRadius": 32,
-                      "height": 64,
-                      "width": 64,
-                    }
-                  }
-                />
-              </View>
-              <View
-                style={
-                  Object {
-                    "alignItems": "flex-start",
-                    "flexDirection": "column",
-                    "marginLeft": 16,
-                  }
-                }
-              >
-                <Text
-                  style={
-                    Object {
-                      "fontSize": 18,
-                      "fontWeight": "bold",
-                      "marginTop": 14,
-                    }
-                  }
-                >
-                  רונן רוזנטל
-                </Text>
-                <View />
-              </View>
-            </View>
-            <View
-              style={
-                Object {
-                  "alignItems": "flex-end",
-                  "flex": 1,
-                  "marginRight": "auto",
-                  "marginTop": -8,
-                }
-              }
-            >
-              <View>
-                <View
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "backgroundColor": "transparent",
-                      "justifyContent": "center",
-                    }
-                  }
-                  theme={
-                    Object {
-                      "colors": Object {
-                        "disabled": "hsl(208, 8%, 90%)",
-                        "divider": "#bcbbc1",
-                        "error": "#ff190c",
-                        "grey0": "#393e42",
-                        "grey1": "#43484d",
-                        "grey2": "#5e6977",
-                        "grey3": "#86939e",
-                        "grey4": "#bdc6cf",
-                        "grey5": "#e1e8ee",
-                        "greyOutline": "#bbb",
-                        "platform": Object {
-                          "android": Object {
-                            "error": "#f44336",
-                            "primary": "#2196f3",
-                            "secondary": "#9C27B0",
-                            "success": "#4caf50",
-                            "warning": "#ffeb3b",
-                          },
-                          "ios": Object {
-                            "error": "#ff3b30",
-                            "primary": "#007aff",
-                            "secondary": "#5856d6",
-                            "success": "#4cd964",
-                            "warning": "#ffcc00",
-                          },
-                        },
-                        "primary": "#2089dc",
-                        "searchBg": "#303337",
-                        "secondary": "#8F0CE8",
-                        "success": "#52c41a",
-                        "warning": "#faad14",
-                      },
-                    }
-                  }
-                  underlayColor="white"
-                >
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      Array [
-                        Object {
-                          "color": "#000",
-                          "fontSize": 24,
-                        },
-                        Object {
-                          "backgroundColor": "transparent",
-                        },
-                        Object {
-                          "fontFamily": "Ionicons",
-                          "fontStyle": "normal",
-                          "fontWeight": "normal",
-                        },
-                        Object {},
-                      ]
-                    }
-                    testID="iconIcon"
-                  >
-                    
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-      </View>
+      <View />
     </RCTScrollView>
   </View>
 </View>

@@ -26,8 +26,26 @@ export class Students extends React.Component {
 		}
 		this.updateSearch = this.updateSearch.bind(this)
 		this._getStudents = this._getStudents.bind(this)
+	}
 
-		this._getStudents()
+	componentDidMount() {
+		this.willFocusSubscription = this.props.navigation.addListener(
+			"willFocus",
+			payload => {
+				this.setState(
+					{
+						students: []
+					},
+					() => {
+						this._getStudents()
+					}
+				)
+			}
+		)
+	}
+
+	componentWillUnmount() {
+		this.willFocusSubscription.remove()
 	}
 
 	_constructAPIUrl = (extra = "") => {

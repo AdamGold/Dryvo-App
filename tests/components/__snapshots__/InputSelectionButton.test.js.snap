@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InputSelectionButton view renders correctly 1`] = `
+<View
+  accessible={true}
+  isTVSelectable={true}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={null}
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "rgb(12,116,244)",
+        "borderRadius": 4,
+        "elevation": 4,
+        "margin": 6,
+        "padding": 6,
+        "shadowColor": "rgb(12,116,244)",
+        "shadowOffset": Object {
+          "height": 6,
+          "width": 0,
+        },
+        "shadowOpacity": 0.2,
+        "shadowRadius": 6,
+      }
+    }
+  >
+    <Text>
+      test
+    </Text>
+  </View>
+</View>
+`;

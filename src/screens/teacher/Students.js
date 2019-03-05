@@ -14,6 +14,7 @@ import UserWithPic from "../../components/UserWithPic"
 import { Icon, SearchBar } from "react-native-elements"
 import FlatButton from "../../components/FlatButton"
 import { MAIN_PADDING } from "../../consts"
+import { Dropdown } from "react-native-material-dropdown"
 
 export class Students extends React.Component {
 	constructor(props) {
@@ -24,6 +25,11 @@ export class Students extends React.Component {
 			page: 1,
 			nextUrl: ""
 		}
+		this.sortOptions = [
+			{ value: strings("teacher.students.balance") },
+			{ value: strings("teacher.students.lesson_number") },
+			{ value: strings("teacher.students.join_date") }
+		]
 		this.updateSearch = this.updateSearch.bind(this)
 		this._getStudents = this._getStudents.bind(this)
 	}
@@ -145,18 +151,28 @@ export class Students extends React.Component {
 						}
 					/>
 
-					<SearchBar
-						placeholder={strings("teacher.students.search")}
-						onChangeText={this.updateSearch}
-						value={this.state.search}
-						platform="ios"
-						containerStyle={styles.searchBarContainer}
-						inputContainerStyle={styles.inputContainerStyle}
-						cancelButtonTitle={strings("teacher.students.cancel")}
-						inputStyle={styles.search}
-						textAlign="right"
-						cancelButtonTitle={""}
-					/>
+					<View style={styles.headerRow}>
+						<SearchBar
+							placeholder={strings("teacher.students.search")}
+							onChangeText={this.updateSearch}
+							value={this.state.search}
+							platform="ios"
+							containerStyle={styles.searchBarContainer}
+							inputContainerStyle={styles.inputContainerStyle}
+							cancelButtonTitle={strings(
+								"teacher.students.cancel"
+							)}
+							inputStyle={styles.search}
+							textAlign="right"
+							cancelButtonTitle={""}
+						/>
+						<Dropdown
+							containerStyle={styles.dropdown}
+							label={strings("sort_by")}
+							data={this.sortOptions}
+						/>
+					</View>
+
 					<FlatList
 						data={this.state.students}
 						renderItem={this.renderItem}
@@ -172,6 +188,12 @@ export class Students extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1
+	},
+	headerRow: {
+		flex: 1,
+		flexDirection: "row",
+		alignItems: "center",
+		maxHeight: 60
 	},
 	students: {
 		flex: 1,
@@ -201,7 +223,8 @@ const styles = StyleSheet.create({
 		backgroundColor: "transparent",
 		paddingBottom: 0,
 		paddingTop: 0,
-		marginTop: 20
+		marginTop: 20,
+		flex: 4
 	},
 	inputContainerStyle: {
 		borderRadius: 30,
@@ -215,6 +238,12 @@ const styles = StyleSheet.create({
 		paddingLeft: 6,
 		fontSize: 14,
 		marginLeft: 0
+	},
+	dropdown: {
+		alignSelf: "flex-end",
+		flex: 2,
+		marginLeft: 12,
+		marginTop: 8
 	}
 })
 

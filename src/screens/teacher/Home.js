@@ -72,19 +72,43 @@ export class Home extends React.Component {
 		})
 	}
 
+	showLesson = item => {}
+
 	renderItem = ({ item, index }) => {
 		const date = item.date
+		let meetup = strings("not_set")
+		if (item.meetup_place) meetup = item.meetup_place.name
+		let dropoff = strings("not_set")
+		if (item.dropoff_place) dropoff = item.dropoff_place.name
 		return (
-			<Row
-				key={`item${item.id}`}
-				style={styles.lessonRow}
-				leftSide={<Hours duration={item.duration} date={date} />}
+			<TouchableHighlight
+				underlayColor="gray"
+				onPress={() => this.showLesson(item)}
 			>
-				<UserWithPic
-					name={item.student.user.name}
-					nameStyle={styles.nameStyle}
-				/>
-			</Row>
+				<Row
+					key={`item${item.id}`}
+					style={styles.lessonRow}
+					leftSide={<Hours duration={item.duration} date={date} />}
+				>
+					<UserWithPic
+						name={item.student.user.name}
+						extra={
+							<View style={{ alignItems: "flex-start" }}>
+								<Text style={styles.places}>
+									{strings("teacher.new_lesson.meetup")}:{" "}
+									{meetup}
+								</Text>
+								<Text style={styles.places}>
+									{strings("teacher.new_lesson.dropoff")}:{" "}
+									{dropoff}
+								</Text>
+							</View>
+						}
+						nameStyle={styles.nameStyle}
+						imageContainerStyle={styles.placesImage}
+					/>
+				</Row>
+			</TouchableHighlight>
 		)
 	}
 
@@ -203,7 +227,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		marginTop: 20
 	},
-	schedule: { minHeight: 230 },
+	schedule: { minHeight: 250 },
 	welcomeHeader: {
 		alignSelf: "center",
 		alignItems: "center",
@@ -214,9 +238,9 @@ const styles = StyleSheet.create({
 		fontSize: 24
 	},
 	profilePic: {
-		width: 74,
-		height: 74,
-		borderRadius: 37,
+		width: 44,
+		height: 44,
+		borderRadius: 22,
 		marginBottom: 16
 	},
 	rectTitle: {
@@ -226,8 +250,7 @@ const styles = StyleSheet.create({
 		alignSelf: "flex-start"
 	},
 	lessonRow: {
-		marginTop: 20,
-		maxHeight: 34
+		marginTop: 12
 	},
 	fullScheduleView: {
 		flexDirection: "row",
@@ -243,6 +266,11 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		marginRight: 8
 	},
+	places: {
+		fontSize: 14,
+		color: "gray"
+	},
+	placesImage: { marginTop: 16 },
 	amountView: {
 		marginTop: 16,
 		alignSelf: "center"
@@ -262,7 +290,8 @@ const styles = StyleSheet.create({
 		color: "rgb(24, 199, 20)"
 	},
 	nameStyle: {
-		marginTop: 4
+		marginTop: 4,
+		marginLeft: -2
 	},
 	paymentRow: {
 		maxHeight: 34,

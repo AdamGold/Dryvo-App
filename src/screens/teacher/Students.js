@@ -11,9 +11,8 @@ import { strings } from "../../i18n"
 import Row from "../../components/Row"
 import PageTitle from "../../components/PageTitle"
 import UserWithPic from "../../components/UserWithPic"
-import { Icon, SearchBar } from "react-native-elements"
-import FlatButton from "../../components/FlatButton"
-import { MAIN_PADDING } from "../../consts"
+import { Icon, SearchBar, Button } from "react-native-elements"
+import { MAIN_PADDING, floatButton } from "../../consts"
 import { Dropdown } from "react-native-material-dropdown"
 
 export class Students extends React.Component {
@@ -25,7 +24,8 @@ export class Students extends React.Component {
 			page: 1,
 			nextUrl: "",
 			orderByColumn: "",
-			orderByMethod: "asc"
+			orderByMethod: "asc",
+			sortIcon: "arrow-downward"
 		}
 		this.sortOptions = [
 			{ value: "balance", label: strings("teacher.students.balance") },
@@ -156,6 +156,22 @@ export class Students extends React.Component {
 			}
 		)
 	}
+
+	_changeOrderMethod = () => {
+		this.setState(
+			{
+				orderByMethod:
+					this.state.orderByMethod == "desc" ? "asc" : "desc",
+				sortIcon:
+					this.state.sortIcon == "arrow-upward"
+						? "arrow-downward"
+						: "arrow-upward"
+			},
+			() => {
+				this._getStudents(false)
+			}
+		)
+	}
 	render() {
 		return (
 			<View style={styles.container}>
@@ -164,42 +180,43 @@ export class Students extends React.Component {
 						style={styles.title}
 						title={strings("tabs.students")}
 						leftSide={
-							<TouchableHighlight
-								underlayColor="#ffffff00"
-								onPress={() => {
-									this.props.navigation.navigate("NewStudent")
-								}}
-							>
-								<FlatButton
-									testID="addStudentButton"
-									title={strings("teacher.students.add")}
+							<View style={{ flexDirection: "row" }}>
+								<TouchableHighlight
+									onPress={this._changeOrderMethod}
+									style={styles.sortButton}
+									underlayColor="lightgray"
+								>
+									<Icon
+										type="material"
+										name={this.state.sortIcon}
+									/>
+								</TouchableHighlight>
+
+								<Dropdown
+									containerStyle={styles.dropdown}
+									label={strings("sort_by")}
+									data={this.sortOptions}
+									onChangeText={this._dropdownChange}
+									dropdownMargins={{ min: 0, max: 20 }}
+									dropdownOffset={{ top: 0, left: 0 }}
+									pickerStyle={{ marginTop: 60 }}
 								/>
-							</TouchableHighlight>
+							</View>
 						}
 					/>
 
-					<View style={styles.headerRow}>
-						<SearchBar
-							placeholder={strings("teacher.students.search")}
-							onChangeText={this.updateSearch}
-							value={this.state.search}
-							platform="ios"
-							containerStyle={styles.searchBarContainer}
-							inputContainerStyle={styles.inputContainerStyle}
-							cancelButtonTitle={strings(
-								"teacher.students.cancel"
-							)}
-							inputStyle={styles.search}
-							textAlign="right"
-							cancelButtonTitle={""}
-						/>
-						<Dropdown
-							containerStyle={styles.dropdown}
-							label={strings("sort_by")}
-							data={this.sortOptions}
-							onChangeText={this._dropdownChange}
-						/>
-					</View>
+					<SearchBar
+						placeholder={strings("teacher.students.search")}
+						onChangeText={this.updateSearch}
+						value={this.state.search}
+						platform="ios"
+						containerStyle={styles.searchBarContainer}
+						inputContainerStyle={styles.inputContainerStyle}
+						cancelButtonTitle={strings("teacher.students.cancel")}
+						inputStyle={styles.search}
+						textAlign="right"
+						cancelButtonTitle={""}
+					/>
 
 					<FlatList
 						data={this.state.students}
@@ -208,6 +225,18 @@ export class Students extends React.Component {
 						keyExtractor={item => `item${item.student_id}`}
 					/>
 				</View>
+				<TouchableHighlight
+					underlayColor="#ffffff00"
+					onPress={() => {
+						this.props.navigation.navigate("NewStudent")
+					}}
+				>
+					<View testID="newStudentButton" style={floatButton}>
+						<Text style={styles.buttonText}>
+							{strings("teacher.students.add")}
+						</Text>
+					</View>
+				</TouchableHighlight>
 			</View>
 		)
 	}
@@ -250,8 +279,7 @@ const styles = StyleSheet.create({
 		backgroundColor: "transparent",
 		paddingBottom: 0,
 		paddingTop: 0,
-		marginTop: 20,
-		flex: 4
+		marginTop: 20
 	},
 	inputContainerStyle: {
 		borderRadius: 30,
@@ -268,9 +296,17 @@ const styles = StyleSheet.create({
 	},
 	dropdown: {
 		alignSelf: "flex-end",
-		flex: 2,
-		marginLeft: 12,
-		marginTop: 16
+		width: 120,
+		marginTop: 4
+	},
+	buttonText: {
+		color: "#fff",
+		fontWeight: "bold",
+		fontSize: 20
+	},
+	sortButton: {
+		marginRight: 6,
+		marginTop: 6
 	}
 })
 

@@ -16,7 +16,8 @@ export default class PageTitle extends React.Component {
 
 const styles = StyleSheet.create({
 	row: {
-		flexDirection: "row"
+		flexDirection: "row",
+		alignItems: "center"
 	},
 	leftSide: {
 		flex: 1,

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 import {
 	View,
 	Text,
@@ -23,29 +23,26 @@ export class Students extends React.Component {
 			search: "",
 			students: [],
 			page: 1,
-			nextUrl: ""
+			nextUrl: "",
+			orderByColumn: "",
+			orderByMethod: "asc"
 		}
 		this.sortOptions = [
-			{ value: strings("teacher.students.balance") },
-			{ value: strings("teacher.students.lesson_number") },
-			{ value: strings("teacher.students.join_date") }
+			{ value: "balance", label: strings("teacher.students.balance") },
+			{
+				value: "new_lesson_number",
+				label: strings("teacher.students.lesson_number")
+			}
 		]
 		this.updateSearch = this.updateSearch.bind(this)
-		this._getStudents = this._getStudents.bind(this)
+		this._dropdownChange = this._dropdownChange.bind(this)
 	}
 
 	componentDidMount() {
 		this.willFocusSubscription = this.props.navigation.addListener(
 			"willFocus",
 			payload => {
-				this.setState(
-					{
-						students: []
-					},
-					() => {
-						this._getStudents()
-					}
-				)
+				this._getStudents(false)
 			}
 		)
 	}
@@ -56,7 +53,13 @@ export class Students extends React.Component {
 
 	_constructAPIUrl = (extra = "") => {
 		if (extra) extra = "&" + extra
+		if (this.state.orderByColumn) {
+			extra += `&order_by=${this.state.orderByColumn} ${
+				this.state.orderByMethod
+			}`
+		}
 		if (!extra.includes("is_active")) extra += "&is_active=true"
+		if (this.state.search) extra += `&name=${this.state.search}`
 		return (
 			"/teacher/students?limit=10&is_approved=true&page=" +
 			this.state.page +
@@ -64,28 +67,33 @@ export class Students extends React.Component {
 		)
 	}
 
-	_getStudents = async () => {
+	_getStudents = async (append = true) => {
 		resp = await this.props.fetchService.fetch(this._constructAPIUrl(), {
 			method: "GET"
 		})
+		let newValue = resp.json["data"]
+		if (append) {
+			newValue = [...this.state.students, ...newValue]
+		}
 		this.setState({
-			students: [...this.state.students, ...resp.json["data"]],
+			students: newValue,
 			nextUrl: resp.json["next_url"]
 		})
 	}
 
 	updateSearch = search => {
-		this.setState({ search }, async () => {
-			resp = await this.props.fetchService.fetch(
-				this._constructAPIUrl("name=" + search),
-				{ method: "GET" }
-			)
-			this.setState({
-				students: resp.json["data"]
-			})
+		this.setState({ search }, () => {
+			this._getStudents(false)
 		})
 	}
 	renderItem = ({ item, index }) => {
+		const greenColor = "rgb(24, 199, 20)"
+		let balanceStyle = { color: "red" }
+		let imageBalanceStyle
+		if (item.balance >= 0) {
+			balanceStyle = { color: greenColor }
+			imageBalanceStyle = { borderColor: greenColor }
+		}
 		return (
 			<Row
 				key={`item${item.student_id}`}
@@ -102,16 +110,25 @@ export class Students extends React.Component {
 				<UserWithPic
 					name={item.user.name}
 					extra={
-						<Text>
-							{strings("teacher.students.lesson_num")}:{" "}
-							{item.new_lesson_number}
-						</Text>
+						<View style={{ alignItems: "flex-start" }}>
+							<Text>
+								{strings("teacher.students.lesson_num")}:{" "}
+								{item.new_lesson_number}
+							</Text>
+							<Text style={balanceStyle}>
+								{strings("teacher.students.balance")}:{" "}
+								{item.balance}₪
+							</Text>
+						</View>
 					}
 					nameStyle={styles.nameStyle}
 					width={54}
 					height={54}
 					style={styles.userWithPic}
-					imageContainerStyle={styles.imageContainerStyle}
+					imageContainerStyle={{
+						...styles.imageContainerStyle,
+						...imageBalanceStyle
+					}}
 				/>
 			</Row>
 		)
@@ -129,6 +146,16 @@ export class Students extends React.Component {
 		)
 	}
 
+	_dropdownChange = (value, index, data) => {
+		this.setState(
+			{
+				orderByColumn: value
+			},
+			() => {
+				this._getStudents(false)
+			}
+		)
+	}
 	render() {
 		return (
 			<View style={styles.container}>
@@ -170,6 +197,7 @@ export class Students extends React.Component {
 							containerStyle={styles.dropdown}
 							label={strings("sort_by")}
 							data={this.sortOptions}
+							onChangeText={this._dropdownChange}
 						/>
 					</View>
 
@@ -205,9 +233,7 @@ const styles = StyleSheet.create({
 	row: {
 		marginTop: 24
 	},
-	nameStyle: {
-		marginTop: 6
-	},
+	nameStyle: {},
 	arrow: {
 		flex: 1,
 		marginRight: "auto"
@@ -215,9 +241,10 @@ const styles = StyleSheet.create({
 	userWithPic: { marginLeft: 10 },
 	imageContainerStyle: {
 		padding: 2,
-		borderColor: "rgb(24,199,20)",
 		borderWidth: 2,
-		borderRadius: 37
+		borderRadius: 37,
+		maxHeight: 62,
+		marginTop: 4
 	},
 	searchBarContainer: {
 		backgroundColor: "transparent",
@@ -243,7 +270,7 @@ const styles = StyleSheet.create({
 		alignSelf: "flex-end",
 		flex: 2,
 		marginLeft: 12,
-		marginTop: 8
+		marginTop: 16
 	}
 })
 

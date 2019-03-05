@@ -134,6 +134,7 @@ exports[`NewLesson view renders correctly 1`] = `
     <View
       style={
         Object {
+          "alignItems": "center",
           "flexDirection": "row",
         }
       }

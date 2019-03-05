@@ -50,7 +50,12 @@ export class Students extends React.Component {
 
 	_constructAPIUrl = (extra = "") => {
 		if (extra) extra = "&" + extra
-		return "/teacher/students?limit=10&page=" + this.state.page + extra
+		if (!extra.includes("is_active")) extra += "&is_active=true"
+		return (
+			"/teacher/students?limit=10&is_approved=true&page=" +
+			this.state.page +
+			extra
+		)
 	}
 
 	_getStudents = async () => {

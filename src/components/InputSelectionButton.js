@@ -5,8 +5,11 @@ import { themeBlue } from "../consts"
 export default class InputSelectionButton extends React.Component {
 	render() {
 		let style = styles.rects
-		if (this.props.selected) {
+		if (this.props.selected || this.props.secondTimeSelected) {
 			style = { ...style, ...styles.selected }
+		}
+		if (this.props.secondTimeSelected) {
+			style = { ...style, ...styles.secondTimeSelected }
 		}
 		return (
 			<TouchableHighlight
@@ -24,7 +27,9 @@ const styles = StyleSheet.create({
 		margin: 6,
 		padding: 6,
 		backgroundColor: "#f8f8f8",
-		borderRadius: 4
+		borderRadius: 4,
+		maxWidth: 140,
+		alignItems: "center"
 	},
 	selected: {
 		backgroundColor: themeBlue,
@@ -37,5 +42,8 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.2,
 		shadowRadius: 6,
 		elevation: 4
+	},
+	secondTimeSelected: {
+		backgroundColor: "green"
 	}
 })

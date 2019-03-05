@@ -15,10 +15,12 @@ exports[`InputSelectionButton view renders correctly 1`] = `
   <View
     style={
       Object {
+        "alignItems": "center",
         "backgroundColor": "rgb(12,116,244)",
         "borderRadius": 4,
         "elevation": 4,
         "margin": 6,
+        "maxWidth": 140,
         "padding": 6,
         "shadowColor": "rgb(12,116,244)",
         "shadowOffset": Object {

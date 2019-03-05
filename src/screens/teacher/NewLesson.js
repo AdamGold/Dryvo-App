@@ -26,10 +26,10 @@ import moment from "moment"
 import { getHoursDiff } from "../../actions/utils"
 import { API_ERROR } from "../../reducers/consts"
 
-class NewLesson extends React.Component {
+export class NewLesson extends React.Component {
 	constructor(props) {
 		super(props)
-		duration = this.props.user.lesson_duration || DEFAULT_DURATION
+		const duration = this.props.user.lesson_duration || DEFAULT_DURATION
 		this.state = {
 			date: this.props.navigation.getParam("date"),
 			error: "",
@@ -37,7 +37,11 @@ class NewLesson extends React.Component {
 			students: [],
 			selectedStudent: {},
 			dateAndTime: "",
-			defaultDuration: duration.toString()
+			defaultDuration: duration.toString(),
+			lesson: null,
+			allTopics: [],
+			progress: [],
+			finished: []
 		}
 		this._initializeInputs = this._initializeInputs.bind(this)
 		this.setRef = this.setRef.bind(this)
@@ -48,6 +52,7 @@ class NewLesson extends React.Component {
 
 		this._initializeInputs()
 		this._getAvailableHours()
+		this._getTopics()
 	}
 
 	_initializeInputs = () => {
@@ -217,10 +222,15 @@ class NewLesson extends React.Component {
 	}
 
 	_onStudentPress = student => {
-		this.setState({
-			student,
-			studentName: student.user.name
-		})
+		this.setState(
+			{
+				student,
+				studentName: student.user.name
+			},
+			() => {
+				this._getTopics()
+			}
+		)
 	}
 
 	renderStudents = () => {
@@ -262,21 +272,102 @@ class NewLesson extends React.Component {
 				})
 			})
 			const lessonId = resp.json["data"]["id"]
-			// TODO update topics
-			/*
 			const topicsResp = await this.props.fetchService.fetch(
 				`/lessons/${lessonId}/topics`,
 				{
 					method: "POST",
-					body: JSON.stringify({ topics: {progress: [], finished: []} })
+					body: JSON.stringify({
+						topics: {
+							progress: this.state.progress,
+							finished: this.state.finished
+						}
+					})
 				}
-			) */
+			)
 			this.props.navigation.goBack()
 		} catch (error) {
 			let msg = ""
 			if (error && error.hasOwnProperty("message")) msg = error.message
 			this.props.dispatch({ type: API_ERROR, error: msg })
 		}
+	}
+
+	_onTopicPress = topic => {
+		if (this.state.progress.includes(topic.id)) {
+			// this is a second click, let's push it to finished and remove from progress
+			const popFromProgress = this.state.progress.filter(
+				(v, i) => v != topic.id
+			)
+			this.setState({
+				finished: [...this.state.finished, topic.id],
+				progress: popFromProgress
+			})
+		} else if (this.state.finished.includes(topic.id)) {
+			// this is a third click, remove it from finished
+			const popFromFinished = this.state.finished.filter(
+				(v, i) => v != topic.id
+			)
+			this.setState({
+				finished: popFromFinished
+			})
+		} else {
+			// first click, push to progress
+			this.setState({
+				progress: [...this.state.progress, topic.id]
+			})
+		}
+	}
+
+	renderTopics = () => {
+		return this.state.allTopics.map((topic, index) => {
+			let selected = false
+			let secondTimeSelected = false
+			let selectedTextStyle
+			if (this.state.progress.includes(topic.id)) {
+				selected = true
+				selectedTextStyle = { color: "#fff" }
+			} else if (this.state.finished.includes(topic.id)) {
+				secondTimeSelected = true
+				selectedTextStyle = { color: "#fff" }
+			}
+			return (
+				<InputSelectionButton
+					selected={selected}
+					secondTimeSelected={secondTimeSelected}
+					key={`student${index}`}
+					onPress={() => this._onTopicPress(topic)}
+				>
+					<Text
+						style={{
+							...styles.hoursText,
+							...selectedTextStyle
+						}}
+					>
+						{topic.title}
+					</Text>
+				</InputSelectionButton>
+			)
+		})
+	}
+
+	_getTopics = async () => {
+		const url = this.buildTopicsUrl()
+		if (!url) return
+		const resp = await this.props.fetchService.fetch(url, { method: "GET" })
+		this.setState({
+			allTopics: resp.json["data"]
+		})
+	}
+
+	buildTopicsUrl = () => {
+		let url = "/lessons"
+		if (this.state.lesson) {
+			return url + `/${this.state.lesson.id}/topics`
+		} else if (this.state.student) {
+			return url + `/0/topics?student_id=${this.state.student.student_id}`
+		}
+
+		return null
 	}
 
 	render() {
@@ -314,6 +405,12 @@ class NewLesson extends React.Component {
 					>
 						<Text testID="error">{this.state.error}</Text>
 						{this.renderInputs()}
+						<View style={styles.topics}>
+							<Text style={styles.titleInForm}>
+								{strings("teacher.new_lesson.topics")}
+							</Text>
+							{this.renderTopics()}
+						</View>
 					</ScrollView>
 					<TouchableHighlight
 						underlayColor="#ffffff00"
@@ -367,7 +464,8 @@ const styles = StyleSheet.create({
 	submitButton: floatButton,
 	doneText: {
 		color: "#fff",
-		fontWeight: "bold"
+		fontWeight: "bold",
+		fontSize: 20
 	},
 	inputContainer: {
 		borderBottomColor: "rgb(200,200,200)",
@@ -380,10 +478,19 @@ const styles = StyleSheet.create({
 	},
 	hoursText: {
 		color: "gray"
+	},
+	titleInForm: {
+		alignSelf: "flex-start",
+		fontSize: 18,
+		fontWeight: "bold",
+		marginBottom: 12
+	},
+	topics: {
+		marginLeft: MAIN_PADDING
 	}
 })
 
-mapStateToProps = state => {
+function mapStateToProps(state) {
 	return {
 		fetchService: state.fetchService,
 		user: state.user

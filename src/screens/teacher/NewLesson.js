@@ -26,10 +26,10 @@ import moment from "moment"
 import { getHoursDiff } from "../../actions/utils"
 import { API_ERROR } from "../../reducers/consts"
 
-class NewLesson extends React.Component {
+export class NewLesson extends React.Component {
 	constructor(props) {
 		super(props)
-		duration = this.props.user.lesson_duration || DEFAULT_DURATION
+		const duration = this.props.user.lesson_duration || DEFAULT_DURATION
 		this.state = {
 			date: this.props.navigation.getParam("date"),
 			error: "",
@@ -490,7 +490,7 @@ const styles = StyleSheet.create({
 	}
 })
 
-mapStateToProps = state => {
+function mapStateToProps(state) {
 	return {
 		fetchService: state.fetchService,
 		user: state.user

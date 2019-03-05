@@ -141,7 +141,7 @@ export class ChooseDate extends React.Component {
 						})
 					}}
 				>
-					<View testID="continueButton" style={styles.floatButton}>
+					<View testID="continueButton" style={floatButton}>
 						<Text style={styles.buttonText}>
 							{strings("teacher.new_lesson.continue")}
 						</Text>
@@ -182,7 +182,6 @@ const styles = StyleSheet.create({
 	lessonRow: {
 		marginTop: 12
 	},
-	floatButton: floatButton,
 	buttonText: {
 		color: "#fff",
 		fontSize: 20,

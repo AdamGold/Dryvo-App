@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 import {
 	View,
 	Text,
@@ -11,9 +11,9 @@ import { strings } from "../../i18n"
 import Row from "../../components/Row"
 import PageTitle from "../../components/PageTitle"
 import UserWithPic from "../../components/UserWithPic"
-import { Icon, SearchBar } from "react-native-elements"
-import FlatButton from "../../components/FlatButton"
-import { MAIN_PADDING } from "../../consts"
+import { Icon, SearchBar, Button } from "react-native-elements"
+import { MAIN_PADDING, floatButton } from "../../consts"
+import { Dropdown } from "react-native-material-dropdown"
 
 export class Students extends React.Component {
 	constructor(props) {
@@ -22,24 +22,27 @@ export class Students extends React.Component {
 			search: "",
 			students: [],
 			page: 1,
-			nextUrl: ""
+			nextUrl: "",
+			orderByColumn: "",
+			orderByMethod: "asc",
+			sortIcon: "arrow-downward"
 		}
+		this.sortOptions = [
+			{ value: "balance", label: strings("teacher.students.balance") },
+			{
+				value: "new_lesson_number",
+				label: strings("teacher.students.lesson_number")
+			}
+		]
 		this.updateSearch = this.updateSearch.bind(this)
-		this._getStudents = this._getStudents.bind(this)
+		this._dropdownChange = this._dropdownChange.bind(this)
 	}
 
 	componentDidMount() {
 		this.willFocusSubscription = this.props.navigation.addListener(
 			"willFocus",
 			payload => {
-				this.setState(
-					{
-						students: []
-					},
-					() => {
-						this._getStudents()
-					}
-				)
+				this._getStudents(false)
 			}
 		)
 	}
@@ -50,7 +53,13 @@ export class Students extends React.Component {
 
 	_constructAPIUrl = (extra = "") => {
 		if (extra) extra = "&" + extra
+		if (this.state.orderByColumn) {
+			extra += `&order_by=${this.state.orderByColumn} ${
+				this.state.orderByMethod
+			}`
+		}
 		if (!extra.includes("is_active")) extra += "&is_active=true"
+		if (this.state.search) extra += `&name=${this.state.search}`
 		return (
 			"/teacher/students?limit=10&is_approved=true&page=" +
 			this.state.page +
@@ -58,28 +67,33 @@ export class Students extends React.Component {
 		)
 	}
 
-	_getStudents = async () => {
+	_getStudents = async (append = true) => {
 		resp = await this.props.fetchService.fetch(this._constructAPIUrl(), {
 			method: "GET"
 		})
+		let newValue = resp.json["data"]
+		if (append) {
+			newValue = [...this.state.students, ...newValue]
+		}
 		this.setState({
-			students: [...this.state.students, ...resp.json["data"]],
+			students: newValue,
 			nextUrl: resp.json["next_url"]
 		})
 	}
 
 	updateSearch = search => {
-		this.setState({ search }, async () => {
-			resp = await this.props.fetchService.fetch(
-				this._constructAPIUrl("name=" + search),
-				{ method: "GET" }
-			)
-			this.setState({
-				students: resp.json["data"]
-			})
+		this.setState({ search }, () => {
+			this._getStudents(false)
 		})
 	}
 	renderItem = ({ item, index }) => {
+		const greenColor = "rgb(24, 199, 20)"
+		let balanceStyle = { color: "red" }
+		let imageBalanceStyle
+		if (item.balance >= 0) {
+			balanceStyle = { color: greenColor }
+			imageBalanceStyle = { borderColor: greenColor }
+		}
 		return (
 			<Row
 				key={`item${item.student_id}`}
@@ -96,16 +110,25 @@ export class Students extends React.Component {
 				<UserWithPic
 					name={item.user.name}
 					extra={
-						<Text>
-							{strings("teacher.students.lesson_num")}:{" "}
-							{item.new_lesson_number}
-						</Text>
+						<View style={{ alignItems: "flex-start" }}>
+							<Text>
+								{strings("teacher.students.lesson_num")}:{" "}
+								{item.new_lesson_number}
+							</Text>
+							<Text style={balanceStyle}>
+								{strings("teacher.students.balance")}:{" "}
+								{item.balance}₪
+							</Text>
+						</View>
 					}
 					nameStyle={styles.nameStyle}
 					width={54}
 					height={54}
 					style={styles.userWithPic}
-					imageContainerStyle={styles.imageContainerStyle}
+					imageContainerStyle={{
+						...styles.imageContainerStyle,
+						...imageBalanceStyle
+					}}
 				/>
 			</Row>
 		)
@@ -123,6 +146,32 @@ export class Students extends React.Component {
 		)
 	}
 
+	_dropdownChange = (value, index, data) => {
+		this.setState(
+			{
+				orderByColumn: value
+			},
+			() => {
+				this._getStudents(false)
+			}
+		)
+	}
+
+	_changeOrderMethod = () => {
+		this.setState(
+			{
+				orderByMethod:
+					this.state.orderByMethod == "desc" ? "asc" : "desc",
+				sortIcon:
+					this.state.sortIcon == "arrow-upward"
+						? "arrow-downward"
+						: "arrow-upward"
+			},
+			() => {
+				this._getStudents(false)
+			}
+		)
+	}
 	render() {
 		return (
 			<View style={styles.container}>
@@ -131,17 +180,28 @@ export class Students extends React.Component {
 						style={styles.title}
 						title={strings("tabs.students")}
 						leftSide={
-							<TouchableHighlight
-								underlayColor="#ffffff00"
-								onPress={() => {
-									this.props.navigation.navigate("NewStudent")
-								}}
-							>
-								<FlatButton
-									testID="addStudentButton"
-									title={strings("teacher.students.add")}
+							<View style={{ flexDirection: "row" }}>
+								<TouchableHighlight
+									onPress={this._changeOrderMethod}
+									style={styles.sortButton}
+									underlayColor="lightgray"
+								>
+									<Icon
+										type="material"
+										name={this.state.sortIcon}
+									/>
+								</TouchableHighlight>
+
+								<Dropdown
+									containerStyle={styles.dropdown}
+									label={strings("sort_by")}
+									data={this.sortOptions}
+									onChangeText={this._dropdownChange}
+									dropdownMargins={{ min: 0, max: 20 }}
+									dropdownOffset={{ top: 0, left: 0 }}
+									pickerStyle={{ marginTop: 60 }}
 								/>
-							</TouchableHighlight>
+							</View>
 						}
 					/>
 
@@ -157,6 +217,7 @@ export class Students extends React.Component {
 						textAlign="right"
 						cancelButtonTitle={""}
 					/>
+
 					<FlatList
 						data={this.state.students}
 						renderItem={this.renderItem}
@@ -164,6 +225,18 @@ export class Students extends React.Component {
 						keyExtractor={item => `item${item.student_id}`}
 					/>
 				</View>
+				<TouchableHighlight
+					underlayColor="#ffffff00"
+					onPress={() => {
+						this.props.navigation.navigate("NewStudent")
+					}}
+				>
+					<View testID="newStudentButton" style={floatButton}>
+						<Text style={styles.buttonText}>
+							{strings("teacher.students.add")}
+						</Text>
+					</View>
+				</TouchableHighlight>
 			</View>
 		)
 	}
@@ -172,6 +245,12 @@ export class Students extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1
+	},
+	headerRow: {
+		flex: 1,
+		flexDirection: "row",
+		alignItems: "center",
+		maxHeight: 60
 	},
 	students: {
 		flex: 1,
@@ -183,9 +262,7 @@ const styles = StyleSheet.create({
 	row: {
 		marginTop: 24
 	},
-	nameStyle: {
-		marginTop: 6
-	},
+	nameStyle: {},
 	arrow: {
 		flex: 1,
 		marginRight: "auto"
@@ -193,9 +270,10 @@ const styles = StyleSheet.create({
 	userWithPic: { marginLeft: 10 },
 	imageContainerStyle: {
 		padding: 2,
-		borderColor: "rgb(24,199,20)",
 		borderWidth: 2,
-		borderRadius: 37
+		borderRadius: 37,
+		maxHeight: 62,
+		marginTop: 4
 	},
 	searchBarContainer: {
 		backgroundColor: "transparent",
@@ -215,6 +293,20 @@ const styles = StyleSheet.create({
 		paddingLeft: 6,
 		fontSize: 14,
 		marginLeft: 0
+	},
+	dropdown: {
+		alignSelf: "flex-end",
+		width: 120,
+		marginTop: 4
+	},
+	buttonText: {
+		color: "#fff",
+		fontWeight: "bold",
+		fontSize: 20
+	},
+	sortButton: {
+		marginRight: 6,
+		marginTop: 6
 	}
 })
 

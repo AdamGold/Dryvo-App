@@ -18,7 +18,7 @@ import StudentProfile from "../student/Profile"
 import Settings from "../Settings"
 import WorkDays from "./WorkDays"
 
-const tab = createBottomTabNavigator(
+export default createBottomTabNavigator(
 	{
 		Home: createStackNavigator(
 			{
@@ -67,7 +67,7 @@ const tab = createBottomTabNavigator(
 			}
 		},
 		Schedule: createStackNavigator(
-			{ Schedule, StudentProfile, Lesson },
+			{ Schedule, StudentProfile, Lesson, WorkDays },
 			{
 				initialRouteKey: "Schedule",
 				headerMode: "none"
@@ -103,9 +103,4 @@ const tab = createBottomTabNavigator(
 		}
 	},
 	tabBarOptions
-)
-
-export default createSwitchNavigator(
-	{ Main: tab, WorkDays },
-	{ initialRouteName: "Main" }
 )

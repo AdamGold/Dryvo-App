@@ -93,6 +93,9 @@
 			"success_desc_without_student": "עודכן השיעור בתאריך %{date} בשעות %{hours}. כרגע אין תלמיד הרשום לשיעור זה.",
 			"success_button": "צור שיעור חדש"
 		},
+		"schedule": {
+			"change_work_days": "שינוי שעות עבודה ליום זה"
+		},
 		"students": {
 			"search": "חיפוש תלמיד",
 			"lesson_num": "מספר שיעורים",
@@ -109,7 +112,11 @@
 			"amount": "סכום",
 			"success_title": "הוספת תשלום בהצלחה!",
 			"success_desc": "תשלום של %{amount} נוסף לתלמיד %{student}.",
-			"success_button": "חזור לעמוד הראשי"
+			"success_button": "חזור לעמוד הראשי",
+			"join_date": "הצטרפות"
+		},
+		"work_days": {
+			"title": "שעות עבודה"
 		}
 	},
 	"student": {

@@ -1,7 +1,8 @@
 import React from "react"
 import {
 	createBottomTabNavigator,
-	createStackNavigator
+	createStackNavigator,
+	createSwitchNavigator
 } from "react-navigation"
 import { tabBarOptions } from "../consts"
 import Home from "./Home"
@@ -15,8 +16,9 @@ import { strings } from "../../i18n"
 import AddPayment from "./AddPayment"
 import StudentProfile from "../student/Profile"
 import Settings from "../Settings"
+import WorkDays from "./WorkDays"
 
-export default createBottomTabNavigator(
+const tab = createBottomTabNavigator(
 	{
 		Home: createStackNavigator(
 			{
@@ -101,4 +103,9 @@ export default createBottomTabNavigator(
 		}
 	},
 	tabBarOptions
+)
+
+export default createSwitchNavigator(
+	{ Main: tab, WorkDays },
+	{ initialRouteName: "Main" }
 )

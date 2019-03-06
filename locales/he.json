@@ -10,6 +10,8 @@
 	"edit": "עריכה",
 	"approve": "אישור",
 	"postpone": "דחייה",
+	"not_set": "לא נקבע",
+	"edit_lesson": "עריכת שיעור",
 	"signup": {
 		"name": "שם מלא",
 		"area": "עיר מגורים",
@@ -32,7 +34,8 @@
 			"monthly_amount": "סכום חודשי",
 			"welcome": "שלום, {{name}}",
 			"full_schedule": "לו״ז מלא",
-			"add_payment": "הוסף תשלום"
+			"add_payment": "הוסף תשלום",
+			"lesson_number": "שיעור מספר"
 		},
 		"notifications": {
 			"new_lesson": "רוצה לקבוע שיעור",

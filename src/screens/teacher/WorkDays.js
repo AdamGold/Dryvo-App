@@ -5,11 +5,25 @@ import { strings } from "../../i18n"
 import PageTitle from "../../components/PageTitle"
 import { MAIN_PADDING, themeBlue } from "../../consts"
 import { Icon, Button, Input } from "react-native-elements"
+import DateTimePicker from "react-native-modal-datetime-picker"
 
 export class WorkDays extends React.Component {
 	constructor(props) {
 		super(props)
+		this.state = {
+			isTimePickerVisible: false
+		}
 	}
+
+	_showDateTimePicker = () => this.setState({ isTimePickerVisible: true })
+
+	_hideDateTimePicker = () => this.setState({ isTimePickerVisible: false })
+
+	_handleDatePicked = date => {
+		console.log("A date has been picked: ", date)
+		this._hideDateTimePicker()
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -47,23 +61,29 @@ export class WorkDays extends React.Component {
 							<Text style={styles.hours}>8:00-16:00</Text>
 						</View>
 						<View style={styles.hoursRow}>
-							<Input
-								value="hello"
-								inputStyle={styles.input}
-								containerStyle={styles.inputContainer}
-							/>
+							<TouchableOpacity
+								onPress={this._showDateTimePicker}
+							>
+								<Text>8:00</Text>
+							</TouchableOpacity>
 							<Text>-</Text>
-							<Input
-								value="yes"
-								inputStyle={styles.input}
-								containerStyle={styles.inputContainer}
-							/>
+							<TouchableOpacity
+								onPress={this._showDateTimePicker}
+							>
+								<Text>16:00</Text>
+							</TouchableOpacity>
 						</View>
 						<TouchableOpacity>
 							<Text style={styles.addHours}>Add</Text>
 						</TouchableOpacity>
 					</View>
 				</View>
+				<DateTimePicker
+					isVisible={this.state.isTimePickerVisible}
+					mode={"time"}
+					onConfirm={this._handleDatePicked}
+					onCancel={this._hideDateTimePicker}
+				/>
 			</View>
 		)
 	}

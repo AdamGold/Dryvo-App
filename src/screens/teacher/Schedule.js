@@ -4,7 +4,7 @@ import {
 	Text,
 	TouchableHighlight,
 	StyleSheet,
-	FlatList
+	TouchableOpacity
 } from "react-native"
 import { connect } from "react-redux"
 import { strings, dates } from "../../i18n"
@@ -14,9 +14,9 @@ import UserWithPic from "../../components/UserWithPic"
 import { Icon } from "react-native-elements"
 import Separator from "../../components/Separator"
 import { calendarTheme, MAIN_PADDING } from "../../consts"
-import moment from "moment"
 import Hours from "../../components/Hours"
 import { getStartAndEndOfDay } from "../../actions/lessons"
+import LessonPopup from "../../components/LessonPopup"
 
 export class Schedule extends React.Component {
 	static navigationOptions = () => {
@@ -32,7 +32,8 @@ export class Schedule extends React.Component {
 		const date = new Date()
 		this.state = {
 			selected: date.toJSON().slice(0, 10),
-			items: {}
+			items: {},
+			visible: []
 		}
 		this._getItems(date)
 		this.onDayPress = this.onDayPress.bind(this)
@@ -55,6 +56,16 @@ export class Schedule extends React.Component {
 			}
 		}))
 	}
+	lessonPress = item => {
+		let newVisible
+		if (this.state.visible.includes(item.id)) {
+			// we pop it
+			newVisible = this.state.visible.filter((v, i) => v != item.id)
+		} else {
+			newVisible = [...this.state.visible, item.id]
+		}
+		this.setState({ visible: newVisible })
+	}
 
 	renderItem = (item, firstItemInDay) => {
 		let style = {}
@@ -62,44 +73,56 @@ export class Schedule extends React.Component {
 			style = { marginTop: 20 }
 		}
 		const date = item.date
-		let dropoff
-		let meetup
-		if (item.dropoff_place) {
-			dropoff = (
-				<Text style={styles.places}>
-					{strings("teacher.new_lesson.dropoff")}:{" "}
-					{item.dropoff_place.namepoff}
-				</Text>
-			)
-		}
-		if (item.meetup_place) {
-			meetup = (
-				<Text style={styles.places}>
-					{strings("teacher.new_lesson.meetup")}:{" "}
-					{item.meetup_place.name}
-				</Text>
-			)
-		}
+		let meetup = strings("not_set")
+		if (item.meetup_place) meetup = item.meetup_place.name
+		let dropoff = strings("not_set")
+		if (item.dropoff_place) dropoff = item.dropoff_place.name
+		const visible = this.state.visible.includes(item.id) ? true : false
 		return (
-			<Row
-				style={{ ...styles.row, ...style }}
-				leftSide={<Hours duration={item.duration} date={date} />}
-			>
-				<UserWithPic
-					name={`${item.student.user.name}(${item.lesson_number})`}
-					imageContainerStyle={styles.imageContainerStyle}
-					extra={
-						<Fragment>
-							{meetup}
-							{dropoff}
-						</Fragment>
-					}
-					nameStyle={styles.nameStyle}
-					width={44}
-					height={44}
-					style={styles.userWithPic}
+			<Fragment>
+				<TouchableOpacity onPress={() => this.lessonPress(item)}>
+					<Row
+						style={{ ...styles.row, ...style }}
+						leftSide={
+							<Hours duration={item.duration} date={date} />
+						}
+					>
+						<UserWithPic
+							name={`${item.student.user.name}(${
+								item.lesson_number
+							})`}
+							imageContainerStyle={styles.imageContainerStyle}
+							extra={
+								<Fragment>
+									<Text style={styles.places}>
+										{strings("teacher.new_lesson.meetup")}:{" "}
+										{meetup}
+									</Text>
+									<Text style={styles.places}>
+										{strings("teacher.new_lesson.dropoff")}:{" "}
+										{dropoff}
+									</Text>
+								</Fragment>
+							}
+							nameStyle={styles.nameStyle}
+							width={44}
+							height={44}
+							style={styles.userWithPic}
+						/>
+					</Row>
+				</TouchableOpacity>
+				<LessonPopup
+					visible={visible}
+					item={item}
+					onPress={this.lessonPress}
+					onButtonPress={() => {
+						this.lessonPress()
+						this.props.navigation.navigate("Lesson", {
+							lesson: item
+						})
+					}}
 				/>
-			</Row>
+			</Fragment>
 		)
 	}
 
@@ -176,6 +199,7 @@ export class Schedule extends React.Component {
 							textWeekDayFontWeight: "600"
 						}}
 						ItemSeparatorComponent={() => <Separator />}
+						extraData={this.state.visible}
 					/>
 				</View>
 			</View>

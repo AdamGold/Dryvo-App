@@ -92,7 +92,10 @@ export class Home extends React.Component {
 		const visible = this.state.visible.includes(item.id) ? true : false
 		return (
 			<Fragment>
-				<TouchableOpacity onPress={() => this.lessonPress(item)}>
+				<TouchableOpacity
+					onPress={() => this.lessonPress(item)}
+					testID="lessonRowTouchable"
+				>
 					<Row
 						key={`item${item.id}`}
 						style={styles.lessonRow}
@@ -120,11 +123,12 @@ export class Home extends React.Component {
 					item={item}
 					onPress={this.lessonPress}
 					onButtonPress={() => {
-						this.lessonPress()
+						this.lessonPress(item)
 						this.props.navigation.navigate("Lesson", {
 							lesson: item
 						})
 					}}
+					testID="lessonPopup"
 				/>
 			</Fragment>
 		)

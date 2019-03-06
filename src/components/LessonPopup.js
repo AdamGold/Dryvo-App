@@ -18,7 +18,7 @@ export default class LessonPopup extends React.Component {
 				isVisible={this.props.visible}
 				onBackdropPress={() => this.props.onPress(item)}
 			>
-				<View style={styles.popup}>
+				<View style={styles.popup} testID={this.props.testID}>
 					<Image
 						style={styles.image}
 						source={{
@@ -41,7 +41,7 @@ export default class LessonPopup extends React.Component {
 								{moment.utc(item.date).format("DD-MM-YYYY")}
 							</Text>
 						</View>
-						<View style={{ ...styles.column, marginLeft: 6 }}>
+						<View style={{ ...styles.column, marginLeft: 2 }}>
 							<Text style={styles.titles}>
 								{strings("teacher.new_lesson.hour")}
 							</Text>
@@ -59,7 +59,7 @@ export default class LessonPopup extends React.Component {
 							</Text>
 							<Text style={styles.texts}>{meetup}</Text>
 						</View>
-						<View style={{ ...styles.column, marginLeft: 6 }}>
+						<View style={{ ...styles.column, marginLeft: 2 }}>
 							<Text style={styles.titles}>
 								{strings("teacher.new_lesson.dropoff")}
 							</Text>

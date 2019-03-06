@@ -1,0 +1,337 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LessonPopup view renders correctly 1`] = `
+<Modal
+  animationType="none"
+  hardwareAccelerated={false}
+  hideModalContentWhileAnimating={false}
+  onModalHide={[Function]}
+  onModalWillHide={[Function]}
+  onModalWillShow={[Function]}
+  onRequestClose={[Function]}
+  scrollOffset={0}
+  scrollOffsetMax={0}
+  scrollTo={null}
+  supportedOrientations={
+    Array [
+      "portrait",
+      "landscape",
+    ]
+  }
+  swipeThreshold={100}
+  transparent={true}
+  visible={true}
+>
+  <View
+    accessible={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "backgroundColor": "black",
+        "bottom": 0,
+        "height": 1334,
+        "left": 0,
+        "opacity": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+        "width": 750,
+      }
+    }
+  />
+  <View
+    hideModalContentWhileAnimating={false}
+    onModalHide={[Function]}
+    onModalWillHide={[Function]}
+    onModalWillShow={[Function]}
+    pointerEvents="box-none"
+    scrollOffset={0}
+    scrollOffsetMax={0}
+    scrollTo={null}
+    style={
+      Object {
+        "flex": 1,
+        "justifyContent": "center",
+        "margin": 37.5,
+        "transform": Array [
+          Object {
+            "translateY": 1334,
+          },
+        ],
+      }
+    }
+    supportedOrientations={
+      Array [
+        "portrait",
+        "landscape",
+      ]
+    }
+    swipeThreshold={100}
+  >
+    <View
+      style={
+        Object {
+          "alignContent": "center",
+          "alignSelf": "center",
+          "backgroundColor": "#fff",
+          "borderRadius": 4,
+          "flex": 1,
+          "maxHeight": 300,
+          "padding": 26,
+          "width": 280,
+        }
+      }
+      testID="test"
+    >
+      <Image
+        source={
+          Object {
+            "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+          }
+        }
+        style={
+          Object {
+            "alignSelf": "center",
+            "borderRadius": 38,
+            "height": 76,
+            "marginTop": -80,
+            "width": 76,
+          }
+        }
+      />
+      <Text
+        style={
+          Object {
+            "alignSelf": "center",
+            "fontSize": 18,
+            "fontWeight": "bold",
+            "marginTop": 16,
+          }
+        }
+      >
+        שיעור מספר undefined
+         
+        - 
+        test
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "flex-start",
+            "flex": 1,
+            "flexDirection": "row",
+            "marginTop": 20,
+            "maxHeight": 60,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
+              "width": 140,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "alignSelf": "flex-start",
+                "color": "gray",
+                "fontSize": 14,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            תאריך
+          </Text>
+          <Text
+            style={
+              Object {
+                "alignSelf": "flex-start",
+                "fontSize": 18,
+                "marginTop": 6,
+              }
+            }
+          >
+            23-06-2019
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
+              "marginLeft": 2,
+              "width": 140,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "alignSelf": "flex-start",
+                "color": "gray",
+                "fontSize": 14,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            שעה
+          </Text>
+          <Text
+            style={
+              Object {
+                "alignSelf": "flex-start",
+                "fontSize": 18,
+                "marginTop": 6,
+              }
+            }
+          >
+            10:09
+             - 
+            10:49
+          </Text>
+        </View>
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "flex-start",
+            "flex": 1,
+            "flexDirection": "row",
+            "marginTop": 20,
+            "maxHeight": 60,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
+              "width": 140,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "alignSelf": "flex-start",
+                "color": "gray",
+                "fontSize": 14,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            איסוף
+          </Text>
+          <Text
+            style={
+              Object {
+                "alignSelf": "flex-start",
+                "fontSize": 18,
+                "marginTop": 6,
+              }
+            }
+          >
+            לא נקבע
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "flexDirection": "column",
+              "justifyContent": "flex-start",
+              "marginLeft": 2,
+              "width": 140,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "alignSelf": "flex-start",
+                "color": "gray",
+                "fontSize": 14,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            הורדה
+          </Text>
+          <Text
+            style={
+              Object {
+                "alignSelf": "flex-start",
+                "fontSize": 18,
+                "marginTop": 6,
+              }
+            }
+          >
+            לא נקבע
+          </Text>
+        </View>
+      </View>
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "opacity": 1,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "center",
+              "backgroundColor": "rgb(12,116,244)",
+              "borderRadius": 28,
+              "bottom": -102,
+              "elevation": 8,
+              "height": 56,
+              "justifyContent": "center",
+              "position": "absolute",
+              "shadowColor": "rgb(12,116,244)",
+              "shadowOffset": Object {
+                "height": 8,
+                "width": 0,
+              },
+              "shadowOpacity": 0.5,
+              "shadowRadius": 16,
+              "width": 160,
+            }
+          }
+          testID="editLessonButton"
+        >
+          <Text
+            style={
+              Object {
+                "color": "#fff",
+                "fontSize": 20,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            עריכת שיעור
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
+</Modal>
+`;

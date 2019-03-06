@@ -116,7 +116,7 @@ export class Schedule extends React.Component {
 					item={item}
 					onPress={this.lessonPress}
 					onButtonPress={() => {
-						this.lessonPress()
+						this.lessonPress(item)
 						this.props.navigation.navigate("Lesson", {
 							lesson: item
 						})
@@ -182,7 +182,7 @@ export class Schedule extends React.Component {
 						renderEmptyDate={this.renderEmpty}
 						// specify your item comparison function for increased performance
 						rowHasChanged={(r1, r2) => {
-							return r1.text !== r2.text
+							return r1.text !== r2.text || this.state.visible
 						}}
 						markedDates={{
 							[this.state.selected]: {

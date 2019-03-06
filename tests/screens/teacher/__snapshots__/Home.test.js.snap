@@ -28,10 +28,10 @@ exports[`Home view renders correctly 1`] = `
         }
         style={
           Object {
-            "borderRadius": 37,
-            "height": 74,
+            "borderRadius": 22,
+            "height": 44,
             "marginBottom": 16,
-            "width": 74,
+            "width": 44,
           }
         }
       />
@@ -55,7 +55,7 @@ exports[`Home view renders correctly 1`] = `
           "flex": 1,
           "marginLeft": 26,
           "marginRight": 26,
-          "minHeight": 230,
+          "minHeight": 240,
           "padding": 20,
           "shadowColor": "#000",
           "shadowOffset": Object {
@@ -84,6 +84,7 @@ exports[`Home view renders correctly 1`] = `
         ItemSeparatorComponent={[Function]}
         data={Array []}
         disableVirtualization={false}
+        extraData={Array []}
         getItem={[Function]}
         getItemCount={[Function]}
         horizontal={false}

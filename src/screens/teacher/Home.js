@@ -6,6 +6,7 @@ import {
 	Image,
 	StyleSheet,
 	TouchableHighlight,
+	TouchableOpacity,
 	FlatList
 } from "react-native"
 import { connect } from "react-redux"
@@ -15,8 +16,8 @@ import { strings } from "../../i18n"
 import Row from "../../components/Row"
 import Separator from "../../components/Separator"
 import { Icon } from "react-native-elements"
-import moment from "moment"
 import Hours from "../../components/Hours"
+import LessonPopup from "../../components/LessonPopup"
 
 export class Home extends React.Component {
 	static navigationOptions = () => {
@@ -33,7 +34,8 @@ export class Home extends React.Component {
 		this.state = {
 			items: [],
 			payments: [],
-			sum: 0
+			sum: 0,
+			visible: []
 		}
 
 		this._getItems()
@@ -72,43 +74,59 @@ export class Home extends React.Component {
 		})
 	}
 
-	showLesson = item => {}
+	lessonPress = item => {
+		let newVisible
+		if (this.state.visible.includes(item.id)) {
+			// we pop it
+			newVisible = this.state.visible.filter((v, i) => v != item.id)
+		} else {
+			newVisible = [...this.state.visible, item.id]
+		}
+		this.setState({ visible: newVisible })
+	}
 
 	renderItem = ({ item, index }) => {
 		const date = item.date
 		let meetup = strings("not_set")
 		if (item.meetup_place) meetup = item.meetup_place.name
-		let dropoff = strings("not_set")
-		if (item.dropoff_place) dropoff = item.dropoff_place.name
+		const visible = this.state.visible.includes(item.id) ? true : false
 		return (
-			<TouchableHighlight
-				underlayColor="gray"
-				onPress={() => this.showLesson(item)}
-			>
-				<Row
-					key={`item${item.id}`}
-					style={styles.lessonRow}
-					leftSide={<Hours duration={item.duration} date={date} />}
-				>
-					<UserWithPic
-						name={item.student.user.name}
-						extra={
-							<View style={{ alignItems: "flex-start" }}>
-								<Text style={styles.places}>
-									{strings("teacher.new_lesson.meetup")}:{" "}
-									{meetup}
-								</Text>
-								<Text style={styles.places}>
-									{strings("teacher.new_lesson.dropoff")}:{" "}
-									{dropoff}
-								</Text>
-							</View>
+			<Fragment>
+				<TouchableOpacity onPress={() => this.lessonPress(item)}>
+					<Row
+						key={`item${item.id}`}
+						style={styles.lessonRow}
+						leftSide={
+							<Hours duration={item.duration} date={date} />
 						}
-						nameStyle={styles.nameStyle}
-						imageContainerStyle={styles.placesImage}
-					/>
-				</Row>
-			</TouchableHighlight>
+					>
+						<UserWithPic
+							name={item.student.user.name}
+							extra={
+								<View style={{ alignItems: "flex-start" }}>
+									<Text style={styles.places}>
+										{strings("teacher.new_lesson.meetup")}:{" "}
+										{meetup}
+									</Text>
+								</View>
+							}
+							nameStyle={styles.nameStyle}
+							imageContainerStyle={styles.placesImage}
+						/>
+					</Row>
+				</TouchableOpacity>
+				<LessonPopup
+					visible={visible}
+					item={item}
+					onPress={this.lessonPress}
+					onButtonPress={() => {
+						this.lessonPress()
+						this.props.navigation.navigate("Lesson", {
+							lesson: item
+						})
+					}}
+				/>
+			</Fragment>
 		)
 	}
 
@@ -168,6 +186,7 @@ export class Home extends React.Component {
 						renderItem={this.renderItem}
 						ItemSeparatorComponent={this.lessonsSeperator}
 						keyExtractor={item => `item${item.id}`}
+						extraData={this.state.visible}
 					/>
 				</ShadowRect>
 
@@ -227,7 +246,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		marginTop: 20
 	},
-	schedule: { minHeight: 250 },
+	schedule: { minHeight: 240 },
 	welcomeHeader: {
 		alignSelf: "center",
 		alignItems: "center",
@@ -270,7 +289,7 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		color: "gray"
 	},
-	placesImage: { marginTop: 16 },
+	placesImage: { marginTop: 8 },
 	amountView: {
 		marginTop: 16,
 		alignSelf: "center"

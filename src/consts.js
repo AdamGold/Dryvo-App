@@ -26,15 +26,11 @@ export const calendarTheme = {
 	textMonthFontSize: 16,
 	textDayHeaderFontSize: 16
 }
-export const floatButton = {
-	position: "absolute",
-	bottom: 12,
-	right: 26,
+export const floatButtonOnlyStyle = {
 	backgroundColor: themeBlue,
 	width: 160,
 	height: 56,
 	borderRadius: 28,
-	alignSelf: "flex-end",
 	alignItems: "center",
 	justifyContent: "center",
 	shadowColor: themeBlue,
@@ -45,4 +41,11 @@ export const floatButton = {
 	shadowOpacity: 0.5,
 	shadowRadius: 16,
 	elevation: 8
+}
+export const floatButton = {
+	...floatButtonOnlyStyle,
+	position: "absolute",
+	bottom: 12,
+	right: 26,
+	alignSelf: "flex-end"
 }

@@ -1,4 +1,4 @@
-_constructAPIUrl = (page, search, orderByColumn, orderByMethod) => {
+const _constructAPIUrl = (page, search, orderByColumn, orderByMethod) => {
 	let extra = ""
 	if (orderByColumn) {
 		extra += `&order_by=${orderByColumn} ${orderByMethod}`

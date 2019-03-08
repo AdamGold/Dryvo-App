@@ -12,10 +12,21 @@ import NewStudent from "./NewStudent"
 import Schedule from "./Schedule"
 import { strings } from "../../i18n"
 import { Icon } from "react-native-elements"
+import AddPayment from "./AddPayment"
 
 export default createBottomTabNavigator(
 	{
-		Home: Home,
+		Home: createStackNavigator(
+			{ Home, AddPayment },
+			{
+				initialRouteName: "Home",
+				mode: "modal",
+				headerMode: "none",
+				navigationOptions: {
+					headerVisible: false
+				}
+			}
+		),
 		Notifications: Notifications,
 		Add: {
 			screen: createStackNavigator(

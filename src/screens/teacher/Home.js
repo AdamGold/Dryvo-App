@@ -229,9 +229,15 @@ export class Home extends React.Component {
 					</View>
 					<View style={styles.amountView}>
 						<Text style={styles.amount}>{this.state.sum}₪</Text>
-						<Text style={styles.addPayment}>
-							{strings("teacher.home.add_payment")}
-						</Text>
+						<TouchableOpacity
+							onPress={() =>
+								this.props.navigation.navigate("AddPayment")
+							}
+						>
+							<Text style={styles.addPayment}>
+								{strings("teacher.home.add_payment")}
+							</Text>
+						</TouchableOpacity>
 					</View>
 					<Separator />
 					<FlatList

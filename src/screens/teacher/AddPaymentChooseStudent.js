@@ -17,7 +17,7 @@ import { MAIN_PADDING, floatButton } from "../../consts"
 import { getStudents } from "../../actions/students"
 import { NavigationActions } from "react-navigation"
 
-export class AddPaymentStudent extends React.Component {
+export class AddPaymentChooseStudent extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -164,7 +164,7 @@ function mapStateToProps(state) {
 	}
 }
 
-export default connect(mapStateToProps)(AddPaymentStudent)
+export default connect(mapStateToProps)(AddPaymentChooseStudent)
 
 const styles = StyleSheet.create({
 	container: {

@@ -9,7 +9,7 @@ const _constructAPIUrl = (page, search, orderByColumn, orderByMethod) => {
 
 export const getStudents = async (fetchService, state) => {
 	const { page, search, orderByColumn, orderByMethod } = state
-	resp = await fetchService.fetch(
+	const resp = await fetchService.fetch(
 		_constructAPIUrl(page, search, orderByColumn, orderByMethod),
 		{
 			method: "GET"

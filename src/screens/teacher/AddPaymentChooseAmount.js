@@ -16,7 +16,7 @@ import { MAIN_PADDING, floatButtonOnlyStyle } from "../../consts"
 import { API_ERROR } from "../../reducers/consts"
 import { NavigationActions } from "react-navigation"
 
-export class AddPaymentAmount extends React.Component {
+export class AddPaymentChooseAmount extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -99,7 +99,13 @@ export class AddPaymentAmount extends React.Component {
 		)
 	}
 }
-export default connect(mapStateToProps)(AddPaymentAmount)
+
+function mapStateToProps(state) {
+	return {
+		fetchService: state.fetchService
+	}
+}
+export default connect(mapStateToProps)(AddPaymentChooseAmount)
 
 const styles = StyleSheet.create({
 	container: {

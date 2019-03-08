@@ -14,6 +14,7 @@ import UserWithPic from "../../components/UserWithPic"
 import { Icon, SearchBar, Button } from "react-native-elements"
 import { MAIN_PADDING, floatButton } from "../../consts"
 import { Dropdown } from "react-native-material-dropdown"
+import { getStudents } from "../../actions/students"
 
 export class Students extends React.Component {
 	constructor(props) {
@@ -51,33 +52,15 @@ export class Students extends React.Component {
 		this.willFocusSubscription.remove()
 	}
 
-	_constructAPIUrl = (extra = "") => {
-		if (extra) extra = "&" + extra
-		if (this.state.orderByColumn) {
-			extra += `&order_by=${this.state.orderByColumn} ${
-				this.state.orderByMethod
-			}`
-		}
-		if (!extra.includes("is_active")) extra += "&is_active=true"
-		if (this.state.search) extra += `&name=${this.state.search}`
-		return (
-			"/teacher/students?limit=10&is_approved=true&page=" +
-			this.state.page +
-			extra
-		)
-	}
-
 	_getStudents = async (append = true) => {
-		resp = await this.props.fetchService.fetch(this._constructAPIUrl(), {
-			method: "GET"
-		})
-		let newValue = resp.json["data"]
+		resp = await getStudents(this.props.fetchService, this.state)
+		let newValue = resp.students
 		if (append) {
 			newValue = [...this.state.students, ...newValue]
 		}
 		this.setState({
 			students: newValue,
-			nextUrl: resp.json["next_url"]
+			nextUrl: resp.nextUrl
 		})
 	}
 
@@ -86,6 +69,7 @@ export class Students extends React.Component {
 			this._getStudents(false)
 		})
 	}
+
 	renderItem = ({ item, index }) => {
 		const greenColor = "rgb(24, 199, 20)"
 		let balanceStyle = { color: "red" }
@@ -245,12 +229,6 @@ export class Students extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1
-	},
-	headerRow: {
-		flex: 1,
-		flexDirection: "row",
-		alignItems: "center",
-		maxHeight: 60
 	},
 	students: {
 		flex: 1,

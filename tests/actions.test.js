@@ -1,5 +1,7 @@
 import * as utils from "../src/actions/utils"
 import * as auth from "../src/actions/auth"
+import * as students from "../src/actions/students"
+import * as lessons from "../src/actions/lessons"
 import FetchService from "../src/services/Fetch"
 import Storage from "../src/services/Storage"
 import { Platform } from "react-native"
@@ -146,6 +148,38 @@ describe("auth.js", () => {
 			fetch.mockResponseFailure()
 			let ret = await store.dispatch(auth.directLogin({}, callback))
 			expect(store.getActions()).toMatchSnapshot()
+		})
+	})
+})
+
+describe("students.js", () => {
+	describe("getStudents", () => {
+		it("should return dict with students and nextUrl", async () => {
+			const data = [
+				{ id: 1, date: new Date() },
+				{ id: 2, date: new Date() }
+			]
+			fetch.mockResponseSuccess(
+				JSON.stringify({
+					data
+				})
+			)
+			const resp = await students.getStudents(new FetchService(), {
+				page: 1,
+				search: "",
+				orderByColumn: "",
+				orderByMethod: "asc"
+			})
+			expect(resp["students"][0]["id"]).toEqual(1)
+		})
+	})
+})
+
+describe("lessons.js", () => {
+	describe("getStartAndEndOfDay", () => {
+		it("should return dict with 3 values", async () => {
+			const ret = lessons.getStartAndEndOfDay(new Date())
+			expect(Object.keys(ret).length).toEqual(3)
 		})
 	})
 })

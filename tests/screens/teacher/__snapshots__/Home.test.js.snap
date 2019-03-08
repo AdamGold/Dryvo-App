@@ -364,18 +364,34 @@ exports[`Home view renders correctly 1`] = `
           0
           ₪
         </Text>
-        <Text
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "alignSelf": "center",
-              "color": "rgb(12, 116, 244)",
-              "fontWeight": "bold",
-              "marginTop": 16,
+              "opacity": 1,
             }
           }
         >
-          הוסף תשלום
-        </Text>
+          <Text
+            style={
+              Object {
+                "alignSelf": "center",
+                "color": "rgb(12, 116, 244)",
+                "fontWeight": "bold",
+                "marginTop": 16,
+              }
+            }
+          >
+            הוסף תשלום
+          </Text>
+        </View>
       </View>
       <View
         style={

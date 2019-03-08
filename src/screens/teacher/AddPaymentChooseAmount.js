@@ -3,25 +3,24 @@ import {
 	View,
 	StyleSheet,
 	Text,
-	FlatList,
-	TouchableHighlight
+	TouchableHighlight,
+	TouchableOpacity,
+	TextInput,
+	KeyboardAvoidingView
 } from "react-native"
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
-import Row from "../../components/Row"
-import UserWithPic from "../../components/UserWithPic"
-import Separator from "../../components/Separator"
 import { SearchBar, Button, Icon } from "react-native-elements"
 import PageTitle from "../../components/PageTitle"
-import { MAIN_PADDING, floatButton } from "../../consts"
+import { MAIN_PADDING, floatButtonOnlyStyle } from "../../consts"
 import { API_ERROR } from "../../reducers/consts"
-import { Input } from "react-native-elements"
+import { NavigationActions } from "react-navigation"
 
 export class AddPaymentAmount extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			amount: "0"
+			amount: "000.00"
 		}
 
 		this.addPayment = this.addPayment.bind(this)
@@ -35,11 +34,12 @@ export class AddPaymentAmount extends React.Component {
 					method: "POST",
 					body: JSON.stringify({
 						amount: this.state.amount,
-						student_id: this.state.student.student_id
+						student_id: this.props.navigation.getParam("student")
+							.student_id
 					})
 				}
 			)
-			this.props.navigation.goBack()
+			this.props.navigation.dispatch(NavigationActions.back())
 		} catch (error) {
 			console.log(error)
 			let msg = ""
@@ -48,45 +48,53 @@ export class AddPaymentAmount extends React.Component {
 		}
 	}
 
+	changeAmount = amount => {
+		this.setState({ amount })
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
 				<View style={styles.headerRow}>
-					<Button
-						icon={<Icon name="arrow-forward" type="material" />}
+					<TouchableOpacity
 						onPress={() => {
 							this.props.navigation.goBack()
 						}}
-						type="clear"
-					/>
+					>
+						<Icon name="arrow-forward" type="material" />
+					</TouchableOpacity>
 					<PageTitle
 						style={styles.title}
 						title={strings("teacher.add_payment.title2")}
 					/>
 				</View>
-				<View
-					style={styles.studentsSearchView}
-					testID="StudentsSearchView"
-				>
-					<Input
+				<View style={styles.amountContainer}>
+					<TextInput
+						placeholder="000.00"
 						value={this.state.amount}
-						onChangeText={amount => this.setState({ amount })}
-						placeholder={strings("teacher.add_payment.amount")}
-						inputStyle={styles.amountInput}
-						inputContainerStyle={{
-							...styles.inputContainerStyle,
-							...styles.amountContainer
-						}}
+						onChangeText={amount => this.changeAmount(amount)}
+						style={styles.amountInput}
+						autoFocus={true}
+						maxLength={5}
+						keyboardType="number-pad"
 					/>
 				</View>
-				<TouchableHighlight
-					underlayColor="#ffffff00"
-					onPress={this.addPayment}
+				<KeyboardAvoidingView
+					behavior="padding"
+					keyboardVerticalOffset={62}
+					style={styles.container}
 				>
-					<View style={styles.floatButton}>
-						<Text style={styles.buttonText}>{strings("done")}</Text>
-					</View>
-				</TouchableHighlight>
+					<TouchableHighlight
+						underlayColor="#ffffff00"
+						onPress={this.addPayment}
+					>
+						<View style={styles.floatButton}>
+							<Text style={styles.buttonText}>
+								{strings("done")}
+							</Text>
+						</View>
+					</TouchableHighlight>
+				</KeyboardAvoidingView>
 			</View>
 		)
 	}
@@ -98,20 +106,27 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	title: {
-		marginTop: 4
+		marginLeft: 8,
+		marginTop: -4
 	},
 	headerRow: {
 		flexDirection: "row",
-		flex: 1,
-		maxHeight: 50,
-		paddingLeft: MAIN_PADDING
+		padding: 0,
+		justifyContent: "flex-start",
+		marginLeft: MAIN_PADDING,
+		marginRight: MAIN_PADDING,
+		marginTop: 20
 	},
 	amountInput: {
-		alignItems: "flex-start"
+		fontSize: 80,
+		alignItems: "center",
+		fontFamily: "Assistant-Light"
 	},
 	amountContainer: {
 		borderBottomWidth: 0,
-		backgroundColor: "#f4f4f4"
+		backgroundColor: "#f4f4f4",
+		padding: 20,
+		marginTop: 80
 	},
 	buttonText: {
 		color: "#fff",
@@ -119,6 +134,9 @@ const styles = StyleSheet.create({
 		fontSize: 20
 	},
 	floatButton: {
-		...floatButton
+		...floatButtonOnlyStyle,
+		alignSelf: "center",
+		width: "80%",
+		marginTop: 40
 	}
 })

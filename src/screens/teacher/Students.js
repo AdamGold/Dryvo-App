@@ -230,12 +230,6 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1
 	},
-	headerRow: {
-		flex: 1,
-		flexDirection: "row",
-		alignItems: "center",
-		maxHeight: 60
-	},
 	students: {
 		flex: 1,
 		paddingRight: MAIN_PADDING,

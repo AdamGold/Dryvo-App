@@ -68,19 +68,28 @@ export class AddPaymentStudent extends React.Component {
 				student: item
 			},
 			() => {
-				this.props.navigation.navigate("Second")
+				this.props.navigation.navigate("Second", { student: item })
 			}
 		)
 	}
 
 	renderItem = ({ item, index }) => {
+		let noneMargin = {}
+		if (index == 0) {
+			noneMargin = { marginTop: 0 }
+		}
 		return (
 			<TouchableHighlight
 				underlayColor="#f9f9f9"
 				key={`student${item.student_id}`}
 				onPress={() => this.onPress(item)}
 			>
-				<Row>
+				<Row
+					leftSide={
+						<Icon name="ios-add" type="ionicon" color="#000" />
+					}
+					style={{ ...styles.row, ...noneMargin }}
+				>
 					<UserWithPic
 						name={item.user.name}
 						nameStyle={styles.nameStyle}
@@ -94,29 +103,28 @@ export class AddPaymentStudent extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<View style={styles.headerRow}>
-					<PageTitle
-						style={styles.title}
-						title={strings("teacher.add_payment.title1")}
-						leftSide={
-							<Button
-								icon={
-									<Icon
-										name="ios-close"
-										type="ionicon"
-										size={36}
-									/>
-								}
-								onPress={() => {
-									this.props.navigation.dispatch(
-										NavigationActions.back()
-									)
-								}}
-								type="clear"
-							/>
-						}
-					/>
-				</View>
+				<PageTitle
+					style={styles.title}
+					title={strings("teacher.add_payment.title1")}
+					leftSide={
+						<Button
+							icon={
+								<Icon
+									name="ios-close"
+									type="ionicon"
+									size={36}
+								/>
+							}
+							onPress={() => {
+								this.props.navigation.dispatch(
+									NavigationActions.back()
+								)
+							}}
+							type="clear"
+							style={styles.closeButton}
+						/>
+					}
+				/>
 				<View
 					style={styles.studentsSearchView}
 					testID="StudentsSearchView"
@@ -141,6 +149,8 @@ export class AddPaymentStudent extends React.Component {
 						renderItem={this.renderItem}
 						keyExtractor={item => `student${item.student_id}`}
 						onEndReached={this.endReached}
+						keyboardDismissMode="on-drag"
+						keyboardShouldPersistTaps="always"
 					/>
 				</View>
 			</View>
@@ -158,18 +168,15 @@ export default connect(mapStateToProps)(AddPaymentStudent)
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1
+		flex: 1,
+		marginLeft: MAIN_PADDING,
+		marginRight: MAIN_PADDING,
+		marginTop: 20
 	},
 	title: {
 		marginTop: 4
 	},
-	headerRow: {
-		flex: 1,
-		paddingLeft: MAIN_PADDING,
-		paddingRight: MAIN_PADDING,
-		maxHeight: 50
-	},
-	studentsSearchView: { padding: 26, paddingTop: 0 },
+	studentsSearchView: { paddingTop: 0 },
 	searchBarContainer: {
 		backgroundColor: "transparent",
 		paddingBottom: 0,
@@ -194,5 +201,9 @@ const styles = StyleSheet.create({
 	nameStyle: {
 		fontSize: 18,
 		marginTop: 14
+	},
+	row: { marginTop: 20 },
+	closeButton: {
+		marginTop: -4
 	}
 })

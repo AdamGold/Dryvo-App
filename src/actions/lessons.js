@@ -21,3 +21,25 @@ export function getStartAndEndOfDay(date) {
 
 	return { startOfDay, endOfDay, dateString }
 }
+
+export async function getPayments(fetchService) {
+	const date = new Date()
+	var firstDay = new Date(date.getFullYear(), date.getMonth(), 1)
+	var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0)
+	const resp = await fetchService.fetch(
+		"/lessons/payments?order_by=created_at desc&created_at=ge:" +
+			firstDay.toISOString() +
+			"&created_at=le:" +
+			lastDay.toISOString(),
+		{ method: "GET" }
+	)
+	var sum = 0
+	for (var i = 0, _len = resp.json["data"].length; i < _len; i++) {
+		sum += resp.json["data"][i]["amount"]
+	}
+
+	return {
+		payments: resp.json["data"],
+		sum
+	}
+}

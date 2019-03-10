@@ -9,6 +9,7 @@ import { floatButtonOnlyStyle } from "../consts"
 export default class LessonPopup extends React.Component {
 	render() {
 		const { item } = this.props
+		if (!item) return null
 		let meetup = strings("not_set")
 		if (item.meetup_place) meetup = item.meetup_place.name
 		let dropoff = strings("not_set")

@@ -11,13 +11,15 @@ import {
 } from "react-native"
 import { connect } from "react-redux"
 import ShadowRect from "../../components/ShadowRect"
-import UserWithPic from "../../components/UserWithPic"
 import { strings } from "../../i18n"
 import Row from "../../components/Row"
 import Separator from "../../components/Separator"
 import { Icon } from "react-native-elements"
 import Hours from "../../components/Hours"
 import LessonPopup from "../../components/LessonPopup"
+import { getPayments } from "../../actions/lessons"
+import moment from "moment"
+import { DATE_FORMAT } from "../../consts"
 
 export class Home extends React.Component {
 	static navigationOptions = () => {
@@ -32,100 +34,73 @@ export class Home extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			items: [],
+			lesson: "",
 			payments: [],
 			sum: 0,
-			visible: []
+			lessonPopupVisible: false
 		}
 
-		this._getItems()
+		this._getLesson()
 		this._getPayments()
 	}
 
-	_getItems = async () => {
+	_getLesson = async () => {
 		const now = new Date().toISOString()
 		const resp = await this.props.fetchService.fetch(
-			"/lessons/?limit=2&is_approved=true&date=ge:" + now,
+			"/lessons/?limit=1&is_approved=true&date=ge:" + now,
 			{ method: "GET" }
 		)
+		if (resp.json["data"].length == 0) return
 		this.setState({
-			items: [...this.state.items, ...resp.json["data"]]
+			lesson: resp.json["data"][0]
 		})
 	}
 
 	_getPayments = async () => {
-		const date = new Date()
-		var firstDay = new Date(date.getFullYear(), date.getMonth(), 1)
-		var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0)
-		const resp = await this.props.fetchService.fetch(
-			"/lessons/payments?order_by=created_at desc&created_at=ge:" +
-				firstDay.toISOString() +
-				"&created_at=le:" +
-				lastDay.toISOString(),
-			{ method: "GET" }
-		)
-		var sum = 0
-		for (var i = 0, _len = resp.json["data"].length; i < _len; i++) {
-			sum += resp.json["data"][i]["amount"]
-		}
+		const payments = await getPayments(this.props.fetchService)
 		this.setState({
-			payments: [...this.state.payments, ...resp.json["data"]],
-			sum
+			payments: payments.payments,
+			sum: payments.sum
 		})
 	}
 
-	lessonPress = item => {
-		let newVisible
-		if (this.state.visible.includes(item.id)) {
-			// we pop it
-			newVisible = this.state.visible.filter((v, i) => v != item.id)
-		} else {
-			newVisible = [...this.state.visible, item.id]
-		}
-		this.setState({ visible: newVisible })
+	lessonPress = () => {
+		this.setState({ lessonPopupVisible: !this.state.lessonPopupVisible })
 	}
 
-	renderItem = ({ item, index }) => {
-		const date = item.date
+	renderLesson = () => {
+		const { lesson } = this.state
 		let meetup = strings("not_set")
-		if (item.meetup_place) meetup = item.meetup_place.name
-		const visible = this.state.visible.includes(item.id) ? true : false
+		if (lesson.meetup_place) meetup = lesson.meetup_place.name
 		return (
 			<Fragment>
 				<TouchableOpacity
-					onPress={() => this.lessonPress(item)}
+					onPress={() => this.lessonPress()}
 					testID="lessonRowTouchable"
 				>
 					<Row
-						key={`item${item.id}`}
 						style={styles.lessonRow}
 						leftSide={
-							<Hours duration={item.duration} date={date} />
+							<Hours
+								duration={lesson.duration}
+								date={lesson.date}
+								style={styles.hoursStyle}
+							/>
 						}
 					>
-						<UserWithPic
-							name={item.student.user.name}
-							extra={
-								<View style={{ alignItems: "flex-start" }}>
-									<Text style={styles.places}>
-										{strings("teacher.new_lesson.meetup")}:{" "}
-										{meetup}
-									</Text>
-								</View>
-							}
-							nameStyle={styles.nameStyle}
-							imageContainerStyle={styles.placesImage}
-						/>
+						<Text style={styles.placeStyle}>
+							{strings("teacher.new_lesson.meetup")}: {meetup}
+						</Text>
 					</Row>
 				</TouchableOpacity>
 				<LessonPopup
-					visible={visible}
-					item={item}
+					visible={this.state.lessonPopupVisible}
+					item={lesson}
 					onPress={this.lessonPress}
 					onButtonPress={() => {
-						this.lessonPress(item)
+						this.lessonPress()
 						this.props.navigation.navigate("Lesson", {
-							lesson: item
+							lesson
 						})
 					}}
 					testID="lessonPopup"
@@ -133,7 +108,6 @@ export class Home extends React.Component {
 			</Fragment>
 		)
 	}
-
 	renderPaymentItem = ({ item, index }) => {
 		let firstItemStyles = {}
 		if (index == 0) {
@@ -146,25 +120,13 @@ export class Home extends React.Component {
 					<Text style={styles.amountOfStudent}>{item.amount}₪</Text>
 				}
 			>
-				<UserWithPic
-					name={item.student.user.name}
-					nameStyle={styles.nameStyle}
-				/>
+				<Text>{moment.utc(item.created_at).format(DATE_FORMAT)}</Text>
 			</Row>
 		)
 	}
-
-	lessonsSeperator = () => {
-		return (
-			<Fragment>
-				<Separator />
-				<Text style={styles.rectTitle}>
-					{strings("teacher.home.next_lesson")}
-				</Text>
-			</Fragment>
-		)
-	}
 	render() {
+		let lessonRender
+		if (this.state.lesson) lessonRender = this.renderLesson()
 		return (
 			<ScrollView style={styles.container}>
 				<View testID="welcomeHeader" style={styles.welcomeHeader}>
@@ -183,15 +145,9 @@ export class Home extends React.Component {
 				</View>
 				<ShadowRect style={styles.schedule}>
 					<Text style={styles.rectTitle} testID="schedule">
-						{strings("teacher.home.current_lesson")}
+						{strings("teacher.home.next_lesson")}
 					</Text>
-					<FlatList
-						data={this.state.items}
-						renderItem={this.renderItem}
-						ItemSeparatorComponent={this.lessonsSeperator}
-						keyExtractor={item => `item${item.id}`}
-						extraData={this.state.visible}
-					/>
+					{lessonRender}
 				</ShadowRect>
 
 				<View style={styles.fullScheduleView}>
@@ -215,7 +171,7 @@ export class Home extends React.Component {
 				<ShadowRect>
 					<View style={{ flex: 1, flexDirection: "row" }}>
 						<Text testID="monthlyAmount" style={styles.rectTitle}>
-							{strings("teacher.home.monthly_amount")}
+							{strings("student.home.payments")}
 						</Text>
 						<View
 							style={{
@@ -229,15 +185,6 @@ export class Home extends React.Component {
 					</View>
 					<View style={styles.amountView}>
 						<Text style={styles.amount}>{this.state.sum}₪</Text>
-						<TouchableOpacity
-							onPress={() =>
-								this.props.navigation.navigate("AddPayment")
-							}
-						>
-							<Text style={styles.addPayment}>
-								{strings("teacher.home.add_payment")}
-							</Text>
-						</TouchableOpacity>
 					</View>
 					<Separator />
 					<FlatList
@@ -256,7 +203,12 @@ const styles = StyleSheet.create({
 		flex: 1,
 		marginTop: 20
 	},
-	schedule: { minHeight: 240 },
+	profilePic: {
+		width: 44,
+		height: 44,
+		borderRadius: 22,
+		marginBottom: 16
+	},
 	welcomeHeader: {
 		alignSelf: "center",
 		alignItems: "center",
@@ -266,12 +218,7 @@ const styles = StyleSheet.create({
 		fontFamily: "Assistant-Light",
 		fontSize: 24
 	},
-	profilePic: {
-		width: 44,
-		height: 44,
-		borderRadius: 22,
-		marginBottom: 16
-	},
+	hoursStyle: { marginBottom: -8 },
 	rectTitle: {
 		fontSize: 16,
 		fontWeight: "bold",
@@ -295,11 +242,6 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		marginRight: 8
 	},
-	places: {
-		fontSize: 14,
-		color: "gray"
-	},
-	placesImage: { marginTop: 8 },
 	amountView: {
 		marginTop: 16,
 		alignSelf: "center"
@@ -316,11 +258,8 @@ const styles = StyleSheet.create({
 		alignSelf: "center"
 	},
 	amountOfStudent: {
-		color: "rgb(24, 199, 20)"
-	},
-	nameStyle: {
-		marginTop: 4,
-		marginLeft: -2
+		color: "rgb(24, 199, 20)",
+		marginTop: 8
 	},
 	paymentRow: {
 		maxHeight: 34,

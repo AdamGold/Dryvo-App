@@ -12,7 +12,12 @@ import {
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
 import PageTitle from "../../components/PageTitle"
-import { MAIN_PADDING, floatButton, API_DATE_FORMAT } from "../../consts"
+import {
+	MAIN_PADDING,
+	floatButton,
+	API_DATE_FORMAT,
+	SHORT_API_DATE_FORMAT
+} from "../../consts"
 import NewLessonInput from "../../components/NewLessonInput"
 import Hours from "../../components/Hours"
 import InputSelectionButton from "../../components/InputSelectionButton"
@@ -202,9 +207,12 @@ export class NewLesson extends React.Component {
 
 	_handleDatePicked = date => {
 		this._hideDateTimePicker()
-		this.setState({ date: moment.utc(date).format("YYYY-MM-DD") }, () => {
-			this._getAvailableHours()
-		})
+		this.setState(
+			{ date: moment.utc(date).format(SHORT_API_DATE_FORMAT) },
+			() => {
+				this._getAvailableHours()
+			}
+		)
 	}
 
 	render() {

@@ -15,7 +15,7 @@ import { Icon } from "react-native-elements"
 import Separator from "../../components/Separator"
 import { calendarTheme, MAIN_PADDING } from "../../consts"
 import Hours from "../../components/Hours"
-import { getStartAndEndOfDay } from "../../actions/lessons"
+import { getDateAndString } from "../../actions/lessons"
 import LessonPopup from "../../components/LessonPopup"
 
 export class Schedule extends React.Component {
@@ -40,12 +40,12 @@ export class Schedule extends React.Component {
 	}
 
 	_getItems = async date => {
-		const dates = getStartAndEndOfDay(date)
+		const dates = getDateAndString(date)
 		const resp = await this.props.fetchService.fetch(
 			"/lessons/?is_approved=true&date=ge:" +
-				dates.startOfDay.toISOString() +
+				dates.date.startOf("day").toISOString() +
 				"&date=le:" +
-				dates.endOfDay.toISOString(),
+				dates.date.endOf("day").toISOString(),
 			{ method: "GET" }
 		)
 		if (!resp.json["data"]) return

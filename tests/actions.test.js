@@ -176,10 +176,10 @@ describe("students.js", () => {
 })
 
 describe("lessons.js", () => {
-	describe("getStartAndEndOfDay", () => {
+	describe("getDateAndString", () => {
 		it("should return dict with 3 values", async () => {
-			const ret = lessons.getStartAndEndOfDay(new Date())
-			expect(Object.keys(ret).length).toEqual(3)
+			const ret = lessons.getDateAndString(new Date())
+			expect(Object.keys(ret).length).toEqual(2)
 		})
 	})
 })

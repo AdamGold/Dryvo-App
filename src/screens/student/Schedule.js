@@ -9,14 +9,18 @@ import {
 import { connect } from "react-redux"
 import { strings, dates } from "../../i18n"
 import { Agenda } from "react-native-calendars"
-import Row from "../../components/Row"
-import UserWithPic from "../../components/UserWithPic"
-import { Icon } from "react-native-elements"
 import Separator from "../../components/Separator"
-import { calendarTheme, MAIN_PADDING } from "../../consts"
+import {
+	calendarTheme,
+	MAIN_PADDING,
+	API_DATE_FORMAT,
+	SHORT_API_DATE_FORMAT,
+	themeBlue
+} from "../../consts"
 import Hours from "../../components/Hours"
-import { getStartAndEndOfDay } from "../../actions/lessons"
+import { getDateAndString } from "../../actions/lessons"
 import LessonPopup from "../../components/LessonPopup"
+import moment from "moment"
 
 export class Schedule extends React.Component {
 	static navigationOptions = () => {
@@ -40,19 +44,30 @@ export class Schedule extends React.Component {
 	}
 
 	_getItems = async date => {
-		const dates = getStartAndEndOfDay(date)
+		const dates = getDateAndString(date)
 		const resp = await this.props.fetchService.fetch(
-			"/lessons/?is_approved=true&date=ge:" +
-				dates.startOfDay.toISOString() +
+			"/lessons/?date=ge:" +
+				dates.date.startOf("day").toISOString() +
 				"&date=le:" +
-				dates.endOfDay.toISOString(),
+				dates.date.endOf("week").toISOString(),
 			{ method: "GET" }
 		)
-		if (!resp.json["data"]) return
+		// get lessons until end of week and divide to array with date as key
+		let items = {}
+		resp.json["data"].forEach(lesson => {
+			const dateString = moment
+				.utc(lesson.date)
+				.format(SHORT_API_DATE_FORMAT)
+			if (items.hasOwnProperty(dateString)) {
+				items[dateString].push(lesson)
+			} else {
+				items[dateString] = [lesson]
+			}
+		})
 		this.setState(prevState => ({
 			items: {
 				...prevState.items,
-				[dates.dateString]: resp.json["data"]
+				...items
 			}
 		}))
 	}
@@ -68,9 +83,16 @@ export class Schedule extends React.Component {
 	}
 
 	renderItem = (item, firstItemInDay) => {
-		let style = {}
+		let dayTitle
 		if (firstItemInDay) {
-			style = { marginTop: 20 }
+			dayTitle = (
+				<Fragment>
+					<Separator />
+					<Text style={styles.dayTitle}>
+						{dates("date.formats.short", item.date)}
+					</Text>
+				</Fragment>
+			)
 		}
 		const date = item.date
 		let meetup = strings("not_set")
@@ -80,37 +102,24 @@ export class Schedule extends React.Component {
 		const visible = this.state.visible.includes(item.id) ? true : false
 		return (
 			<Fragment>
-				<TouchableOpacity onPress={() => this.lessonPress(item)}>
-					<Row
-						style={{ ...styles.row, ...style }}
-						leftSide={
-							<Hours duration={item.duration} date={date} />
-						}
-					>
-						<UserWithPic
-							name={`${item.student.user.name}(${
-								item.lesson_number
-							})`}
-							imageContainerStyle={styles.imageContainerStyle}
-							extra={
-								<Fragment>
-									<Text style={styles.places}>
-										{strings("teacher.new_lesson.meetup")}:{" "}
-										{meetup}
-									</Text>
-									<Text style={styles.places}>
-										{strings("teacher.new_lesson.dropoff")}:{" "}
-										{dropoff}
-									</Text>
-								</Fragment>
-							}
-							nameStyle={styles.nameStyle}
-							width={44}
-							height={44}
-							style={styles.userWithPic}
+				{dayTitle}
+				<View style={styles.lesson}>
+					<TouchableOpacity onPress={() => this.lessonPress(item)}>
+						<Text style={styles.lessonTitle}>
+							{strings("teacher.home.lesson_number")}{" "}
+							{item.lesson_number}
+						</Text>
+						<Hours
+							duration={item.duration}
+							date={date}
+							style={styles.hours}
 						/>
-					</Row>
-				</TouchableOpacity>
+						<Text style={styles.places}>
+							{strings("teacher.new_lesson.meetup")}: {meetup},{" "}
+							{strings("teacher.new_lesson.dropoff")}: {dropoff}
+						</Text>
+					</TouchableOpacity>
+				</View>
 				<LessonPopup
 					visible={visible}
 					item={item}
@@ -123,27 +132,6 @@ export class Schedule extends React.Component {
 					}}
 				/>
 			</Fragment>
-		)
-	}
-
-	renderKnob = () => {
-		return (
-			<View>
-				<TouchableHighlight>
-					<View>
-						<Icon
-							size={20}
-							color="rgb(12, 116, 244)"
-							name="add-circle"
-							type="material"
-						/>
-						<Text style={styles.calendarText}>
-							{strings("teacher.schedule.calendar")}
-						</Text>
-					</View>
-				</TouchableHighlight>
-				<Separator />
-			</View>
 		)
 	}
 
@@ -161,6 +149,7 @@ export class Schedule extends React.Component {
 			}
 		)
 	}
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -169,6 +158,7 @@ export class Schedule extends React.Component {
 						items={this.state.items}
 						// callback that gets called on day press
 						onDayPress={this.onDayPress}
+						onDayChange={this.onDayPress}
 						// initially selected day
 						selected={Date()}
 						// Max amount of months allowed to scroll to the past. Default = 50
@@ -178,7 +168,7 @@ export class Schedule extends React.Component {
 						// specify how each item should be rendered in agenda
 						renderItem={this.renderItem}
 						// specify how each date should be rendered. day can be undefined if the item is not first in that day.
-						renderDay={(day, item) => undefined}
+						renderDay={() => undefined}
 						renderEmptyDate={this.renderEmpty}
 						// specify your item comparison function for increased performance
 						rowHasChanged={(r1, r2) => {
@@ -189,7 +179,6 @@ export class Schedule extends React.Component {
 								selected: true
 							}
 						}}
-						showOnlyDaySelected={true}
 						// agenda theme
 						theme={{
 							...calendarTheme,
@@ -198,8 +187,6 @@ export class Schedule extends React.Component {
 							textWeekDayFontSize: 16,
 							textWeekDayFontWeight: "600"
 						}}
-						ItemSeparatorComponent={() => <Separator />}
-						extraData={this.state.visible}
 					/>
 				</View>
 			</View>
@@ -214,37 +201,36 @@ const styles = StyleSheet.create({
 	calendar: {
 		flex: 1
 	},
-	header: {
-		flex: 1,
-		alignItems: "center",
-		maxHeight: 100
-	},
-	calendarText: {
-		fontWeight: "bold",
-		color: "rgb(12,116,244)",
-		marginTop: 6
-	},
 	schedule: {
 		flex: 1,
 		paddingRight: MAIN_PADDING,
 		paddingLeft: MAIN_PADDING,
 		marginTop: 20
 	},
-	row: {},
-	imageContainerStyle: { marginTop: 10 },
+	lesson: {
+		flex: 1,
+		marginTop: 12,
+		backgroundColor: "#f4f4f4",
+		padding: 8
+	},
+	dayTitle: {
+		fontWeight: "bold",
+		alignSelf: "flex-start"
+	},
+	lessonTitle: {
+		color: themeBlue,
+		alignSelf: "flex-start"
+	},
 	places: {
 		fontSize: 14,
 		color: "gray",
 		marginTop: 4,
 		alignSelf: "flex-start"
 	},
-	nameStyle: {
-		marginTop: -4
-	},
-	hour: {
-		fontSize: 20,
+	hours: {
+		fontSize: 14,
 		color: "gray",
-		marginTop: -12
+		alignSelf: "flex-start"
 	},
 	userWithPic: { marginLeft: 10 }
 })

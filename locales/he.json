@@ -73,6 +73,9 @@
 	"student": {
 		"home": {
 			"payments": "תשלומים"
+		},
+		"new_lesson": {
+			"done": "בקשת שיעור"
 		}
 	},
 	"date": {

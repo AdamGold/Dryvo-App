@@ -14,6 +14,12 @@
 	"edit_lesson": "עריכת שיעור",
 	"done": "סיום",
 	"not_approved": "לא מאושר",
+	"student_profile": {
+		"lessons": "שיעורים",
+		"my_teacher": "המורה שלי",
+		"in_progress_topics": "בתהליך",
+		"finished_topics": "סוימו"
+	},
 	"signup": {
 		"name": "שם מלא",
 		"area": "עיר מגורים",

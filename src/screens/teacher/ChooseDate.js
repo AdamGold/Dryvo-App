@@ -170,7 +170,12 @@ const styles = StyleSheet.create({
 		alignSelf: "flex-start",
 		marginLeft: MAIN_PADDING
 	},
-	schedule: { minHeight: 230, marginTop: 24 },
+	schedule: {
+		minHeight: 230,
+		marginTop: 24,
+		marginLeft: MAIN_PADDING,
+		marginRight: MAIN_PADDING
+	},
 	hour: {
 		marginTop: -2,
 		color: "rgb(12,116,244)"

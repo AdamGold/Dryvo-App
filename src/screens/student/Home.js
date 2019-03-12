@@ -19,7 +19,7 @@ import Hours from "../../components/Hours"
 import LessonPopup from "../../components/LessonPopup"
 import { getPayments } from "../../actions/lessons"
 import moment from "moment"
-import { DATE_FORMAT } from "../../consts"
+import { DATE_FORMAT, MAIN_PADDING } from "../../consts"
 
 export class Home extends React.Component {
 	static navigationOptions = () => {
@@ -128,71 +128,80 @@ export class Home extends React.Component {
 		let lessonRender
 		if (this.state.lesson) lessonRender = this.renderLesson()
 		return (
-			<ScrollView style={styles.container}>
-				<View testID="welcomeHeader" style={styles.welcomeHeader}>
-					<Image
-						style={styles.profilePic}
-						source={{
-							uri:
-								"https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80"
-						}}
-					/>
-					<Text style={styles.welcomeText}>
-						{strings("teacher.home.welcome", {
-							name: this.props.user["name"]
-						})}
-					</Text>
-				</View>
-				<ShadowRect style={styles.schedule}>
-					<Text style={styles.rectTitle} testID="schedule">
-						{strings("teacher.home.next_lesson")}
-					</Text>
-					{lessonRender}
-				</ShadowRect>
+			<ScrollView>
+				<View style={styles.container}>
+					<View testID="welcomeHeader" style={styles.welcomeHeader}>
+						<Image
+							style={styles.profilePic}
+							source={{
+								uri:
+									"https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80"
+							}}
+						/>
+						<Text style={styles.welcomeText}>
+							{strings("teacher.home.welcome", {
+								name: this.props.user["name"]
+							})}
+						</Text>
+					</View>
+					<ShadowRect style={styles.schedule}>
+						<Text style={styles.rectTitle} testID="schedule">
+							{strings("teacher.home.next_lesson")}
+						</Text>
+						{lessonRender}
+					</ShadowRect>
 
-				<View style={styles.fullScheduleView}>
-					<TouchableHighlight
-						underlayColor="lightgray"
-						onPress={() => {
-							this.props.navigation.navigate("Schedule")
-						}}
-					>
-						<Text style={styles.fullSchedule}>
-							{strings("teacher.home.full_schedule")}
-						</Text>
-					</TouchableHighlight>
-					<Icon
-						size={20}
-						color="rgb(12, 116, 244)"
-						name="ios-arrow-dropleft-circle"
-						type="ionicon"
-					/>
-				</View>
-				<ShadowRect>
-					<View style={{ flex: 1, flexDirection: "row" }}>
-						<Text testID="monthlyAmount" style={styles.rectTitle}>
-							{strings("student.home.payments")}
-						</Text>
-						<View
-							style={{
-								flex: 1,
-								alignItems: "flex-end",
-								marginRight: "auto"
+					<View style={styles.fullScheduleView}>
+						<TouchableHighlight
+							underlayColor="lightgray"
+							onPress={() => {
+								this.props.navigation.navigate("Schedule")
 							}}
 						>
-							<Icon name="arrow-back" type="material" size={20} />
+							<Text style={styles.fullSchedule}>
+								{strings("teacher.home.full_schedule")}
+							</Text>
+						</TouchableHighlight>
+						<Icon
+							size={20}
+							color="rgb(12, 116, 244)"
+							name="ios-arrow-dropleft-circle"
+							type="ionicon"
+						/>
+					</View>
+					<ShadowRect>
+						<View style={{ flex: 1, flexDirection: "row" }}>
+							<Text
+								testID="monthlyAmount"
+								style={styles.rectTitle}
+							>
+								{strings("student.home.payments")}
+							</Text>
+							<View
+								style={{
+									flex: 1,
+									alignItems: "flex-end",
+									marginRight: "auto"
+								}}
+							>
+								<Icon
+									name="arrow-back"
+									type="material"
+									size={20}
+								/>
+							</View>
 						</View>
-					</View>
-					<View style={styles.amountView}>
-						<Text style={styles.amount}>{this.state.sum}₪</Text>
-					</View>
-					<Separator />
-					<FlatList
-						data={this.state.payments.slice(0, 2)}
-						renderItem={this.renderPaymentItem}
-						keyExtractor={item => `item${item.id}`}
-					/>
-				</ShadowRect>
+						<View style={styles.amountView}>
+							<Text style={styles.amount}>{this.state.sum}₪</Text>
+						</View>
+						<Separator />
+						<FlatList
+							data={this.state.payments.slice(0, 2)}
+							renderItem={this.renderPaymentItem}
+							keyExtractor={item => `item${item.id}`}
+						/>
+					</ShadowRect>
+				</View>
 			</ScrollView>
 		)
 	}
@@ -201,7 +210,10 @@ export class Home extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		marginTop: 20
+		marginTop: 20,
+		paddingLeft: MAIN_PADDING,
+		paddingRight: MAIN_PADDING,
+		alignItems: "center"
 	},
 	profilePic: {
 		width: 44,

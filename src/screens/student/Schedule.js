@@ -100,6 +100,14 @@ export class Schedule extends React.Component {
 		let dropoff = strings("not_set")
 		if (item.dropoff_place) dropoff = item.dropoff_place.name
 		const visible = this.state.visible.includes(item.id) ? true : false
+		let approved
+		if (!item.is_approved) {
+			approved = (
+				<Text style={{ color: "red" }}>
+					({strings("not_approved")})
+				</Text>
+			)
+		}
 		return (
 			<Fragment>
 				{dayTitle}
@@ -107,7 +115,7 @@ export class Schedule extends React.Component {
 					<TouchableOpacity onPress={() => this.lessonPress(item)}>
 						<Text style={styles.lessonTitle}>
 							{strings("teacher.home.lesson_number")}{" "}
-							{item.lesson_number}
+							{item.lesson_number} {approved}
 						</Text>
 						<Hours
 							duration={item.duration}
@@ -215,7 +223,8 @@ const styles = StyleSheet.create({
 	},
 	dayTitle: {
 		fontWeight: "bold",
-		alignSelf: "flex-start"
+		alignSelf: "flex-start",
+		marginBottom: 8
 	},
 	lessonTitle: {
 		color: themeBlue,

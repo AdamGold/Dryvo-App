@@ -14,6 +14,14 @@ export default class LessonPopup extends React.Component {
 		if (item.meetup_place) meetup = item.meetup_place.name
 		let dropoff = strings("not_set")
 		if (item.dropoff_place) dropoff = item.dropoff_place.name
+		let approved
+		if (!item.is_approved) {
+			approved = (
+				<Text style={{ color: "red" }}>
+					({strings("not_approved")})
+				</Text>
+			)
+		}
 		return (
 			<Modal
 				isVisible={this.props.visible}
@@ -33,6 +41,7 @@ export default class LessonPopup extends React.Component {
 						}`}{" "}
 						- {item.student.user.name}
 					</Text>
+					<Text style={styles.approved}>{approved}</Text>
 					<View style={styles.row}>
 						<View style={styles.column}>
 							<Text style={styles.titles}>
@@ -107,6 +116,7 @@ const styles = StyleSheet.create({
 		alignSelf: "center",
 		marginTop: 16
 	},
+	approved: { alignSelf: "center", marginTop: 6 },
 	row: {
 		flex: 1,
 		flexDirection: "row",
@@ -130,7 +140,7 @@ const styles = StyleSheet.create({
 		...floatButtonOnlyStyle,
 		alignSelf: "center",
 		position: "absolute",
-		bottom: -102
+		bottom: -80
 	},
 	buttonText: {
 		fontWeight: "bold",

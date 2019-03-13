@@ -18,7 +18,8 @@
 		"lessons": "שיעורים",
 		"my_teacher": "המורה שלי",
 		"in_progress_topics": "בתהליך",
-		"finished_topics": "סוימו"
+		"finished_topics": "סוימו",
+		"new_topics": "לא הותחלו"
 	},
 	"signup": {
 		"name": "שם מלא",

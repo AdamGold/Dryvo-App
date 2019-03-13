@@ -1,22 +1,31 @@
 import React, { Fragment } from "react"
-import { View, StyleSheet, Text, Image, FlatList } from "react-native"
+import {
+	View,
+	StyleSheet,
+	Text,
+	Image,
+	FlatList,
+	TouchableOpacity
+} from "react-native"
 import { strings } from "../i18n"
 import UserWithPic from "./UserWithPic"
 import ShadowRect from "./ShadowRect"
 import { MAIN_PADDING } from "../consts"
+import { Icon } from "react-native-elements"
+import TopicsList from "./TopicsList"
 
 export default class StudentProfile extends React.Component {
 	constructor(props) {
 		// only here for the test suite to work
 		super(props)
-		console.log(this.props)
 		let student = this.props.user
 		if (this.props.navigation.getParam("student")) {
 			// if we are in other student's profile
 			student = this.props.navigation.getParam("student")
 		}
 		this.state = {
-			student
+			student,
+			allTopics: []
 		}
 
 		this._getTopics()
@@ -29,30 +38,30 @@ export default class StudentProfile extends React.Component {
 		)
 
 		this.setState({
-			progress: resp.json["data"]["in_progress"].slice(0, 5),
-			finished: resp.json["data"]["finished"].slice(0, 5)
+			allTopics: resp.json["data"]
 		})
-	}
-	renderTopic = ({ item, index }) => {
-		return (
-			<View style={styles.topic}>
-				<Text>{item.title}</Text>
-			</View>
-		)
 	}
 	render() {
 		const { student } = this.state
+		const allTopics = [].concat.apply(
+			[],
+			Object.entries(this.state.allTopics)
+				.map(x => {
+					if (x[0] != "new") return x[1]
+				})
+				.filter(x => x != undefined)
+		)
 		let teacherView
 		if (this.props.user.hasOwnProperty("teacher_id")) {
 			// teacher is logged in, show next lesson and payments
 			teacherView = (
 				<Fragment>
-					<ShadowRect style={styles.topics}>
+					<ShadowRect style={styles.rect}>
 						<Text style={styles.rectTitle} testID="schedule">
 							{strings("teacher.home.next_lesson")}
 						</Text>
 					</ShadowRect>
-					<ShadowRect style={styles.topics}>
+					<ShadowRect style={styles.rect}>
 						<Text style={styles.rectTitle} testID="schedule">
 							{strings("student.home.payments")}
 						</Text>
@@ -74,10 +83,7 @@ export default class StudentProfile extends React.Component {
 						width={54}
 						height={54}
 					/>
-					<View style={styles.myTeacher}>
-						<Text style={styles.myTeacherLabel}>
-							{strings("student_profile.my_teacher")}:{" "}
-						</Text>
+					<View style={styles.badges}>
 						<Image
 							style={styles.badge}
 							source={{
@@ -88,28 +94,37 @@ export default class StudentProfile extends React.Component {
 					</View>
 				</View>
 				{teacherView}
-				<ShadowRect style={styles.topics}>
-					<Text style={styles.rectTitle} testID="schedule">
-						{strings("teacher.new_lesson.topics")}
-					</Text>
-					<Text style={styles.rectSubTitle}>
-						{strings("student_profile.in_progress_topics")}
-					</Text>
-					<FlatList
-						data={this.state.progress}
-						renderItem={this.renderTopic}
-						keyExtractor={item => `item${item.id}`}
-						style={styles.topicsList}
-					/>
-					<Text style={styles.rectSubTitle}>
-						{strings("student_profile.finished_topics")}
-					</Text>
-					<FlatList
-						data={this.state.finished}
-						renderItem={this.renderTopic}
-						keyExtractor={item => `item${item.id}`}
-						style={styles.topicsList}
-					/>
+				<ShadowRect style={styles.rect}>
+					<View style={{ flexDirection: "row" }}>
+						<Text testID="monthlyAmount" style={styles.rectTitle}>
+							{strings("teacher.new_lesson.topics", {
+								topics: this.state.allTopics
+							})}
+						</Text>
+
+						<View
+							style={{
+								flex: 1,
+								marginLeft: "auto",
+								alignItems: "flex-end"
+							}}
+						>
+							<TouchableOpacity
+								onPress={() =>
+									this.props.navigation.navigate("Topics", {
+										topics: this.state.allTopics
+									})
+								}
+							>
+								<Icon
+									name="arrow-back"
+									type="material"
+									size={20}
+								/>
+							</TouchableOpacity>
+						</View>
+					</View>
+					<TopicsList topics={allTopics} />
 				</ShadowRect>
 			</View>
 		)
@@ -124,14 +139,12 @@ const styles = StyleSheet.create({
 		marginTop: 20
 	},
 	header: {
-		flex: 1,
 		maxHeight: 60,
 		flexDirection: "row",
 		alignItems: "center"
 	},
-	topics: {
-		marginTop: 20,
-		maxHeight: 340
+	rect: {
+		marginTop: 20
 	},
 	rectTitle: {
 		fontWeight: "bold",
@@ -144,27 +157,8 @@ const styles = StyleSheet.create({
 		marginLeft: 12,
 		marginTop: -2
 	},
-	myTeacher: {
-		flexDirection: "row",
+	badges: {
 		marginLeft: "auto",
 		marginTop: -6
-	},
-	myTeacherLabel: {
-		fontSize: 14
-	},
-	topicsList: {
-		marginLeft: 12
-	},
-	rectSubTitle: {
-		fontWeight: "bold",
-		fontSize: 14,
-		marginTop: 6
-	},
-	topic: {
-		borderBottomColor: "lightgray",
-		paddingTop: 6,
-		paddingBottom: 6,
-		width: "100%",
-		borderBottomWidth: 1
 	}
 })

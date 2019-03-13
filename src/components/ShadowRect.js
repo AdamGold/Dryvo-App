@@ -27,7 +27,8 @@ const styles = StyleSheet.create({
 		shadowRadius: 20,
 		elevation: 6,
 		borderRadius: 4,
-		padding: 20,
+		paddingHorizontal: 20,
+		paddingVertical: 12,
 		alignItems: "flex-start",
 		width: "100%"
 	}

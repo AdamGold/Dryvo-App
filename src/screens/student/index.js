@@ -1,11 +1,15 @@
 import React, { Component } from "react"
-import { createBottomTabNavigator } from "react-navigation"
+import {
+	createBottomTabNavigator,
+	createStackNavigator
+} from "react-navigation"
 import { tabBarOptions } from "../consts"
 import Home from "./Home"
 import Notifications from "./Notifications"
 import NewLesson from "./NewLesson"
 import Schedule from "./Schedule"
 import Profile from "./Profile"
+import Topics from "../Topics"
 
 export default createBottomTabNavigator(
 	{
@@ -13,7 +17,16 @@ export default createBottomTabNavigator(
 		Notifications,
 		Add: NewLesson,
 		Schedule,
-		Profile
+		Profile: createStackNavigator(
+			{ Profile, Topics },
+			{
+				initialRouteName: "Profile",
+				headerMode: "none",
+				navigationOptions: {
+					headerVisible: false
+				}
+			}
+		)
 	},
 	tabBarOptions
 )

@@ -120,7 +120,9 @@ export class Home extends React.Component {
 					<Text style={styles.amountOfStudent}>{item.amount}₪</Text>
 				}
 			>
-				<Text>{moment.utc(item.created_at).format(DATE_FORMAT)}</Text>
+				<Text style={styles.dateOfPayment}>
+					{moment.utc(item.created_at).format(DATE_FORMAT)}
+				</Text>
 			</Row>
 		)
 	}
@@ -263,19 +265,14 @@ const styles = StyleSheet.create({
 		fontSize: 44,
 		color: "rgb(24, 199, 20)"
 	},
-	addPayment: {
-		color: "rgb(12, 116, 244)",
-		fontWeight: "bold",
-		marginTop: 16,
-		alignSelf: "center"
-	},
 	amountOfStudent: {
-		color: "rgb(24, 199, 20)",
-		marginTop: 8
+		color: "rgb(24, 199, 20)"
+	},
+	dateOfPayment: {
+		fontWeight: "bold"
 	},
 	paymentRow: {
-		maxHeight: 34,
-		marginTop: 20
+		marginTop: 12
 	}
 })
 

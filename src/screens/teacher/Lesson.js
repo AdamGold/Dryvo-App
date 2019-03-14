@@ -35,11 +35,11 @@ export class Lesson extends React.Component {
 		this.state = {
 			date:
 				props.navigation.getParam("date") ||
-				moment.utc(lesson.date).format(SHORT_API_DATE_FORMAT),
+				moment.utc((lesson || {}).date).format(SHORT_API_DATE_FORMAT),
 			error: "",
 			hours: [],
 			students: [],
-			student: (lesson || {}).student || {},
+			student: (lesson || {}).student,
 			dateAndTime:
 				moment.utc((lesson || {}).date).format(API_DATE_FORMAT) || "",
 			defaultDuration: duration.toString(),

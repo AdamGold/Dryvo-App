@@ -3,7 +3,7 @@ import { StyleSheet, View, Text, FlatList } from "react-native"
 import Separator from "./Separator"
 import Row from "./Row"
 import moment from "moment"
-import { DATE_FORMAT } from "../consts"
+import { DATE_FORMAT, colors } from "../consts"
 
 export default class StudentPayment extends React.Component {
 	renderPaymentItem = ({ item, index }) => {
@@ -26,10 +26,14 @@ export default class StudentPayment extends React.Component {
 	}
 
 	render() {
+		let color = colors.green
+		if (this.props.sum < 0) color = "red"
 		return (
 			<Fragment>
 				<View style={styles.amountView}>
-					<Text style={styles.amount}>{this.props.sum}₪</Text>
+					<Text style={{ ...styles.amount, color }}>
+						{this.props.sum}₪
+					</Text>
 				</View>
 				<Separator />
 				<FlatList
@@ -49,11 +53,7 @@ const styles = StyleSheet.create({
 	},
 	amount: {
 		fontFamily: "Assistant-Light",
-		fontSize: 44,
-		color: "rgb(24, 199, 20)"
-	},
-	amountOfStudent: {
-		color: "rgb(24, 199, 20)"
+		fontSize: 44
 	},
 	dateOfPayment: {
 		fontWeight: "bold"

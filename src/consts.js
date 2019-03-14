@@ -23,7 +23,7 @@ export const calendarTheme = {
 	textDayHeaderFontFamily: "Assistant",
 	todayTextColor: "#000",
 	selectedDayTextColor: "#fff",
-	selectedDayBackgroundColor: themeBlue,
+	selectedDayBackgroundColor: colors.blue,
 	textMonthFontWeight: "bold",
 	textDayFontWeight: "500",
 	selectedDayfontWeight: "bold",
@@ -32,13 +32,13 @@ export const calendarTheme = {
 	textDayHeaderFontSize: 16
 }
 export const floatButtonOnlyStyle = {
-	backgroundColor: themeBlue,
+	backgroundColor: colors.blue,
 	width: 160,
 	height: 56,
 	borderRadius: 28,
 	alignItems: "center",
 	justifyContent: "center",
-	shadowColor: themeBlue,
+	shadowColor: colors.blue,
 	shadowOffset: {
 		width: 0,
 		height: 8

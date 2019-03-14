@@ -13,7 +13,7 @@ import Row from "../../components/Row"
 import PageTitle from "../../components/PageTitle"
 import UserWithPic from "../../components/UserWithPic"
 import { Icon, SearchBar, Button } from "react-native-elements"
-import { MAIN_PADDING, floatButton } from "../../consts"
+import { MAIN_PADDING, floatButton, colors } from "../../consts"
 import { Dropdown } from "react-native-material-dropdown"
 import { getStudents } from "../../actions/students"
 
@@ -77,12 +77,11 @@ export class Students extends React.Component {
 	}
 
 	renderItem = ({ item, index }) => {
-		const greenColor = "rgb(24, 199, 20)"
 		let balanceStyle = { color: "red" }
-		let imageBalanceStyle
+		let imageBalanceStyle = { borderColor: "red" }
 		if (item.balance >= 0) {
-			balanceStyle = { color: greenColor }
-			imageBalanceStyle = { borderColor: greenColor }
+			balanceStyle = { color: colors.green }
+			imageBalanceStyle = { borderColor: colors.green }
 		}
 		return (
 			<TouchableOpacity onPress={this.navigateToProfile}>

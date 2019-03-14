@@ -18,7 +18,7 @@ import Separator from "../../components/Separator"
 import { Icon } from "react-native-elements"
 import Hours from "../../components/Hours"
 import LessonPopup from "../../components/LessonPopup"
-import { MAIN_PADDING } from "../../consts"
+import { MAIN_PADDING, colors } from "../../consts"
 
 export class Home extends React.Component {
 	static navigationOptions = () => {
@@ -171,6 +171,8 @@ export class Home extends React.Component {
 		)
 	}
 	render() {
+		let sumColor = colors.green
+		if (this.state.sum < 0) sumColor = "red"
 		return (
 			<ScrollView>
 				<View style={styles.container}>
@@ -242,7 +244,9 @@ export class Home extends React.Component {
 							</View>
 						</View>
 						<View style={styles.amountView}>
-							<Text style={styles.amount}>{this.state.sum}₪</Text>
+							<Text style={{ ...styles.amount, color: sumColor }}>
+								{this.state.sum}₪
+							</Text>
 							<TouchableOpacity
 								onPress={() =>
 									this.props.navigation.navigate("AddPayment")
@@ -325,8 +329,7 @@ const styles = StyleSheet.create({
 	},
 	amount: {
 		fontFamily: "Assistant-Light",
-		fontSize: 44,
-		color: "rgb(24, 199, 20)"
+		fontSize: 44
 	},
 	addPayment: {
 		color: "rgb(12, 116, 244)",
@@ -335,7 +338,6 @@ const styles = StyleSheet.create({
 		alignSelf: "center"
 	},
 	amountOfStudent: {
-		color: "rgb(24, 199, 20)",
 		marginTop: 4
 	},
 	nameStyle: {

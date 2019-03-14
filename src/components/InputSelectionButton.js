@@ -1,6 +1,6 @@
 import React from "react"
 import { StyleSheet, View, TouchableHighlight } from "react-native"
-import { themeBlue } from "../consts"
+import { colors } from "../consts"
 
 export default class InputSelectionButton extends React.Component {
 	render() {
@@ -32,9 +32,9 @@ const styles = StyleSheet.create({
 		alignItems: "center"
 	},
 	selected: {
-		backgroundColor: themeBlue,
+		backgroundColor: colors.blue,
 		borderRadius: 4,
-		shadowColor: themeBlue,
+		shadowColor: colors.blue,
 		shadowOffset: {
 			width: 0,
 			height: 6

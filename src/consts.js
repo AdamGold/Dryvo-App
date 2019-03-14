@@ -10,7 +10,10 @@ export const STORAGE_PREFIX = "Dryvo_"
 export const DEFAULT_ERROR = strings("default_error")
 export const MAIN_PADDING = 26
 export const DEFAULT_DURATION = 40
-export const themeBlue = "rgb(12,116,244)"
+export const colors = {
+	blue: "rgb(12,116,244)",
+	green: "rgb(24, 199, 20)"
+}
 export const calendarTheme = {
 	textSectionTitleColor: "#000",
 	dayTextColor: "#000",

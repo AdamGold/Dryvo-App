@@ -15,7 +15,7 @@ import {
 	MAIN_PADDING,
 	API_DATE_FORMAT,
 	SHORT_API_DATE_FORMAT,
-	themeBlue
+	colors
 } from "../../consts"
 import Hours from "../../components/Hours"
 import { getDateAndString } from "../../actions/lessons"
@@ -228,7 +228,7 @@ const styles = StyleSheet.create({
 		marginBottom: 8
 	},
 	lessonTitle: {
-		color: themeBlue,
+		color: colors.blue,
 		alignSelf: "flex-start"
 	},
 	places: {

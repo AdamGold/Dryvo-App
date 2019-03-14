@@ -4,7 +4,8 @@ import {
 	Text,
 	TouchableHighlight,
 	StyleSheet,
-	FlatList
+	FlatList,
+	TouchableOpacity
 } from "react-native"
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
@@ -37,6 +38,7 @@ export class Students extends React.Component {
 		]
 		this.updateSearch = this.updateSearch.bind(this)
 		this._dropdownChange = this._dropdownChange.bind(this)
+		this.navigateToProfile = this.navigateToProfile.bind(this)
 	}
 
 	componentDidMount() {
@@ -70,6 +72,10 @@ export class Students extends React.Component {
 		})
 	}
 
+	navigateToProfile = () => {
+		this.props.navigation.navigate("StudentProfile")
+	}
+
 	renderItem = ({ item, index }) => {
 		const greenColor = "rgb(24, 199, 20)"
 		let balanceStyle = { color: "red" }
@@ -79,43 +85,45 @@ export class Students extends React.Component {
 			imageBalanceStyle = { borderColor: greenColor }
 		}
 		return (
-			<Row
-				key={`item${item.student_id}`}
-				style={styles.row}
-				leftSide={
-					<View style={styles.arrow}>
-						<Icon
-							name="ios-arrow-back"
-							type="ionicon"
-							color="#000"
-						/>
-					</View>
-				}
-			>
-				<UserWithPic
-					name={item.user.name}
-					extra={
-						<View style={{ alignItems: "flex-start" }}>
-							<Text>
-								{strings("teacher.students.lesson_num")}:{" "}
-								{item.new_lesson_number}
-							</Text>
-							<Text style={balanceStyle}>
-								{strings("teacher.students.balance")}:{" "}
-								{item.balance}₪
-							</Text>
+			<TouchableOpacity onPress={this.navigateToProfile}>
+				<Row
+					key={`item${item.student_id}`}
+					style={styles.row}
+					leftSide={
+						<View style={styles.arrow}>
+							<Icon
+								name="ios-arrow-back"
+								type="ionicon"
+								color="#000"
+							/>
 						</View>
 					}
-					nameStyle={styles.nameStyle}
-					width={54}
-					height={54}
-					style={styles.userWithPic}
-					imageContainerStyle={{
-						...styles.imageContainerStyle,
-						...imageBalanceStyle
-					}}
-				/>
-			</Row>
+				>
+					<UserWithPic
+						name={item.user.name}
+						extra={
+							<View style={{ alignItems: "flex-start" }}>
+								<Text>
+									{strings("teacher.students.lesson_num")}:{" "}
+									{item.new_lesson_number}
+								</Text>
+								<Text style={balanceStyle}>
+									{strings("teacher.students.balance")}:{" "}
+									{item.balance}₪
+								</Text>
+							</View>
+						}
+						nameStyle={styles.nameStyle}
+						width={54}
+						height={54}
+						style={styles.userWithPic}
+						imageContainerStyle={{
+							...styles.imageContainerStyle,
+							...imageBalanceStyle
+						}}
+					/>
+				</Row>
+			</TouchableOpacity>
 		)
 	}
 

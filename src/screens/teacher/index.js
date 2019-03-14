@@ -13,13 +13,23 @@ import NewStudent from "./NewStudent"
 import Schedule from "./Schedule"
 import { strings } from "../../i18n"
 import AddPayment from "./AddPayment"
+import StudentProfile from "../student/Profile"
 
 export default createBottomTabNavigator(
 	{
 		Home: createStackNavigator(
-			{ Home, AddPayment },
 			{
-				initialRouteName: "Home",
+				Main: createStackNavigator(
+					{ Home, StudentProfile },
+					{
+						initialRouteKey: "Home",
+						headerMode: "none"
+					}
+				),
+				AddPayment
+			},
+			{
+				initialRouteName: "Main",
 				mode: "modal",
 				headerMode: "none",
 				navigationOptions: {
@@ -46,10 +56,25 @@ export default createBottomTabNavigator(
 				tabBarTestID: "NewLessonTab"
 			}
 		},
-		Schedule: Schedule,
+		Schedule: createStackNavigator(
+			{ Schedule, StudentProfile },
+			{
+				initialRouteKey: "Schedule",
+				headerMode: "none"
+			}
+		),
 		Students: {
 			screen: createStackNavigator(
-				{ Students: Students, NewStudent: NewStudent },
+				{
+					Students: createStackNavigator(
+						{ Students, StudentProfile },
+						{
+							initialRouteKey: "Students",
+							headerMode: "none"
+						}
+					),
+					NewStudent: NewStudent
+				},
 				{
 					mode: "modal",
 					initialRouteName: "Students",

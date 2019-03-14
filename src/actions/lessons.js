@@ -17,15 +17,17 @@ export function getDateAndString(date) {
 	return { date: momentDate, dateString }
 }
 
-export async function getPayments(fetchService) {
-	const date = new Date()
-	var firstDay = new Date(date.getFullYear(), date.getMonth(), 1)
-	var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0)
+export async function getPayments(fetchService, forMonth = true, extra = "") {
+	let forMonthURL = ""
+	if (forMonth) {
+		const date = new Date()
+		var firstDay = new Date(date.getFullYear(), date.getMonth(), 1)
+		var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0)
+		forMonthURL = `&created_at=ge:${firstDay.toISOString()}&created_at=le:${lastDay.toISOString()}`
+	}
+	if (extra) extra = `&${extra}`
 	const resp = await fetchService.fetch(
-		"/lessons/payments?order_by=created_at desc&created_at=ge:" +
-			firstDay.toISOString() +
-			"&created_at=le:" +
-			lastDay.toISOString(),
+		`/lessons/payments?order_by=created_at desc${forMonthURL}${extra}`,
 		{ method: "GET" }
 	)
 	var sum = 0

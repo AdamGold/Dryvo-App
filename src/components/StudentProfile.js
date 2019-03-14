@@ -13,6 +13,9 @@ import ShadowRect from "./ShadowRect"
 import { MAIN_PADDING } from "../consts"
 import { Icon } from "react-native-elements"
 import TopicsList from "./TopicsList"
+import StudentPayments from "./StudentPayments"
+import { getPayments } from "../actions/lessons"
+import StudentNextLessonView from "./StudentNextLessonView"
 
 export default class StudentProfile extends React.Component {
 	constructor(props) {
@@ -25,12 +28,41 @@ export default class StudentProfile extends React.Component {
 		}
 		this.state = {
 			student,
-			allTopics: []
+			allTopics: [],
+			payments: [],
+			nextLesson: ""
 		}
 
 		this._getTopics()
+		this._getNextLesson()
+		this._getPayments()
 	}
 
+	_getNextLesson = async () => {
+		const now = new Date().toISOString()
+		const resp = await this.props.fetchService.fetch(
+			"/lessons/?limit=1&is_approved=true&date=ge:" +
+				now +
+				"&student_id=" +
+				this.state.student.student_id,
+			{ method: "GET" }
+		)
+		if (resp.json["data"].length == 0) return
+		this.setState({
+			nextLesson: resp.json["data"][0]
+		})
+	}
+
+	_getPayments = async () => {
+		const payments = await getPayments(
+			this.props.fetchService,
+			false,
+			`student_id=${this.state.student.student_id}`
+		)
+		this.setState({
+			payments: payments.payments
+		})
+	}
 	_getTopics = async () => {
 		const resp = await this.props.fetchService.fetch(
 			`/student/${this.state.student.student_id}/topics`,
@@ -60,11 +92,19 @@ export default class StudentProfile extends React.Component {
 						<Text style={styles.rectTitle} testID="schedule">
 							{strings("teacher.home.next_lesson")}
 						</Text>
+						<StudentNextLessonView
+							testID="lessonRowTouchable"
+							lesson={this.state.nextLesson}
+						/>
 					</ShadowRect>
 					<ShadowRect style={styles.rect}>
 						<Text style={styles.rectTitle} testID="schedule">
-							{strings("student.home.payments")}
+							{strings("teacher.students.balance")}
 						</Text>
+						<StudentPayments
+							sum={this.state.student.balance}
+							payments={this.state.payments.slice(0, 2)}
+						/>
 					</ShadowRect>
 				</Fragment>
 			)

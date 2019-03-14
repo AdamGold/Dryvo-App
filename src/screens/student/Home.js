@@ -20,6 +20,8 @@ import LessonPopup from "../../components/LessonPopup"
 import { getPayments } from "../../actions/lessons"
 import moment from "moment"
 import { DATE_FORMAT, MAIN_PADDING } from "../../consts"
+import StudentPayments from "../../components/StudentPayments"
+import StudentNextLessonView from "../../components/StudentNextLessonView"
 
 export class Home extends React.Component {
 	static navigationOptions = () => {
@@ -36,7 +38,6 @@ export class Home extends React.Component {
 		this.state = {
 			lesson: "",
 			payments: [],
-			sum: 0,
 			lessonPopupVisible: false
 		}
 
@@ -59,8 +60,7 @@ export class Home extends React.Component {
 	_getPayments = async () => {
 		const payments = await getPayments(this.props.fetchService)
 		this.setState({
-			payments: payments.payments,
-			sum: payments.sum
+			payments: payments.payments
 		})
 	}
 
@@ -70,29 +70,13 @@ export class Home extends React.Component {
 
 	renderLesson = () => {
 		const { lesson } = this.state
-		let meetup = strings("not_set")
-		if (lesson.meetup_place) meetup = lesson.meetup_place.name
 		return (
 			<Fragment>
-				<TouchableOpacity
+				<StudentNextLessonView
 					onPress={() => this.lessonPress()}
 					testID="lessonRowTouchable"
-				>
-					<Row
-						style={styles.lessonRow}
-						leftSide={
-							<Hours
-								duration={lesson.duration}
-								date={lesson.date}
-								style={styles.hoursStyle}
-							/>
-						}
-					>
-						<Text style={styles.placeStyle}>
-							{strings("teacher.new_lesson.meetup")}: {meetup}
-						</Text>
-					</Row>
-				</TouchableOpacity>
+					lesson={lesson}
+				/>
 				<LessonPopup
 					visible={this.state.lessonPopupVisible}
 					item={lesson}
@@ -104,28 +88,12 @@ export class Home extends React.Component {
 						})
 					}}
 					testID="lessonPopup"
+					navigation={this.props.navigation}
 				/>
 			</Fragment>
 		)
 	}
-	renderPaymentItem = ({ item, index }) => {
-		let firstItemStyles = {}
-		if (index == 0) {
-			firstItemStyles = { marginTop: 0 }
-		}
-		return (
-			<Row
-				style={{ ...styles.paymentRow, ...firstItemStyles }}
-				leftSide={
-					<Text style={styles.amountOfStudent}>{item.amount}₪</Text>
-				}
-			>
-				<Text style={styles.dateOfPayment}>
-					{moment.utc(item.created_at).format(DATE_FORMAT)}
-				</Text>
-			</Row>
-		)
-	}
+
 	render() {
 		let lessonRender
 		if (this.state.lesson) lessonRender = this.renderLesson()
@@ -193,14 +161,9 @@ export class Home extends React.Component {
 								/>
 							</View>
 						</View>
-						<View style={styles.amountView}>
-							<Text style={styles.amount}>{this.state.sum}₪</Text>
-						</View>
-						<Separator />
-						<FlatList
-							data={this.state.payments.slice(0, 2)}
-							renderItem={this.renderPaymentItem}
-							keyExtractor={item => `item${item.id}`}
+						<StudentPayments
+							sum={this.props.user.balance}
+							payments={this.state.payments.slice(0, 2)}
 						/>
 					</ShadowRect>
 				</View>
@@ -255,24 +218,6 @@ const styles = StyleSheet.create({
 		marginTop: -4,
 		fontWeight: "bold",
 		marginRight: 8
-	},
-	amountView: {
-		marginTop: 16,
-		alignSelf: "center"
-	},
-	amount: {
-		fontFamily: "Assistant-Light",
-		fontSize: 44,
-		color: "rgb(24, 199, 20)"
-	},
-	amountOfStudent: {
-		color: "rgb(24, 199, 20)"
-	},
-	dateOfPayment: {
-		fontWeight: "bold"
-	},
-	paymentRow: {
-		marginTop: 12
 	}
 })
 

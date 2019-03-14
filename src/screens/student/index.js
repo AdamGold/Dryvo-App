@@ -17,16 +17,7 @@ export default createBottomTabNavigator(
 		Notifications,
 		Add: NewLesson,
 		Schedule,
-		Profile: createStackNavigator(
-			{ Profile, Topics },
-			{
-				initialRouteName: "Profile",
-				headerMode: "none",
-				navigationOptions: {
-					headerVisible: false
-				}
-			}
-		)
+		Profile
 	},
 	tabBarOptions
 )

@@ -7,6 +7,18 @@ import moment from "moment"
 import { floatButtonOnlyStyle } from "../consts"
 
 export default class LessonPopup extends React.Component {
+	constructor(props) {
+		super(props)
+		this.navigateToProfile = this.navigateToProfile.bind(this)
+	}
+
+	navigateToProfile = () => {
+		this.props.onPress(this.props.item)
+		this.props.navigation.navigate("StudentProfile", {
+			student: this.props.item.student
+		})
+	}
+
 	render() {
 		const { item } = this.props
 		if (!item) return null
@@ -28,13 +40,15 @@ export default class LessonPopup extends React.Component {
 				onBackdropPress={() => this.props.onPress(item)}
 			>
 				<View style={styles.popup} testID={this.props.testID}>
-					<Image
-						style={styles.image}
-						source={{
-							uri:
-								"https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80"
-						}}
-					/>
+					<TouchableOpacity onPress={this.navigateToProfile}>
+						<Image
+							style={styles.image}
+							source={{
+								uri:
+									"https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80"
+							}}
+						/>
+					</TouchableOpacity>
 					<Text style={styles.title}>
 						{`${strings("teacher.home.lesson_number")} ${
 							item.lesson_number

@@ -134,6 +134,7 @@ export class Home extends React.Component {
 						})
 					}}
 					testID="lessonPopup"
+					navigation={this.props.navigation}
 				/>
 			</Fragment>
 		)

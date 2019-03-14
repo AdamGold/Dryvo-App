@@ -25,10 +25,10 @@ const styles = StyleSheet.create({
 		borderBottomColor: "lightgray",
 		paddingTop: 6,
 		paddingBottom: 6,
-		borderBottomWidth: 1
+		borderBottomWidth: 1,
+		marginLeft: 12
 	},
 	topicText: {
-		alignSelf: "flex-start",
-		marginLeft: 12
+		alignSelf: "flex-start"
 	}
 })

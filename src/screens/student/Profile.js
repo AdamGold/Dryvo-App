@@ -2,6 +2,8 @@ import React from "react"
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
 import StudentProfile from "../../components/StudentProfile"
+import { createStackNavigator } from "react-navigation"
+import Topics from "../Topics"
 
 export class Profile extends React.Component {
 	static navigationOptions = () => {
@@ -28,5 +30,15 @@ function mapStateToProps(state) {
 		fetchService: state.fetchService
 	}
 }
-
-export default connect(mapStateToProps)(Profile)
+const profileScreen = connect(mapStateToProps)(Profile)
+const profile = createStackNavigator(
+	{ Profile: profileScreen, Topics },
+	{
+		initialRouteName: "Profile",
+		headerMode: "none",
+		navigationOptions: {
+			headerVisible: false
+		}
+	}
+)
+export default profile

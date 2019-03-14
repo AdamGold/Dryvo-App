@@ -121,6 +121,7 @@ export class Schedule extends React.Component {
 							lesson: item
 						})
 					}}
+					navigation={this.props.navigation}
 				/>
 			</Fragment>
 		)

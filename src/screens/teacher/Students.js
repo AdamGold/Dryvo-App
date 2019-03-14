@@ -83,12 +83,13 @@ export class Students extends React.Component {
 				key={`item${item.student_id}`}
 				style={styles.row}
 				leftSide={
-					<Icon
-						style={styles.arrow}
-						name="ios-arrow-back"
-						type="ionicon"
-						color="#000"
-					/>
+					<View style={styles.arrow}>
+						<Icon
+							name="ios-arrow-back"
+							type="ionicon"
+							color="#000"
+						/>
+					</View>
 				}
 			>
 				<UserWithPic
@@ -240,12 +241,9 @@ const styles = StyleSheet.create({
 	row: {
 		marginTop: 24
 	},
-	nameStyle: {},
 	arrow: {
-		flex: 1,
-		marginRight: "auto"
+		marginTop: 12
 	},
-	userWithPic: { marginLeft: 10 },
 	imageContainerStyle: {
 		padding: 2,
 		borderWidth: 2,

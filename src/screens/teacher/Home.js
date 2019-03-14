@@ -101,7 +101,11 @@ export class Home extends React.Component {
 						key={`item${item.id}`}
 						style={styles.lessonRow}
 						leftSide={
-							<Hours duration={item.duration} date={date} />
+							<Hours
+								style={styles.hours}
+								duration={item.duration}
+								date={date}
+							/>
 						}
 					>
 						<UserWithPic
@@ -294,6 +298,7 @@ const styles = StyleSheet.create({
 	lessonRow: {
 		marginTop: 12
 	},
+	hours: { marginTop: 8 },
 	fullScheduleView: {
 		flexDirection: "row",
 		flex: 1,
@@ -329,14 +334,14 @@ const styles = StyleSheet.create({
 		alignSelf: "center"
 	},
 	amountOfStudent: {
-		color: "rgb(24, 199, 20)"
+		color: "rgb(24, 199, 20)",
+		marginTop: 4
 	},
 	nameStyle: {
 		marginTop: 4,
 		marginLeft: -2
 	},
 	paymentRow: {
-		maxHeight: 34,
 		marginTop: 20
 	}
 })

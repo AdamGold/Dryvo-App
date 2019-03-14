@@ -4,7 +4,8 @@ import {
 	Text,
 	TouchableHighlight,
 	StyleSheet,
-	FlatList
+	FlatList,
+	TouchableOpacity
 } from "react-native"
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
@@ -12,7 +13,7 @@ import Row from "../../components/Row"
 import PageTitle from "../../components/PageTitle"
 import UserWithPic from "../../components/UserWithPic"
 import { Icon, SearchBar, Button } from "react-native-elements"
-import { MAIN_PADDING, floatButton } from "../../consts"
+import { MAIN_PADDING, floatButton, colors } from "../../consts"
 import { Dropdown } from "react-native-material-dropdown"
 import { getStudents } from "../../actions/students"
 
@@ -37,6 +38,7 @@ export class Students extends React.Component {
 		]
 		this.updateSearch = this.updateSearch.bind(this)
 		this._dropdownChange = this._dropdownChange.bind(this)
+		this.navigateToProfile = this.navigateToProfile.bind(this)
 	}
 
 	componentDidMount() {
@@ -70,51 +72,57 @@ export class Students extends React.Component {
 		})
 	}
 
+	navigateToProfile = () => {
+		this.props.navigation.navigate("StudentProfile")
+	}
+
 	renderItem = ({ item, index }) => {
-		const greenColor = "rgb(24, 199, 20)"
 		let balanceStyle = { color: "red" }
-		let imageBalanceStyle
+		let imageBalanceStyle = { borderColor: "red" }
 		if (item.balance >= 0) {
-			balanceStyle = { color: greenColor }
-			imageBalanceStyle = { borderColor: greenColor }
+			balanceStyle = { color: colors.green }
+			imageBalanceStyle = { borderColor: colors.green }
 		}
 		return (
-			<Row
-				key={`item${item.student_id}`}
-				style={styles.row}
-				leftSide={
-					<Icon
-						style={styles.arrow}
-						name="ios-arrow-back"
-						type="ionicon"
-						color="#000"
-					/>
-				}
-			>
-				<UserWithPic
-					name={item.user.name}
-					extra={
-						<View style={{ alignItems: "flex-start" }}>
-							<Text>
-								{strings("teacher.students.lesson_num")}:{" "}
-								{item.new_lesson_number}
-							</Text>
-							<Text style={balanceStyle}>
-								{strings("teacher.students.balance")}:{" "}
-								{item.balance}₪
-							</Text>
+			<TouchableOpacity onPress={this.navigateToProfile}>
+				<Row
+					key={`item${item.student_id}`}
+					style={styles.row}
+					leftSide={
+						<View style={styles.arrow}>
+							<Icon
+								name="ios-arrow-back"
+								type="ionicon"
+								color="#000"
+							/>
 						</View>
 					}
-					nameStyle={styles.nameStyle}
-					width={54}
-					height={54}
-					style={styles.userWithPic}
-					imageContainerStyle={{
-						...styles.imageContainerStyle,
-						...imageBalanceStyle
-					}}
-				/>
-			</Row>
+				>
+					<UserWithPic
+						name={item.user.name}
+						extra={
+							<View style={{ alignItems: "flex-start" }}>
+								<Text>
+									{strings("teacher.students.lesson_num")}:{" "}
+									{item.new_lesson_number}
+								</Text>
+								<Text style={balanceStyle}>
+									{strings("teacher.students.balance")}:{" "}
+									{item.balance}₪
+								</Text>
+							</View>
+						}
+						nameStyle={styles.nameStyle}
+						width={54}
+						height={54}
+						style={styles.userWithPic}
+						imageContainerStyle={{
+							...styles.imageContainerStyle,
+							...imageBalanceStyle
+						}}
+					/>
+				</Row>
+			</TouchableOpacity>
 		)
 	}
 
@@ -240,12 +248,9 @@ const styles = StyleSheet.create({
 	row: {
 		marginTop: 24
 	},
-	nameStyle: {},
 	arrow: {
-		flex: 1,
-		marginRight: "auto"
+		marginTop: 12
 	},
-	userWithPic: { marginLeft: 10 },
 	imageContainerStyle: {
 		padding: 2,
 		borderWidth: 2,

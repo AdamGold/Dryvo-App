@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StudentNextLessonView view renders correctly 1`] = `
+<View
+  accessible={true}
+  isTVSelectable={true}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
+  testID="test"
+>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+        "marginTop": 12,
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={Object {}}
+    >
+      <Text>
+        איסוף
+        : 
+        לא נקבע
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "marginLeft": "auto",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "marginBottom": -8,
+          }
+        }
+      >
+        00:00
+         - 
+        00:40
+      </Text>
+    </View>
+  </View>
+</View>
+`;

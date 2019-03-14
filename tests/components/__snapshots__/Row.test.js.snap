@@ -4,23 +4,23 @@ exports[`Row view renders correctly 1`] = `
 <View
   style={
     Object {
-      "alignItems": "center",
-      "flex": 1,
       "flexDirection": "row",
       "maxHeight": 30,
+      "width": "100%",
     }
   }
 >
-  <Text>
-    test
-  </Text>
+  <View
+    style={Object {}}
+  >
+    <Text>
+      test
+    </Text>
+  </View>
   <View
     style={
       Object {
-        "alignItems": "flex-end",
-        "flex": 1,
-        "marginRight": "auto",
-        "marginTop": -8,
+        "marginLeft": "auto",
       }
     }
   >

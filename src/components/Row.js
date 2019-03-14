@@ -1,11 +1,11 @@
 import React from "react"
-import { StyleSheet, View } from "react-native"
+import { StyleSheet, View, Text } from "react-native"
 
 export default class Row extends React.Component {
 	render() {
 		return (
 			<View style={{ ...styles.row, ...this.props.style }}>
-				{this.props.children}
+				<View style={styles.rightSide}>{this.props.children}</View>
 				<View style={styles.leftSide}>{this.props.leftSide}</View>
 			</View>
 		)
@@ -14,14 +14,9 @@ export default class Row extends React.Component {
 
 const styles = StyleSheet.create({
 	row: {
-		flex: 1,
 		flexDirection: "row",
-		alignItems: "center"
+		width: "100%"
 	},
-	leftSide: {
-		flex: 1,
-		marginRight: "auto",
-		alignItems: "flex-end",
-		marginTop: -8
-	}
+	rightSide: {},
+	leftSide: { marginLeft: "auto" }
 })

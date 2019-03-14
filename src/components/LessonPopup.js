@@ -7,31 +7,55 @@ import moment from "moment"
 import { floatButtonOnlyStyle } from "../consts"
 
 export default class LessonPopup extends React.Component {
+	constructor(props) {
+		super(props)
+		this.navigateToProfile = this.navigateToProfile.bind(this)
+	}
+
+	navigateToProfile = () => {
+		this.props.onPress(this.props.item)
+		this.props.navigation.navigate("StudentProfile", {
+			student: this.props.item.student
+		})
+	}
+
 	render() {
 		const { item } = this.props
+		if (!item) return null
 		let meetup = strings("not_set")
 		if (item.meetup_place) meetup = item.meetup_place.name
 		let dropoff = strings("not_set")
 		if (item.dropoff_place) dropoff = item.dropoff_place.name
+		let approved
+		if (!item.is_approved) {
+			approved = (
+				<Text style={{ color: "red" }}>
+					({strings("not_approved")})
+				</Text>
+			)
+		}
 		return (
 			<Modal
 				isVisible={this.props.visible}
 				onBackdropPress={() => this.props.onPress(item)}
 			>
 				<View style={styles.popup} testID={this.props.testID}>
-					<Image
-						style={styles.image}
-						source={{
-							uri:
-								"https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80"
-						}}
-					/>
+					<TouchableOpacity onPress={this.navigateToProfile}>
+						<Image
+							style={styles.image}
+							source={{
+								uri:
+									"https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80"
+							}}
+						/>
+					</TouchableOpacity>
 					<Text style={styles.title}>
 						{`${strings("teacher.home.lesson_number")} ${
 							item.lesson_number
 						}`}{" "}
 						- {item.student.user.name}
 					</Text>
+					<Text style={styles.approved}>{approved}</Text>
 					<View style={styles.row}>
 						<View style={styles.column}>
 							<Text style={styles.titles}>
@@ -106,6 +130,7 @@ const styles = StyleSheet.create({
 		alignSelf: "center",
 		marginTop: 16
 	},
+	approved: { alignSelf: "center", marginTop: 6 },
 	row: {
 		flex: 1,
 		flexDirection: "row",
@@ -129,7 +154,7 @@ const styles = StyleSheet.create({
 		...floatButtonOnlyStyle,
 		alignSelf: "center",
 		position: "absolute",
-		bottom: -102
+		bottom: -80
 	},
 	buttonText: {
 		fontWeight: "bold",

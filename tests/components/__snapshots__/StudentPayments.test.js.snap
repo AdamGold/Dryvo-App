@@ -1,0 +1,156 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StudentPayments view renders correctly 1`] = `
+Array [
+  <View
+    style={
+      Object {
+        "alignSelf": "center",
+        "marginTop": 16,
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "rgb(24, 199, 20)",
+          "fontFamily": "Assistant-Light",
+          "fontSize": 44,
+        }
+      }
+    >
+      1000
+      ₪
+    </Text>
+  </View>,
+  <View
+    style={
+      Object {
+        "borderBottomColor": "rgb(212, 212, 212)",
+        "borderBottomWidth": 1,
+        "marginBottom": 20,
+        "marginTop": 20,
+        "width": "100%",
+      }
+    }
+  />,
+  <RCTScrollView
+    data={
+      Array [
+        Object {
+          "amount": 100,
+          "id": 1,
+        },
+        Object {
+          "amount": 900,
+          "id": 2,
+        },
+      ]
+    }
+    disableVirtualization={false}
+    getItem={[Function]}
+    getItemCount={[Function]}
+    horizontal={false}
+    initialNumToRender={10}
+    keyExtractor={[Function]}
+    maxToRenderPerBatch={10}
+    numColumns={1}
+    onContentSizeChange={[Function]}
+    onEndReachedThreshold={2}
+    onLayout={[Function]}
+    onMomentumScrollEnd={[Function]}
+    onScroll={[Function]}
+    onScrollBeginDrag={[Function]}
+    onScrollEndDrag={[Function]}
+    renderItem={[Function]}
+    scrollEventThrottle={50}
+    stickyHeaderIndices={Array []}
+    updateCellsBatchingPeriod={50}
+    viewabilityConfigCallbackPairs={Array []}
+    windowSize={21}
+  >
+    <View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            Object {
+              "flexDirection": "row",
+              "marginTop": 0,
+              "width": "100%",
+            }
+          }
+        >
+          <View
+            style={Object {}}
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              14/03/2019
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "marginLeft": "auto",
+              }
+            }
+          >
+            <Text>
+              100
+              ₪
+            </Text>
+          </View>
+        </View>
+      </View>
+      <View
+        onLayout={[Function]}
+        style={null}
+      >
+        <View
+          style={
+            Object {
+              "flexDirection": "row",
+              "marginTop": 12,
+              "width": "100%",
+            }
+          }
+        >
+          <View
+            style={Object {}}
+          >
+            <Text
+              style={
+                Object {
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              14/03/2019
+            </Text>
+          </View>
+          <View
+            style={
+              Object {
+                "marginLeft": "auto",
+              }
+            }
+          >
+            <Text>
+              900
+              ₪
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>
+  </RCTScrollView>,
+]
+`;

@@ -176,10 +176,20 @@ describe("students.js", () => {
 })
 
 describe("lessons.js", () => {
-	describe("getStartAndEndOfDay", () => {
-		it("should return dict with 3 values", async () => {
-			const ret = lessons.getStartAndEndOfDay(new Date())
-			expect(Object.keys(ret).length).toEqual(3)
+	describe("getDateAndString", () => {
+		it("should return dict with 2 values", async () => {
+			const ret = lessons.getDateAndString(new Date())
+			expect(Object.keys(ret).length).toEqual(2)
+		})
+	})
+
+	describe("getPayments", () => {
+		it("should return dict with 2 values and make a fetch request", async () => {
+			const response = { data: [{ amount: 30 }, { amount: 100 }] }
+			fetch.mockResponseSuccess(JSON.stringify(response))
+			const ret1 = await lessons.getPayments(new FetchService())
+			expect(ret1.payments).toEqual(response.data)
+			expect(Object.keys(ret1).length).toEqual(2)
 		})
 	})
 })

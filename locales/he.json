@@ -13,6 +13,14 @@
 	"not_set": "לא נקבע",
 	"edit_lesson": "עריכת שיעור",
 	"done": "סיום",
+	"not_approved": "לא מאושר",
+	"student_profile": {
+		"lessons": "שיעורים",
+		"my_teacher": "המורה שלי",
+		"in_progress_topics": "בתהליך",
+		"finished_topics": "סוימו",
+		"new_topics": "לא הותחלו"
+	},
 	"signup": {
 		"name": "שם מלא",
 		"area": "עיר מגורים",
@@ -68,6 +76,14 @@
 			"title1": "הוספת תשלום - בחירת תלמיד",
 			"title2": "הוספת תשלום - כמות",
 			"amount": "סכום"
+		}
+	},
+	"student": {
+		"home": {
+			"payments": "תשלומים"
+		},
+		"new_lesson": {
+			"done": "בקשת שיעור"
 		}
 	},
 	"date": {

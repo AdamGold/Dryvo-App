@@ -19,6 +19,7 @@ import { Icon } from "react-native-elements"
 import Hours from "../../components/Hours"
 import LessonPopup from "../../components/LessonPopup"
 import { MAIN_PADDING, colors } from "../../consts"
+import { getPayments } from "../../actions/lessons"
 
 export class Home extends React.Component {
 	static navigationOptions = () => {
@@ -55,23 +56,10 @@ export class Home extends React.Component {
 	}
 
 	_getPayments = async () => {
-		const date = new Date()
-		var firstDay = new Date(date.getFullYear(), date.getMonth(), 1)
-		var lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0)
-		const resp = await this.props.fetchService.fetch(
-			"/lessons/payments?order_by=created_at desc&created_at=ge:" +
-				firstDay.toISOString() +
-				"&created_at=le:" +
-				lastDay.toISOString(),
-			{ method: "GET" }
-		)
-		var sum = 0
-		for (var i = 0, _len = resp.json["data"].length; i < _len; i++) {
-			sum += resp.json["data"][i]["amount"]
-		}
+		const payments = await getPayments(this.props.fetchService)
 		this.setState({
-			payments: [...this.state.payments, ...resp.json["data"]],
-			sum
+			payments: payments.payments,
+			sum: payments.sum
 		})
 	}
 

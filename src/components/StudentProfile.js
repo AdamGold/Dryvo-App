@@ -19,23 +19,30 @@ import StudentNextLessonView from "./StudentNextLessonView"
 
 export default class StudentProfile extends React.Component {
 	constructor(props) {
-		// only here for the test suite to work
 		super(props)
 		let student = this.props.user
 		if (this.props.navigation.getParam("student")) {
 			// if we are in other student's profile
 			student = this.props.navigation.getParam("student")
 		}
+		let isTeacher = false
+		if (this.props.user.hasOwnProperty("teacher_id")) {
+			isTeacher = true
+		}
 		this.state = {
 			student,
 			allTopics: [],
+			combinedTopics: [],
 			payments: [],
-			nextLesson: ""
+			nextLesson: "",
+			isTeacher
 		}
 
 		this._getTopics()
-		this._getNextLesson()
-		this._getPayments()
+		if (isTeacher) {
+			this._getNextLesson()
+			this._getPayments()
+		}
 	}
 
 	_getNextLesson = async () => {
@@ -68,23 +75,24 @@ export default class StudentProfile extends React.Component {
 			`/student/${this.state.student.student_id}/topics`,
 			{ method: "GET" }
 		)
-
-		this.setState({
-			allTopics: resp.json["data"]
-		})
-	}
-	render() {
-		const { student } = this.state
-		const allTopics = [].concat.apply(
+		const combinedTopics = [].concat.apply(
 			[],
-			Object.entries(this.state.allTopics)
+			Object.entries(resp.json["data"])
 				.map(x => {
 					if (x[0] != "new") return x[1]
 				})
 				.filter(x => x != undefined)
 		)
+		this.setState({
+			allTopics: resp.json["data"],
+			combinedTopics: combinedTopics
+		})
+	}
+	render() {
+		const { student } = this.state
+
 		let teacherView
-		if (this.props.user.hasOwnProperty("teacher_id")) {
+		if (this.state.isTeacher) {
 			// teacher is logged in, show next lesson and payments
 			teacherView = (
 				<Fragment>
@@ -164,7 +172,7 @@ export default class StudentProfile extends React.Component {
 							</TouchableOpacity>
 						</View>
 					</View>
-					<TopicsList topics={allTopics} />
+					<TopicsList topics={this.state.combinedTopics} />
 				</ShadowRect>
 			</View>
 		)

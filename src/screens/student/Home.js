@@ -5,20 +5,14 @@ import {
 	Text,
 	Image,
 	StyleSheet,
-	TouchableHighlight,
-	TouchableOpacity,
-	FlatList
+	TouchableHighlight
 } from "react-native"
 import { connect } from "react-redux"
 import ShadowRect from "../../components/ShadowRect"
 import { strings } from "../../i18n"
-import Row from "../../components/Row"
-import Separator from "../../components/Separator"
 import { Icon } from "react-native-elements"
-import Hours from "../../components/Hours"
 import LessonPopup from "../../components/LessonPopup"
 import { getPayments } from "../../actions/lessons"
-import moment from "moment"
 import { DATE_FORMAT, MAIN_PADDING } from "../../consts"
 import StudentPayments from "../../components/StudentPayments"
 import StudentNextLessonView from "../../components/StudentNextLessonView"

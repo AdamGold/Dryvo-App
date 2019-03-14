@@ -6,6 +6,9 @@ import moment from "moment"
 import { DATE_FORMAT, colors } from "../consts"
 
 export default class StudentPayment extends React.Component {
+	constructor(props) {
+		super(props)
+	}
 	renderPaymentItem = ({ item, index }) => {
 		let firstItemStyles = {}
 		if (index == 0) {
@@ -17,6 +20,7 @@ export default class StudentPayment extends React.Component {
 				leftSide={
 					<Text style={styles.amountOfStudent}>{item.amount}₪</Text>
 				}
+				key={`payment${item.id}`}
 			>
 				<Text style={styles.dateOfPayment}>
 					{moment.utc(item.created_at).format(DATE_FORMAT)}
@@ -39,7 +43,7 @@ export default class StudentPayment extends React.Component {
 				<FlatList
 					data={this.props.payments}
 					renderItem={this.renderPaymentItem}
-					keyExtractor={item => `item${item.id}`}
+					keyExtractor={item => `payment${item.id}`}
 				/>
 			</Fragment>
 		)

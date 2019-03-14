@@ -1,12 +1,5 @@
 import React, { Fragment } from "react"
-import {
-	View,
-	StyleSheet,
-	Text,
-	Image,
-	FlatList,
-	TouchableOpacity
-} from "react-native"
+import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native"
 import { strings } from "../i18n"
 import UserWithPic from "./UserWithPic"
 import ShadowRect from "./ShadowRect"

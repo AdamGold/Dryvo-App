@@ -57,7 +57,6 @@ exports[`Home view renders correctly 1`] = `
             "backgroundColor": "#fff",
             "borderRadius": 4,
             "elevation": 6,
-            "minHeight": 240,
             "paddingHorizontal": 20,
             "paddingVertical": 12,
             "shadowColor": "#000",
@@ -82,36 +81,8 @@ exports[`Home view renders correctly 1`] = `
           }
           testID="schedule"
         >
-          שיעור נוכחי
+          שיעור הבא
         </Text>
-        <RCTScrollView
-          ItemSeparatorComponent={[Function]}
-          data={Array []}
-          disableVirtualization={false}
-          extraData={Array []}
-          getItem={[Function]}
-          getItemCount={[Function]}
-          horizontal={false}
-          initialNumToRender={10}
-          keyExtractor={[Function]}
-          maxToRenderPerBatch={10}
-          numColumns={1}
-          onContentSizeChange={[Function]}
-          onEndReachedThreshold={2}
-          onLayout={[Function]}
-          onMomentumScrollEnd={[Function]}
-          onScroll={[Function]}
-          onScrollBeginDrag={[Function]}
-          onScrollEndDrag={[Function]}
-          renderItem={[Function]}
-          scrollEventThrottle={50}
-          stickyHeaderIndices={Array []}
-          updateCellsBatchingPeriod={50}
-          viewabilityConfigCallbackPairs={Array []}
-          windowSize={21}
-        >
-          <View />
-        </RCTScrollView>
       </View>
       <View
         style={
@@ -262,7 +233,7 @@ exports[`Home view renders correctly 1`] = `
             }
             testID="monthlyAmount"
           >
-            סכום חודשי
+            תשלומים
           </Text>
           <View
             style={
@@ -365,37 +336,8 @@ exports[`Home view renders correctly 1`] = `
               }
             }
           >
-            0
             ₪
           </Text>
-          <View
-            accessible={true}
-            isTVSelectable={true}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
-            style={
-              Object {
-                "opacity": 1,
-              }
-            }
-          >
-            <Text
-              style={
-                Object {
-                  "alignSelf": "center",
-                  "color": "rgb(12, 116, 244)",
-                  "fontWeight": "bold",
-                  "marginTop": 16,
-                }
-              }
-            >
-              הוסף תשלום
-            </Text>
-          </View>
         </View>
         <View
           style={

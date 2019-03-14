@@ -89,68 +89,68 @@ exports[`Notifications view renders correctly 1`] = `
           <View
             style={
               Object {
-                "alignItems": "center",
-                "flex": 1,
                 "flexDirection": "row",
+                "width": "100%",
               }
             }
           >
             <View
-              style={
-                Object {
-                  "flex": 1,
-                  "flexDirection": "row",
-                }
-              }
+              style={Object {}}
             >
-              <View>
-                <Image
-                  source={
-                    Object {
-                      "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
-                    }
-                  }
-                  style={
-                    Object {
-                      "borderRadius": 27,
-                      "height": 54,
-                      "width": 54,
-                    }
-                  }
-                />
-              </View>
               <View
                 style={
                   Object {
-                    "alignItems": "flex-start",
-                    "flexDirection": "column",
-                    "marginLeft": 16,
+                    "flex": 1,
+                    "flexDirection": "row",
                   }
                 }
               >
-                <Text
+                <View>
+                  <Image
+                    source={
+                      Object {
+                        "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+                      }
+                    }
+                    style={
+                      Object {
+                        "borderRadius": 27,
+                        "height": 54,
+                        "width": 54,
+                      }
+                    }
+                  />
+                </View>
+                <View
                   style={
                     Object {
-                      "fontWeight": "bold",
+                      "alignItems": "flex-start",
+                      "flexDirection": "column",
+                      "marginLeft": 16,
                     }
                   }
                 >
-                  חגית שטיין
-                </Text>
-                <View>
-                  <Text>
-                    רוצה לקבוע שיעור
+                  <Text
+                    style={
+                      Object {
+                        "fontWeight": "bold",
+                      }
+                    }
+                  >
+                    חגית שטיין
                   </Text>
+                  <View>
+                    <Text>
+                      רוצה לקבוע שיעור
+                    </Text>
+                  </View>
                 </View>
               </View>
             </View>
             <View
               style={
                 Object {
-                  "alignItems": "flex-end",
-                  "flex": 1,
-                  "marginRight": "auto",
-                  "marginTop": -8,
+                  "marginLeft": "auto",
                 }
               }
             >

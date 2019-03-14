@@ -139,6 +139,7 @@ export class Home extends React.Component {
 				leftSide={
 					<Text style={styles.amountOfStudent}>{item.amount}₪</Text>
 				}
+				key={`payment${item.id}`}
 			>
 				<UserWithPic
 					name={item.student.user.name}
@@ -249,7 +250,7 @@ export class Home extends React.Component {
 						<FlatList
 							data={this.state.payments.slice(0, 2)}
 							renderItem={this.renderPaymentItem}
-							keyExtractor={item => `item${item.id}`}
+							keyExtractor={item => `payment${item.id}`}
 						/>
 					</ShadowRect>
 				</View>

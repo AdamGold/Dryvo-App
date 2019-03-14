@@ -13,7 +13,7 @@ import { strings } from "../../i18n"
 import { Icon } from "react-native-elements"
 import LessonPopup from "../../components/LessonPopup"
 import { getPayments } from "../../actions/lessons"
-import { DATE_FORMAT, MAIN_PADDING } from "../../consts"
+import { MAIN_PADDING } from "../../consts"
 import StudentPayments from "../../components/StudentPayments"
 import StudentNextLessonView from "../../components/StudentNextLessonView"
 

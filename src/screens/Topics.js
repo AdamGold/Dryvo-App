@@ -9,6 +9,9 @@ import ShadowRect from "../components/ShadowRect"
 import TopicsList from "../components/TopicsList"
 
 export class Topics extends React.Component {
+	constructor(props) {
+		super(props)
+	}
 	renderItem = item => {
 		return null
 	}

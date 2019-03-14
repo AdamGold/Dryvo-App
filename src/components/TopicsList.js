@@ -2,9 +2,12 @@ import React, { Fragment } from "react"
 import { StyleSheet, View, Text, FlatList } from "react-native"
 
 export default class TopicsList extends React.Component {
+	constructor(props) {
+		super(props)
+	}
 	renderTopic = ({ item, index }) => {
 		return (
-			<View style={styles.topic}>
+			<View style={styles.topic} key={`topic${item.id}`}>
 				<Text style={styles.topicText}>{item.title}</Text>
 			</View>
 		)
@@ -14,7 +17,7 @@ export default class TopicsList extends React.Component {
 			<FlatList
 				data={this.props.topics}
 				renderItem={this.renderTopic}
-				keyExtractor={item => `item${item.id}`}
+				keyExtractor={item => `topic${item.id}`}
 			/>
 		)
 	}

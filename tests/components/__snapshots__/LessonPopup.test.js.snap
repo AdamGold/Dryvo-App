@@ -88,22 +88,38 @@ exports[`LessonPopup view renders correctly 1`] = `
       }
       testID="test"
     >
-      <Image
-        source={
-          Object {
-            "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
-          }
-        }
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Object {
-            "alignSelf": "center",
-            "borderRadius": 38,
-            "height": 76,
-            "marginTop": -80,
-            "width": 76,
+            "opacity": 1,
           }
         }
-      />
+      >
+        <Image
+          source={
+            Object {
+              "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
+            }
+          }
+          style={
+            Object {
+              "alignSelf": "center",
+              "borderRadius": 38,
+              "height": 76,
+              "marginTop": -80,
+              "width": 76,
+            }
+          }
+        />
+      </View>
       <Text
         style={
           Object {
@@ -118,6 +134,26 @@ exports[`LessonPopup view renders correctly 1`] = `
          
         - 
         test
+      </Text>
+      <Text
+        style={
+          Object {
+            "alignSelf": "center",
+            "marginTop": 6,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "red",
+            }
+          }
+        >
+          (
+          לא מאושר
+          )
+        </Text>
       </Text>
       <View
         style={
@@ -301,7 +337,7 @@ exports[`LessonPopup view renders correctly 1`] = `
               "alignSelf": "center",
               "backgroundColor": "rgb(12,116,244)",
               "borderRadius": 28,
-              "bottom": -102,
+              "bottom": -80,
               "elevation": 8,
               "height": 56,
               "justifyContent": "center",

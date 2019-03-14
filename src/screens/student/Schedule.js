@@ -132,12 +132,6 @@ export class Schedule extends React.Component {
 					visible={visible}
 					item={item}
 					onPress={this.lessonPress}
-					onButtonPress={() => {
-						this.lessonPress(item)
-						this.props.navigation.navigate("Lesson", {
-							lesson: item
-						})
-					}}
 					navigation={this.props.navigation}
 				/>
 			</Fragment>

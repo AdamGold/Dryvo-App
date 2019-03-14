@@ -3,18 +3,18 @@ import React from "react"
 import FetchService from "../../../src/services/Fetch"
 import renderer from "react-test-renderer"
 
-import { NewLesson } from "../../../src/screens/student/NewLesson"
+import { Lesson } from "../../../src/screens/student/Lesson"
 
 const fetchService = new FetchService()
 jest.useFakeTimers()
-describe("NewLesson", () => {
+describe("Lesson", () => {
 	test.skip("view renders correctly", () => {
 		const user = {
 			name: "test"
 		}
 		const tree = renderer
 			.create(
-				<NewLesson
+				<Lesson
 					user={user}
 					navigation={{
 						navigate: jest.fn()

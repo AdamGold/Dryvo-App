@@ -75,12 +75,6 @@ export class Home extends React.Component {
 					visible={this.state.lessonPopupVisible}
 					item={lesson}
 					onPress={this.lessonPress}
-					onButtonPress={() => {
-						this.lessonPress()
-						this.props.navigation.navigate("Lesson", {
-							lesson
-						})
-					}}
 					testID="lessonPopup"
 					navigation={this.props.navigation}
 				/>

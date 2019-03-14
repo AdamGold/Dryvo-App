@@ -11,7 +11,10 @@ describe("StudentNextLessonView", () => {
 				<StudentNextLessonView
 					lessonPress={jest.fn()}
 					testID="test"
-					lesson={{ duration: 40, date: new Date("2019-01-01") }}
+					lesson={{
+						duration: 40,
+						date: new Date(Date.UTC("03-14-2019"))
+					}}
 				/>
 			)
 			.toJSON()

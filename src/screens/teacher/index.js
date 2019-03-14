@@ -7,7 +7,7 @@ import { tabBarOptions } from "../consts"
 import Home from "./Home"
 import Notifications from "./Notifications"
 import ChooseDate from "./ChooseDate"
-import NewLesson from "./NewLesson"
+import Lesson from "./Lesson"
 import Students from "./Students"
 import NewStudent from "./NewStudent"
 import Schedule from "./Schedule"
@@ -20,7 +20,7 @@ export default createBottomTabNavigator(
 		Home: createStackNavigator(
 			{
 				Main: createStackNavigator(
-					{ Home, StudentProfile },
+					{ Home, StudentProfile, Lesson },
 					{
 						initialRouteKey: "Home",
 						headerMode: "none"
@@ -40,7 +40,7 @@ export default createBottomTabNavigator(
 		Notifications: Notifications,
 		Add: {
 			screen: createStackNavigator(
-				{ ChooseDate: ChooseDate, NewLesson: NewLesson },
+				{ ChooseDate, Lesson },
 				{
 					initialRouteName: "ChooseDate",
 					headerMode: "none",
@@ -57,7 +57,7 @@ export default createBottomTabNavigator(
 			}
 		},
 		Schedule: createStackNavigator(
-			{ Schedule, StudentProfile },
+			{ Schedule, StudentProfile, Lesson },
 			{
 				initialRouteKey: "Schedule",
 				headerMode: "none"

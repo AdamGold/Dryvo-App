@@ -49,9 +49,9 @@ exports[`StudentNextLessonView view renders correctly 1`] = `
           }
         }
       >
-        00:00
+        Invalid date
          - 
-        00:40
+        Invalid date
       </Text>
     </View>
   </View>

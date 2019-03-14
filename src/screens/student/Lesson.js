@@ -26,7 +26,7 @@ import { getHoursDiff } from "../../actions/utils"
 import { API_ERROR } from "../../reducers/consts"
 import DateTimePicker from "react-native-modal-datetime-picker"
 
-export class NewLesson extends React.Component {
+export class Lesson extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -295,4 +295,4 @@ function mapStateToProps(state) {
 		user: state.user
 	}
 }
-export default connect(mapStateToProps)(NewLesson)
+export default connect(mapStateToProps)(Lesson)

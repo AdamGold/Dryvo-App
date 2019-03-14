@@ -10,6 +10,14 @@ export default class LessonPopup extends React.Component {
 	constructor(props) {
 		super(props)
 		this.navigateToProfile = this.navigateToProfile.bind(this)
+		this.navigateToLesson = this.navigateToLesson.bind(this)
+	}
+
+	navigateToLesson = () => {
+		this.props.onPress(this.props.item)
+		this.props.navigation.navigate("Lesson", {
+			lesson: this.props.item
+		})
 	}
 
 	navigateToProfile = () => {
@@ -92,7 +100,7 @@ export default class LessonPopup extends React.Component {
 					</View>
 					<TouchableOpacity
 						underlayColor="#ffffff00"
-						onPress={this.props.onButtonPress}
+						onPress={this.navigateToLesson}
 					>
 						<View testID="editLessonButton" style={styles.button}>
 							<Text style={styles.buttonText}>

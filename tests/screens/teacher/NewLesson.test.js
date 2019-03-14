@@ -3,10 +3,10 @@ import React from "react"
 import FetchService from "../../../src/services/Fetch"
 import renderer from "react-test-renderer"
 
-import { NewLesson } from "../../../src/screens/teacher/NewLesson"
+import { Lesson } from "../../../src/screens/teacher/Lesson"
 
 const fetchService = new FetchService()
-describe("NewLesson", () => {
+describe("Lesson", () => {
 	test("view renders correctly", () => {
 		const user = {
 			name: "test",
@@ -15,7 +15,7 @@ describe("NewLesson", () => {
 		}
 		const tree = renderer
 			.create(
-				<NewLesson
+				<Lesson
 					user={user}
 					navigation={{
 						getParam: jest.fn(),

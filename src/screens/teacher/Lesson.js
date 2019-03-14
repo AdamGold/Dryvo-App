@@ -17,7 +17,8 @@ import {
 	MAIN_PADDING,
 	floatButton,
 	API_DATE_FORMAT,
-	DEFAULT_DURATION
+	DEFAULT_DURATION,
+	SHORT_API_DATE_FORMAT
 } from "../../consts"
 import NewLessonInput from "../../components/NewLessonInput"
 import Hours from "../../components/Hours"
@@ -26,19 +27,23 @@ import moment from "moment"
 import { getHoursDiff } from "../../actions/utils"
 import { API_ERROR } from "../../reducers/consts"
 
-export class NewLesson extends React.Component {
+export class Lesson extends React.Component {
 	constructor(props) {
 		super(props)
-		const duration = this.props.user.lesson_duration || DEFAULT_DURATION
+		const duration = props.user.lesson_duration || DEFAULT_DURATION
+		const lesson = props.navigation.getParam("lesson")
 		this.state = {
-			date: this.props.navigation.getParam("date"),
+			date:
+				props.navigation.getParam("date") ||
+				moment.utc(lesson.date).format(SHORT_API_DATE_FORMAT),
 			error: "",
 			hours: [],
 			students: [],
-			selectedStudent: {},
-			dateAndTime: "",
+			student: (lesson || {}).student || {},
+			dateAndTime:
+				moment.utc((lesson || {}).date).format(API_DATE_FORMAT) || "",
 			defaultDuration: duration.toString(),
-			lesson: null,
+			lesson,
 			allTopics: [],
 			progress: [],
 			finished: []
@@ -48,15 +53,41 @@ export class NewLesson extends React.Component {
 		this.onChangeText = this.onChangeText.bind(this)
 		this._onHourPress = this._onHourPress.bind(this)
 		this._onStudentPress = this._onStudentPress.bind(this)
-		this.createLesson = this.createLesson.bind(this)
+		this.submit = this.submit.bind(this)
 
 		this._initializeInputs()
 		this._getAvailableHours()
 		this._getTopics()
+		this._initializeExistingLesson()
+	}
+
+	_initializeExistingLesson = () => {
+		// if we're editing a lesson
+		const { lesson } = this.state
+		if (lesson) {
+			// init duration, studentName, meetup, dropoff, hour
+			this.state = {
+				...this.state,
+				studentName: lesson.student.user.name,
+				duration: lesson.duration.toString(),
+				meetup: (lesson.meetup_place || {}).name,
+				dropoff: (lesson.dropoff_place || {}).name,
+				hour: moment.utc(lesson.date).format("HH:mm")
+			}
+		}
 	}
 
 	_initializeInputs = () => {
+		let studentEditable = {}
+		if (this.state.lesson) {
+			studentEditable = { editable: false, selectTextOnFocus: false }
+		}
 		this.inputs = {
+			date: {
+				iconName: "date-range",
+				editable: false,
+				selectTextOnFocus: false
+			},
 			duration: {
 				iconName: "swap-horiz",
 				extraPlaceholder: ` (${strings(
@@ -68,13 +99,20 @@ export class NewLesson extends React.Component {
 				},
 				style: { marginTop: 0 }
 			},
+			hour: {
+				iconName: "access-time",
+				below: this.renderHours,
+				editable: false,
+				selectTextOnFocus: false
+			},
 			studentName: {
 				iconName: "person-outline",
 				below: this.renderStudents,
 				onChangeText: (name, value) => {
 					this.onChangeText(name, value)
 					this._getStudents(value)
-				}
+				},
+				...studentEditable
 			},
 			meetup: {
 				iconName: "navigation",
@@ -90,14 +128,9 @@ export class NewLesson extends React.Component {
 				onSubmitEditing: () => {
 					this._touchable.touchableHandlePress()
 				}
-			},
-			hour: {
-				iconName: "access-time",
-				below: this.renderHours,
-				editable: false,
-				selectTextOnFocus: false
 			}
 		}
+
 		Object.keys(this.inputs).forEach(input => {
 			if (!this.state[input]) {
 				this.state[input] = ""
@@ -106,6 +139,7 @@ export class NewLesson extends React.Component {
 	}
 
 	_getAvailableHours = async () => {
+		if (!this.state.date) return
 		const resp = await this.props.fetchService.fetch(
 			`/teacher/${this.props.user.teacher_id}/available_hours`,
 			{
@@ -260,18 +294,23 @@ export class NewLesson extends React.Component {
 		})
 	}
 
-	createLesson = async () => {
+	submit = async () => {
 		try {
-			const resp = await this.props.fetchService.fetch("/lessons/", {
-				method: "POST",
-				body: JSON.stringify({
-					date: moment.utc(this.state.dateAndTime).toISOString(),
-					student_id: this.state.student.student_id,
-					meetup_place: this.state.meetup,
-					dropoff_place: this.state.dropoff
-				})
-			})
-			const lessonId = resp.json["data"]["id"]
+			let lessonId = ""
+			if (this.state.lesson) lessonId = this.state.lesson.id
+			const resp = await this.props.fetchService.fetch(
+				"/lessons/" + lessonId,
+				{
+					method: "POST",
+					body: JSON.stringify({
+						date: moment.utc(this.state.dateAndTime).toISOString(),
+						student_id: this.state.student.student_id,
+						meetup_place: this.state.meetup,
+						dropoff_place: this.state.dropoff
+					})
+				}
+			)
+			if (!lessonId) lessonId = resp.json["data"]["id"]
 			const topicsResp = await this.props.fetchService.fetch(
 				`/lessons/${lessonId}/topics`,
 				{
@@ -286,6 +325,7 @@ export class NewLesson extends React.Component {
 			)
 			this.props.navigation.goBack()
 		} catch (error) {
+			console.log(error)
 			let msg = ""
 			if (error && error.hasOwnProperty("message")) msg = error.message
 			this.props.dispatch({ type: API_ERROR, error: msg })
@@ -385,12 +425,6 @@ export class NewLesson extends React.Component {
 						style={styles.title}
 						title={strings("teacher.new_lesson.title")}
 					/>
-					<View style={styles.selectedDateView}>
-						<Icon type="material" name="date-range" />
-						<Text style={styles.selectedDate}>
-							{this.state.date}
-						</Text>
-					</View>
 				</View>
 				<KeyboardAvoidingView
 					behavior="padding"
@@ -415,7 +449,7 @@ export class NewLesson extends React.Component {
 					<TouchableHighlight
 						underlayColor="#ffffff00"
 						ref={touchable => (this._touchable = touchable)}
-						onPress={this.createLesson}
+						onPress={this.submit}
 					>
 						<View testID="finishButton" style={styles.submitButton}>
 							<Text style={styles.doneText}>
@@ -496,4 +530,4 @@ function mapStateToProps(state) {
 		user: state.user
 	}
 }
-export default connect(mapStateToProps)(NewLesson)
+export default connect(mapStateToProps)(Lesson)

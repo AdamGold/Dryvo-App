@@ -18,7 +18,6 @@ describe("LessonPopup", () => {
 					visible={true}
 					item={item}
 					onPress={jest.fn()}
-					onButtonPress={jest.fn()}
 					testID="test"
 				/>
 			)

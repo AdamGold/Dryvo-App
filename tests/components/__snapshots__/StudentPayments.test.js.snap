@@ -35,14 +35,17 @@ Array [
     }
   />,
   <RCTScrollView
+    ListEmptyComponent={[Function]}
     data={
       Array [
         Object {
           "amount": 100,
+          "created_at": Date { NaN },
           "id": 1,
         },
         Object {
           "amount": 900,
+          "created_at": Date { NaN },
           "id": 2,
         },
       ]
@@ -93,7 +96,7 @@ Array [
                 }
               }
             >
-              14/03/2019
+              Invalid date
             </Text>
           </View>
           <View
@@ -133,7 +136,7 @@ Array [
                 }
               }
             >
-              14/03/2019
+              Invalid date
             </Text>
           </View>
           <View

@@ -1,5 +1,7 @@
 import React, { Fragment } from "react"
 import { StyleSheet, View, Text, FlatList } from "react-native"
+import EmptyState from "./EmptyState"
+import { strings } from "../i18n"
 
 export default class TopicsList extends React.Component {
 	constructor(props) {
@@ -12,12 +14,22 @@ export default class TopicsList extends React.Component {
 			</View>
 		)
 	}
+
+	_renderEmpty = () => (
+		<EmptyState
+			name="lessons"
+			text={strings("empty_topics")}
+			style={styles.empty}
+		/>
+	)
+
 	render() {
 		return (
 			<FlatList
 				data={this.props.topics}
 				renderItem={this.renderTopic}
 				keyExtractor={item => `topic${item.id}`}
+				ListEmptyComponent={this._renderEmpty}
 			/>
 		)
 	}

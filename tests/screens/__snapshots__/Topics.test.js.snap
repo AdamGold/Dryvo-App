@@ -194,6 +194,7 @@ exports[`Topics view renders correctly 1`] = `
       בתהליך
     </Text>
     <RCTScrollView
+      ListEmptyComponent={[Function]}
       data={
         Array [
           Object {
@@ -286,6 +287,7 @@ exports[`Topics view renders correctly 1`] = `
       סוימו
     </Text>
     <RCTScrollView
+      ListEmptyComponent={[Function]}
       data={
         Array [
           Object {
@@ -408,6 +410,7 @@ exports[`Topics view renders correctly 1`] = `
       לא הותחלו
     </Text>
     <RCTScrollView
+      ListEmptyComponent={[Function]}
       data={Array []}
       disableVirtualization={false}
       getItem={[Function]}
@@ -431,7 +434,40 @@ exports[`Topics view renders correctly 1`] = `
       viewabilityConfigCallbackPairs={Array []}
       windowSize={21}
     >
-      <View />
+      <View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "alignSelf": "center",
+              "flex": 1,
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Image
+            style={
+              Object {
+                "alignSelf": "center",
+                "height": 150,
+                "width": 200,
+              }
+            }
+          />
+          <Text
+            style={
+              Object {
+                "color": "#e1e1e1",
+                "fontSize": 28,
+                "fontWeight": "bold",
+                "marginTop": 40,
+              }
+            }
+          >
+            עוד לא נלמדו נושאים
+          </Text>
+        </View>
+      </View>
     </RCTScrollView>
   </View>
 </View>

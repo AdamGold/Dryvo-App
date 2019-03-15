@@ -14,9 +14,10 @@ import Row from "../../components/Row"
 import UserWithPic from "../../components/UserWithPic"
 import Separator from "../../components/Separator"
 import { Icon } from "react-native-elements"
-import { MAIN_PADDING, calendarTheme, floatButton } from "../../consts"
+import { MAIN_PADDING, calendarTheme, fullButton } from "../../consts"
 import Hours from "../../components/Hours"
 import { getDateAndString } from "../../actions/lessons"
+import EmptyState from "../../components/EmptyState"
 
 export class ChooseDate extends React.Component {
 	constructor(props) {
@@ -91,6 +92,9 @@ export class ChooseDate extends React.Component {
 			}
 		)
 	}
+
+	_renderEmpty = () => <EmptyState image="lessons" />
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -125,10 +129,11 @@ export class ChooseDate extends React.Component {
 					<ShadowRect style={styles.schedule}>
 						<FlatList
 							ItemSeparatorComponent={() => <Separator />}
+							ListEmptyComponent={this._renderEmpty}
 							testID="scheduleList"
 							data={this.state.items}
 							renderItem={this.renderItem}
-							style={{ marginBottom: 50 }}
+							style={styles.flatList}
 							keyExtractor={item => `item${item.id}`}
 						/>
 					</ShadowRect>
@@ -141,7 +146,7 @@ export class ChooseDate extends React.Component {
 						})
 					}}
 				>
-					<View testID="continueButton" style={floatButton}>
+					<View testID="continueButton" style={fullButton}>
 						<Text style={styles.buttonText}>
 							{strings("teacher.new_lesson.continue")}
 						</Text>
@@ -171,10 +176,8 @@ const styles = StyleSheet.create({
 		marginLeft: MAIN_PADDING
 	},
 	schedule: {
-		minHeight: 230,
-		marginTop: 24,
-		marginLeft: MAIN_PADDING,
-		marginRight: MAIN_PADDING
+		flex: 1,
+		marginTop: 24
 	},
 	hour: {
 		marginTop: -2,
@@ -191,6 +194,12 @@ const styles = StyleSheet.create({
 		color: "#fff",
 		fontSize: 20,
 		fontWeight: "bold"
+	},
+	flatList: {
+		flex: 1,
+		marginBottom: 40,
+		alignSelf: "center",
+		width: "100%"
 	}
 })
 

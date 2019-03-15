@@ -14,7 +14,7 @@ import { strings } from "../../i18n"
 import PageTitle from "../../components/PageTitle"
 import {
 	MAIN_PADDING,
-	floatButton,
+	fullButton,
 	API_DATE_FORMAT,
 	SHORT_API_DATE_FORMAT
 } from "../../consts"
@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
 		width: 340,
 		alignSelf: "center"
 	},
-	submitButton: floatButton,
+	submitButton: fullButton,
 	doneText: {
 		color: "#fff",
 		fontWeight: "bold",

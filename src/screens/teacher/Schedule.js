@@ -17,6 +17,7 @@ import { calendarTheme, MAIN_PADDING } from "../../consts"
 import Hours from "../../components/Hours"
 import { getDateAndString } from "../../actions/lessons"
 import LessonPopup from "../../components/LessonPopup"
+import EmptyState from "../../components/EmptyState"
 
 export class Schedule extends React.Component {
 	static navigationOptions = () => {
@@ -142,8 +143,14 @@ export class Schedule extends React.Component {
 		)
 	}
 
-	renderEmpty = () => {
-		return <Text>Hello empty</Text>
+	_renderEmpty = () => {
+		return (
+			<EmptyState
+				image="lessons"
+				text={strings("empty_lessons")}
+				style={styles.empty}
+			/>
+		)
 	}
 
 	onDayPress = day => {
@@ -174,7 +181,7 @@ export class Schedule extends React.Component {
 						renderItem={this.renderItem}
 						// specify how each date should be rendered. day can be undefined if the item is not first in that day.
 						renderDay={(day, item) => undefined}
-						renderEmptyDate={this.renderEmpty}
+						renderEmptyDate={this._renderEmpty}
 						// specify your item comparison function for increased performance
 						rowHasChanged={(r1, r2) => {
 							return r1.text !== r2.text || this.state.visible
@@ -241,7 +248,10 @@ const styles = StyleSheet.create({
 		color: "gray",
 		marginTop: -12
 	},
-	userWithPic: { marginLeft: 10 }
+	userWithPic: { marginLeft: 10 },
+	empty: {
+		marginTop: 100
+	}
 })
 
 function mapStateToProps(state) {

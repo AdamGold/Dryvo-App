@@ -20,6 +20,8 @@ import Hours from "../../components/Hours"
 import LessonPopup from "../../components/LessonPopup"
 import { MAIN_PADDING, colors } from "../../consts"
 import { getPayments } from "../../actions/lessons"
+import EmptyState from "../../components/EmptyState"
+import { logout } from "../../actions/auth"
 
 export class Home extends React.Component {
 	static navigationOptions = () => {
@@ -153,6 +155,15 @@ export class Home extends React.Component {
 			</Fragment>
 		)
 	}
+
+	_renderEmpty = type => (
+		<EmptyState
+			image={type}
+			text={strings(`empty_${type}`)}
+			style={styles.empty}
+		/>
+	)
+
 	render() {
 		let sumColor = colors.green
 		if (this.state.sum < 0) sumColor = "red"
@@ -179,6 +190,9 @@ export class Home extends React.Component {
 						</Text>
 						<FlatList
 							data={this.state.items}
+							ListEmptyComponent={() =>
+								this._renderEmpty("lessons")
+							}
 							renderItem={this.renderItem}
 							ItemSeparatorComponent={this.lessonsSeperator}
 							keyExtractor={item => `item${item.id}`}
@@ -245,6 +259,9 @@ export class Home extends React.Component {
 							data={this.state.payments.slice(0, 2)}
 							renderItem={this.renderPaymentItem}
 							keyExtractor={item => `payment${item.id}`}
+							ListEmptyComponent={() =>
+								this._renderEmpty("payments")
+							}
 						/>
 					</ShadowRect>
 				</View>

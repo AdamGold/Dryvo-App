@@ -330,7 +330,7 @@ exports[`Lesson view renders correctly 1`] = `
               testID="dateInput"
               textAlign="right"
               underlineColorAndroid="transparent"
-              value="2019-03-14"
+              value="2019-03-15"
             />
           </View>
         </View>
@@ -1080,15 +1080,13 @@ exports[`Lesson view renders correctly 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "alignSelf": "flex-end",
             "backgroundColor": "rgb(12,116,244)",
-            "borderRadius": 28,
-            "bottom": 12,
+            "borderRadius": 0,
+            "bottom": 0,
             "elevation": 8,
             "height": 56,
             "justifyContent": "center",
             "position": "absolute",
-            "right": 26,
             "shadowColor": "rgb(12,116,244)",
             "shadowOffset": Object {
               "height": 8,
@@ -1096,7 +1094,7 @@ exports[`Lesson view renders correctly 1`] = `
             },
             "shadowOpacity": 0.5,
             "shadowRadius": 16,
-            "width": 160,
+            "width": "100%",
           }
         }
         testID="finishButton"
@@ -2198,15 +2196,13 @@ exports[`Lesson view renders correctly with existing lesson 1`] = `
         style={
           Object {
             "alignItems": "center",
-            "alignSelf": "flex-end",
             "backgroundColor": "rgb(12,116,244)",
-            "borderRadius": 28,
-            "bottom": 12,
+            "borderRadius": 0,
+            "bottom": 0,
             "elevation": 8,
             "height": 56,
             "justifyContent": "center",
             "position": "absolute",
-            "right": 26,
             "shadowColor": "rgb(12,116,244)",
             "shadowOffset": Object {
               "height": 8,
@@ -2214,7 +2210,7 @@ exports[`Lesson view renders correctly with existing lesson 1`] = `
             },
             "shadowOpacity": 0.5,
             "shadowRadius": 16,
-            "width": 160,
+            "width": "100%",
           }
         }
         testID="finishButton"

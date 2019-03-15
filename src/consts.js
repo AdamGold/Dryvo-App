@@ -47,10 +47,10 @@ export const floatButtonOnlyStyle = {
 	shadowRadius: 16,
 	elevation: 8
 }
-export const floatButton = {
+export const fullButton = {
 	...floatButtonOnlyStyle,
 	position: "absolute",
-	bottom: 12,
-	right: 26,
-	alignSelf: "flex-end"
+	bottom: 0,
+	width: "100%",
+	borderRadius: 0
 }

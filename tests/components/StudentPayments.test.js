@@ -10,7 +10,18 @@ describe("StudentPayments", () => {
 			.create(
 				<StudentPayments
 					sum={1000}
-					payments={[{ id: 1, amount: 100 }, { id: 2, amount: 900 }]}
+					payments={[
+						{
+							id: 1,
+							amount: 100,
+							created_at: new Date(Date.UTC("2019-15-03"))
+						},
+						{
+							id: 2,
+							amount: 900,
+							created_at: new Date(Date.UTC("2019-15-03"))
+						}
+					]}
 				/>
 			)
 			.toJSON()

@@ -4,7 +4,7 @@ import Modal from "react-native-modal"
 import { strings } from "../i18n"
 import Hours from "./Hours"
 import moment from "moment"
-import { floatButtonOnlyStyle } from "../consts"
+import { fullButton } from "../consts"
 
 export default class LessonPopup extends React.Component {
 	constructor(props) {
@@ -46,6 +46,8 @@ export default class LessonPopup extends React.Component {
 			<Modal
 				isVisible={this.props.visible}
 				onBackdropPress={() => this.props.onPress(item)}
+				animationIn="pulse"
+				animationOut="fadeOut"
 			>
 				<View style={styles.popup} testID={this.props.testID}>
 					<TouchableOpacity onPress={this.navigateToProfile}>
@@ -101,8 +103,9 @@ export default class LessonPopup extends React.Component {
 					<TouchableOpacity
 						underlayColor="#ffffff00"
 						onPress={this.navigateToLesson}
+						style={styles.button}
 					>
-						<View testID="editLessonButton" style={styles.button}>
+						<View testID="editLessonButton">
 							<Text style={styles.buttonText}>
 								{strings("edit_lesson")}
 							</Text>
@@ -117,7 +120,7 @@ export default class LessonPopup extends React.Component {
 const styles = StyleSheet.create({
 	popup: {
 		flex: 1,
-		maxHeight: 300,
+		maxHeight: 320,
 		backgroundColor: "#fff",
 		padding: 26,
 		alignSelf: "center",
@@ -158,12 +161,7 @@ const styles = StyleSheet.create({
 		alignSelf: "flex-start"
 	},
 	texts: { fontSize: 18, marginTop: 6, alignSelf: "flex-start" },
-	button: {
-		...floatButtonOnlyStyle,
-		alignSelf: "center",
-		position: "absolute",
-		bottom: -80
-	},
+	button: { ...fullButton, width: 280 },
 	buttonText: {
 		fontWeight: "bold",
 		color: "#fff",

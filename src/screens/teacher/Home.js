@@ -260,7 +260,7 @@ export class Home extends React.Component {
 							renderItem={this.renderPaymentItem}
 							keyExtractor={item => `payment${item.id}`}
 							ListEmptyComponent={() =>
-								this._renderEmpty("lessons")
+								this._renderEmpty("payments")
 							}
 						/>
 					</ShadowRect>

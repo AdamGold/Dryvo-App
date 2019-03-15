@@ -143,7 +143,7 @@ export class Schedule extends React.Component {
 		)
 	}
 
-	renderEmpty = () => {
+	_renderEmpty = () => {
 		return (
 			<EmptyState
 				image="lessons"
@@ -181,7 +181,7 @@ export class Schedule extends React.Component {
 						renderItem={this.renderItem}
 						// specify how each date should be rendered. day can be undefined if the item is not first in that day.
 						renderDay={(day, item) => undefined}
-						renderEmptyDate={this.renderEmpty}
+						renderEmptyDate={this._renderEmpty}
 						// specify your item comparison function for increased performance
 						rowHasChanged={(r1, r2) => {
 							return r1.text !== r2.text || this.state.visible

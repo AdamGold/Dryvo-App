@@ -83,8 +83,6 @@ export class Home extends React.Component {
 	}
 
 	render() {
-		let lessonRender
-		lessonRender = this.renderLesson()
 		return (
 			<ScrollView>
 				<View style={styles.container}>
@@ -106,7 +104,7 @@ export class Home extends React.Component {
 						<Text style={styles.rectTitle} testID="schedule">
 							{strings("teacher.home.next_lesson")}
 						</Text>
-						{lessonRender}
+						{this.renderLesson()}
 					</ShadowRect>
 
 					<View style={styles.fullScheduleView}>

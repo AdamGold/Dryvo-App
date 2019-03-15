@@ -13,7 +13,7 @@ import UserWithPic from "../../components/UserWithPic"
 import Separator from "../../components/Separator"
 import { SearchBar, Button, Icon } from "react-native-elements"
 import PageTitle from "../../components/PageTitle"
-import { MAIN_PADDING, floatButton } from "../../consts"
+import { MAIN_PADDING } from "../../consts"
 import { getStudents } from "../../actions/students"
 import { NavigationActions } from "react-navigation"
 

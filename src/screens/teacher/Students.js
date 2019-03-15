@@ -13,7 +13,7 @@ import Row from "../../components/Row"
 import PageTitle from "../../components/PageTitle"
 import UserWithPic from "../../components/UserWithPic"
 import { Icon, SearchBar, Button } from "react-native-elements"
-import { MAIN_PADDING, floatButton, colors } from "../../consts"
+import { MAIN_PADDING, fullButton, colors } from "../../consts"
 import { Dropdown } from "react-native-material-dropdown"
 import { getStudents } from "../../actions/students"
 
@@ -223,7 +223,7 @@ export class Students extends React.Component {
 						this.props.navigation.navigate("NewStudent")
 					}}
 				>
-					<View testID="newStudentButton" style={floatButton}>
+					<View testID="newStudentButton" style={fullButton}>
 						<Text style={styles.buttonText}>
 							{strings("teacher.students.add")}
 						</Text>

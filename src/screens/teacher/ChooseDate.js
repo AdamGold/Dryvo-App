@@ -14,7 +14,7 @@ import Row from "../../components/Row"
 import UserWithPic from "../../components/UserWithPic"
 import Separator from "../../components/Separator"
 import { Icon } from "react-native-elements"
-import { MAIN_PADDING, calendarTheme, floatButton } from "../../consts"
+import { MAIN_PADDING, calendarTheme, fullButton } from "../../consts"
 import Hours from "../../components/Hours"
 import { getDateAndString } from "../../actions/lessons"
 import EmptyState from "../../components/EmptyState"
@@ -93,9 +93,7 @@ export class ChooseDate extends React.Component {
 		)
 	}
 
-	_renderEmpty = () => (
-		<EmptyState image="lessons" text={strings("no_lessons")} />
-	)
+	_renderEmpty = () => <EmptyState image="lessons" />
 
 	render() {
 		return (
@@ -148,7 +146,7 @@ export class ChooseDate extends React.Component {
 						})
 					}}
 				>
-					<View testID="continueButton" style={floatButton}>
+					<View testID="continueButton" style={fullButton}>
 						<Text style={styles.buttonText}>
 							{strings("teacher.new_lesson.continue")}
 						</Text>
@@ -178,9 +176,8 @@ const styles = StyleSheet.create({
 		marginLeft: MAIN_PADDING
 	},
 	schedule: {
-		marginTop: 24,
-		marginLeft: MAIN_PADDING,
-		marginRight: MAIN_PADDING
+		flex: 1,
+		marginTop: 24
 	},
 	hour: {
 		marginTop: -2,

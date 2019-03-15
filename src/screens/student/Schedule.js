@@ -21,6 +21,7 @@ import Hours from "../../components/Hours"
 import { getDateAndString } from "../../actions/lessons"
 import LessonPopup from "../../components/LessonPopup"
 import moment from "moment"
+import EmptyState from "../../components/EmptyState"
 
 export class Schedule extends React.Component {
 	static navigationOptions = () => {
@@ -53,7 +54,7 @@ export class Schedule extends React.Component {
 			{ method: "GET" }
 		)
 		// get lessons until end of week and divide to array with date as key
-		let items = {}
+		let items = { [dates.dateString]: [] }
 		resp.json["data"].forEach(lesson => {
 			const dateString = moment
 				.utc(lesson.date)
@@ -64,12 +65,7 @@ export class Schedule extends React.Component {
 				items[dateString] = [lesson]
 			}
 		})
-		this.setState(prevState => ({
-			items: {
-				...prevState.items,
-				...items
-			}
-		}))
+		this.setState({ items })
 	}
 	lessonPress = item => {
 		let newVisible
@@ -138,10 +134,6 @@ export class Schedule extends React.Component {
 		)
 	}
 
-	renderEmpty = () => {
-		return <Text>Hello empty</Text>
-	}
-
 	onDayPress = day => {
 		this.setState(
 			{
@@ -150,6 +142,16 @@ export class Schedule extends React.Component {
 			() => {
 				this._getItems(day)
 			}
+		)
+	}
+
+	_renderEmpty = () => {
+		return (
+			<EmptyState
+				image="lessons"
+				text={strings("empty_lessons")}
+				style={styles.empty}
+			/>
 		)
 	}
 
@@ -172,7 +174,7 @@ export class Schedule extends React.Component {
 						renderItem={this.renderItem}
 						// specify how each date should be rendered. day can be undefined if the item is not first in that day.
 						renderDay={() => undefined}
-						renderEmptyDate={this.renderEmpty}
+						renderEmptyDate={this._renderEmpty}
 						// specify your item comparison function for increased performance
 						rowHasChanged={(r1, r2) => {
 							return r1.text !== r2.text || this.state.visible
@@ -236,7 +238,8 @@ const styles = StyleSheet.create({
 		color: "gray",
 		alignSelf: "flex-start"
 	},
-	userWithPic: { marginLeft: 10 }
+	userWithPic: { marginLeft: 10 },
+	empty: { marginTop: 100 }
 })
 
 function mapStateToProps(state) {

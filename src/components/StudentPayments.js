@@ -4,6 +4,8 @@ import Separator from "./Separator"
 import Row from "./Row"
 import moment from "moment"
 import { DATE_FORMAT, colors } from "../consts"
+import EmptyState from "./EmptyState"
+import { strings } from "../i18n"
 
 export default class StudentPayment extends React.Component {
 	constructor(props) {
@@ -29,6 +31,14 @@ export default class StudentPayment extends React.Component {
 		)
 	}
 
+	_renderEmpty = () => (
+		<EmptyState
+			image="payments"
+			text={strings("empty_payments")}
+			style={styles.empty}
+		/>
+	)
+
 	render() {
 		let color = colors.green
 		if (this.props.sum < 0) color = "red"
@@ -44,6 +54,7 @@ export default class StudentPayment extends React.Component {
 					data={this.props.payments}
 					renderItem={this.renderPaymentItem}
 					keyExtractor={item => `payment${item.id}`}
+					ListEmptyComponent={this._renderEmpty}
 				/>
 			</Fragment>
 		)

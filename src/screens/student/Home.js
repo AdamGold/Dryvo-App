@@ -84,7 +84,7 @@ export class Home extends React.Component {
 
 	render() {
 		let lessonRender
-		if (this.state.lesson) lessonRender = this.renderLesson()
+		lessonRender = this.renderLesson()
 		return (
 			<ScrollView>
 				<View style={styles.container}>

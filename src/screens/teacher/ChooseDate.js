@@ -133,7 +133,7 @@ export class ChooseDate extends React.Component {
 							testID="scheduleList"
 							data={this.state.items}
 							renderItem={this.renderItem}
-							style={{ marginBottom: 50 }}
+							style={styles.flatList}
 							keyExtractor={item => `item${item.id}`}
 						/>
 					</ShadowRect>
@@ -194,6 +194,12 @@ const styles = StyleSheet.create({
 		color: "#fff",
 		fontSize: 20,
 		fontWeight: "bold"
+	},
+	flatList: {
+		flex: 1,
+		marginBottom: 40,
+		alignSelf: "center",
+		width: "100%"
 	}
 })
 

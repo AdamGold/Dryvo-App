@@ -40,10 +40,12 @@ Array [
       Array [
         Object {
           "amount": 100,
+          "created_at": Date { NaN },
           "id": 1,
         },
         Object {
           "amount": 900,
+          "created_at": Date { NaN },
           "id": 2,
         },
       ]
@@ -94,7 +96,7 @@ Array [
                 }
               }
             >
-              15/03/2019
+              Invalid date
             </Text>
           </View>
           <View
@@ -134,7 +136,7 @@ Array [
                 }
               }
             >
-              15/03/2019
+              Invalid date
             </Text>
           </View>
           <View

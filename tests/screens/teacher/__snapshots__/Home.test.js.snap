@@ -486,7 +486,7 @@ exports[`Home view renders correctly 1`] = `
               <Image
                 source={
                   Object {
-                    "testUri": "../../../assets/images/lessons.png",
+                    "testUri": "../../../assets/images/payments.png",
                   }
                 }
                 style={
@@ -507,7 +507,7 @@ exports[`Home view renders correctly 1`] = `
                   }
                 }
               >
-                אין לך שיעורים!
+                אין לך תשלומים!
               </Text>
             </View>
           </View>

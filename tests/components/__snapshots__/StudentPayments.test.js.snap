@@ -35,6 +35,7 @@ Array [
     }
   />,
   <RCTScrollView
+    ListEmptyComponent={[Function]}
     data={
       Array [
         Object {
@@ -93,7 +94,7 @@ Array [
                 }
               }
             >
-              14/03/2019
+              15/03/2019
             </Text>
           </View>
           <View
@@ -133,7 +134,7 @@ Array [
                 }
               }
             >
-              14/03/2019
+              15/03/2019
             </Text>
           </View>
           <View

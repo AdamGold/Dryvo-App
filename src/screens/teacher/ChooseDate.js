@@ -17,6 +17,7 @@ import { Icon } from "react-native-elements"
 import { MAIN_PADDING, calendarTheme, floatButton } from "../../consts"
 import Hours from "../../components/Hours"
 import { getDateAndString } from "../../actions/lessons"
+import EmptyState from "../../components/EmptyState"
 
 export class ChooseDate extends React.Component {
 	constructor(props) {
@@ -91,6 +92,11 @@ export class ChooseDate extends React.Component {
 			}
 		)
 	}
+
+	_renderEmpty = () => (
+		<EmptyState image="lessons" text={strings("no_lessons")} />
+	)
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -125,6 +131,7 @@ export class ChooseDate extends React.Component {
 					<ShadowRect style={styles.schedule}>
 						<FlatList
 							ItemSeparatorComponent={() => <Separator />}
+							ListEmptyComponent={this._renderEmpty}
 							testID="scheduleList"
 							data={this.state.items}
 							renderItem={this.renderItem}
@@ -171,7 +178,6 @@ const styles = StyleSheet.create({
 		marginLeft: MAIN_PADDING
 	},
 	schedule: {
-		minHeight: 230,
 		marginTop: 24,
 		marginLeft: MAIN_PADDING,
 		marginRight: MAIN_PADDING

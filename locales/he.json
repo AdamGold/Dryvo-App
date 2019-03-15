@@ -14,6 +14,10 @@
 	"edit_lesson": "עריכת שיעור",
 	"done": "סיום",
 	"not_approved": "לא מאושר",
+	"empty_lessons": "אין לך שיעורים!",
+	"empty_payments": "אין לך תשלומים!",
+	"empty_notifications": "אין לך התראות!",
+	"empty_students": "אין לך תלמידים!",
 	"student_profile": {
 		"lessons": "שיעורים",
 		"my_teacher": "המורה שלי",

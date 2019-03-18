@@ -11,6 +11,8 @@ const user = {
 	lesson_duration: 40,
 	teacher_id: 1
 }
+const dateString = "03-14-2019"
+const mockedDate = new Date(Date.UTC(dateString))
 describe("Lesson", () => {
 	test("view renders correctly", () => {
 		const tree = renderer
@@ -18,7 +20,9 @@ describe("Lesson", () => {
 				<Lesson
 					user={user}
 					navigation={{
-						getParam: jest.fn(),
+						getParam: param => {
+							if (param == "date") return dateString
+						},
 						goBack: jest.fn(),
 						navigate: jest.fn()
 					}}
@@ -32,7 +36,7 @@ describe("Lesson", () => {
 
 	test("view renders correctly with existing lesson", () => {
 		const lesson = {
-			date: new Date(Date.UTC("03-14-2019")),
+			date: mockedDate,
 			duration: 80,
 			student: { id: 1, user }
 		}

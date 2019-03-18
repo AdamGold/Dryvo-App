@@ -330,7 +330,7 @@ exports[`Lesson view renders correctly 1`] = `
               testID="dateInput"
               textAlign="right"
               underlineColorAndroid="transparent"
-              value="2019-03-15"
+              value="03-14-2019"
             />
           </View>
         </View>

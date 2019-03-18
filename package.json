@@ -9,6 +9,9 @@
 	"dependencies": {
 		"@babel/core": "^7.2.2",
 		"@babel/preset-env": "^7.3.1",
+		"appcenter": "1.12.2",
+		"appcenter-analytics": "1.12.2",
+		"appcenter-crashes": "1.12.2",
 		"es6-error": "^4.1.1",
 		"es6-symbol": "^3.1.1",
 		"i18n-js": "^3.2.1",
@@ -22,6 +25,7 @@
 		"react-native-global-props": "^1.1.5",
 		"react-native-material-dropdown": "^0.11.1",
 		"react-native-modal": "^9.0.0",
+		"react-native-modal-datetime-picker": "^6.0.0",
 		"react-native-vector-icons": "^6.2.0",
 		"react-navigation": "^3.0.9",
 		"react-redux": "^6.0.0",

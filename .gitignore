@@ -30,6 +30,10 @@ build/
 .gradle
 local.properties
 *.iml
+appcenter-config.json
+# iOS
+ios/Pods
+AppCenter-Config.plist
 
 # node.js
 #

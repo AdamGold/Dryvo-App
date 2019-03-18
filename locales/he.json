@@ -12,6 +12,20 @@
 	"postpone": "דחייה",
 	"not_set": "לא נקבע",
 	"edit_lesson": "עריכת שיעור",
+	"done": "סיום",
+	"not_approved": "לא מאושר",
+	"empty_lessons": "אין לך שיעורים!",
+	"empty_payments": "אין לך תשלומים!",
+	"empty_notifications": "אין לך התראות!",
+	"empty_students": "אין לך תלמידים!",
+	"empty_topics": "עוד לא נלמדו נושאים",
+	"student_profile": {
+		"lessons": "שיעורים",
+		"my_teacher": "המורה שלי",
+		"in_progress_topics": "בתהליך",
+		"finished_topics": "סוימו",
+		"new_topics": "לא הותחלו"
+	},
 	"signup": {
 		"name": "שם מלא",
 		"area": "עיר מגורים",
@@ -42,7 +56,7 @@
 			"title": "התראות"
 		},
 		"new_lesson": {
-			"title": "הוספת שיעור",
+			"title": "פרטי שיעור",
 			"continue": "המשיכו",
 			"date": "תאריך",
 			"hour": "שעה",
@@ -51,7 +65,7 @@
 			"meetup": "איסוף",
 			"dropoff": "הורדה",
 			"topics": "נושאים",
-			"done": "יצירת שיעור",
+			"done": "שליחה",
 			"default": "ברירת מחדל"
 		},
 		"students": {
@@ -62,6 +76,19 @@
 			"balance": "מאזן כספי",
 			"lesson_number": "מספר שיעור",
 			"join_date": "הצטרפות"
+		},
+		"add_payment": {
+			"title1": "הוספת תשלום - בחירת תלמיד",
+			"title2": "הוספת תשלום - כמות",
+			"amount": "סכום"
+		}
+	},
+	"student": {
+		"home": {
+			"payments": "תשלומים"
+		},
+		"new_lesson": {
+			"done": "בקשת שיעור"
 		}
 	},
 	"date": {

@@ -17,7 +17,6 @@ export default class ShadowRect extends React.Component {
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
 		backgroundColor: "#fff",
 		shadowColor: "#000",
 		shadowOffset: {
@@ -27,9 +26,10 @@ const styles = StyleSheet.create({
 		shadowOpacity: 0.09,
 		shadowRadius: 20,
 		elevation: 6,
-		marginLeft: MAIN_PADDING,
-		marginRight: MAIN_PADDING,
 		borderRadius: 4,
-		padding: 20
+		paddingHorizontal: 20,
+		paddingVertical: 12,
+		alignItems: "flex-start",
+		width: "100%"
 	}
 })

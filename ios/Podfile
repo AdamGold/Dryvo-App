@@ -1,0 +1,57 @@
+# Uncomment the next line to define a global platform for your project
+# platform :ios, '9.0'
+
+target 'dryvofront' do
+  pod 'AppCenter/Crashes', '~> 1.13.2'
+  pod 'AppCenter/Analytics', '~> 1.13.2'
+  pod 'AppCenterReactNativeShared', '~> 1.12.2'
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for dryvofront
+  pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
+  pod 'React', :path => '../node_modules/react-native', :subspecs => [
+    'Core',
+    'CxxBridge', # Include this for RN >= 0.47
+    'DevSupport',
+    'RCTText',
+    'RCTNetwork',
+    'RCTWebSocket', # Needed for debugging
+    'RCTAnimation', # Needed for FlatList and animations running on native UI thread
+    'RCTPushNotification',
+  ]
+  pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
+  #Pod file from https://github.com/Microsoft/react-native-code-push/blob/master/docs/setup-ios.md#plugin-installation-ios---cocoapods
+  pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
+  pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
+  
+
+  platform :ios, '9.0'
+  target 'dryvofrontTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  # https://stackoverflow.com/questions/42021796/react-native-xcode-project-product-archive-fails-with-duplicate-symbols-for-arch
+  # https://github.com/facebook/react-native/issues/12814
+  post_install do |installer|
+    installer.pods_project.targets.each do |target|
+      if target.name == "React"
+        target.remove_from_project
+      end
+    end
+  end
+end
+
+target 'dryvofront-tvOS' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for dryvofront-tvOS
+
+  target 'dryvofront-tvOSTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

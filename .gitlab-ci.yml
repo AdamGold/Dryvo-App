@@ -1,4 +1,4 @@
-image: jpkrause/react-native-gitlab-ci-build
+image: node:9.4.0
 
 stages:
     - test

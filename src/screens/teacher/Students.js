@@ -4,7 +4,8 @@ import {
 	Text,
 	TouchableHighlight,
 	StyleSheet,
-	FlatList
+	FlatList,
+	TouchableOpacity
 } from "react-native"
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
@@ -12,8 +13,10 @@ import Row from "../../components/Row"
 import PageTitle from "../../components/PageTitle"
 import UserWithPic from "../../components/UserWithPic"
 import { Icon, SearchBar, Button } from "react-native-elements"
-import { MAIN_PADDING, floatButton } from "../../consts"
+import { MAIN_PADDING, fullButton, colors } from "../../consts"
 import { Dropdown } from "react-native-material-dropdown"
+import { getStudents } from "../../actions/students"
+import EmptyState from "../../components/EmptyState"
 
 export class Students extends React.Component {
 	constructor(props) {
@@ -36,6 +39,9 @@ export class Students extends React.Component {
 		]
 		this.updateSearch = this.updateSearch.bind(this)
 		this._dropdownChange = this._dropdownChange.bind(this)
+		this.navigateToProfile = this.navigateToProfile.bind(this)
+
+		this._getStudents(false)
 	}
 
 	componentDidMount() {
@@ -51,33 +57,15 @@ export class Students extends React.Component {
 		this.willFocusSubscription.remove()
 	}
 
-	_constructAPIUrl = (extra = "") => {
-		if (extra) extra = "&" + extra
-		if (this.state.orderByColumn) {
-			extra += `&order_by=${this.state.orderByColumn} ${
-				this.state.orderByMethod
-			}`
-		}
-		if (!extra.includes("is_active")) extra += "&is_active=true"
-		if (this.state.search) extra += `&name=${this.state.search}`
-		return (
-			"/teacher/students?limit=10&is_approved=true&page=" +
-			this.state.page +
-			extra
-		)
-	}
-
 	_getStudents = async (append = true) => {
-		resp = await this.props.fetchService.fetch(this._constructAPIUrl(), {
-			method: "GET"
-		})
-		let newValue = resp.json["data"]
+		resp = await getStudents(this.props.fetchService, this.state)
+		let newValue = resp.students
 		if (append) {
 			newValue = [...this.state.students, ...newValue]
 		}
 		this.setState({
 			students: newValue,
-			nextUrl: resp.json["next_url"]
+			nextUrl: resp.nextUrl
 		})
 	}
 
@@ -86,51 +74,58 @@ export class Students extends React.Component {
 			this._getStudents(false)
 		})
 	}
+
+	navigateToProfile = () => {
+		this.props.navigation.navigate("StudentProfile")
+	}
+
 	renderItem = ({ item, index }) => {
-		const greenColor = "rgb(24, 199, 20)"
 		let balanceStyle = { color: "red" }
-		let imageBalanceStyle
+		let imageBalanceStyle = { borderColor: "red" }
 		if (item.balance >= 0) {
-			balanceStyle = { color: greenColor }
-			imageBalanceStyle = { borderColor: greenColor }
+			balanceStyle = { color: colors.green }
+			imageBalanceStyle = { borderColor: colors.green }
 		}
 		return (
-			<Row
-				key={`item${item.student_id}`}
-				style={styles.row}
-				leftSide={
-					<Icon
-						style={styles.arrow}
-						name="ios-arrow-back"
-						type="ionicon"
-						color="#000"
-					/>
-				}
-			>
-				<UserWithPic
-					name={item.user.name}
-					extra={
-						<View style={{ alignItems: "flex-start" }}>
-							<Text>
-								{strings("teacher.students.lesson_num")}:{" "}
-								{item.new_lesson_number}
-							</Text>
-							<Text style={balanceStyle}>
-								{strings("teacher.students.balance")}:{" "}
-								{item.balance}₪
-							</Text>
+			<TouchableOpacity onPress={this.navigateToProfile}>
+				<Row
+					key={`item${item.student_id}`}
+					style={styles.row}
+					leftSide={
+						<View style={styles.arrow}>
+							<Icon
+								name="ios-arrow-back"
+								type="ionicon"
+								color="#000"
+							/>
 						</View>
 					}
-					nameStyle={styles.nameStyle}
-					width={54}
-					height={54}
-					style={styles.userWithPic}
-					imageContainerStyle={{
-						...styles.imageContainerStyle,
-						...imageBalanceStyle
-					}}
-				/>
-			</Row>
+				>
+					<UserWithPic
+						name={item.user.name}
+						extra={
+							<View style={{ alignItems: "flex-start" }}>
+								<Text>
+									{strings("teacher.students.lesson_num")}:{" "}
+									{item.new_lesson_number}
+								</Text>
+								<Text style={balanceStyle}>
+									{strings("teacher.students.balance")}:{" "}
+									{item.balance}₪
+								</Text>
+							</View>
+						}
+						nameStyle={styles.nameStyle}
+						width={54}
+						height={54}
+						style={styles.userWithPic}
+						imageContainerStyle={{
+							...styles.imageContainerStyle,
+							...imageBalanceStyle
+						}}
+					/>
+				</Row>
+			</TouchableOpacity>
 		)
 	}
 
@@ -172,6 +167,15 @@ export class Students extends React.Component {
 			}
 		)
 	}
+
+	_renderEmpty = () => (
+		<EmptyState
+			image="students"
+			text={strings("empty_students")}
+			style={styles.empty}
+		/>
+	)
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -223,6 +227,7 @@ export class Students extends React.Component {
 						renderItem={this.renderItem}
 						onEndReached={this.endReached}
 						keyExtractor={item => `item${item.student_id}`}
+						ListEmptyComponent={this._renderEmpty}
 					/>
 				</View>
 				<TouchableHighlight
@@ -231,7 +236,7 @@ export class Students extends React.Component {
 						this.props.navigation.navigate("NewStudent")
 					}}
 				>
-					<View testID="newStudentButton" style={floatButton}>
+					<View testID="newStudentButton" style={fullButton}>
 						<Text style={styles.buttonText}>
 							{strings("teacher.students.add")}
 						</Text>
@@ -246,12 +251,6 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1
 	},
-	headerRow: {
-		flex: 1,
-		flexDirection: "row",
-		alignItems: "center",
-		maxHeight: 60
-	},
 	students: {
 		flex: 1,
 		paddingRight: MAIN_PADDING,
@@ -262,12 +261,9 @@ const styles = StyleSheet.create({
 	row: {
 		marginTop: 24
 	},
-	nameStyle: {},
 	arrow: {
-		flex: 1,
-		marginRight: "auto"
+		marginTop: 12
 	},
-	userWithPic: { marginLeft: 10 },
 	imageContainerStyle: {
 		padding: 2,
 		borderWidth: 2,
@@ -307,6 +303,9 @@ const styles = StyleSheet.create({
 	sortButton: {
 		marginRight: 6,
 		marginTop: 6
+	},
+	empty: {
+		marginTop: 100
 	}
 })
 

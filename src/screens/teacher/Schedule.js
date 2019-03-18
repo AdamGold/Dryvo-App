@@ -15,8 +15,9 @@ import { Icon } from "react-native-elements"
 import Separator from "../../components/Separator"
 import { calendarTheme, MAIN_PADDING } from "../../consts"
 import Hours from "../../components/Hours"
-import { getStartAndEndOfDay } from "../../actions/lessons"
+import { getDateAndString } from "../../actions/lessons"
 import LessonPopup from "../../components/LessonPopup"
+import EmptyState from "../../components/EmptyState"
 
 export class Schedule extends React.Component {
 	static navigationOptions = () => {
@@ -40,12 +41,12 @@ export class Schedule extends React.Component {
 	}
 
 	_getItems = async date => {
-		const dates = getStartAndEndOfDay(date)
+		const dates = getDateAndString(date)
 		const resp = await this.props.fetchService.fetch(
 			"/lessons/?is_approved=true&date=ge:" +
-				dates.startOfDay.toISOString() +
+				dates.date.startOf("day").toISOString() +
 				"&date=le:" +
-				dates.endOfDay.toISOString(),
+				dates.date.endOf("day").toISOString(),
 			{ method: "GET" }
 		)
 		if (!resp.json["data"]) return
@@ -115,12 +116,7 @@ export class Schedule extends React.Component {
 					visible={visible}
 					item={item}
 					onPress={this.lessonPress}
-					onButtonPress={() => {
-						this.lessonPress(item)
-						this.props.navigation.navigate("Lesson", {
-							lesson: item
-						})
-					}}
+					navigation={this.props.navigation}
 				/>
 			</Fragment>
 		)
@@ -147,8 +143,14 @@ export class Schedule extends React.Component {
 		)
 	}
 
-	renderEmpty = () => {
-		return <Text>Hello empty</Text>
+	_renderEmpty = () => {
+		return (
+			<EmptyState
+				image="lessons"
+				text={strings("empty_lessons")}
+				style={styles.empty}
+			/>
+		)
 	}
 
 	onDayPress = day => {
@@ -179,7 +181,7 @@ export class Schedule extends React.Component {
 						renderItem={this.renderItem}
 						// specify how each date should be rendered. day can be undefined if the item is not first in that day.
 						renderDay={(day, item) => undefined}
-						renderEmptyDate={this.renderEmpty}
+						renderEmptyDate={this._renderEmpty}
 						// specify your item comparison function for increased performance
 						rowHasChanged={(r1, r2) => {
 							return r1.text !== r2.text || this.state.visible
@@ -246,7 +248,10 @@ const styles = StyleSheet.create({
 		color: "gray",
 		marginTop: -12
 	},
-	userWithPic: { marginLeft: 10 }
+	userWithPic: { marginLeft: 10 },
+	empty: {
+		marginTop: 100
+	}
 })
 
 function mapStateToProps(state) {

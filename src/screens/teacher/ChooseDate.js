@@ -14,9 +14,10 @@ import Row from "../../components/Row"
 import UserWithPic from "../../components/UserWithPic"
 import Separator from "../../components/Separator"
 import { Icon } from "react-native-elements"
-import { MAIN_PADDING, calendarTheme, floatButton } from "../../consts"
+import { MAIN_PADDING, calendarTheme, fullButton } from "../../consts"
 import Hours from "../../components/Hours"
-import { getStartAndEndOfDay } from "../../actions/lessons"
+import { getDateAndString } from "../../actions/lessons"
+import EmptyState from "../../components/EmptyState"
 
 export class ChooseDate extends React.Component {
 	constructor(props) {
@@ -68,12 +69,12 @@ export class ChooseDate extends React.Component {
 		</Row>
 	)
 	_getItems = async date => {
-		const dates = getStartAndEndOfDay(date)
+		const dates = getDateAndString(date)
 		const resp = await this.props.fetchService.fetch(
 			"/lessons/?is_approved=true&date=ge:" +
-				dates.startOfDay.toISOString() +
+				dates.date.startOf("day").toISOString() +
 				"&date=le:" +
-				dates.endOfDay.toISOString(),
+				dates.date.endOf("day").toISOString(),
 			{ method: "GET" }
 		)
 		this.setState({
@@ -91,6 +92,9 @@ export class ChooseDate extends React.Component {
 			}
 		)
 	}
+
+	_renderEmpty = () => <EmptyState image="lessons" />
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -125,10 +129,11 @@ export class ChooseDate extends React.Component {
 					<ShadowRect style={styles.schedule}>
 						<FlatList
 							ItemSeparatorComponent={() => <Separator />}
+							ListEmptyComponent={this._renderEmpty}
 							testID="scheduleList"
 							data={this.state.items}
 							renderItem={this.renderItem}
-							style={{ marginBottom: 50 }}
+							style={styles.flatList}
 							keyExtractor={item => `item${item.id}`}
 						/>
 					</ShadowRect>
@@ -136,12 +141,12 @@ export class ChooseDate extends React.Component {
 				<TouchableHighlight
 					underlayColor="#ffffff00"
 					onPress={() => {
-						this.props.navigation.navigate("NewLesson", {
+						this.props.navigation.navigate("Lesson", {
 							date: this.state.selected
 						})
 					}}
 				>
-					<View testID="continueButton" style={floatButton}>
+					<View testID="continueButton" style={fullButton}>
 						<Text style={styles.buttonText}>
 							{strings("teacher.new_lesson.continue")}
 						</Text>
@@ -170,7 +175,10 @@ const styles = StyleSheet.create({
 		alignSelf: "flex-start",
 		marginLeft: MAIN_PADDING
 	},
-	schedule: { minHeight: 230, marginTop: 24 },
+	schedule: {
+		flex: 1,
+		marginTop: 24
+	},
 	hour: {
 		marginTop: -2,
 		color: "rgb(12,116,244)"
@@ -186,6 +194,12 @@ const styles = StyleSheet.create({
 		color: "#fff",
 		fontSize: 20,
 		fontWeight: "bold"
+	},
+	flatList: {
+		flex: 1,
+		marginBottom: 40,
+		alignSelf: "center",
+		width: "100%"
 	}
 })
 

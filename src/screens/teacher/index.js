@@ -3,23 +3,44 @@ import {
 	createBottomTabNavigator,
 	createStackNavigator
 } from "react-navigation"
+import { tabBarOptions } from "../consts"
 import Home from "./Home"
 import Notifications from "./Notifications"
 import ChooseDate from "./ChooseDate"
-import NewLesson from "./NewLesson"
+import Lesson from "./Lesson"
 import Students from "./Students"
 import NewStudent from "./NewStudent"
 import Schedule from "./Schedule"
 import { strings } from "../../i18n"
-import { Icon } from "react-native-elements"
+import AddPayment from "./AddPayment"
+import StudentProfile from "../student/Profile"
 
 export default createBottomTabNavigator(
 	{
-		Home: Home,
+		Home: createStackNavigator(
+			{
+				Main: createStackNavigator(
+					{ Home, StudentProfile, Lesson },
+					{
+						initialRouteKey: "Home",
+						headerMode: "none"
+					}
+				),
+				AddPayment
+			},
+			{
+				initialRouteName: "Main",
+				mode: "modal",
+				headerMode: "none",
+				navigationOptions: {
+					headerVisible: false
+				}
+			}
+		),
 		Notifications: Notifications,
 		Add: {
 			screen: createStackNavigator(
-				{ ChooseDate: ChooseDate, NewLesson: NewLesson },
+				{ ChooseDate, Lesson },
 				{
 					initialRouteName: "ChooseDate",
 					headerMode: "none",
@@ -35,10 +56,25 @@ export default createBottomTabNavigator(
 				tabBarTestID: "NewLessonTab"
 			}
 		},
-		Schedule: Schedule,
+		Schedule: createStackNavigator(
+			{ Schedule, StudentProfile, Lesson },
+			{
+				initialRouteKey: "Schedule",
+				headerMode: "none"
+			}
+		),
 		Students: {
 			screen: createStackNavigator(
-				{ Students: Students, NewStudent: NewStudent },
+				{
+					Students: createStackNavigator(
+						{ Students, StudentProfile },
+						{
+							initialRouteKey: "Students",
+							headerMode: "none"
+						}
+					),
+					NewStudent: NewStudent
+				},
 				{
 					mode: "modal",
 					initialRouteName: "Students",
@@ -56,39 +92,5 @@ export default createBottomTabNavigator(
 			}
 		}
 	},
-	{
-		defaultNavigationOptions: ({ navigation }) => ({
-			tabBarIcon: ({ focused, horizontal, tintColor }) => {
-				const { routeName } = navigation.state
-				let iconName
-				let iconType = "material"
-				if (routeName === "Home") {
-					iconName = "home"
-				} else if (routeName === "Notifications") {
-					iconName = "notifications"
-				} else if (routeName === "Add") {
-					iconName = "add-circle"
-				} else if (routeName === "Students") {
-					iconName = "people"
-				} else if (routeName == "Schedule") {
-					iconName = "date-range"
-				}
-
-				// You can return any component that you like here!
-				return (
-					<Icon
-						name={iconName}
-						size={25}
-						color={tintColor}
-						type={iconType}
-					/>
-				)
-			}
-		}),
-		tabBarOptions: {
-			activeTintColor: "rgb(12,116,244)",
-			inactiveTintColor: "black",
-			showLabel: false
-		}
-	}
+	tabBarOptions
 )

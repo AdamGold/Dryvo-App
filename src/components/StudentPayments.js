@@ -40,6 +40,9 @@ export default class StudentPayment extends React.Component {
 	)
 
 	render() {
+		if (this.props.payments.length == 0) {
+			return this._renderEmpty()
+		}
 		let color = colors.green
 		if (this.props.sum < 0) color = "red"
 		return (
@@ -54,7 +57,6 @@ export default class StudentPayment extends React.Component {
 					data={this.props.payments}
 					renderItem={this.renderPaymentItem}
 					keyExtractor={item => `payment${item.id}`}
-					ListEmptyComponent={this._renderEmpty}
 				/>
 			</Fragment>
 		)

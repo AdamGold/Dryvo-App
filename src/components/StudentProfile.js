@@ -1,5 +1,12 @@
 import React, { Fragment } from "react"
-import { View, StyleSheet, Text, Image, TouchableOpacity } from "react-native"
+import {
+	ScrollView,
+	View,
+	StyleSheet,
+	Text,
+	Image,
+	TouchableOpacity
+} from "react-native"
 import { strings } from "../i18n"
 import UserWithPic from "./UserWithPic"
 import ShadowRect from "./ShadowRect"
@@ -111,63 +118,71 @@ export default class StudentProfile extends React.Component {
 			)
 		}
 		return (
-			<View style={styles.container}>
-				<View style={styles.header}>
-					<UserWithPic
-						name={student.user.name}
-						extra={
-							<Text>
-								{student.new_lesson_number}{" "}
-								{strings("student_profile.lessons")}
-							</Text>
-						}
-						width={54}
-						height={54}
-					/>
-					<View style={styles.badges}>
-						<Image
-							style={styles.badge}
-							source={{
-								uri:
-									"https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80"
-							}}
+			<ScrollView>
+				<View style={styles.container}>
+					<View style={styles.header}>
+						<UserWithPic
+							name={student.user.name}
+							extra={
+								<Text>
+									{student.new_lesson_number}{" "}
+									{strings("student_profile.lessons")}
+								</Text>
+							}
+							width={54}
+							height={54}
 						/>
-					</View>
-				</View>
-				{teacherView}
-				<ShadowRect style={styles.rect}>
-					<View style={{ flexDirection: "row" }}>
-						<Text testID="monthlyAmount" style={styles.rectTitle}>
-							{strings("teacher.new_lesson.topics", {
-								topics: this.state.allTopics
-							})}
-						</Text>
-
-						<View
-							style={{
-								flex: 1,
-								marginLeft: "auto",
-								alignItems: "flex-end"
-							}}
-						>
-							<TouchableOpacity
-								onPress={() =>
-									this.props.navigation.navigate("Topics", {
-										topics: this.state.allTopics
-									})
-								}
-							>
-								<Icon
-									name="arrow-back"
-									type="material"
-									size={20}
-								/>
-							</TouchableOpacity>
+						<View style={styles.badges}>
+							<Image
+								style={styles.badge}
+								source={{
+									uri:
+										"https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80"
+								}}
+							/>
 						</View>
 					</View>
-					<TopicsList topics={this.state.combinedTopics} />
-				</ShadowRect>
-			</View>
+					{teacherView}
+					<ShadowRect style={styles.rect}>
+						<View style={{ flexDirection: "row" }}>
+							<Text
+								testID="monthlyAmount"
+								style={styles.rectTitle}
+							>
+								{strings("teacher.new_lesson.topics", {
+									topics: this.state.allTopics
+								})}
+							</Text>
+
+							<View
+								style={{
+									flex: 1,
+									marginLeft: "auto",
+									alignItems: "flex-end"
+								}}
+							>
+								<TouchableOpacity
+									onPress={() =>
+										this.props.navigation.navigate(
+											"Topics",
+											{
+												topics: this.state.allTopics
+											}
+										)
+									}
+								>
+									<Icon
+										name="arrow-back"
+										type="material"
+										size={20}
+									/>
+								</TouchableOpacity>
+							</View>
+						</View>
+						<TopicsList topics={this.state.combinedTopics} />
+					</ShadowRect>
+				</View>
+			</ScrollView>
 		)
 	}
 }
@@ -175,9 +190,10 @@ export default class StudentProfile extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1,
-		marginLeft: MAIN_PADDING,
-		marginRight: MAIN_PADDING,
-		marginTop: 20
+		paddingLeft: MAIN_PADDING,
+		paddingRight: MAIN_PADDING,
+		marginTop: 20,
+		alignItems: "center"
 	},
 	header: {
 		maxHeight: 60,

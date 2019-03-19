@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -15,7 +16,6 @@
 		06437AAE9F2EC791F55BEFF4 /* libPods-dryvofrontTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 49CEAD23B3E7862B8DA4190E /* libPods-dryvofrontTests.a */; };
 		0736122B317A422E941AB381 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5C10BC25E517458EB63B9D94 /* EvilIcons.ttf */; };
 		09BDB68DB64E45A4BDF06970 /* Assistant-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 66B6DF9977A449838FA4DDDA /* Assistant-Regular.ttf */; };
-		10E2FA8C80E6492CB43FA6C2 /* libAppCenterReactNativeAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A82854D6393448DAE743392 /* libAppCenterReactNativeAnalytics.a */; };
 		133E29F31AD74F7200F7D852 /* libRCTLinking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 78C398B91ACF4ADC00677621 /* libRCTLinking.a */; };
 		139105C61AF99C1200B5F7CC /* libRCTSettings.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139105C11AF99BAD00B5F7CC /* libRCTSettings.a */; };
 		139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 139FDEF41B06529B00C62182 /* libRCTWebSocket.a */; };
@@ -45,11 +45,9 @@
 		2DF0FFEE2056DD460020B375 /* libReact.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAD3EA31DF850E9000B6D8A /* libReact.a */; };
 		3AA970F696754DFFABB7C2A1 /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AE7A3168A5104A819D49AA9B /* Zocial.ttf */; };
 		3B36923C3F15451BB92B1657 /* Assistant-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA3DD1A2A44144E6ACBBD895 /* Assistant-ExtraBold.ttf */; };
-		5213D9787FE249DE89A400FF /* libAppCenterReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 48C8E02F48BA428A8B5E2C31 /* libAppCenterReactNative.a */; };
 		5762DC8D7F1346B4A1DA3B27 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8AD1F876166E4CD9A7A46776 /* Feather.ttf */; };
 		5A7B4CD1097E468481EB75FC /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 40E0BF890039459B9BF8DFF5 /* AntDesign.ttf */; };
 		641989AA705549C297BB8D31 /* libRNVectorIcons-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 93BD7B7F6A8D445487A7282A /* libRNVectorIcons-tvOS.a */; };
-		69AB8B3A97404619B0DAE6AA /* libAppCenterReactNativeCrashes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 984D44C3AF5049EE818680DD /* libAppCenterReactNativeCrashes.a */; };
 		6E1FD0E8AE2B423CA6496C37 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F63B2C128C0542208684D3AA /* Foundation.ttf */; };
 		79AD93968B554D16B1B6AD18 /* Assistant-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD34499C10384CCA9ACFED45 /* Assistant-Light.ttf */; };
 		7CC040D71255444BB59ABF54 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAA2AB3497F346C2B35D997A /* Octicons.ttf */; };
@@ -64,6 +62,9 @@
 		A8DFFAB5AC104D0683352A82 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81668C2128BE4DFEA18C4386 /* MaterialIcons.ttf */; };
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		C00CF8E8221C0B970002FE82 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C00CF8E5221C0B620002FE82 /* libRCTAnimation.a */; };
+		C0F4CEA4224068A40078F9CF /* libAppCenterReactNative.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C089E60022400A8E0037F6CC /* libAppCenterReactNative.a */; };
+		C0F4CED0224068B00078F9CF /* libAppCenterReactNativeCrashes.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C089E5F622400A8E0037F6CC /* libAppCenterReactNativeCrashes.a */; };
+		C0F4CED1224068B90078F9CF /* libAppCenterReactNativeAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C089E5FB22400A8E0037F6CC /* libAppCenterReactNativeAnalytics.a */; };
 		D520F0C1312A40A2A8E97291 /* Assistant-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A0A87E27BACB4A638347BA6E /* Assistant-Bold.ttf */; };
 		E0A5E482B90B22A5427BFD1D /* libPods-dryvofront.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 650A7E1DB18DFA8DA5557023 /* libPods-dryvofront.a */; };
 		E19309530CDE4580A29D4884 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55062D345AA74BD787AAAA1E /* Entypo.ttf */; };
@@ -502,10 +503,10 @@
 				8C7B764190B547A2A73832CB /* libRNSecureStorage.a in Frameworks */,
 				2488A38FCCD34656B4865069 /* libRNVectorIcons.a in Frameworks */,
 				C00CF8E8221C0B970002FE82 /* libRCTAnimation.a in Frameworks */,
-				5213D9787FE249DE89A400FF /* libAppCenterReactNative.a in Frameworks */,
 				E0A5E482B90B22A5427BFD1D /* libPods-dryvofront.a in Frameworks */,
-				10E2FA8C80E6492CB43FA6C2 /* libAppCenterReactNativeAnalytics.a in Frameworks */,
-				69AB8B3A97404619B0DAE6AA /* libAppCenterReactNativeCrashes.a in Frameworks */,
+				C0F4CED1224068B90078F9CF /* libAppCenterReactNativeAnalytics.a in Frameworks */,
+				C0F4CEA4224068A40078F9CF /* libAppCenterReactNative.a in Frameworks */,
+				C0F4CED0224068B00078F9CF /* libAppCenterReactNativeCrashes.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

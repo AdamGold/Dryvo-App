@@ -446,6 +446,11 @@ exports[`Topics view renders correctly 1`] = `
           }
         >
           <Image
+            source={
+              Object {
+                "testUri": "../../../assets/images/lessons.png",
+              }
+            }
             style={
               Object {
                 "alignSelf": "center",

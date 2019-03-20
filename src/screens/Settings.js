@@ -14,12 +14,19 @@ import PageTitle from "../components/PageTitle"
 import { NavigationActions } from "react-navigation"
 import { Button, Icon } from "react-native-elements"
 import RectInput from "../components/RectInput"
-import { logout } from "../actions/auth"
+import { logout, setUser } from "../actions/auth"
+import { API_ERROR } from "../reducers/consts"
+import Storage from "../../services/Storage"
 
 export class Settings extends React.Component {
 	constructor(props) {
 		// only here for the test suite to work
 		super(props)
+		this.state = {
+			name: "",
+			area: "",
+			password: ""
+		}
 	}
 
 	logout = () => {
@@ -28,6 +35,34 @@ export class Settings extends React.Component {
 				this.props.navigation.navigate("Auth")
 			})
 		)
+	}
+
+	submitInfo = async () => {
+		try {
+			const resp = await this.props.fetchService.fetch(
+				"/login/edit_data",
+				{
+					method: "POST",
+					body: JSON.stringify({
+						name: this.state.name,
+						area: this.state.area,
+						password: this.state.password
+					})
+				}
+			)
+			await this.props.dispatch(setUser(resp.json.data))
+		} catch (err) {
+			let msg = ""
+			console.log(error)
+			if (error && error.hasOwnProperty("message")) msg = error.message
+			this.props.dispatch({ type: API_ERROR, error: msg })
+		}
+	}
+
+	onChangeText = (param, value) => {
+		this.setState({
+			[param]: value
+		})
 	}
 
 	render() {
@@ -63,20 +98,35 @@ export class Settings extends React.Component {
 						<RectInput
 							label={strings("signup.name")}
 							iconName="person"
+							value={this.state.name}
+							onChangeText={value =>
+								this.onChangeText("name", value)
+							}
 						/>
 						<RectInput
 							label={strings("signup.area")}
 							iconName="person-pin"
+							value={this.state.area}
+							onChangeText={value =>
+								this.onChangeText("area", value)
+							}
 						/>
 						<RectInput
 							label={strings("signin.password")}
 							iconName="security"
+							value={this.state.password}
+							onChangeText={value =>
+								this.onChangeText("password", value)
+							}
 						/>
 						<RectInput
 							label={strings("signin.verify_password")}
 							iconName="security"
 						/>
-						<TouchableOpacity style={styles.button}>
+						<TouchableOpacity
+							style={styles.button}
+							onPress={this.submitInfo.bind(this)}
+						>
 							<View>
 								<Text style={styles.buttonText}>
 									{strings("settings.submit")}
@@ -159,4 +209,10 @@ const styles = StyleSheet.create({
 	leftSide: { flex: 1, marginLeft: "auto" }
 })
 
-export default connect()(Settings)
+function mapStateToProps(state) {
+	return {
+		fetchService: state.fetchService
+	}
+}
+
+export default connect(mapStateToProps)(Settings)

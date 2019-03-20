@@ -66,6 +66,7 @@ export default class RectInput extends React.Component {
 							onSubmitEditing={this.props.onSubmitEditing}
 							onFocus={this.onFocus.bind(this)}
 							onBlur={this.onBlur.bind(this)}
+							onChangeText={this.props.onChangeText}
 						/>
 					</View>
 					<View style={styles.iconView}>

@@ -100,8 +100,8 @@
 		"logout": "התנתק",
 		"work_hours": "שעות עבודה",
 		"notifications": "התראות",
-		"on": "מופעל",
-		"off": "כבוי",
+		"notifications_true": "מופעל",
+		"notifications_false": "כבוי",
 		"support": "תמיכה"
 	},
 	"date": {

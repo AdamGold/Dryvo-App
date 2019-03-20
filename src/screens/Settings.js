@@ -9,24 +9,31 @@ import {
 import { connect } from "react-redux"
 import { strings } from "../i18n"
 import ShadowRect from "../components/ShadowRect"
-import { MAIN_PADDING, floatButtonOnlyStyle } from "../consts"
+import {
+	MAIN_PADDING,
+	floatButtonOnlyStyle,
+	NOTIFICATIONS_KEY
+} from "../consts"
 import PageTitle from "../components/PageTitle"
 import { NavigationActions } from "react-navigation"
 import { Button, Icon } from "react-native-elements"
 import RectInput from "../components/RectInput"
 import { logout, setUser } from "../actions/auth"
 import { API_ERROR } from "../reducers/consts"
-import Storage from "../../services/Storage"
+import Storage from "../services/Storage"
 
 export class Settings extends React.Component {
 	constructor(props) {
 		// only here for the test suite to work
 		super(props)
-		this.state = {
+		this.defaultState = {
 			name: "",
 			area: "",
-			password: ""
+			password: "",
+			notifications: "true"
 		}
+		this.state = this.defaultState
+		this._initNotifications()
 	}
 
 	logout = () => {
@@ -51,6 +58,7 @@ export class Settings extends React.Component {
 				}
 			)
 			await this.props.dispatch(setUser(resp.json.data))
+			this.setState(this.defaultState)
 		} catch (err) {
 			let msg = ""
 			console.log(error)
@@ -65,7 +73,43 @@ export class Settings extends React.Component {
 		})
 	}
 
+	_initNotifications = async () => {
+		const notifications = await Storage.getItem(NOTIFICATIONS_KEY)
+		this.setState({
+			notifications
+		})
+	}
+
+	toggleNotifications = () => {
+		if (this.state.notifications === "true") {
+			this.setState(
+				{
+					notifications: "false"
+				},
+				async () => {
+					await Storage.setItem(
+						NOTIFICATIONS_KEY,
+						this.state.notifications
+					)
+				}
+			)
+		} else {
+			this.setState(
+				{
+					notifications: "true"
+				},
+				async () => {
+					await Storage.setItem(
+						NOTIFICATIONS_KEY,
+						this.state.notifications
+					)
+				}
+			)
+		}
+	}
+
 	render() {
+		console.log(this.state)
 		return (
 			<ScrollView>
 				<View style={styles.container}>
@@ -91,6 +135,32 @@ export class Settings extends React.Component {
 							/>
 						}
 					/>
+					<Text style={styles.rectTitle}>
+						{strings("settings.general")}
+					</Text>
+					<ShadowRect style={styles.rect}>
+						<View style={styles.rectInsideView}>
+							<Text>{strings("settings.work_hours")}</Text>
+						</View>
+						<TouchableOpacity
+							onPress={this.toggleNotifications.bind(this)}
+						>
+							<View style={styles.rectInsideView}>
+								<Text style={styles.rightSide}>
+									{strings("settings.notifications")}
+								</Text>
+								<Text style={styles.leftSide}>
+									{strings(
+										"settings.notifications_" +
+											this.state.notifications
+									)}
+								</Text>
+							</View>
+						</TouchableOpacity>
+						<View style={styles.rectInsideView}>
+							<Text>{strings("settings.support")}</Text>
+						</View>
+					</ShadowRect>
 					<Text style={styles.rectTitle}>
 						{strings("settings.personal_info")}
 					</Text>
@@ -133,25 +203,6 @@ export class Settings extends React.Component {
 								</Text>
 							</View>
 						</TouchableOpacity>
-					</ShadowRect>
-					<Text style={styles.rectTitle}>
-						{strings("settings.general")}
-					</Text>
-					<ShadowRect style={styles.rect}>
-						<View style={styles.rectInsideView}>
-							<Text>{strings("settings.work_hours")}</Text>
-						</View>
-						<View style={styles.rectInsideView}>
-							<Text style={styles.rightSide}>
-								{strings("settings.notifications")}
-							</Text>
-							<Text style={styles.leftSide}>
-								{strings("settings.on")}
-							</Text>
-						</View>
-						<View style={styles.rectInsideView}>
-							<Text>{strings("settings.support")}</Text>
-						</View>
 					</ShadowRect>
 					<TouchableOpacity onPress={this.logout.bind(this)}>
 						<Text style={styles.logout}>

@@ -97,7 +97,10 @@ export class Settings extends React.Component {
 
 	render() {
 		return (
-			<ScrollView>
+			<ScrollView
+				keyboardDismissMode="on-drag"
+				keyboardShouldPersistTaps="always"
+			>
 				<View style={styles.container}>
 					<PageTitle
 						style={styles.title}
@@ -121,32 +124,6 @@ export class Settings extends React.Component {
 							/>
 						}
 					/>
-					<Text style={styles.rectTitle}>
-						{strings("settings.general")}
-					</Text>
-					<ShadowRect style={styles.rect}>
-						<View style={styles.rectInsideView}>
-							<Text>{strings("settings.work_hours")}</Text>
-						</View>
-						<TouchableOpacity
-							onPress={this.toggleNotifications.bind(this)}
-						>
-							<View style={styles.rectInsideView}>
-								<Text style={styles.rightSide}>
-									{strings("settings.notifications")}
-								</Text>
-								<Text style={styles.leftSide}>
-									{strings(
-										"settings.notifications_" +
-											this.state.notifications
-									)}
-								</Text>
-							</View>
-						</TouchableOpacity>
-						<View style={styles.rectInsideView}>
-							<Text>{strings("settings.support")}</Text>
-						</View>
-					</ShadowRect>
 					<Text style={styles.rectTitle}>
 						{strings("settings.personal_info")}
 					</Text>
@@ -186,6 +163,32 @@ export class Settings extends React.Component {
 								</Text>
 							</View>
 						</TouchableOpacity>
+					</ShadowRect>
+					<Text style={styles.rectTitle}>
+						{strings("settings.general")}
+					</Text>
+					<ShadowRect style={styles.rect}>
+						<View style={styles.rectInsideView}>
+							<Text>{strings("settings.work_hours")}</Text>
+						</View>
+						<TouchableOpacity
+							onPress={this.toggleNotifications.bind(this)}
+						>
+							<View style={styles.rectInsideView}>
+								<Text style={styles.rightSide}>
+									{strings("settings.notifications")}
+								</Text>
+								<Text style={styles.leftSide}>
+									{strings(
+										"settings.notifications_" +
+											this.state.notifications
+									)}
+								</Text>
+							</View>
+						</TouchableOpacity>
+						<View style={styles.rectInsideView}>
+							<Text>{strings("settings.support")}</Text>
+						</View>
 					</ShadowRect>
 					<TouchableOpacity onPress={this.logout.bind(this)}>
 						<Text style={styles.logout}>

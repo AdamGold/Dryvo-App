@@ -1,7 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Settings view renders correctly 1`] = `
-<RCTScrollView>
+<RCTScrollView
+  keyboardDismissMode="on-drag"
+  keyboardShouldPersistTaps="always"
+>
   <View>
     <View
       style={
@@ -157,114 +160,6 @@ exports[`Settings view renders correctly 1`] = `
               </View>
             </View>
           </View>
-        </View>
-      </View>
-      <Text
-        style={
-          Object {
-            "alignSelf": "flex-start",
-            "color": "#5c5959",
-            "fontWeight": "bold",
-          }
-        }
-      >
-        כללי
-      </Text>
-      <View
-        style={
-          Object {
-            "alignItems": "flex-start",
-            "backgroundColor": "#fff",
-            "borderRadius": 4,
-            "elevation": 6,
-            "marginBottom": 24,
-            "marginTop": 12,
-            "paddingHorizontal": 0,
-            "paddingVertical": 0,
-            "shadowColor": "#000",
-            "shadowOffset": Object {
-              "height": 6,
-              "width": 0,
-            },
-            "shadowOpacity": 0.09,
-            "shadowRadius": 20,
-            "width": "100%",
-          }
-        }
-      >
-        <View
-          style={
-            Object {
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "flexDirection": "row",
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
-              "width": "100%",
-            }
-          }
-        >
-          <Text>
-            שעות עבודה
-          </Text>
-        </View>
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "borderBottomColor": "#f7f7f7",
-                "borderBottomWidth": 1,
-                "flexDirection": "row",
-                "paddingHorizontal": 20,
-                "paddingVertical": 12,
-                "width": "100%",
-              }
-            }
-          >
-            <Text>
-              התראות
-            </Text>
-            <Text
-              style={
-                Object {
-                  "flex": 1,
-                  "marginLeft": "auto",
-                }
-              }
-            >
-              מופעל
-            </Text>
-          </View>
-        </View>
-        <View
-          style={
-            Object {
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "flexDirection": "row",
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
-              "width": "100%",
-            }
-          }
-        >
-          <Text>
-            תמיכה
-          </Text>
         </View>
       </View>
       <Text
@@ -792,6 +687,114 @@ exports[`Settings view renders correctly 1`] = `
               שמור
             </Text>
           </View>
+        </View>
+      </View>
+      <Text
+        style={
+          Object {
+            "alignSelf": "flex-start",
+            "color": "#5c5959",
+            "fontWeight": "bold",
+          }
+        }
+      >
+        כללי
+      </Text>
+      <View
+        style={
+          Object {
+            "alignItems": "flex-start",
+            "backgroundColor": "#fff",
+            "borderRadius": 4,
+            "elevation": 6,
+            "marginBottom": 24,
+            "marginTop": 12,
+            "paddingHorizontal": 0,
+            "paddingVertical": 0,
+            "shadowColor": "#000",
+            "shadowOffset": Object {
+              "height": 6,
+              "width": 0,
+            },
+            "shadowOpacity": 0.09,
+            "shadowRadius": 20,
+            "width": "100%",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "borderBottomColor": "#f7f7f7",
+              "borderBottomWidth": 1,
+              "flexDirection": "row",
+              "paddingHorizontal": 20,
+              "paddingVertical": 12,
+              "width": "100%",
+            }
+          }
+        >
+          <Text>
+            שעות עבודה
+          </Text>
+        </View>
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "borderBottomColor": "#f7f7f7",
+                "borderBottomWidth": 1,
+                "flexDirection": "row",
+                "paddingHorizontal": 20,
+                "paddingVertical": 12,
+                "width": "100%",
+              }
+            }
+          >
+            <Text>
+              התראות
+            </Text>
+            <Text
+              style={
+                Object {
+                  "flex": 1,
+                  "marginLeft": "auto",
+                }
+              }
+            >
+              מופעל
+            </Text>
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "borderBottomColor": "#f7f7f7",
+              "borderBottomWidth": 1,
+              "flexDirection": "row",
+              "paddingHorizontal": 20,
+              "paddingVertical": 12,
+              "width": "100%",
+            }
+          }
+        >
+          <Text>
+            תמיכה
+          </Text>
         </View>
       </View>
       <View

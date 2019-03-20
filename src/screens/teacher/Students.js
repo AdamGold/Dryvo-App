@@ -75,8 +75,8 @@ export class Students extends React.Component {
 		})
 	}
 
-	navigateToProfile = () => {
-		this.props.navigation.navigate("StudentProfile")
+	navigateToProfile = student => {
+		this.props.navigation.navigate("StudentProfile", { student })
 	}
 
 	renderItem = ({ item, index }) => {
@@ -87,7 +87,7 @@ export class Students extends React.Component {
 			imageBalanceStyle = { borderColor: colors.green }
 		}
 		return (
-			<TouchableOpacity onPress={this.navigateToProfile}>
+			<TouchableOpacity onPress={() => this.navigateToProfile(item)}>
 				<Row
 					key={`item${item.student_id}`}
 					style={styles.row}

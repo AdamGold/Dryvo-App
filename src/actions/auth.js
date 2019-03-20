@@ -72,8 +72,8 @@ export const logout = (callback = () => {}) => {
 		console.log("Logging out")
 		await Storage.removeItem(TOKEN_KEY, true)
 		await Storage.removeItem(REFRESH_TOKEN_KEY, true)
-		dispatch({ type: LOGOUT })
 		callback()
+		dispatch({ type: LOGOUT })
 	}
 }
 

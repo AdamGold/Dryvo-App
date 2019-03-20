@@ -17,7 +17,7 @@ export default class TopicsList extends React.Component {
 
 	_renderEmpty = () => (
 		<EmptyState
-			name="lessons"
+			image="lessons"
 			text={strings("empty_topics")}
 			style={styles.empty}
 		/>
@@ -45,5 +45,8 @@ const styles = StyleSheet.create({
 	},
 	topicText: {
 		alignSelf: "flex-start"
+	},
+	empty: {
+		alignSelf: "center"
 	}
 })

@@ -173,9 +173,6 @@ const styles = StyleSheet.create({
 		marginRight: MAIN_PADDING,
 		marginTop: 20
 	},
-	title: {
-		marginTop: 4
-	},
 	studentsSearchView: { paddingTop: 0 },
 	searchBarContainer: {
 		backgroundColor: "transparent",
@@ -204,6 +201,6 @@ const styles = StyleSheet.create({
 	},
 	row: { marginTop: 20 },
 	closeButton: {
-		marginTop: -4
+		marginTop: -6
 	}
 })

@@ -174,10 +174,7 @@ export class Settings extends React.Component {
 							onChangeText={value =>
 								this.onChangeText("password", value)
 							}
-						/>
-						<RectInput
-							label={strings("signin.verify_password")}
-							iconName="security"
+							secureTextEntry
 						/>
 						<TouchableOpacity
 							style={styles.button}

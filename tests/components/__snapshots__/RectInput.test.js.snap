@@ -55,6 +55,7 @@ exports[`RectInput view renders correctly 1`] = `
         onChangeText={[MockFunction]}
         onFocus={[Function]}
         onSubmitEditing={[MockFunction]}
+        secureTextEntry={false}
         style={
           Object {
             "marginTop": 20,

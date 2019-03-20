@@ -94,7 +94,7 @@
 	},
 	"settings": {
 		"title": "הגדרות",
-		"personal_info": "פרטים אישיים",
+		"personal_info": "פרטים אישיים (מלא רק שדות שברצונך לשנות)",
 		"general": "כללי",
 		"submit": "שמור",
 		"logout": "התנתק",

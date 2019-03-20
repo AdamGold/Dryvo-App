@@ -67,6 +67,9 @@ export default class RectInput extends React.Component {
 							onFocus={this.onFocus.bind(this)}
 							onBlur={this.onBlur.bind(this)}
 							onChangeText={this.props.onChangeText}
+							secureTextEntry={
+								this.props.secureTextEntry || false
+							}
 						/>
 					</View>
 					<View style={styles.iconView}>

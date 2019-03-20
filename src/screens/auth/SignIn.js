@@ -13,27 +13,21 @@ import {
 } from "../../actions/utils"
 import { connect } from "react-redux"
 import { exchangeToken, openFacebook, directLogin } from "../../actions/auth"
-import { Input, Icon } from "react-native-elements"
 import { API_ERROR, POP_ERROR } from "../../reducers/consts"
 import { getLatestError } from "../../error_handling"
-import { loginValidation } from "./validation"
-import validate from "../../actions/validate"
 import { strings } from "../../i18n"
 import { colors, MAIN_PADDING } from "../../consts"
 import Logo from "../../components/Logo"
+import AuthInput from "../../components/AuthInput"
+import validate, { loginValidation } from "../../actions/validate"
 
 export class SignIn extends React.Component {
 	constructor(props) {
 		super(props)
-		this.defaultInputColor = "#c9c9c9"
 		this.state = {
 			email: "",
 			password: "",
-			error: "",
-			emailError: "",
-			passwordError: "",
-			emailColor: this.defaultInputColor,
-			passwordColor: this.defaultInputColor
+			error: ""
 		}
 		this.handleOpenURL = this.handleOpenURL.bind(this)
 		this.login = this.login.bind(this)
@@ -63,11 +57,7 @@ export class SignIn extends React.Component {
 			"willFocus",
 			payload => {
 				this.setState({
-					error: "",
-					passwordError: "",
-					emailError: "",
-					passwordColor: "",
-					emailColor: ""
+					error: ""
 				})
 			}
 		)
@@ -109,23 +99,6 @@ export class SignIn extends React.Component {
 		)
 	}
 
-	onFocus = param => {
-		this.setState({
-			[param + "Color"]: colors.blue
-		})
-	}
-
-	onBlur = param => {
-		this.setState({
-			[param + "Color"]: this.defaultInputColor,
-			[param + "Error"]: validate(
-				param,
-				this.state[param],
-				loginValidation
-			)
-		})
-	}
-
 	render() {
 		return (
 			<View style={styles.container}>
@@ -139,56 +112,25 @@ export class SignIn extends React.Component {
 					>
 						<View style={styles.formContainer}>
 							<Text testID="error">{this.state.error}</Text>
-							<Input
+							<AuthInput
+								name="email"
 								placeholder={strings("signin.email")}
 								onChangeText={email => this.setState({ email })}
-								onFocus={() => this.onFocus("email")}
-								onBlur={() => this.onBlur("email")}
 								value={this.state.email}
 								testID="emailInput"
+								iconName="email"
 								errorMessage={this.state.emailError}
-								inputContainerStyle={styles.inputContainer}
-								inputStyle={styles.input}
-								leftIcon={
-									<View style={styles.inputIcon}>
-										<Icon
-											name="email"
-											type="material"
-											size={20}
-											color={
-												this.state.emailColor ||
-												this.defaultInputColor
-											}
-										/>
-									</View>
-								}
 							/>
-							<Input
+							<AuthInput
+								name="password"
 								placeholder={strings("signin.password")}
 								onChangeText={password =>
 									this.setState({ password })
 								}
-								onFocus={() => this.onFocus("password")}
-								onBlur={() => this.onBlur("password")}
 								value={this.state.password}
-								secureTextEntry={true}
 								testID="passwordInput"
+								iconName="security"
 								errorMessage={this.state.passwordError}
-								inputContainerStyle={styles.inputContainer}
-								inputStyle={styles.input}
-								leftIcon={
-									<View style={styles.inputIcon}>
-										<Icon
-											name="security"
-											type="material"
-											size={20}
-											color={
-												this.state.passwordColor ||
-												this.defaultInputColor
-											}
-										/>
-									</View>
-								}
 							/>
 							<TouchableOpacity
 								testID="signInButton"
@@ -271,16 +213,6 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		color: "#9b9b9b"
 	},
-	input: {
-		padding: 16,
-		textAlign: "right"
-	},
-	inputContainer: {
-		borderWidth: 1,
-		borderRadius: 28,
-		borderColor: "#e0e0e0",
-		marginTop: 20
-	},
 	facebook: {
 		backgroundColor: colors.blue,
 		marginTop: 0
@@ -300,9 +232,6 @@ const styles = StyleSheet.create({
 	},
 	actionButton: {
 		color: colors.blue
-	},
-	inputIcon: {
-		marginLeft: 6
 	}
 })
 

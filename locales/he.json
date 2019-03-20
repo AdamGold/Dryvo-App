@@ -28,7 +28,7 @@
 	},
 	"signup": {
 		"name": "שם מלא",
-		"area": "עיר מגורים",
+		"area": "איזור למידה",
 		"signup_button": "הרשמה"
 	},
 	"signin": {
@@ -37,6 +37,7 @@
 		"facebook_login": "התחבר עם Facebook",
 		"email": "אימייל",
 		"password": "סיסמה",
+		"verify_password": "אימות סיסמה",
 		"invalid_email": "האימייל אינו תקני.",
 		"invalid_password": "סיסמתך צריכה לכלו חמישה תווים לפחות.",
 		"invalid_field": "שדה זה הוא חובה."
@@ -90,6 +91,18 @@
 		"new_lesson": {
 			"done": "בקשת שיעור"
 		}
+	},
+	"settings": {
+		"title": "הגדרות",
+		"personal_info": "פרטים אישיים",
+		"general": "כללי",
+		"submit": "שמור",
+		"logout": "התנתק",
+		"work_hours": "שעות עבודה",
+		"notifications": "התראות",
+		"on": "מופעל",
+		"off": "כבוי",
+		"support": "תמיכה"
 	},
 	"date": {
 		"formats": {

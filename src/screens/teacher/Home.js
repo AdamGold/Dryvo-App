@@ -164,6 +164,10 @@ export class Home extends React.Component {
 		/>
 	)
 
+	_navigateToSettings = () => {
+		this.props.navigation.navigate("Settings")
+	}
+
 	render() {
 		let sumColor = colors.green
 		if (this.state.sum < 0) sumColor = "red"
@@ -171,7 +175,11 @@ export class Home extends React.Component {
 			<ScrollView>
 				<View style={styles.container}>
 					<View style={styles.settingsIcon}>
-						<Icon name="settings" type="material" size={20} />
+						<TouchableOpacity
+							onPress={this._navigateToSettings.bind(this)}
+						>
+							<Icon name="settings" type="material" size={24} />
+						</TouchableOpacity>
 					</View>
 					<View testID="welcomeHeader" style={styles.welcomeHeader}>
 						<Image

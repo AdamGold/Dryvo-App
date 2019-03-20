@@ -1,8 +1,20 @@
 import React from "react"
-import { View, StyleSheet, FlatList } from "react-native"
+import {
+	ScrollView,
+	Text,
+	View,
+	StyleSheet,
+	TouchableOpacity
+} from "react-native"
 import { connect } from "react-redux"
 import { strings } from "../i18n"
 import ShadowRect from "../components/ShadowRect"
+import { MAIN_PADDING, floatButtonOnlyStyle } from "../consts"
+import PageTitle from "../components/PageTitle"
+import { NavigationActions } from "react-navigation"
+import { Button, Icon } from "react-native-elements"
+import RectInput from "../components/RectInput"
+import { logout } from "../actions/auth"
 
 export class Settings extends React.Component {
 	constructor(props) {
@@ -10,21 +22,141 @@ export class Settings extends React.Component {
 		super(props)
 	}
 
+	logout = () => {
+		this.props.dispatch(
+			logout(() => {
+				this.props.navigation.navigate("Auth")
+			})
+		)
+	}
+
 	render() {
 		return (
-			<View style={styles.container}>
-				<ShadowRect>
-					<Text>Notifications</Text>
-				</ShadowRect>
-			</View>
+			<ScrollView>
+				<View style={styles.container}>
+					<PageTitle
+						style={styles.title}
+						title={strings("settings.title")}
+						leftSide={
+							<Button
+								icon={
+									<Icon
+										name="ios-close"
+										type="ionicon"
+										size={36}
+									/>
+								}
+								onPress={() => {
+									this.props.navigation.dispatch(
+										NavigationActions.back()
+									)
+								}}
+								type="clear"
+								style={styles.closeButton}
+							/>
+						}
+					/>
+					<Text style={styles.rectTitle}>
+						{strings("settings.personal_info")}
+					</Text>
+					<ShadowRect style={styles.rect}>
+						<RectInput
+							label={strings("signup.name")}
+							iconName="person"
+						/>
+						<RectInput
+							label={strings("signup.area")}
+							iconName="person-pin"
+						/>
+						<RectInput
+							label={strings("signin.password")}
+							iconName="security"
+						/>
+						<RectInput
+							label={strings("signin.verify_password")}
+							iconName="security"
+						/>
+						<TouchableOpacity style={styles.button}>
+							<View>
+								<Text style={styles.buttonText}>
+									{strings("settings.submit")}
+								</Text>
+							</View>
+						</TouchableOpacity>
+					</ShadowRect>
+					<Text style={styles.rectTitle}>
+						{strings("settings.general")}
+					</Text>
+					<ShadowRect style={styles.rect}>
+						<View style={styles.rectInsideView}>
+							<Text>{strings("settings.work_hours")}</Text>
+						</View>
+						<View style={styles.rectInsideView}>
+							<Text style={styles.rightSide}>
+								{strings("settings.notifications")}
+							</Text>
+							<Text style={styles.leftSide}>
+								{strings("settings.on")}
+							</Text>
+						</View>
+						<View style={styles.rectInsideView}>
+							<Text>{strings("settings.support")}</Text>
+						</View>
+					</ShadowRect>
+					<TouchableOpacity onPress={this.logout.bind(this)}>
+						<Text style={styles.logout}>
+							{strings("settings.logout")}
+						</Text>
+					</TouchableOpacity>
+				</View>
+			</ScrollView>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1
-	}
+		flex: 1,
+		paddingLeft: MAIN_PADDING,
+		paddingRight: MAIN_PADDING,
+		marginTop: 20,
+		alignItems: "center"
+	},
+	closeButton: {
+		marginTop: -6
+	},
+	rect: {
+		marginTop: 12,
+		marginBottom: 24,
+		paddingHorizontal: 0,
+		paddingVertical: 0
+	},
+	rectTitle: {
+		fontWeight: "bold",
+		alignSelf: "flex-start",
+		color: "#5c5959"
+	},
+	rectInsideView: {
+		width: "100%",
+		borderBottomWidth: 1,
+		borderBottomColor: "#f7f7f7",
+		paddingVertical: 6,
+		paddingHorizontal: 20,
+		paddingVertical: 12,
+		flexDirection: "row"
+	},
+	button: { ...floatButtonOnlyStyle, width: "100%", borderRadius: 0 },
+	buttonText: {
+		fontWeight: "bold",
+		fontSize: 20,
+		color: "#fff"
+	},
+	logout: {
+		fontWeight: "bold",
+		alignSelf: "center",
+		color: "red"
+	},
+	leftSide: { flex: 1, marginLeft: "auto" }
 })
 
 export default connect()(Settings)

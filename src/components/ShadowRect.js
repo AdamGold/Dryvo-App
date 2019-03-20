@@ -7,7 +7,7 @@ export default class ShadowRect extends React.Component {
 		return (
 			<View
 				testID={this.props.testID}
-				style={{ ...this.props.style, ...styles.container }}
+				style={{ ...styles.container, ...this.props.style }}
 			>
 				{this.props.children}
 			</View>

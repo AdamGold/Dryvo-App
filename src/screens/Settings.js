@@ -81,35 +81,21 @@ export class Settings extends React.Component {
 	}
 
 	toggleNotifications = () => {
+		let notifications = "true"
 		if (this.state.notifications === "true") {
-			this.setState(
-				{
-					notifications: "false"
-				},
-				async () => {
-					await Storage.setItem(
-						NOTIFICATIONS_KEY,
-						this.state.notifications
-					)
-				}
-			)
-		} else {
-			this.setState(
-				{
-					notifications: "true"
-				},
-				async () => {
-					await Storage.setItem(
-						NOTIFICATIONS_KEY,
-						this.state.notifications
-					)
-				}
-			)
+			notifications = "false"
 		}
+		this.setState(
+			{
+				notifications
+			},
+			async () => {
+				await Storage.setItem(NOTIFICATIONS_KEY, notifications)
+			}
+		)
 	}
 
 	render() {
-		console.log(this.state)
 		return (
 			<ScrollView>
 				<View style={styles.container}>

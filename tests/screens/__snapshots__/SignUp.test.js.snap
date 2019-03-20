@@ -120,7 +120,7 @@ exports[`SignUp view renders correctly 1`] = `
         allowFontScaling={true}
         onBlur={[Function]}
         onChangeText={[Function]}
-        placeholder="עיר מגורים"
+        placeholder="איזור למידה"
         style={
           Object {
             "alignSelf": "center",

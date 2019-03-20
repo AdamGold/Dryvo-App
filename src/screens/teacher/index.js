@@ -14,6 +14,7 @@ import Schedule from "./Schedule"
 import { strings } from "../../i18n"
 import AddPayment from "./AddPayment"
 import StudentProfile from "../student/Profile"
+import Settings from "../Settings"
 
 export default createBottomTabNavigator(
 	{
@@ -26,7 +27,8 @@ export default createBottomTabNavigator(
 						headerMode: "none"
 					}
 				),
-				AddPayment
+				AddPayment,
+				Settings
 			},
 			{
 				initialRouteName: "Main",

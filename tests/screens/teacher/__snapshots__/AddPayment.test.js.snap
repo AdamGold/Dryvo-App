@@ -260,7 +260,6 @@ exports[`AddPaymentChooseStudent view renders correctly 1`] = `
           "fontSize": 20,
           "fontWeight": "bold",
           "marginBottom": 20,
-          "marginTop": 4,
         }
       }
     >
@@ -294,7 +293,7 @@ exports[`AddPaymentChooseStudent view renders correctly 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "marginTop": -4,
+              "marginTop": -6,
               "opacity": 1,
             }
           }

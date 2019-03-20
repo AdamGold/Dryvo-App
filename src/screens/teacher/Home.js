@@ -164,12 +164,23 @@ export class Home extends React.Component {
 		/>
 	)
 
+	_navigateToSettings = () => {
+		this.props.navigation.navigate("Settings")
+	}
+
 	render() {
 		let sumColor = colors.green
 		if (this.state.sum < 0) sumColor = "red"
 		return (
 			<ScrollView>
 				<View style={styles.container}>
+					<View style={styles.settingsIcon}>
+						<TouchableOpacity
+							onPress={this._navigateToSettings.bind(this)}
+						>
+							<Icon name="settings" type="material" size={24} />
+						</TouchableOpacity>
+					</View>
 					<View testID="welcomeHeader" style={styles.welcomeHeader}>
 						<Image
 							style={styles.profilePic}
@@ -283,6 +294,10 @@ const styles = StyleSheet.create({
 		alignSelf: "center",
 		alignItems: "center",
 		marginBottom: 20
+	},
+	settingsIcon: {
+		position: "absolute",
+		right: MAIN_PADDING
 	},
 	welcomeText: {
 		fontFamily: "Assistant-Light",

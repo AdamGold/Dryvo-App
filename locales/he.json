@@ -29,7 +29,10 @@
 	"signup": {
 		"name": "שם מלא",
 		"area": "איזור למידה",
-		"signup_button": "הרשמה"
+		"signup_button": "הרשמה",
+		"sign_as": "הירשם בתור",
+		"student": "תלמיד",
+		"teacher": "מורה"
 	},
 	"signin": {
 		"login_button": "התחברות",

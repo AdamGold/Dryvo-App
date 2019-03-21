@@ -22,7 +22,7 @@ exports[`SignUp view renders correctly 1`] = `
     style={
       Object {
         "left": 26,
-        "marginTop": 20,
+        "marginTop": 12,
         "opacity": 1,
         "position": "absolute",
         "top": 0,
@@ -140,7 +140,9 @@ exports[`SignUp view renders correctly 1`] = `
         />
         <Text
           testID="rerror"
-        />
+        >
+          
+        </Text>
         <View
           style={
             Object {
@@ -265,6 +267,7 @@ exports[`SignUp view renders correctly 1`] = `
               onChangeText={[Function]}
               onFocus={[Function]}
               placeholder="אימייל"
+              secureTextEntry={false}
               style={
                 Object {
                   "alignSelf": "center",
@@ -406,6 +409,7 @@ exports[`SignUp view renders correctly 1`] = `
               onChangeText={[Function]}
               onFocus={[Function]}
               placeholder="שם מלא"
+              secureTextEntry={false}
               style={
                 Object {
                   "alignSelf": "center",
@@ -547,6 +551,7 @@ exports[`SignUp view renders correctly 1`] = `
               onChangeText={[Function]}
               onFocus={[Function]}
               placeholder="איזור למידה"
+              secureTextEntry={false}
               style={
                 Object {
                   "alignSelf": "center",

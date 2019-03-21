@@ -23,7 +23,7 @@ exports[`SignUpAs view renders correctly 1`] = `
     style={
       Object {
         "left": 26,
-        "marginTop": 20,
+        "marginTop": 12,
         "opacity": 1,
         "position": "absolute",
         "top": 0,

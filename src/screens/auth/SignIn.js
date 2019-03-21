@@ -32,7 +32,8 @@ export class SignIn extends React.Component {
 			password: { secureTextEntry: true, iconName: "security" }
 		}
 		Object.keys(this.inputs).forEach(input => {
-			this.state = { ...this.state, [input]: "", [input + "Error"]: "" }
+			this.state[input] = ""
+			this.state[input + "Error"] = ""
 		})
 		this.handleOpenURL = this.handleOpenURL.bind(this)
 		this.login = this.login.bind(this)

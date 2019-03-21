@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Logo view renders correctly 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "flexDirection": "column",
+    }
+  }
+>
+  <Image
+    source={
+      Object {
+        "testUri": "../../../assets/images/logo.png",
+      }
+    }
+    style={
+      Object {
+        "height": 156,
+        "resizeMode": "contain",
+        "width": 196,
+      }
+    }
+  />
+  <Text
+    style={
+      Object {
+        "color": "#fff",
+        "fontFamily": "Montserrat-Bold",
+        "fontSize": 64,
+      }
+    }
+  >
+    Dryvo
+  </Text>
+</View>
+`;

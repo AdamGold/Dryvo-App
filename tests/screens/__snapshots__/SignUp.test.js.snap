@@ -22,6 +22,7 @@ exports[`SignUp view renders correctly 1`] = `
     style={
       Object {
         "left": 26,
+        "marginTop": 20,
         "opacity": 1,
         "position": "absolute",
         "top": 0,
@@ -121,6 +122,22 @@ exports[`SignUp view renders correctly 1`] = `
       keyboardShouldPersistTaps="always"
     >
       <View>
+        <Image
+          source={
+            Object {
+              "testUri": "../../../assets/images/register.png",
+            }
+          }
+          style={
+            Object {
+              "alignSelf": "center",
+              "height": 160,
+              "marginTop": 40,
+              "resizeMode": "contain",
+              "width": 160,
+            }
+          }
+        />
         <Text
           testID="rerror"
         />

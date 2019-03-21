@@ -23,6 +23,7 @@ exports[`SignUpAs view renders correctly 1`] = `
     style={
       Object {
         "left": 26,
+        "marginTop": 20,
         "opacity": 1,
         "position": "absolute",
         "top": 0,
@@ -133,7 +134,7 @@ exports[`SignUpAs view renders correctly 1`] = `
         "justifyContent": "center",
         "marginTop": 40,
         "opacity": 1,
-        "paddingLeft": 26,
+        "padding": 30,
         "shadowColor": "rgb(12,116,244)",
         "shadowOffset": Object {
           "height": 8,
@@ -145,17 +146,42 @@ exports[`SignUpAs view renders correctly 1`] = `
       }
     }
   >
-    <Text
+    <View
       style={
         Object {
-          "color": "#fff",
-          "fontSize": 20,
-          "fontWeight": "bold",
+          "flexDirection": "row",
         }
       }
     >
-      תלמיד
-    </Text>
+      <Image
+        source={
+          Object {
+            "testUri": "../../../assets/images/student.png",
+          }
+        }
+        style={
+          Object {
+            "height": 60,
+            "marginTop": -8,
+            "resizeMode": "contain",
+            "width": 60,
+          }
+        }
+      />
+      <Text
+        style={
+          Object {
+            "color": "#fff",
+            "fontSize": 20,
+            "fontWeight": "bold",
+            "marginLeft": 24,
+            "marginTop": 12,
+          }
+        }
+      >
+        תלמיד
+      </Text>
+    </View>
   </View>
   <View
     accessible={true}
@@ -176,7 +202,7 @@ exports[`SignUpAs view renders correctly 1`] = `
         "justifyContent": "center",
         "marginTop": 40,
         "opacity": 1,
-        "paddingLeft": 26,
+        "padding": 30,
         "shadowColor": "rgba(0,0, 0, 0.2)",
         "shadowOffset": Object {
           "height": 8,
@@ -188,16 +214,41 @@ exports[`SignUpAs view renders correctly 1`] = `
       }
     }
   >
-    <Text
+    <View
       style={
         Object {
-          "fontSize": 20,
-          "fontWeight": "bold",
+          "flexDirection": "row",
         }
       }
     >
-      מורה
-    </Text>
+      <Image
+        source={
+          Object {
+            "testUri": "../../../assets/images/teacher.png",
+          }
+        }
+        style={
+          Object {
+            "height": 60,
+            "marginTop": 8,
+            "resizeMode": "contain",
+            "width": 60,
+          }
+        }
+      />
+      <Text
+        style={
+          Object {
+            "fontSize": 20,
+            "fontWeight": "bold",
+            "marginLeft": 24,
+            "marginTop": 20,
+          }
+        }
+      >
+        מורה
+      </Text>
+    </View>
   </View>
   <View
     accessible={true}

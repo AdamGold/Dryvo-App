@@ -11,7 +11,7 @@ import Teacher from "./screens/teacher"
 import Student from "./screens/student"
 import UserLoading from "./screens/UserLoading"
 import SignIn from "./screens/auth/SignIn"
-import SignUp from "./screens/auth/SignUp"
+import SignUpNav from "./screens/auth/SignUpNav"
 import AuthLoading from "./screens/auth/AuthLoading"
 import configureStore from "./Store"
 import { setCustomText } from "react-native-global-props"
@@ -30,8 +30,15 @@ const AppNav = createSwitchNavigator(
 	}
 )
 const AuthStack = createStackNavigator(
-	{ SignIn: SignIn, SignUp: SignUp },
-	{ mode: "modal", initialRouteName: "SignIn" }
+	{ SignIn: SignIn, SignUp: SignUpNav },
+	{
+		mode: "modal",
+		initialRouteName: "SignIn",
+		headerMode: "none",
+		navigationOptions: {
+			headerVisible: false
+		}
+	}
 )
 
 const navigationPersistenceKey = __DEV__ ? "NavigationStateDEV7" : null

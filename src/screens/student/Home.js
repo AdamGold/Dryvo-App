@@ -5,7 +5,8 @@ import {
 	Text,
 	Image,
 	StyleSheet,
-	TouchableHighlight
+	TouchableHighlight,
+	TouchableOpacity
 } from "react-native"
 import { connect } from "react-redux"
 import ShadowRect from "../../components/ShadowRect"
@@ -37,6 +38,10 @@ export class Home extends React.Component {
 
 		this._getLesson()
 		this._getPayments()
+	}
+
+	_navigateToSettings = () => {
+		this.props.navigation.navigate("Settings")
 	}
 
 	_getLesson = async () => {
@@ -86,6 +91,13 @@ export class Home extends React.Component {
 		return (
 			<ScrollView>
 				<View style={styles.container}>
+					<View style={styles.settingsIcon}>
+						<TouchableOpacity
+							onPress={this._navigateToSettings.bind(this)}
+						>
+							<Icon name="settings" type="material" size={24} />
+						</TouchableOpacity>
+					</View>
 					<View testID="welcomeHeader" style={styles.welcomeHeader}>
 						<Image
 							style={styles.profilePic}
@@ -165,6 +177,10 @@ const styles = StyleSheet.create({
 		paddingLeft: MAIN_PADDING,
 		paddingRight: MAIN_PADDING,
 		alignItems: "center"
+	},
+	settingsIcon: {
+		position: "absolute",
+		right: MAIN_PADDING
 	},
 	profilePic: {
 		width: 44,

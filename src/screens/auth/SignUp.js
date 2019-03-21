@@ -1,75 +1,64 @@
 import React from "react"
-import { View, Text, Button } from "react-native"
-import { Input } from "react-native-elements"
+import {
+	View,
+	Text,
+	StyleSheet,
+	ScrollView,
+	KeyboardAvoidingView,
+	TouchableOpacity,
+	Image
+} from "react-native"
 import { connect } from "react-redux"
 import { register } from "../../actions/auth"
 import { API_ERROR, POP_ERROR } from "../../reducers/consts"
 import { getLatestError } from "../../error_handling"
-import { registerValidation } from "./validation"
-import validate from "../../actions/validate"
+import validate, { registerValidation } from "../../actions/validate"
 import { strings } from "../../i18n"
+import AuthInput from "../../components/AuthInput"
+import { MAIN_PADDING, colors } from "../../consts"
+import { Icon } from "react-native-elements"
 
 export class SignUp extends React.Component {
 	constructor(props) {
 		super(props)
 		this.register = this.register.bind(this)
+		this.role = this.props.navigation.getParam("role")
 		this.state = {
-			email: "",
-			name: "",
-			area: "",
-			password: "",
-			errors: {
-				api: "",
-				emailError: "",
-				nameError: "",
-				areaError: "",
-				passwordError: ""
-			}
+			api_error: ""
 		}
+		this.inputs = {
+			email: {},
+			name: { iconName: "person", placeholder: strings("signup.name") },
+			area: {
+				iconName: "person-pin",
+				placeholder: strings("signup.area")
+			},
+			password: { secureTextEntry: true, iconName: "security" }
+		}
+		Object.keys(this.inputs).forEach(input => {
+			this.state[input] = ""
+			this.state[input + "Error"] = ""
+		})
 	}
 
 	componentDidUpdate() {
 		const apiError = getLatestError(this.props.errors[API_ERROR])
 		if (apiError) {
-			this.setState({ errors: { api: apiError } })
+			this.setState({ api_error: apiError })
 			this.props.dispatch({ type: POP_ERROR, errorType: API_ERROR })
 		}
 	}
 
 	async register() {
-		await this.setState({
-			errors: {
-				api: "", // reset api error because we are sending new reqeuest
-				emailError: validate(
-					"email",
-					this.state.email,
-					registerValidation
-				),
-				nameError: validate(
-					"name",
-					this.state.name,
-					registerValidation
-				),
-				areaError: validate(
-					"area",
-					this.state.area,
-					registerValidation
-				),
-				passwordError: validate(
-					"password",
-					this.state.password,
-					registerValidation
-				)
-			}
+		let error,
+			errors = []
+		Object.keys(this.inputs).forEach(input => {
+			error = validate(input, this.state[input], registerValidation)
+			if (error) errors.push(error)
+			this.setState({ [input + "Error"]: error })
 		})
-		let flag = false // do we have an error?
-		for (var i in this.state.errors) {
-			if (this.state.errors[i]) {
-				flag = true
-				break
-			}
-		}
-		if (flag) return
+
+		if (errors.length > 0) return
 
 		await this.props.dispatch(
 			register(this.state, () => {
@@ -77,92 +66,104 @@ export class SignUp extends React.Component {
 			})
 		)
 	}
+
+	renderInputs = () => {
+		return Object.keys(this.inputs).map((name, index) => {
+			const props = this.inputs[name]
+			return (
+				<AuthInput
+					key={`key${name}`}
+					name={name}
+					placeholder={props.placeholder || strings("signin." + name)}
+					onChangeText={input => this.setState({ [name]: input })}
+					value={this.state[name]}
+					testID={`r${name}Input`}
+					iconName={props.iconName || name}
+					errorMessage={this.state[`${name}Error`]}
+					validation={registerValidation}
+					secureTextEntry={props.secureTextEntry || false}
+				/>
+			)
+		})
+	}
+
 	render() {
 		return (
-			<View>
-				<Text testID="rerror">{this.state.errors["api"]}</Text>
-				<Input
-					placeholder={strings("signin.email")}
-					onChangeText={email => this.setState({ email })}
-					onBlur={() => {
-						const errors = { ...this.state.errors }
-						errors.emailError = validate(
-							"email",
-							this.state.email,
-							registerValidation
-						)
-						this.setState({
-							errors
-						})
+			<View style={styles.container}>
+				<TouchableOpacity
+					onPress={() => {
+						this.props.navigation.goBack()
 					}}
-					value={this.state.email}
-					testID="remailInput"
-					errorMessage={this.state.errors["emailError"]}
-				/>
-				<Input
-					placeholder={strings("signup.name")}
-					onChangeText={name => this.setState({ name })}
-					onBlur={() => {
-						const errors = { ...this.state.errors }
-						errors.nameError = validate(
-							"name",
-							this.state.name,
-							registerValidation
-						)
-						this.setState({
-							errors
-						})
-					}}
-					value={this.state.name}
-					testID="rnameInput"
-					errorMessage={this.state.errors["nameError"]}
-				/>
-				<Input
-					placeholder={strings("signup.area")}
-					onChangeText={area => this.setState({ area })}
-					onBlur={() => {
-						const errors = { ...this.state.errors }
-						errors.areaError = validate(
-							"area",
-							this.state.area,
-							registerValidation
-						)
-						this.setState({
-							errors
-						})
-					}}
-					value={this.state.area}
-					testID="rareaInput"
-					errorMessage={this.state.errors["areaError"]}
-				/>
-				<Input
-					placeholder={strings("signin.password")}
-					onChangeText={password => this.setState({ password })}
-					onBlur={() => {
-						const errors = { ...this.state.errors }
-						errors.passwordError = validate(
-							"password",
-							this.state.password,
-							registerValidation
-						)
-						this.setState({
-							errors
-						})
-					}}
-					value={this.state.password}
-					secureTextEntry={true}
-					testID="rpasswordInput"
-					errorMessage={this.state.errors["passwordError"]}
-				/>
-				<Button
-					title={strings("signup.signup_button")}
-					testID="rsignUpButton"
-					onPress={this.register}
-				/>
+					style={styles.backButton}
+				>
+					<Icon name="arrow-forward" type="material" />
+				</TouchableOpacity>
+				<ScrollView
+					keyboardDismissMode="on-drag"
+					keyboardShouldPersistTaps="always"
+				>
+					<KeyboardAvoidingView
+						behavior="position"
+						style={styles.form}
+					>
+						<Image
+							source={require("../../../assets/images/register.png")}
+							style={styles.bigImage}
+						/>
+						<Text testID="rerror">{this.state.api_error}</Text>
+						{this.renderInputs()}
+						<TouchableOpacity
+							testID="facebookLogin"
+							onPress={this.register}
+							style={styles.button}
+						>
+							<Text style={styles.buttonText}>
+								{strings("signup.signup_button")}
+							</Text>
+						</TouchableOpacity>
+					</KeyboardAvoidingView>
+				</ScrollView>
 			</View>
 		)
 	}
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		paddingLeft: MAIN_PADDING,
+		paddingRight: MAIN_PADDING
+	},
+	bigImage: {
+		resizeMode: "contain",
+		width: 160,
+		height: 160,
+		alignSelf: "center",
+		marginTop: 40
+	},
+	backButton: {
+		position: "absolute",
+		top: 0,
+		left: MAIN_PADDING,
+		marginTop: 12
+	},
+	form: {
+		flex: 1,
+		marginTop: MAIN_PADDING
+	},
+	button: {
+		borderRadius: 32,
+		padding: 20,
+		backgroundColor: colors.blue,
+		width: "100%",
+		marginTop: 20,
+		alignItems: "center"
+	},
+	buttonText: {
+		fontSize: 20,
+		color: "#fff"
+	}
+})
 
 const mapStateToProps = state => {
 	return {

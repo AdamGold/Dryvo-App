@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -70,6 +69,8 @@
 		E19309530CDE4580A29D4884 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55062D345AA74BD787AAAA1E /* Entypo.ttf */; };
 		F147F954A01F415E99B8A621 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B7086BD27064708BC1C0038 /* SimpleLineIcons.ttf */; };
 		FB71924AB27B45FB89F7CD06 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 82C17BF03890467281D0FE80 /* FontAwesome5_Solid.ttf */; };
+		7E91D4BCF47542D2A4FAAB4A /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 933A2BDD0B8E41DB85DD9497 /* Montserrat-Bold.ttf */; };
+		FF43E59D026C4648BF3EC1E3 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 95563BF392D74206BD1C857D /* Montserrat-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -472,6 +473,8 @@
 		FAA2AB3497F346C2B35D997A /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		FACEA6A4119A4245A345EF47 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		FF4E8D5343284714AC2D280B /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
+		933A2BDD0B8E41DB85DD9497 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; name = "Montserrat-Bold.ttf"; path = "../assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		95563BF392D74206BD1C857D /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; name = "Montserrat-Regular.ttf"; path = "../assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -705,6 +708,8 @@
 				BD34499C10384CCA9ACFED45 /* Assistant-Light.ttf */,
 				66B6DF9977A449838FA4DDDA /* Assistant-Regular.ttf */,
 				F24664C4EFAA4957A75FD172 /* Assistant-SemiBold.ttf */,
+				933A2BDD0B8E41DB85DD9497 /* Montserrat-Bold.ttf */,
+				95563BF392D74206BD1C857D /* Montserrat-Regular.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -1410,6 +1415,8 @@
 				09BDB68DB64E45A4BDF06970 /* Assistant-Regular.ttf in Resources */,
 				237E244F267B40E9AA2B9CA3 /* Assistant-SemiBold.ttf in Resources */,
 				973B157FA0B14DABBB401CED /* AppCenter-Config.plist in Resources */,
+				7E91D4BCF47542D2A4FAAB4A /* Montserrat-Bold.ttf in Resources */,
+				FF43E59D026C4648BF3EC1E3 /* Montserrat-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -29,7 +29,10 @@
 	"signup": {
 		"name": "שם מלא",
 		"area": "איזור למידה",
-		"signup_button": "הרשמה"
+		"signup_button": "הרשמה",
+		"sign_as": "הירשם בתור",
+		"student": "תלמיד",
+		"teacher": "מורה"
 	},
 	"signin": {
 		"login_button": "התחברות",
@@ -39,8 +42,10 @@
 		"password": "סיסמה",
 		"verify_password": "אימות סיסמה",
 		"invalid_email": "האימייל אינו תקני.",
-		"invalid_password": "סיסמתך צריכה לכלו חמישה תווים לפחות.",
-		"invalid_field": "שדה זה הוא חובה."
+		"invalid_password": "סיסמתך צריכה לכלול חמישה תווים לפחות.",
+		"invalid_field": "שדה זה הוא חובה.",
+		"or": "או",
+		"not_yet_registered": "עוד אין לך חשבון?"
 	},
 	"teacher": {
 		"home": {

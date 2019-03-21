@@ -14,12 +14,14 @@ import { getLatestError } from "../../error_handling"
 import validate, { registerValidation } from "../../actions/validate"
 import { strings } from "../../i18n"
 import AuthInput from "../../components/AuthInput"
-import { MAIN_PADDING } from "../../consts"
+import { MAIN_PADDING, colors } from "../../consts"
+import { Icon } from "react-native-elements"
 
 export class SignUp extends React.Component {
 	constructor(props) {
 		super(props)
 		this.register = this.register.bind(this)
+		this.role = this.props.navigation.getParam("role")
 		this.state = {
 			email: "",
 			name: "",
@@ -69,7 +71,15 @@ export class SignUp extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<KeyboardAvoidingView behavior="padding" style={{ flex: 1 }}>
+				<TouchableOpacity
+					onPress={() => {
+						this.props.navigation.goBack()
+					}}
+					style={styles.backButton}
+				>
+					<Icon name="arrow-forward" type="material" />
+				</TouchableOpacity>
+				<KeyboardAvoidingView behavior="padding" style={styles.form}>
 					<ScrollView
 						keyboardDismissMode="on-drag"
 						keyboardShouldPersistTaps="always"
@@ -120,7 +130,7 @@ export class SignUp extends React.Component {
 							style={styles.button}
 						>
 							<Text style={styles.buttonText}>
-								{strings("signin.facebook_login")}
+								{strings("signup.signup_button")}
 							</Text>
 						</TouchableOpacity>
 					</ScrollView>
@@ -135,6 +145,27 @@ const styles = StyleSheet.create({
 		flex: 1,
 		paddingLeft: MAIN_PADDING,
 		paddingRight: MAIN_PADDING
+	},
+	backButton: {
+		position: "absolute",
+		top: 0,
+		left: MAIN_PADDING
+	},
+	form: {
+		flex: 1,
+		marginTop: MAIN_PADDING
+	},
+	button: {
+		borderRadius: 32,
+		padding: 20,
+		backgroundColor: colors.blue,
+		width: "100%",
+		marginTop: 20,
+		alignItems: "center"
+	},
+	buttonText: {
+		fontSize: 20,
+		color: "#fff"
 	}
 })
 

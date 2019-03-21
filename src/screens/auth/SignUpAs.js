@@ -6,7 +6,7 @@ import { floatButtonOnlyStyle, colors, MAIN_PADDING } from "../../consts"
 import { strings } from "../../i18n"
 import { NavigationActions } from "react-navigation"
 
-export class SignUp extends React.Component {
+export class SignUpAs extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -20,7 +20,9 @@ export class SignUp extends React.Component {
 	}
 
 	_forward = () => {
-		this.props.navigation.navigate("Second")
+		this.props.navigation.navigate("Second", {
+			role: this.state.selected
+		})
 	}
 	render() {
 		let studentSelected = {},
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
 	closeButton: {
 		position: "absolute",
 		top: 0,
-		right: MAIN_PADDING
+		left: MAIN_PADDING
 	},
 	title: { fontSize: 40, marginTop: 100, fontWeight: "bold" },
 	button: {
@@ -125,4 +127,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default connect()(SignUp)
+export default connect()(SignUpAs)

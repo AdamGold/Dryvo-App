@@ -130,6 +130,7 @@ export class SignIn extends React.Component {
 								value={this.state.password}
 								testID="passwordInput"
 								iconName="security"
+								secureTextEntry={true}
 								errorMessage={this.state.passwordError}
 							/>
 							<TouchableOpacity

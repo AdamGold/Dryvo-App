@@ -1,5 +1,5 @@
 import React from "react"
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native"
+import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native"
 import { connect } from "react-redux"
 import { Icon } from "react-native-elements"
 import { floatButtonOnlyStyle, colors, MAIN_PADDING } from "../../consts"
@@ -58,22 +58,41 @@ export class SignUpAs extends React.Component {
 					style={{ ...styles.button, ...studentSelected }}
 					onPress={() => this._select("student")}
 				>
-					<Text
-						style={{ ...styles.buttonText, ...studentSelectedText }}
-					>
-						{strings("signup.student")}
-					</Text>
+					<View style={styles.row}>
+						<Image
+							source={require("../../../assets/images/student.png")}
+							style={styles.image}
+						/>
+						<Text
+							style={{
+								...styles.buttonText,
+								...studentSelectedText
+							}}
+						>
+							{strings("signup.student")}
+						</Text>
+					</View>
 				</TouchableOpacity>
 
 				<TouchableOpacity
 					style={{ ...styles.button, ...teacherSelected }}
 					onPress={() => this._select("teacher")}
 				>
-					<Text
-						style={{ ...styles.buttonText, ...teacherSelectedText }}
-					>
-						{strings("signup.teacher")}
-					</Text>
+					<View style={styles.row}>
+						<Image
+							source={require("../../../assets/images/teacher.png")}
+							style={{ ...styles.image, marginTop: 8 }}
+						/>
+						<Text
+							style={{
+								...styles.buttonText,
+								...teacherSelectedText,
+								marginTop: 20
+							}}
+						>
+							{strings("signup.teacher")}
+						</Text>
+					</View>
 				</TouchableOpacity>
 
 				<TouchableOpacity
@@ -97,7 +116,8 @@ const styles = StyleSheet.create({
 	closeButton: {
 		position: "absolute",
 		top: 0,
-		left: MAIN_PADDING
+		left: MAIN_PADDING,
+		marginTop: 20
 	},
 	title: { fontSize: 40, marginTop: 100, fontWeight: "bold" },
 	button: {
@@ -109,11 +129,20 @@ const styles = StyleSheet.create({
 		marginTop: 40,
 		alignItems: "flex-start",
 		height: 100,
-		paddingLeft: MAIN_PADDING
+		padding: 30
+	},
+	row: { flexDirection: "row" },
+	image: {
+		resizeMode: "contain",
+		width: 60,
+		height: 60,
+		marginTop: -8
 	},
 	buttonText: {
 		fontWeight: "bold",
-		fontSize: 20
+		fontSize: 20,
+		marginLeft: 24,
+		marginTop: 12
 	},
 	checkButton: {
 		width: 100,

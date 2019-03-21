@@ -5,7 +5,8 @@ import {
 	StyleSheet,
 	ScrollView,
 	KeyboardAvoidingView,
-	TouchableOpacity
+	TouchableOpacity,
+	Image
 } from "react-native"
 import { connect } from "react-redux"
 import { register } from "../../actions/auth"
@@ -84,6 +85,10 @@ export class SignUp extends React.Component {
 						keyboardDismissMode="on-drag"
 						keyboardShouldPersistTaps="always"
 					>
+						<Image
+							source={require("../../../assets/images/register.png")}
+							style={styles.bigImage}
+						/>
 						<Text testID="rerror">{this.state.errors.api}</Text>
 						<AuthInput
 							name="email"
@@ -93,6 +98,7 @@ export class SignUp extends React.Component {
 							testID="remailInput"
 							iconName="email"
 							errorMessage={this.state.errors.email}
+							validation={registerValidation}
 						/>
 						<AuthInput
 							name="name"
@@ -102,6 +108,7 @@ export class SignUp extends React.Component {
 							testID="rnameInput"
 							iconName="person"
 							errorMessage={this.state.errors.name}
+							validation={registerValidation}
 						/>
 						<AuthInput
 							name="area"
@@ -111,6 +118,7 @@ export class SignUp extends React.Component {
 							testID="rareaInput"
 							iconName="person-pin"
 							errorMessage={this.state.errors.area}
+							validation={registerValidation}
 						/>
 						<AuthInput
 							name="password"
@@ -123,6 +131,7 @@ export class SignUp extends React.Component {
 							testID="rpasswordInput"
 							iconName="security"
 							errorMessage={this.state.errors.password}
+							validation={registerValidation}
 						/>
 						<TouchableOpacity
 							testID="facebookLogin"
@@ -146,10 +155,18 @@ const styles = StyleSheet.create({
 		paddingLeft: MAIN_PADDING,
 		paddingRight: MAIN_PADDING
 	},
+	bigImage: {
+		resizeMode: "contain",
+		width: 160,
+		height: 160,
+		alignSelf: "center",
+		marginTop: 40
+	},
 	backButton: {
 		position: "absolute",
 		top: 0,
-		left: MAIN_PADDING
+		left: MAIN_PADDING,
+		marginTop: 20
 	},
 	form: {
 		flex: 1,

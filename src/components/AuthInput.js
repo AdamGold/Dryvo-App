@@ -22,7 +22,11 @@ export default class AuthInput extends React.Component {
 	onBlur = () => {
 		this.setState({
 			selectedColor: "",
-			error: validate(this.props.name, this.props.value, loginValidation)
+			error: validate(
+				this.props.name,
+				this.props.value,
+				this.props.validation
+			)
 		})
 	}
 	render() {

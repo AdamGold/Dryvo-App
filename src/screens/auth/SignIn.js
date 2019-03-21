@@ -27,7 +27,9 @@ export class SignIn extends React.Component {
 		this.state = {
 			email: "",
 			password: "",
-			error: ""
+			error: "",
+			emailError: "",
+			passwordError: ""
 		}
 		this.handleOpenURL = this.handleOpenURL.bind(this)
 		this.login = this.login.bind(this)
@@ -120,6 +122,7 @@ export class SignIn extends React.Component {
 								testID="emailInput"
 								iconName="email"
 								errorMessage={this.state.emailError}
+								validation={loginValidation}
 							/>
 							<AuthInput
 								name="password"
@@ -132,6 +135,7 @@ export class SignIn extends React.Component {
 								iconName="security"
 								secureTextEntry={true}
 								errorMessage={this.state.passwordError}
+								validation={loginValidation}
 							/>
 							<TouchableOpacity
 								testID="signInButton"

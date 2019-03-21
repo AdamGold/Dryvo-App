@@ -44,8 +44,8 @@ exports[`SignIn view renders correctly 1`] = `
         style={
           Object {
             "color": "#fff",
+            "fontFamily": "Montserrat-Bold",
             "fontSize": 40,
-            "fontWeight": "bold",
           }
         }
       >

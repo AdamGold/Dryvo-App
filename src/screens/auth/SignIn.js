@@ -1,30 +1,42 @@
 import React from "react"
-import { View, Button, Text } from "react-native"
+import {
+	View,
+	ScrollView,
+	Text,
+	StyleSheet,
+	TouchableOpacity,
+	KeyboardAvoidingView
+} from "react-native"
 import {
 	deepLinkingListener,
 	deepLinkingRemoveListener
 } from "../../actions/utils"
 import { connect } from "react-redux"
 import { exchangeToken, openFacebook, directLogin } from "../../actions/auth"
-import { Input } from "react-native-elements"
 import { API_ERROR, POP_ERROR } from "../../reducers/consts"
 import { getLatestError } from "../../error_handling"
-import { loginValidation } from "./validation"
-import validate from "../../actions/validate"
 import { strings } from "../../i18n"
+import { colors, MAIN_PADDING } from "../../consts"
+import Logo from "../../components/Logo"
+import AuthInput from "../../components/AuthInput"
+import validate, { loginValidation } from "../../actions/validate"
 
 export class SignIn extends React.Component {
 	constructor(props) {
 		super(props)
-		this.login = this.login.bind(this)
 		this.state = {
-			email: "",
-			password: "",
-			error: "",
-			emailError: "",
-			passwordError: ""
+			error: ""
 		}
+		this.inputs = {
+			email: {},
+			password: { secureTextEntry: true, iconName: "security" }
+		}
+		Object.keys(this.inputs).forEach(input => {
+			this.state[input] = ""
+			this.state[input + "Error"] = ""
+		})
 		this.handleOpenURL = this.handleOpenURL.bind(this)
+		this.login = this.login.bind(this)
 	}
 
 	handleOpenURL = async event => {
@@ -51,9 +63,7 @@ export class SignIn extends React.Component {
 			"willFocus",
 			payload => {
 				this.setState({
-					error: "",
-					passwordError: "",
-					emailError: ""
+					error: ""
 				})
 			}
 		)
@@ -74,19 +84,15 @@ export class SignIn extends React.Component {
 	}
 
 	async login() {
-		const emailError = validate("email", this.state.email, loginValidation)
-		const passwordError = validate(
-			"password",
-			this.state.password,
-			loginValidation
-		)
-
-		this.setState({
-			emailError: emailError,
-			passwordError: passwordError
+		let error,
+			errors = []
+		Object.keys(this.inputs).forEach(input => {
+			error = validate(input, this.state[input], loginValidation)
+			if (error) errors.push(error)
+			this.setState({ [input + "Error"]: error })
 		})
 
-		if (emailError || passwordError) return
+		if (errors.length > 0) return
 
 		await this.props.dispatch(
 			directLogin(this.state.email, this.state.password, () => {
@@ -94,67 +100,141 @@ export class SignIn extends React.Component {
 			})
 		)
 	}
-
+	renderInputs = () => {
+		return Object.keys(this.inputs).map((name, index) => {
+			const props = this.inputs[name]
+			return (
+				<AuthInput
+					key={`key${name}`}
+					name={name}
+					placeholder={strings("signin." + name)}
+					onChangeText={input => this.setState({ [name]: input })}
+					value={this.state[name]}
+					testID={`${name}Input`}
+					iconName={props.iconName || name}
+					errorMessage={this.state[`${name}Error`]}
+					validation={loginValidation}
+					secureTextEntry={props.secureTextEntry || false}
+				/>
+			)
+		})
+	}
 	render() {
 		return (
-			<View>
-				<Text testID="error">{this.state.error}</Text>
-				<Input
-					placeholder={strings("signin.email")}
-					onChangeText={email => this.setState({ email })}
-					onBlur={() => {
-						this.setState({
-							emailError: validate(
-								"email",
-								this.state.email,
-								loginValidation
-							)
-						})
-					}}
-					value={this.state.email}
-					testID="emailInput"
-					errorMessage={this.state.emailError}
-				/>
-				<Input
-					placeholder={strings("signin.password")}
-					onChangeText={password => this.setState({ password })}
-					onBlur={() => {
-						this.setState({
-							passwordError: validate(
-								"password",
-								this.state.password,
-								loginValidation
-							)
-						})
-					}}
-					value={this.state.password}
-					secureTextEntry={true}
-					testID="passwordInput"
-					errorMessage={this.state.passwordError}
-				/>
-				<Button
-					testID="signInButton"
-					title={strings("signin.login_button")}
-					onPress={this.login}
-				/>
-				<Button
-					title={strings("signin.signup_button")}
-					testID="signUpButton"
-					onPress={() => {
-						this.props.navigation.navigate("SignUp")
-					}}
-				/>
-				<Button
-					title={strings("signin.facebook_login")}
-					testID="facebookLogin"
-					onPress={() => {
-						openFacebook()
-					}}
-				/>
+			<View style={styles.container}>
+				<View style={styles.topLogo}>
+					<Logo size="medium" />
+				</View>
+				<KeyboardAvoidingView behavior="padding">
+					<ScrollView
+						keyboardDismissMode="on-drag"
+						keyboardShouldPersistTaps="always"
+					>
+						<View style={styles.formContainer}>
+							<Text testID="error">{this.state.error}</Text>
+							{this.renderInputs()}
+							<TouchableOpacity
+								testID="signInButton"
+								onPress={this.login}
+								style={styles.button}
+							>
+								<Text style={styles.buttonText}>
+									{strings("signin.login_button")}
+								</Text>
+							</TouchableOpacity>
+							<Text style={styles.or}>
+								{strings("signin.or")}
+							</Text>
+							<TouchableOpacity
+								testID="facebookLogin"
+								onPress={openFacebook}
+								style={{
+									...styles.button,
+									...styles.facebook
+								}}
+							>
+								<Text
+									style={{
+										...styles.buttonText,
+										color: "#fff"
+									}}
+								>
+									{strings("signin.facebook_login")}
+								</Text>
+							</TouchableOpacity>
+							<TouchableOpacity
+								testID="signUpButton"
+								onPress={() => {
+									this.props.navigation.navigate("SignUp")
+								}}
+							>
+								<View style={styles.signUpButton}>
+									<Text style={styles.callToAction}>
+										{strings("signin.not_yet_registered")}
+									</Text>
+									<Text style={styles.actionButton}>
+										{" "}
+										{strings("signin.signup_button")}
+									</Text>
+								</View>
+							</TouchableOpacity>
+						</View>
+					</ScrollView>
+				</KeyboardAvoidingView>
 			</View>
 		)
 	}
 }
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1
+	},
+	topLogo: {
+		flex: 2,
+		justifyContent: "center",
+		backgroundColor: colors.blue,
+		maxHeight: 240
+	},
+	formContainer: {
+		flex: 3,
+		paddingLeft: MAIN_PADDING,
+		paddingRight: MAIN_PADDING,
+		alignItems: "center"
+	},
+	button: {
+		borderRadius: 32,
+		padding: 20,
+		backgroundColor: "#ececec",
+		width: "100%",
+		marginTop: 20,
+		alignItems: "center"
+	},
+	buttonText: {
+		fontSize: 20,
+		color: "#9b9b9b"
+	},
+	facebook: {
+		backgroundColor: colors.blue,
+		marginTop: 0
+	},
+	or: {
+		marginVertical: 16,
+		fontWeight: "bold",
+		fontSize: 20,
+		color: "#c9c9c9"
+	},
+	callToAction: {
+		color: "#9b9b9b"
+	},
+	signUpButton: {
+		flexDirection: "row",
+		marginTop: 20
+	},
+	actionButton: {
+		color: colors.blue
+	}
+})
 
 const mapStateToProps = state => {
 	return {

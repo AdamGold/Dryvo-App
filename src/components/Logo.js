@@ -45,7 +45,7 @@ export default class Logo extends React.Component {
 
 const styles = StyleSheet.create({
 	text: {
-		fontWeight: "bold",
+		fontFamily: "Montserrat-Bold",
 		color: "#fff"
 	},
 	column: {

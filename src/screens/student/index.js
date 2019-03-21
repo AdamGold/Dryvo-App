@@ -1,4 +1,3 @@
-import React, { Component } from "react"
 import {
 	createBottomTabNavigator,
 	createStackNavigator
@@ -9,11 +8,24 @@ import Notifications from "./Notifications"
 import Lesson from "./Lesson"
 import Schedule from "./Schedule"
 import Profile from "./Profile"
-import Topics from "../Topics"
+import Settings from "../Settings"
 
 export default createBottomTabNavigator(
 	{
-		Home,
+		Home: createStackNavigator(
+			{
+				Home,
+				Settings
+			},
+			{
+				initialRouteName: "Home",
+				mode: "modal",
+				headerMode: "none",
+				navigationOptions: {
+					headerVisible: false
+				}
+			}
+		),
 		Notifications,
 		Add: Lesson,
 		Schedule,

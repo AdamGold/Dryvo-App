@@ -142,9 +142,7 @@ const styles = StyleSheet.create({
 		marginTop: 40
 	},
 	backButton: {
-		position: "absolute",
-		top: 0,
-		left: MAIN_PADDING,
+		alignSelf: "flex-start",
 		marginTop: 12
 	},
 	form: {

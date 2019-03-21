@@ -21,11 +21,9 @@ exports[`SignUp view renders correctly 1`] = `
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "left": 26,
+        "alignSelf": "flex-start",
         "marginTop": 12,
         "opacity": 1,
-        "position": "absolute",
-        "top": 0,
       }
     }
   >

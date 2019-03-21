@@ -21,7 +21,8 @@ import LessonPopup from "../../components/LessonPopup"
 import { MAIN_PADDING, colors } from "../../consts"
 import { getPayments } from "../../actions/lessons"
 import EmptyState from "../../components/EmptyState"
-import ListLoader from "../../components/ListLoader"
+import LessonsLoader from "../../components/LessonsLoader"
+import PaymentsLoader from "../../components/PaymentsLoader"
 
 export class Home extends React.Component {
 	static navigationOptions = () => {
@@ -178,7 +179,7 @@ export class Home extends React.Component {
 		if (this.state.loading) {
 			return (
 				<View style={styles.listLoader}>
-					<ListLoader />
+					<LessonsLoader />
 				</View>
 			)
 		}
@@ -198,7 +199,7 @@ export class Home extends React.Component {
 		if (this.state.loading) {
 			return (
 				<View style={styles.listLoader}>
-					<ListLoader />
+					<PaymentsLoader />
 				</View>
 			)
 		}
@@ -391,7 +392,7 @@ const styles = StyleSheet.create({
 		marginLeft: -2
 	},
 	paymentRow: {
-		marginTop: 20
+		marginTop: 12
 	},
 	listLoader: { marginTop: 20, alignSelf: "center" }
 })

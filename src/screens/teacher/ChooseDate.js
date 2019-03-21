@@ -18,6 +18,7 @@ import { MAIN_PADDING, calendarTheme, fullButton } from "../../consts"
 import Hours from "../../components/Hours"
 import { getDateAndString } from "../../actions/lessons"
 import EmptyState from "../../components/EmptyState"
+import LessonsLoader from "../../components/LessonsLoader"
 
 export class ChooseDate extends React.Component {
 	constructor(props) {
@@ -26,7 +27,8 @@ export class ChooseDate extends React.Component {
 		this.state = {
 			day: date,
 			selected: date.toJSON().slice(0, 10),
-			items: []
+			items: [],
+			loading: true
 		}
 		this._getItems(date)
 		this.onDayPress = this.onDayPress.bind(this)
@@ -78,14 +80,16 @@ export class ChooseDate extends React.Component {
 			{ method: "GET" }
 		)
 		this.setState({
-			items: resp.json["data"]
+			items: resp.json["data"],
+			loading: false
 		})
 	}
 	onDayPress = day => {
 		this.setState(
 			{
 				day: day,
-				selected: day.dateString
+				selected: day.dateString,
+				loading: true
 			},
 			() => {
 				this._getItems(day)
@@ -93,8 +97,30 @@ export class ChooseDate extends React.Component {
 		)
 	}
 
-	_renderEmpty = () => <EmptyState image="lessons" />
+	_renderEmpty = () => (
+		<EmptyState image="lessons" text={strings("empty_lessons")} />
+	)
 
+	_renderLessons = () => {
+		if (this.state.loading) {
+			return (
+				<View style={styles.listLoader}>
+					<LessonsLoader width={340} />
+				</View>
+			)
+		}
+		return (
+			<FlatList
+				ItemSeparatorComponent={() => <Separator />}
+				ListEmptyComponent={this._renderEmpty}
+				testID="scheduleList"
+				data={this.state.items}
+				renderItem={this.renderItem}
+				style={styles.flatList}
+				keyExtractor={item => `item${item.id}`}
+			/>
+		)
+	}
 	render() {
 		return (
 			<View style={styles.container}>
@@ -127,15 +153,7 @@ export class ChooseDate extends React.Component {
 						{dates("date.formats.short", this.state.selected)}
 					</Text>
 					<ShadowRect style={styles.schedule}>
-						<FlatList
-							ItemSeparatorComponent={() => <Separator />}
-							ListEmptyComponent={this._renderEmpty}
-							testID="scheduleList"
-							data={this.state.items}
-							renderItem={this.renderItem}
-							style={styles.flatList}
-							keyExtractor={item => `item${item.id}`}
-						/>
+						{this._renderLessons()}
 					</ShadowRect>
 				</View>
 				<TouchableHighlight
@@ -180,7 +198,6 @@ const styles = StyleSheet.create({
 		marginTop: 24
 	},
 	hour: {
-		marginTop: -2,
 		color: "rgb(12,116,244)"
 	},
 	nameStyle: {

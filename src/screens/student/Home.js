@@ -33,13 +33,18 @@ export class Home extends React.Component {
 		this.state = {
 			lesson: "",
 			payments: [],
-			lessonPopupVisible: false
+			lessonPopupVisible: false,
+			loading: true
 		}
 
-		this._getLesson()
-		this._getPayments()
+		this._handleRequests()
 	}
 
+	_handleRequests = async () => {
+		await this._getLesson()
+		await this._getPayments()
+		this.setState({ loading: false })
+	}
 	_navigateToSettings = () => {
 		this.props.navigation.navigate("Settings")
 	}
@@ -75,6 +80,7 @@ export class Home extends React.Component {
 					onPress={() => this.lessonPress()}
 					testID="lessonRowTouchable"
 					lesson={lesson}
+					loading={this.state.loading}
 				/>
 				<LessonPopup
 					visible={this.state.lessonPopupVisible}
@@ -162,6 +168,7 @@ export class Home extends React.Component {
 						<StudentPayments
 							sum={this.props.user.balance}
 							payments={this.state.payments.slice(0, 2)}
+							loading={this.state.loading}
 						/>
 					</ShadowRect>
 				</View>

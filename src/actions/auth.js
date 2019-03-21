@@ -22,11 +22,12 @@ const loginOrRegister = async (
 		})
 		await setTokens(resp.json.auth_token, resp.json.refresh_token)
 		dispatch(setUser(resp.json.user))
-		callback()
+		callback(resp.json.user)
 	} catch (error) {
 		let msg = ""
 		if (error && error.hasOwnProperty("message")) msg = error.message
 		dispatch({ type: API_ERROR, error: msg })
+		callback(null)
 	}
 }
 

@@ -19,6 +19,7 @@ import { strings } from "../../i18n"
 import { colors, MAIN_PADDING } from "../../consts"
 import Logo from "../../components/Logo"
 import AuthInput from "../../components/AuthInput"
+import LoadingButton from "../../components/LoadingButton"
 import validate, { loginValidation } from "../../actions/validate"
 
 export class SignIn extends React.Component {
@@ -93,10 +94,12 @@ export class SignIn extends React.Component {
 		})
 
 		if (errors.length > 0) return
-
+		this.loginButton.showLoading(true)
 		await this.props.dispatch(
-			directLogin(this.state.email, this.state.password, () => {
-				this.props.navigation.navigate("App")
+			directLogin(this.state.email, this.state.password, user => {
+				if (user) {
+					this.props.navigation.navigate("App")
+				}
 			})
 		)
 	}
@@ -119,6 +122,7 @@ export class SignIn extends React.Component {
 			)
 		})
 	}
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -131,37 +135,27 @@ export class SignIn extends React.Component {
 						keyboardShouldPersistTaps="always"
 					>
 						<View style={styles.formContainer}>
-							<Text testID="error">{this.state.error}</Text>
+							<Text style={styles.error} testID="error">
+								{this.state.error
+									? strings(`errors.${this.state.error}`)
+									: ""}
+							</Text>
 							{this.renderInputs()}
-							<TouchableOpacity
-								testID="signInButton"
+							<LoadingButton
+								title={strings("signin.login_button")}
 								onPress={this.login}
-								style={styles.button}
-							>
-								<Text style={styles.buttonText}>
-									{strings("signin.login_button")}
-								</Text>
-							</TouchableOpacity>
+								ref={c => (this.loginButton = c)}
+								style={styles.loginButton}
+								textStyle={styles.loginText}
+							/>
 							<Text style={styles.or}>
 								{strings("signin.or")}
 							</Text>
-							<TouchableOpacity
-								testID="facebookLogin"
+							<LoadingButton
+								title={strings("signin.facebook_login")}
 								onPress={openFacebook}
-								style={{
-									...styles.button,
-									...styles.facebook
-								}}
-							>
-								<Text
-									style={{
-										...styles.buttonText,
-										color: "#fff"
-									}}
-								>
-									{strings("signin.facebook_login")}
-								</Text>
-							</TouchableOpacity>
+								ref={c => (this.facebookButton = c)}
+							/>
 							<TouchableOpacity
 								testID="signUpButton"
 								onPress={() => {
@@ -190,6 +184,10 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1
 	},
+	error: {
+		marginTop: 20,
+		color: "red"
+	},
 	topLogo: {
 		flex: 2,
 		justifyContent: "center",
@@ -202,21 +200,12 @@ const styles = StyleSheet.create({
 		paddingRight: MAIN_PADDING,
 		alignItems: "center"
 	},
-	button: {
-		borderRadius: 32,
-		padding: 20,
+	loginButton: {
 		backgroundColor: "#ececec",
-		width: "100%",
-		marginTop: 20,
-		alignItems: "center"
+		marginTop: 20
 	},
-	buttonText: {
-		fontSize: 20,
+	loginText: {
 		color: "#9b9b9b"
-	},
-	facebook: {
-		backgroundColor: colors.blue,
-		marginTop: 0
 	},
 	or: {
 		marginVertical: 16,

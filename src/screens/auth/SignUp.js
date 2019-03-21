@@ -15,8 +15,10 @@ import { getLatestError } from "../../error_handling"
 import validate, { registerValidation } from "../../actions/validate"
 import { strings } from "../../i18n"
 import AuthInput from "../../components/AuthInput"
-import { MAIN_PADDING, colors } from "../../consts"
+import { MAIN_PADDING, DEFAULT_MESSAGE_TIME } from "../../consts"
 import { Icon } from "react-native-elements"
+import LoadingButton from "../../components/LoadingButton"
+import SlidingMessage from "../../components/SlidingMessage"
 
 export class SignUp extends React.Component {
 	constructor(props) {
@@ -24,7 +26,8 @@ export class SignUp extends React.Component {
 		this.register = this.register.bind(this)
 		this.role = this.props.navigation.getParam("role")
 		this.state = {
-			api_error: ""
+			api_error: "",
+			success: false
 		}
 		this.inputs = {
 			email: {},
@@ -59,10 +62,19 @@ export class SignUp extends React.Component {
 		})
 
 		if (errors.length > 0) return
+		this.button.showLoading(true)
 
 		await this.props.dispatch(
-			register(this.state, () => {
-				this.props.navigation.navigate("App")
+			register(this.state, user => {
+				this.button.showLoading(false)
+				if (user) {
+					this.setState({ success: true }, () => {
+						setTimeout(
+							() => this.props.navigation.navigate("App"),
+							DEFAULT_MESSAGE_TIME
+						)
+					})
+				}
 			})
 		)
 	}
@@ -88,8 +100,14 @@ export class SignUp extends React.Component {
 	}
 
 	render() {
+		console.log(this.state.success)
 		return (
 			<View style={styles.container}>
+				<SlidingMessage
+					visible={this.state.success}
+					color="green"
+					text={strings("signup.success")}
+				/>
 				<TouchableOpacity
 					onPress={() => {
 						this.props.navigation.goBack()
@@ -105,22 +123,25 @@ export class SignUp extends React.Component {
 					<KeyboardAvoidingView
 						behavior="position"
 						style={styles.form}
+						keyboardVerticalOffset={100}
 					>
 						<Image
 							source={require("../../../assets/images/register.png")}
 							style={styles.bigImage}
 						/>
-						<Text testID="rerror">{this.state.api_error}</Text>
+						<Text style={styles.error} testID="rerror">
+							{this.state.api_error
+								? strings(`errors.${this.state.api_error}`)
+								: ""}
+						</Text>
 						{this.renderInputs()}
-						<TouchableOpacity
-							testID="facebookLogin"
+						<LoadingButton
+							title={strings("signup.signup_button")}
 							onPress={this.register}
+							ref={c => (this.button = c)}
 							style={styles.button}
-						>
-							<Text style={styles.buttonText}>
-								{strings("signup.signup_button")}
-							</Text>
-						</TouchableOpacity>
+							indicatorColor="#fff"
+						/>
 					</KeyboardAvoidingView>
 				</ScrollView>
 			</View>
@@ -138,8 +159,12 @@ const styles = StyleSheet.create({
 		resizeMode: "contain",
 		width: 160,
 		height: 160,
-		alignSelf: "center",
-		marginTop: 40
+		alignSelf: "center"
+	},
+	error: {
+		marginTop: 12,
+		color: "red",
+		alignSelf: "flex-start"
 	},
 	backButton: {
 		alignSelf: "flex-start",
@@ -150,16 +175,7 @@ const styles = StyleSheet.create({
 		marginTop: MAIN_PADDING
 	},
 	button: {
-		borderRadius: 32,
-		padding: 20,
-		backgroundColor: colors.blue,
-		width: "100%",
-		marginTop: 20,
-		alignItems: "center"
-	},
-	buttonText: {
-		fontSize: 20,
-		color: "#fff"
+		marginTop: 20
 	}
 })
 

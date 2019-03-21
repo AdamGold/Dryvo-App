@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
 		borderWidth: 1,
 		borderRadius: 28,
 		borderColor: "#e0e0e0",
-		marginTop: 20
+		marginTop: 12
 	},
 	inputIcon: {
 		marginLeft: 6

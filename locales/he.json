@@ -32,7 +32,8 @@
 		"signup_button": "הרשמה",
 		"sign_as": "הירשם בתור",
 		"student": "תלמיד",
-		"teacher": "מורה"
+		"teacher": "מורה",
+		"success": "נרשמת בהצלחה!"
 	},
 	"signin": {
 		"login_button": "התחברות",
@@ -145,5 +146,10 @@
 			"נוב.",
 			"דצב."
 		]
+	},
+	"errors": {
+		"Invalid email or password": "אחד מהפרטים שהזנת שגויים.",
+		"Email is not valid": "האימייל אינו תקין",
+		"Email is already registered": "אימייל זה כבר בשימוש."
 	}
 }

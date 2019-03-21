@@ -98,10 +98,13 @@ export class SignUp extends React.Component {
 				>
 					<Icon name="arrow-forward" type="material" />
 				</TouchableOpacity>
-				<KeyboardAvoidingView behavior="padding" style={styles.form}>
-					<ScrollView
-						keyboardDismissMode="on-drag"
-						keyboardShouldPersistTaps="always"
+				<ScrollView
+					keyboardDismissMode="on-drag"
+					keyboardShouldPersistTaps="always"
+				>
+					<KeyboardAvoidingView
+						behavior="position"
+						style={styles.form}
 					>
 						<Image
 							source={require("../../../assets/images/register.png")}
@@ -118,8 +121,8 @@ export class SignUp extends React.Component {
 								{strings("signup.signup_button")}
 							</Text>
 						</TouchableOpacity>
-					</ScrollView>
-				</KeyboardAvoidingView>
+					</KeyboardAvoidingView>
+				</ScrollView>
 			</View>
 		)
 	}

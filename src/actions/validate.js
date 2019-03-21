@@ -48,12 +48,7 @@ export const loginValidation = {
 }
 
 export const registerValidation = {
-	email: {
-		email: {
-			message: "^" + strings("signin.invalid_email")
-		}
-	},
-
+	...loginValidation,
 	name: {
 		length: {
 			minimum: 1,
@@ -65,13 +60,6 @@ export const registerValidation = {
 		length: {
 			minimum: 1,
 			message: "^" + strings("signin.invalid_field")
-		}
-	},
-
-	password: {
-		length: {
-			minimum: 5,
-			message: "^" + strings("signin.invalid_email")
 		}
 	}
 }

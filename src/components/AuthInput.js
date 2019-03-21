@@ -2,7 +2,7 @@ import React from "react"
 import { View, StyleSheet } from "react-native"
 import { Input, Icon } from "react-native-elements"
 import { colors } from "../consts"
-import validate, { loginValidation } from "../actions/validate"
+import validate from "../actions/validate"
 
 export default class AuthInput extends React.Component {
 	constructor(props) {

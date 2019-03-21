@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		top: 0,
 		left: MAIN_PADDING,
-		marginTop: 20
+		marginTop: 12
 	},
 	title: { fontSize: 40, marginTop: 100, fontWeight: "bold" },
 	button: {

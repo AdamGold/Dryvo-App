@@ -24,44 +24,40 @@ export class SignUp extends React.Component {
 		this.register = this.register.bind(this)
 		this.role = this.props.navigation.getParam("role")
 		this.state = {
-			email: "",
-			name: "",
-			area: "",
-			password: "",
-			errors: {}
+			api_error: ""
 		}
+		this.inputs = {
+			email: {},
+			name: { iconName: "person", placeholder: strings("signup.name") },
+			area: {
+				iconName: "person-pin",
+				placeholder: strings("signup.area")
+			},
+			password: { secureTextEntry: true, iconName: "security" }
+		}
+		Object.keys(this.inputs).forEach(input => {
+			this.state = { ...this.state, [input]: "", [input + "Error"]: "" }
+		})
 	}
 
 	componentDidUpdate() {
 		const apiError = getLatestError(this.props.errors[API_ERROR])
 		if (apiError) {
-			this.setState({ errors: { api: apiError } })
+			this.setState({ api_error: apiError })
 			this.props.dispatch({ type: POP_ERROR, errorType: API_ERROR })
 		}
 	}
 
 	async register() {
-		await this.setState({
-			errors: {
-				api: "", // reset api error because we are sending new reqeuest
-				email: validate("email", this.state.email, registerValidation),
-				name: validate("name", this.state.name, registerValidation),
-				area: validate("area", this.state.area, registerValidation),
-				password: validate(
-					"password",
-					this.state.password,
-					registerValidation
-				)
-			}
+		let error,
+			errors = []
+		Object.keys(this.inputs).forEach(input => {
+			error = validate(input, this.state[input], registerValidation)
+			if (error) errors.push(error)
+			this.setState({ [input + "Error"]: error })
 		})
-		let flag = false // do we have an error?
-		for (var i in this.state.errors) {
-			if (this.state.errors[i]) {
-				flag = true
-				break
-			}
-		}
-		if (flag) return
+
+		if (errors.length > 0) return
 
 		await this.props.dispatch(
 			register(this.state, () => {
@@ -69,6 +65,27 @@ export class SignUp extends React.Component {
 			})
 		)
 	}
+
+	renderInputs = () => {
+		return Object.keys(this.inputs).map((name, index) => {
+			const props = this.inputs[name]
+			return (
+				<AuthInput
+					key={`key${name}`}
+					name={name}
+					placeholder={props.placeholder || strings("signin." + name)}
+					onChangeText={input => this.setState({ [name]: input })}
+					value={this.state[name]}
+					testID={`r${name}Input`}
+					iconName={props.iconName || name}
+					errorMessage={this.state[`${name}Error`]}
+					validation={registerValidation}
+					secureTextEntry={props.secureTextEntry || false}
+				/>
+			)
+		})
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -89,50 +106,8 @@ export class SignUp extends React.Component {
 							source={require("../../../assets/images/register.png")}
 							style={styles.bigImage}
 						/>
-						<Text testID="rerror">{this.state.errors.api}</Text>
-						<AuthInput
-							name="email"
-							placeholder={strings("signin.email")}
-							onChangeText={email => this.setState({ email })}
-							value={this.state.email}
-							testID="remailInput"
-							iconName="email"
-							errorMessage={this.state.errors.email}
-							validation={registerValidation}
-						/>
-						<AuthInput
-							name="name"
-							placeholder={strings("signup.name")}
-							onChangeText={name => this.setState({ name })}
-							value={this.state.name}
-							testID="rnameInput"
-							iconName="person"
-							errorMessage={this.state.errors.name}
-							validation={registerValidation}
-						/>
-						<AuthInput
-							name="area"
-							placeholder={strings("signup.area")}
-							onChangeText={area => this.setState({ area })}
-							value={this.state.area}
-							testID="rareaInput"
-							iconName="person-pin"
-							errorMessage={this.state.errors.area}
-							validation={registerValidation}
-						/>
-						<AuthInput
-							name="password"
-							placeholder={strings("signin.password")}
-							onChangeText={password =>
-								this.setState({ password })
-							}
-							value={this.state.password}
-							secureTextEntry={true}
-							testID="rpasswordInput"
-							iconName="security"
-							errorMessage={this.state.errors.password}
-							validation={registerValidation}
-						/>
+						<Text testID="rerror">{this.state.api_error}</Text>
+						{this.renderInputs()}
 						<TouchableOpacity
 							testID="facebookLogin"
 							onPress={this.register}
@@ -166,7 +141,7 @@ const styles = StyleSheet.create({
 		position: "absolute",
 		top: 0,
 		left: MAIN_PADDING,
-		marginTop: 20
+		marginTop: 12
 	},
 	form: {
 		flex: 1,

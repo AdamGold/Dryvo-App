@@ -25,12 +25,15 @@ export class SignIn extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			email: "",
-			password: "",
-			error: "",
-			emailError: "",
-			passwordError: ""
+			error: ""
 		}
+		this.inputs = {
+			email: {},
+			password: { secureTextEntry: true, iconName: "security" }
+		}
+		Object.keys(this.inputs).forEach(input => {
+			this.state = { ...this.state, [input]: "", [input + "Error"]: "" }
+		})
 		this.handleOpenURL = this.handleOpenURL.bind(this)
 		this.login = this.login.bind(this)
 	}
@@ -80,19 +83,15 @@ export class SignIn extends React.Component {
 	}
 
 	async login() {
-		const emailError = validate("email", this.state.email, loginValidation)
-		const passwordError = validate(
-			"password",
-			this.state.password,
-			loginValidation
-		)
-
-		this.setState({
-			emailError: emailError,
-			passwordError: passwordError
+		let error,
+			errors = []
+		Object.keys(this.inputs).forEach(input => {
+			error = validate(input, this.state[input], loginValidation)
+			if (error) errors.push(error)
+			this.setState({ [input + "Error"]: error })
 		})
 
-		if (emailError || passwordError) return
+		if (errors.length > 0) return
 
 		await this.props.dispatch(
 			directLogin(this.state.email, this.state.password, () => {
@@ -100,7 +99,25 @@ export class SignIn extends React.Component {
 			})
 		)
 	}
-
+	renderInputs = () => {
+		return Object.keys(this.inputs).map((name, index) => {
+			const props = this.inputs[name]
+			return (
+				<AuthInput
+					key={`key${name}`}
+					name={name}
+					placeholder={strings("signin." + name)}
+					onChangeText={input => this.setState({ [name]: input })}
+					value={this.state[name]}
+					testID={`${name}Input`}
+					iconName={props.iconName || name}
+					errorMessage={this.state[`${name}Error`]}
+					validation={loginValidation}
+					secureTextEntry={props.secureTextEntry || false}
+				/>
+			)
+		})
+	}
 	render() {
 		return (
 			<View style={styles.container}>
@@ -114,29 +131,7 @@ export class SignIn extends React.Component {
 					>
 						<View style={styles.formContainer}>
 							<Text testID="error">{this.state.error}</Text>
-							<AuthInput
-								name="email"
-								placeholder={strings("signin.email")}
-								onChangeText={email => this.setState({ email })}
-								value={this.state.email}
-								testID="emailInput"
-								iconName="email"
-								errorMessage={this.state.emailError}
-								validation={loginValidation}
-							/>
-							<AuthInput
-								name="password"
-								placeholder={strings("signin.password")}
-								onChangeText={password =>
-									this.setState({ password })
-								}
-								value={this.state.password}
-								testID="passwordInput"
-								iconName="security"
-								secureTextEntry={true}
-								errorMessage={this.state.passwordError}
-								validation={loginValidation}
-							/>
+							{this.renderInputs()}
 							<TouchableOpacity
 								testID="signInButton"
 								onPress={this.login}

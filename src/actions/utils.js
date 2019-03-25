@@ -1,6 +1,23 @@
 import { Platform, Linking } from "react-native"
-import { LOAD_FETCH_SERVICE } from "../reducers/consts"
+import { LOAD_FETCH_SERVICE, API_ERROR } from "../reducers/consts"
 import moment from "moment"
+
+export const fetch = (endpoint, params, dispatchError = true) => {
+	return async (dispatch, getState) => {
+		const { fetchService } = getState()
+		try {
+			const resp = await fetchService.fetch(endpoint, params)
+			return resp
+		} catch (error) {
+			if (dispatchError) {
+				if (error && error.hasOwnProperty("message"))
+					msg = error.message
+				dispatch({ type: API_ERROR, error })
+			}
+			return null
+		}
+	}
+}
 
 export const loadFetchService = () => {
 	return {

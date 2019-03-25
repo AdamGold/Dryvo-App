@@ -89,7 +89,8 @@
 		"add_payment": {
 			"title1": "הוספת תשלום - בחירת תלמיד",
 			"title2": "הוספת תשלום - כמות",
-			"amount": "סכום"
+			"amount": "סכום",
+			"success": "הוספת תשלום בהצלחה!"
 		}
 	},
 	"student": {
@@ -152,6 +153,8 @@
 	"errors": {
 		"Invalid email or password": "אחד מהפרטים שהזנת שגויים.",
 		"Email is not valid": "האימייל אינו תקין",
-		"Email is already registered": "אימייל זה כבר בשימוש."
+		"Email is already registered": "אימייל זה כבר בשימוש.",
+		"Student does not exist": "תלמיד זה אינו קיים.",
+		"Amount must be given": "הסכום אינו תקין."
 	}
 }

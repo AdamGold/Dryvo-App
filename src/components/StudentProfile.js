@@ -16,6 +16,7 @@ import TopicsList from "./TopicsList"
 import StudentPayments from "./StudentPayments"
 import { getPayments } from "../actions/lessons"
 import StudentNextLessonView from "./StudentNextLessonView"
+import SimpleLoader from "./SimpleLoader"
 
 export default class StudentProfile extends React.Component {
 	constructor(props) {
@@ -35,14 +36,20 @@ export default class StudentProfile extends React.Component {
 			combinedTopics: [],
 			payments: [],
 			nextLesson: "",
-			isTeacher
+			isTeacher,
+			loading: true
 		}
 
-		this._getTopics()
-		if (isTeacher) {
-			this._getNextLesson()
-			this._getPayments()
+		this._handleRequests()
+	}
+
+	_handleRequests = async () => {
+		await this._getTopics()
+		if (this.state.isTeacher) {
+			await this._getNextLesson()
+			await this._getPayments()
 		}
+		this.setState({ loading: false })
 	}
 
 	_getNextLesson = async () => {
@@ -88,6 +95,43 @@ export default class StudentProfile extends React.Component {
 			combinedTopics: combinedTopics
 		})
 	}
+
+	_renderTopics = () => {
+		if (this.state.loading) {
+			return <SimpleLoader />
+		}
+		return (
+			<Fragment>
+				<View style={{ flexDirection: "row" }}>
+					<Text testID="monthlyAmount" style={styles.rectTitle}>
+						{strings("teacher.new_lesson.topics", {
+							topics: this.state.allTopics
+						})}
+					</Text>
+
+					<View
+						style={{
+							flex: 1,
+							marginLeft: "auto",
+							alignItems: "flex-end"
+						}}
+					>
+						<TouchableOpacity
+							onPress={() =>
+								this.props.navigation.navigate("Topics", {
+									topics: this.state.allTopics
+								})
+							}
+						>
+							<Icon name="arrow-back" type="material" size={20} />
+						</TouchableOpacity>
+					</View>
+				</View>
+				<TopicsList topics={this.state.combinedTopics} />
+			</Fragment>
+		)
+	}
+
 	render() {
 		const { student } = this.state
 
@@ -103,6 +147,7 @@ export default class StudentProfile extends React.Component {
 						<StudentNextLessonView
 							testID="lessonRowTouchable"
 							lesson={this.state.nextLesson}
+							loading={this.state.loading}
 						/>
 					</ShadowRect>
 					<ShadowRect style={styles.rect}>
@@ -112,6 +157,7 @@ export default class StudentProfile extends React.Component {
 						<StudentPayments
 							sum={this.state.student.balance}
 							payments={this.state.payments.slice(0, 2)}
+							loading={this.state.loading}
 						/>
 					</ShadowRect>
 				</Fragment>
@@ -144,42 +190,7 @@ export default class StudentProfile extends React.Component {
 					</View>
 					{teacherView}
 					<ShadowRect style={styles.rect}>
-						<View style={{ flexDirection: "row" }}>
-							<Text
-								testID="monthlyAmount"
-								style={styles.rectTitle}
-							>
-								{strings("teacher.new_lesson.topics", {
-									topics: this.state.allTopics
-								})}
-							</Text>
-
-							<View
-								style={{
-									flex: 1,
-									marginLeft: "auto",
-									alignItems: "flex-end"
-								}}
-							>
-								<TouchableOpacity
-									onPress={() =>
-										this.props.navigation.navigate(
-											"Topics",
-											{
-												topics: this.state.allTopics
-											}
-										)
-									}
-								>
-									<Icon
-										name="arrow-back"
-										type="material"
-										size={20}
-									/>
-								</TouchableOpacity>
-							</View>
-						</View>
-						<TopicsList topics={this.state.combinedTopics} />
+						{this._renderTopics()}
 					</ShadowRect>
 				</View>
 			</ScrollView>

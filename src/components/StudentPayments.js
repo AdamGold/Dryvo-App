@@ -6,6 +6,7 @@ import moment from "moment"
 import { DATE_FORMAT, colors } from "../consts"
 import EmptyState from "./EmptyState"
 import { strings } from "../i18n"
+import PaymentsLoader from "./PaymentsLoader"
 
 export default class StudentPayment extends React.Component {
 	constructor(props) {
@@ -40,6 +41,9 @@ export default class StudentPayment extends React.Component {
 	)
 
 	render() {
+		if (this.props.loading) {
+			return <PaymentsLoader />
+		}
 		if (this.props.payments.length == 0) {
 			return this._renderEmpty()
 		}

@@ -21,6 +21,9 @@ import RectInput from "../components/RectInput"
 import { logout, setUser } from "../actions/auth"
 import { API_ERROR } from "../reducers/consts"
 import Storage from "../services/Storage"
+import { fetchOrError } from "../actions/utils"
+import SlidingMessage from "../components/SlidingMessage"
+import { popLatestError } from "../actions/utils"
 
 export class Settings extends React.Component {
 	constructor(props) {
@@ -30,7 +33,9 @@ export class Settings extends React.Component {
 			name: "",
 			area: "",
 			password: "",
-			notifications: "true"
+			notifications: "true",
+			error: "",
+			slidingMessageVisible: false
 		}
 		this.state = this.defaultState
 		this._initNotifications()
@@ -44,26 +49,30 @@ export class Settings extends React.Component {
 		)
 	}
 
+	componentDidUpdate() {
+		const error = this.props.dispatch(popLatestError(API_ERROR))
+		if (error) {
+			this.setState({
+				error,
+				slidingMessageVisible: true
+			})
+		}
+	}
+
 	submitInfo = async () => {
-		try {
-			const resp = await this.props.fetchService.fetch(
-				"/login/edit_data",
-				{
-					method: "POST",
-					body: JSON.stringify({
-						name: this.state.name,
-						area: this.state.area,
-						password: this.state.password
-					})
-				}
-			)
+		const resp = await this.props.dispatch(
+			fetchOrError("/login/edit_data", {
+				method: "POST",
+				body: JSON.stringify({
+					name: this.state.name,
+					area: this.state.area,
+					password: this.state.password
+				})
+			})
+		)
+		if (resp) {
 			await this.props.dispatch(setUser(resp.json.data))
-			this.setState(this.defaultState)
-		} catch (err) {
-			let msg = ""
-			console.log(error)
-			if (error && error.hasOwnProperty("message")) msg = error.message
-			this.props.dispatch({ type: API_ERROR, error: msg })
+			this.setState({ ...this.defaultState, slidingMessageVisible: true })
 		}
 	}
 
@@ -102,6 +111,14 @@ export class Settings extends React.Component {
 				keyboardShouldPersistTaps="always"
 			>
 				<View style={styles.container}>
+					<SlidingMessage
+						visible={this.state.slidingMessageVisible}
+						error={this.state.error}
+						success={strings("settings.success")}
+						close={() =>
+							this.setState({ slidingMessageVisible: false })
+						}
+					/>
 					<PageTitle
 						style={styles.title}
 						title={strings("settings.title")}
@@ -248,7 +265,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
 	return {
-		fetchService: state.fetchService
+		errors: state.errors
 	}
 }
 

@@ -4,9 +4,13 @@ import Row from "./Row"
 import Hours from "./Hours"
 import { strings } from "../i18n"
 import EmptyState from "./EmptyState"
+import SimpleLoader from "./SimpleLoader"
 
 export default class StudentNextLessonView extends React.Component {
 	render() {
+		if (this.props.loading) {
+			return <SimpleLoader />
+		}
 		const { lesson } = this.props
 		let meetup = strings("not_set")
 		if (lesson.meetup_place) meetup = lesson.meetup_place.name

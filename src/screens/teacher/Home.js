@@ -21,7 +21,8 @@ import LessonPopup from "../../components/LessonPopup"
 import { MAIN_PADDING, colors } from "../../consts"
 import { getPayments } from "../../actions/lessons"
 import EmptyState from "../../components/EmptyState"
-import { logout } from "../../actions/auth"
+import LessonsLoader from "../../components/LessonsLoader"
+import PaymentsLoader from "../../components/PaymentsLoader"
 
 export class Home extends React.Component {
 	static navigationOptions = () => {
@@ -39,11 +40,17 @@ export class Home extends React.Component {
 			items: [],
 			payments: [],
 			sum: 0,
-			visible: []
+			visible: [],
+			loading: true
 		}
 
-		this._getItems()
-		this._getPayments()
+		this._sendRequests()
+	}
+
+	_sendRequests = async () => {
+		await this._getItems()
+		await this._getPayments()
+		this.setState({ loading: false })
 	}
 
 	_getItems = async () => {
@@ -77,6 +84,8 @@ export class Home extends React.Component {
 	}
 
 	renderItem = ({ item, index }) => {
+		let student = strings("teacher.no_student_applied")
+		if (item.student) student = item.student.user.name
 		const date = item.date
 		let meetup = strings("not_set")
 		if (item.meetup_place) meetup = item.meetup_place.name
@@ -99,7 +108,7 @@ export class Home extends React.Component {
 						}
 					>
 						<UserWithPic
-							name={item.student.user.name}
+							name={student}
 							extra={
 								<View style={{ alignItems: "flex-start" }}>
 									<Text style={styles.places}>
@@ -168,9 +177,64 @@ export class Home extends React.Component {
 		this.props.navigation.navigate("Settings")
 	}
 
-	render() {
+	_renderLessons = () => {
+		if (this.state.loading) {
+			return (
+				<View style={styles.listLoader}>
+					<LessonsLoader />
+				</View>
+			)
+		}
+		return (
+			<FlatList
+				data={this.state.items}
+				ListEmptyComponent={() => this._renderEmpty("lessons")}
+				renderItem={this.renderItem}
+				ItemSeparatorComponent={this.lessonsSeperator}
+				keyExtractor={item => `item${item.id}`}
+				extraData={this.state.visible}
+			/>
+		)
+	}
+
+	_renderPayments = () => {
+		if (this.state.loading) {
+			return (
+				<View style={styles.listLoader}>
+					<PaymentsLoader />
+				</View>
+			)
+		}
 		let sumColor = colors.green
 		if (this.state.sum < 0) sumColor = "red"
+		return (
+			<Fragment>
+				<View style={styles.amountView}>
+					<Text style={{ ...styles.amount, color: sumColor }}>
+						{this.state.sum}₪
+					</Text>
+					<TouchableOpacity
+						onPress={() =>
+							this.props.navigation.navigate("AddPayment")
+						}
+					>
+						<Text style={styles.addPayment}>
+							{strings("teacher.home.add_payment")}
+						</Text>
+					</TouchableOpacity>
+				</View>
+				<Separator />
+				<FlatList
+					data={this.state.payments.slice(0, 2)}
+					renderItem={this.renderPaymentItem}
+					keyExtractor={item => `payment${item.id}`}
+					ListEmptyComponent={() => this._renderEmpty("payments")}
+				/>
+			</Fragment>
+		)
+	}
+
+	render() {
 		return (
 			<ScrollView>
 				<View style={styles.container}>
@@ -199,16 +263,8 @@ export class Home extends React.Component {
 						<Text style={styles.rectTitle} testID="schedule">
 							{strings("teacher.home.current_lesson")}
 						</Text>
-						<FlatList
-							data={this.state.items}
-							ListEmptyComponent={() =>
-								this._renderEmpty("lessons")
-							}
-							renderItem={this.renderItem}
-							ItemSeparatorComponent={this.lessonsSeperator}
-							keyExtractor={item => `item${item.id}`}
-							extraData={this.state.visible}
-						/>
+
+						{this._renderLessons()}
 					</ShadowRect>
 
 					<View style={styles.fullScheduleView}>
@@ -251,29 +307,7 @@ export class Home extends React.Component {
 								/>
 							</View>
 						</View>
-						<View style={styles.amountView}>
-							<Text style={{ ...styles.amount, color: sumColor }}>
-								{this.state.sum}₪
-							</Text>
-							<TouchableOpacity
-								onPress={() =>
-									this.props.navigation.navigate("AddPayment")
-								}
-							>
-								<Text style={styles.addPayment}>
-									{strings("teacher.home.add_payment")}
-								</Text>
-							</TouchableOpacity>
-						</View>
-						<Separator />
-						<FlatList
-							data={this.state.payments.slice(0, 2)}
-							renderItem={this.renderPaymentItem}
-							keyExtractor={item => `payment${item.id}`}
-							ListEmptyComponent={() =>
-								this._renderEmpty("payments")
-							}
-						/>
+						{this._renderPayments()}
 					</ShadowRect>
 				</View>
 			</ScrollView>
@@ -360,8 +394,9 @@ const styles = StyleSheet.create({
 		marginLeft: -2
 	},
 	paymentRow: {
-		marginTop: 20
-	}
+		marginTop: 12
+	},
+	listLoader: { marginTop: 20, alignSelf: "center" }
 })
 
 function mapStateToProps(state) {

@@ -18,7 +18,7 @@ exports[`AuthInput view renders correctly 1`] = `
         "borderRadius": 28,
         "borderWidth": 1,
         "flexDirection": "row",
-        "marginTop": 20,
+        "marginTop": 12,
         "transform": Array [
           Object {
             "translateX": 0,

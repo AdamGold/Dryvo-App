@@ -130,10 +130,7 @@ exports[`LessonPopup view renders correctly 1`] = `
           }
         }
       >
-        שיעור מספר undefined
-         
-        - 
-        test
+        שיעור מספר undefined - test
       </Text>
       <Text
         style={

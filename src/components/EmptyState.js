@@ -28,6 +28,7 @@ const styles = StyleSheet.create({
 	},
 	image: {
 		alignSelf: "center",
+		resizeMode: "contain",
 		width: 200,
 		height: 150
 	},
@@ -35,6 +36,6 @@ const styles = StyleSheet.create({
 		fontSize: 28,
 		fontWeight: "bold",
 		color: "#e1e1e1",
-		marginTop: 40
+		marginTop: 20
 	}
 })

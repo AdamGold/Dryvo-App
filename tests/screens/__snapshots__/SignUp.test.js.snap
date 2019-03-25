@@ -10,6 +10,119 @@ exports[`SignUp view renders correctly 1`] = `
     }
   }
 >
+  <Modal
+    animationType="none"
+    hardwareAccelerated={false}
+    hideModalContentWhileAnimating={false}
+    onModalHide={[Function]}
+    onModalWillHide={[Function]}
+    onModalWillShow={[Function]}
+    onRequestClose={[Function]}
+    onSwipeComplete={[Function]}
+    scrollOffset={0}
+    scrollOffsetMax={0}
+    scrollTo={null}
+    supportedOrientations={
+      Array [
+        "portrait",
+        "landscape",
+      ]
+    }
+    swipeDirection="up"
+    swipeThreshold={10}
+    transparent={true}
+    visible={false}
+  >
+    <View
+      accessible={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "backgroundColor": "black",
+          "bottom": 0,
+          "height": 1334,
+          "left": 0,
+          "opacity": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "width": 750,
+        }
+      }
+    />
+    <View
+      hideModalContentWhileAnimating={false}
+      onModalHide={[Function]}
+      onModalWillHide={[Function]}
+      onModalWillShow={[Function]}
+      onMoveShouldSetResponder={[Function]}
+      onMoveShouldSetResponderCapture={[Function]}
+      onResponderEnd={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderReject={[Function]}
+      onResponderRelease={[Function]}
+      onResponderStart={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      onStartShouldSetResponderCapture={[Function]}
+      onSwipeComplete={[Function]}
+      pointerEvents="box-none"
+      scrollOffset={0}
+      scrollOffsetMax={0}
+      scrollTo={null}
+      style={
+        Object {
+          "flex": 1,
+          "justifyContent": "flex-start",
+          "left": 0,
+          "margin": 0,
+          "top": 0,
+          "transform": Array [
+            Object {
+              "translateY": 0,
+            },
+          ],
+        }
+      }
+      supportedOrientations={
+        Array [
+          "portrait",
+          "landscape",
+        ]
+      }
+      swipeDirection="up"
+      swipeThreshold={10}
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "flex-start",
+            "backgroundColor": "green",
+            "height": 100,
+            "padding": 20,
+            "paddingTop": 60,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "#fff",
+            }
+          }
+        >
+          נרשמת בהצלחה!
+        </Text>
+      </View>
+    </View>
+  </Modal>
   <View
     accessible={true}
     isTVSelectable={true}
@@ -132,17 +245,11 @@ exports[`SignUp view renders correctly 1`] = `
               Object {
                 "alignSelf": "center",
                 "height": 160,
-                "marginTop": 40,
                 "resizeMode": "contain",
                 "width": 160,
               }
             }
           />
-          <Text
-            testID="rerror"
-          >
-            
-          </Text>
           <View
             style={
               Object {
@@ -160,7 +267,7 @@ exports[`SignUp view renders correctly 1`] = `
                   "borderRadius": 28,
                   "borderWidth": 1,
                   "flexDirection": "row",
-                  "marginTop": 20,
+                  "marginTop": 12,
                   "transform": Array [
                     Object {
                       "translateX": 0,
@@ -302,7 +409,7 @@ exports[`SignUp view renders correctly 1`] = `
                   "borderRadius": 28,
                   "borderWidth": 1,
                   "flexDirection": "row",
-                  "marginTop": 20,
+                  "marginTop": 12,
                   "transform": Array [
                     Object {
                       "translateX": 0,
@@ -444,7 +551,7 @@ exports[`SignUp view renders correctly 1`] = `
                   "borderRadius": 28,
                   "borderWidth": 1,
                   "flexDirection": "row",
-                  "marginTop": 20,
+                  "marginTop": 12,
                   "transform": Array [
                     Object {
                       "translateX": 0,
@@ -586,7 +693,7 @@ exports[`SignUp view renders correctly 1`] = `
                   "borderRadius": 28,
                   "borderWidth": 1,
                   "flexDirection": "row",
-                  "marginTop": 20,
+                  "marginTop": 12,
                   "transform": Array [
                     Object {
                       "translateX": 0,
@@ -723,26 +830,35 @@ exports[`SignUp view renders correctly 1`] = `
             style={
               Object {
                 "alignItems": "center",
-                "backgroundColor": "rgb(12,116,244)",
-                "borderRadius": 32,
-                "marginTop": 20,
                 "opacity": 1,
-                "padding": 20,
                 "width": "100%",
               }
             }
-            testID="facebookLogin"
           >
-            <Text
+            <View
               style={
                 Object {
-                  "color": "#fff",
-                  "fontSize": 20,
+                  "alignItems": "center",
+                  "backgroundColor": "rgb(12,116,244)",
+                  "borderRadius": 32,
+                  "height": 64,
+                  "justifyContent": "center",
+                  "marginTop": 20,
+                  "width": "100%",
                 }
               }
             >
-              הרשמה
-            </Text>
+              <Text
+                style={
+                  Object {
+                    "color": "#fff",
+                    "fontSize": 20,
+                  }
+                }
+              >
+                הרשמה
+              </Text>
+            </View>
           </View>
         </View>
       </View>

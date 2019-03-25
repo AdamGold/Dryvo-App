@@ -7,52 +7,36 @@ import {
 import { Linking } from "react-native"
 import Storage from "../services/Storage"
 import { LOGIN, LOGOUT, API_ERROR } from "../reducers/consts"
+import { fetchOrError } from "./utils"
 
-const loginOrRegister = async (
-	endpoint,
-	body,
-	dispatch,
-	fetchService,
-	callback
-) => {
-	try {
-		const resp = await fetchService.fetch(endpoint, {
+const loginOrRegister = async (endpoint, body, dispatch, callback) => {
+	const resp = await dispatch(
+		fetchOrError(endpoint, {
 			method: "POST",
 			body: JSON.stringify(body)
 		})
+	)
+	if (resp) {
 		await setTokens(resp.json.auth_token, resp.json.refresh_token)
-		dispatch(setUser(resp.json.user))
-		callback()
-	} catch (error) {
-		let msg = ""
-		if (error && error.hasOwnProperty("message")) msg = error.message
-		dispatch({ type: API_ERROR, error: msg })
-	}
+		await dispatch(setUser(resp.json.user))
+		await callback(resp.json.user)
+	} else await callback(undefined)
 }
 
 export const directLogin = (email, password, callback) => {
-	return async (dispatch, getState) => {
-		const { fetchService } = getState()
+	return async dispatch => {
 		await loginOrRegister(
 			"/login/direct",
 			{ email, password },
 			dispatch,
-			fetchService,
 			callback
 		)
 	}
 }
 
 export const register = (params, callback) => {
-	return async (dispatch, getState) => {
-		const { fetchService } = getState()
-		await loginOrRegister(
-			"/login/register",
-			params,
-			dispatch,
-			fetchService,
-			callback
-		)
+	return async dispatch => {
+		await loginOrRegister("/login/register", params, dispatch, callback)
 	}
 }
 
@@ -79,17 +63,14 @@ export const logout = (callback = () => {}) => {
 
 export const fetchUser = (callback = () => {}) => {
 	/* effectively checks if the token is valid */
-	return async (dispatch, getState) => {
-		const { fetchService } = getState()
-		try {
-			const resp = await fetchService.fetch("/user/me", {
-				method: "GET"
-			})
+	return async dispatch => {
+		const resp = await dispatch(
+			fetchOrError("/user/me", { method: "GET" }, false)
+		)
+		if (resp) {
 			dispatch(setUser(resp.json.user))
 			await callback(resp.json.user)
-		} catch (error) {
-			await callback(undefined)
-		}
+		} else await callback(undefined)
 	}
 }
 

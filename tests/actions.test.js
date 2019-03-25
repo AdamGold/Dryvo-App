@@ -7,6 +7,7 @@ import Storage from "../src/services/Storage"
 import { Platform } from "react-native"
 import mockStore from "redux-mock-store"
 import { TOKEN_KEY, REFRESH_TOKEN_KEY } from "../src/consts"
+import { API_ERROR } from "../src/reducers/consts"
 
 let user, store
 beforeAll(() => {
@@ -16,6 +17,37 @@ beforeEach(() => {
 	store = mockStore({ fetchService: new FetchService(), user })
 })
 describe("utils.js", () => {
+	it("should dispatch pop error", () => {
+		const storeWithErrors = mockStore({
+			errors: { [API_ERROR]: ["test", "test2"] }
+		})
+		const error = storeWithErrors.dispatch(utils.popLatestError(API_ERROR))
+		expect(error).toEqual("test2")
+		expect(storeWithErrors.getActions()).toMatchSnapshot()
+	})
+
+	it("should return response from request", async () => {
+		const example = { test: "test" }
+		fetch.mockResponseSuccess(JSON.stringify(example))
+		const resp = await store.dispatch(utils.fetchOrError("/test", {}))
+		expect(resp.json).toEqual(example)
+		store.clearActions()
+	})
+
+	it("should dispatch API ERROR", async () => {
+		fetch.mockResponseFailure()
+		await store.dispatch(utils.fetchOrError("/test", {}))
+		expect(store.getActions()).toMatchSnapshot()
+		store.clearActions()
+	})
+
+	it("should not dispatch API ERROR", async () => {
+		fetch.mockResponseFailure()
+		await store.dispatch(utils.fetchOrError("/test", {}, false))
+		expect(store.getActions()).toMatchSnapshot()
+		store.clearActions()
+	})
+
 	it("should return load fetch service", () => {
 		expect(utils.loadFetchService()).toMatchSnapshot()
 	})
@@ -146,7 +178,9 @@ describe("auth.js", () => {
 
 		it("should dispatch default error", async () => {
 			fetch.mockResponseFailure()
-			let ret = await store.dispatch(auth.directLogin({}, callback))
+			let ret = await store.dispatch(
+				auth.directLogin("test", "test", callback)
+			)
 			expect(store.getActions()).toMatchSnapshot()
 		})
 	})

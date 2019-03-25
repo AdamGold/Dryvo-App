@@ -10,9 +10,10 @@ export const fetchOrError = (endpoint, params, dispatchError = true) => {
 			const resp = await fetchService.fetch(endpoint, params)
 			return resp
 		} catch (error) {
-			if (dispatchError && error) {
-				let msg = error
-				if (error.hasOwnProperty("message")) msg = error.message
+			if (dispatchError) {
+				let msg = error || ""
+				if (error && error.hasOwnProperty("message"))
+					msg = error.message
 				dispatch({ type: API_ERROR, error: msg })
 			}
 			return null

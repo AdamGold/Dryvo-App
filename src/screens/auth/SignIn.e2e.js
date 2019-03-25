@@ -13,11 +13,10 @@ import {
 } from "../../actions/auth"
 import { Input } from "react-native-elements"
 import { API_ERROR, POP_ERROR } from "../../reducers/consts"
-import { getLatestError } from "../../error_handling"
 import { loginValidation } from "./validation"
 import validate from "../../actions/validate"
 import { strings } from "../../i18n"
-import { getLatestError } from "../../error_handling"
+import { popLatestError } from "../../actions/utils"
 
 export class SignIn extends React.Component {
 	constructor(props) {

@@ -52,7 +52,8 @@
 		"preset": "react-native",
 		"setupFiles": [
 			"./__mocks__/mockStorage.js",
-			"./__mocks__/mockFetch.js"
+			"./__mocks__/mockFetch.js",
+			"./__mocks__/mockContentLoader.js"
 		],
 		"testMatch": [
 			"<rootDir>/tests/**/*.test.js"

@@ -62,7 +62,14 @@ Array [
 ]
 `;
 
-exports[`auth.js register tests should dispatch default error 1`] = `Array []`;
+exports[`auth.js register tests should dispatch default error 1`] = `
+Array [
+  Object {
+    "error": "",
+    "type": "API_ERROR",
+  },
+]
+`;
 
 exports[`auth.js register tests should set tokens, dispatch login user and call callback 1`] = `
 Array [
@@ -75,6 +82,26 @@ Array [
   },
 ]
 `;
+
+exports[`utils.js should dispatch API ERROR 1`] = `
+Array [
+  Object {
+    "error": "",
+    "type": "API_ERROR",
+  },
+]
+`;
+
+exports[`utils.js should dispatch pop error 1`] = `
+Array [
+  Object {
+    "errorType": "API_ERROR",
+    "type": "POP_ERROR",
+  },
+]
+`;
+
+exports[`utils.js should not dispatch API ERROR 1`] = `Array []`;
 
 exports[`utils.js should return load fetch service 1`] = `
 Object {

@@ -18,6 +18,7 @@
 	"empty_payments": "אין לך תשלומים!",
 	"empty_notifications": "אין לך התראות!",
 	"empty_students": "אין לך תלמידים!",
+	"no_students": "לא נמצאו תלמידים",
 	"empty_topics": "עוד לא נלמדו נושאים",
 	"student_profile": {
 		"lessons": "שיעורים",
@@ -46,7 +47,8 @@
 		"invalid_password": "סיסמתך צריכה לכלול חמישה תווים לפחות.",
 		"invalid_field": "שדה זה הוא חובה.",
 		"or": "או",
-		"not_yet_registered": "עוד אין לך חשבון?"
+		"not_yet_registered": "עוד אין לך חשבון?",
+		"success": "התחברת בהצלחה!"
 	},
 	"teacher": {
 		"home": {

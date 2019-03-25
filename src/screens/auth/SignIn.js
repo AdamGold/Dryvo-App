@@ -16,17 +16,19 @@ import { exchangeToken, openFacebook, directLogin } from "../../actions/auth"
 import { API_ERROR, POP_ERROR } from "../../reducers/consts"
 import { getLatestError } from "../../error_handling"
 import { strings } from "../../i18n"
-import { colors, MAIN_PADDING } from "../../consts"
+import { colors, MAIN_PADDING, DEFAULT_MESSAGE_TIME } from "../../consts"
 import Logo from "../../components/Logo"
 import AuthInput from "../../components/AuthInput"
 import LoadingButton from "../../components/LoadingButton"
 import validate, { loginValidation } from "../../actions/validate"
+import SlidingMessage from "../../components/SlidingMessage"
 
 export class SignIn extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			error: ""
+			error: "",
+			slidingMessageVisible: false
 		}
 		this.inputs = {
 			email: {},
@@ -79,7 +81,7 @@ export class SignIn extends React.Component {
 	componentDidUpdate() {
 		const error = getLatestError(this.props.errors[API_ERROR])
 		if (error) {
-			this.setState({ error })
+			this.setState({ error, slidingMessageVisible: true })
 			this.props.dispatch({ type: POP_ERROR, errorType: API_ERROR })
 		}
 	}
@@ -97,8 +99,17 @@ export class SignIn extends React.Component {
 		this.loginButton.showLoading(true)
 		await this.props.dispatch(
 			directLogin(this.state.email, this.state.password, user => {
+				this.loginButton.showLoading(false)
 				if (user) {
-					this.props.navigation.navigate("App")
+					this.setState(
+						{ error: "", slidingMessageVisible: true },
+						() => {
+							setTimeout(
+								() => this.props.navigation.navigate("App"),
+								DEFAULT_MESSAGE_TIME
+							)
+						}
+					)
 				}
 			})
 		)
@@ -126,6 +137,14 @@ export class SignIn extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
+				<SlidingMessage
+					visible={this.state.slidingMessageVisible}
+					error={this.state.error}
+					success={strings("signin.success")}
+					close={() =>
+						this.setState({ slidingMessageVisible: false })
+					}
+				/>
 				<View style={styles.topLogo}>
 					<Logo size="medium" />
 				</View>
@@ -135,11 +154,6 @@ export class SignIn extends React.Component {
 						keyboardShouldPersistTaps="always"
 					>
 						<View style={styles.formContainer}>
-							<Text style={styles.error} testID="error">
-								{this.state.error
-									? strings(`errors.${this.state.error}`)
-									: ""}
-							</Text>
 							{this.renderInputs()}
 							<LoadingButton
 								title={strings("signin.login_button")}

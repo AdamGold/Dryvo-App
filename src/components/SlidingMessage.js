@@ -1,25 +1,38 @@
 import React from "react"
 import { StyleSheet, View, Text } from "react-native"
 import Modal from "react-native-modal"
+import { strings } from "../i18n"
 
 export default class SlidingMessage extends React.Component {
 	render() {
+		let color = "green"
+		if (this.props.error) {
+			color = "red"
+		}
 		return (
 			<Modal
 				isVisible={this.props.visible}
 				animationIn="slideInDown"
 				animationOut="slideOutUp"
 				style={styles.modal}
-				hasBackdrop={false}
+				hasBackdrop={true}
+				backdropOpacity={0}
+				onBackdropPress={this.props.close}
+				swipeThreshold={10}
 				swipeDirection="up"
+				onSwipeComplete={this.props.close}
 			>
 				<View
 					style={{
 						...styles.view,
-						backgroundColor: this.props.color
+						backgroundColor: color
 					}}
 				>
-					<Text style={styles.text}>{this.props.text}</Text>
+					<Text style={styles.text}>
+						{this.props.error
+							? strings(`errors.${this.props.error}`)
+							: this.props.success}
+					</Text>
 				</View>
 			</Modal>
 		)

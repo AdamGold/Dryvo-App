@@ -54,6 +54,7 @@ export default class AuthInput extends React.Component {
 						/>
 					</View>
 				}
+				ref={this.props.ref_}
 			/>
 		)
 	}

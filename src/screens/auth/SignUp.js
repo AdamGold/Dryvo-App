@@ -27,7 +27,7 @@ export class SignUp extends React.Component {
 		this.role = this.props.navigation.getParam("role")
 		this.state = {
 			api_error: "",
-			success: false
+			slidingMessageVisible: false
 		}
 		this.inputs = {
 			email: {},
@@ -47,7 +47,7 @@ export class SignUp extends React.Component {
 	componentDidUpdate() {
 		const apiError = getLatestError(this.props.errors[API_ERROR])
 		if (apiError) {
-			this.setState({ api_error: apiError })
+			this.setState({ api_error: apiError, slidingMessageVisible: true })
 			this.props.dispatch({ type: POP_ERROR, errorType: API_ERROR })
 		}
 	}
@@ -68,12 +68,15 @@ export class SignUp extends React.Component {
 			register(this.state, user => {
 				this.button.showLoading(false)
 				if (user) {
-					this.setState({ success: true }, () => {
-						setTimeout(
-							() => this.props.navigation.navigate("App"),
-							DEFAULT_MESSAGE_TIME
-						)
-					})
+					this.setState(
+						{ api_error: "", slidingMessageVisible: true },
+						() => {
+							setTimeout(
+								() => this.props.navigation.navigate("App"),
+								DEFAULT_MESSAGE_TIME
+							)
+						}
+					)
 				}
 			})
 		)
@@ -100,13 +103,15 @@ export class SignUp extends React.Component {
 	}
 
 	render() {
-		console.log(this.state.success)
 		return (
 			<View style={styles.container}>
 				<SlidingMessage
-					visible={this.state.success}
-					color="green"
-					text={strings("signup.success")}
+					visible={this.state.slidingMessageVisible}
+					error={this.state.api_error}
+					success={strings("signup.success")}
+					close={() =>
+						this.setState({ slidingMessageVisible: false })
+					}
 				/>
 				<TouchableOpacity
 					onPress={() => {
@@ -129,11 +134,7 @@ export class SignUp extends React.Component {
 							source={require("../../../assets/images/register.png")}
 							style={styles.bigImage}
 						/>
-						<Text style={styles.error} testID="rerror">
-							{this.state.api_error
-								? strings(`errors.${this.state.api_error}`)
-								: ""}
-						</Text>
+
 						{this.renderInputs()}
 						<LoadingButton
 							title={strings("signup.signup_button")}

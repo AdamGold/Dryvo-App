@@ -448,7 +448,7 @@ exports[`Topics view renders correctly 1`] = `
           <Image
             source={
               Object {
-                "testUri": "../../../assets/images/lessons.png",
+                "testUri": "../../../assets/images/topics.png",
               }
             }
             style={

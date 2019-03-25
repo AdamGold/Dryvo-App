@@ -277,7 +277,7 @@ exports[`StudentProfile view renders correctly -> student's view 1`] = `
               <Image
                 source={
                   Object {
-                    "testUri": "../../../assets/images/lessons.png",
+                    "testUri": "../../../assets/images/topics.png",
                   }
                 }
                 style={
@@ -726,7 +726,7 @@ exports[`StudentProfile view renders correctly -> teacher's view 1`] = `
               <Image
                 source={
                   Object {
-                    "testUri": "../../../assets/images/lessons.png",
+                    "testUri": "../../../assets/images/topics.png",
                   }
                 }
                 style={

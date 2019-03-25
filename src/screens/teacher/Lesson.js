@@ -326,7 +326,7 @@ export class Lesson extends React.Component {
 		)
 		if (!lessonId) lessonId = resp.json["data"]["id"]
 		let topicsResp = true
-		if (this.state.progress || this.state.finished) {
+		if (this.state.progress.length > 0 || this.state.finished.length > 0) {
 			topicsResp = await this.props.dispatch(
 				fetchOrError(`/lessons/${lessonId}/topics`, {
 					method: "POST",

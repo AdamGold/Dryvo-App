@@ -17,6 +17,7 @@ import { getLatestError } from "../../error_handling"
 import { loginValidation } from "./validation"
 import validate from "../../actions/validate"
 import { strings } from "../../i18n"
+import { getLatestError } from "../../error_handling"
 
 export class SignIn extends React.Component {
 	constructor(props) {
@@ -72,10 +73,12 @@ export class SignIn extends React.Component {
 	}
 
 	componentDidUpdate() {
-		const error = getLatestError(this.props.errors[API_ERROR])
+		const error = this.props.dispatch(popLatestError(API_ERROR))
 		if (error) {
-			this.setState({ error })
-			this.props.dispatch({ type: POP_ERROR, errorType: API_ERROR })
+			this.setState({
+				error,
+				slidingMessageVisible: true
+			})
 		}
 	}
 

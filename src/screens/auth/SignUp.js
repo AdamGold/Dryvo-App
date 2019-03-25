@@ -11,7 +11,6 @@ import {
 import { connect } from "react-redux"
 import { register } from "../../actions/auth"
 import { API_ERROR, POP_ERROR } from "../../reducers/consts"
-import { getLatestError } from "../../error_handling"
 import validate, { registerValidation } from "../../actions/validate"
 import { strings } from "../../i18n"
 import AuthInput from "../../components/AuthInput"
@@ -19,6 +18,7 @@ import { MAIN_PADDING, DEFAULT_MESSAGE_TIME } from "../../consts"
 import { Icon } from "react-native-elements"
 import LoadingButton from "../../components/LoadingButton"
 import SlidingMessage from "../../components/SlidingMessage"
+import { popLatestError } from "../../actions/utils"
 
 export class SignUp extends React.Component {
 	constructor(props) {
@@ -45,10 +45,12 @@ export class SignUp extends React.Component {
 	}
 
 	componentDidUpdate() {
-		const apiError = getLatestError(this.props.errors[API_ERROR])
-		if (apiError) {
-			this.setState({ api_error: apiError, slidingMessageVisible: true })
-			this.props.dispatch({ type: POP_ERROR, errorType: API_ERROR })
+		const error = this.props.dispatch(popLatestError(API_ERROR))
+		if (error) {
+			this.setState({
+				error,
+				slidingMessageVisible: true
+			})
 		}
 	}
 

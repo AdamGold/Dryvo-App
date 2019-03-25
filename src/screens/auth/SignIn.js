@@ -14,7 +14,6 @@ import {
 import { connect } from "react-redux"
 import { exchangeToken, openFacebook, directLogin } from "../../actions/auth"
 import { API_ERROR, POP_ERROR } from "../../reducers/consts"
-import { getLatestError } from "../../error_handling"
 import { strings } from "../../i18n"
 import { colors, MAIN_PADDING, DEFAULT_MESSAGE_TIME } from "../../consts"
 import Logo from "../../components/Logo"
@@ -22,6 +21,7 @@ import AuthInput from "../../components/AuthInput"
 import LoadingButton from "../../components/LoadingButton"
 import validate, { loginValidation } from "../../actions/validate"
 import SlidingMessage from "../../components/SlidingMessage"
+import { popLatestError } from "../../actions/utils"
 
 export class SignIn extends React.Component {
 	constructor(props) {
@@ -79,10 +79,12 @@ export class SignIn extends React.Component {
 	}
 
 	componentDidUpdate() {
-		const error = getLatestError(this.props.errors[API_ERROR])
+		const error = this.props.dispatch(popLatestError(API_ERROR))
 		if (error) {
-			this.setState({ error, slidingMessageVisible: true })
-			this.props.dispatch({ type: POP_ERROR, errorType: API_ERROR })
+			this.setState({
+				error,
+				slidingMessageVisible: true
+			})
 		}
 	}
 

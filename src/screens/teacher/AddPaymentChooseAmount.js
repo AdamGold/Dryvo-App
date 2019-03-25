@@ -17,11 +17,11 @@ import {
 	floatButtonOnlyStyle,
 	DEFAULT_MESSAGE_TIME
 } from "../../consts"
-import { API_ERROR, POP_ERROR } from "../../reducers/consts"
+import { API_ERROR } from "../../reducers/consts"
 import { NavigationActions } from "react-navigation"
-import { getLatestError } from "../../error_handling"
 import SlidingMessage from "../../components/SlidingMessage"
-import { fetch } from "../../actions/utils"
+import { fetchOrError } from "../../actions/utils"
+import { popLatestError } from "../../actions/utils"
 
 export class AddPaymentChooseAmount extends React.Component {
 	constructor(props) {
@@ -35,16 +35,18 @@ export class AddPaymentChooseAmount extends React.Component {
 	}
 
 	componentDidUpdate() {
-		const error = getLatestError(this.props.errors[API_ERROR])
+		const error = this.props.dispatch(popLatestError(API_ERROR))
 		if (error) {
-			this.setState({ error, slidingMessageVisible: true })
-			this.props.dispatch({ type: POP_ERROR, errorType: API_ERROR })
+			this.setState({
+				error,
+				slidingMessageVisible: true
+			})
 		}
 	}
 
 	addPayment = async () => {
-		await this.props.dispatch(
-			fetch("/teacher/add_payment", {
+		const resp = await this.props.dispatch(
+			fetchOrError("/teacher/add_payment", {
 				method: "POST",
 				body: JSON.stringify({
 					amount: parseInt(this.state.amount),
@@ -53,7 +55,7 @@ export class AddPaymentChooseAmount extends React.Component {
 				})
 			})
 		)
-		if (this.props.errors.length == 0) {
+		if (resp) {
 			this.setState({ error: "", slidingMessageVisible: true }, () => {
 				setTimeout(
 					() =>

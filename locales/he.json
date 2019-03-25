@@ -111,7 +111,8 @@
 		"notifications": "התראות",
 		"notifications_true": "מופעל",
 		"notifications_false": "כבוי",
-		"support": "תמיכה"
+		"support": "תמיכה",
+		"success": "פרטים שונו בהצלחה!"
 	},
 	"date": {
 		"formats": {
@@ -155,6 +156,7 @@
 		"Email is not valid": "האימייל אינו תקין",
 		"Email is already registered": "אימייל זה כבר בשימוש.",
 		"Student does not exist": "תלמיד זה אינו קיים.",
-		"Amount must be given": "הסכום אינו תקין."
+		"Amount must be given": "הסכום אינו תקין.",
+		"User was not found": "משתמש לא תקין."
 	}
 }

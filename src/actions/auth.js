@@ -7,11 +7,11 @@ import {
 import { Linking } from "react-native"
 import Storage from "../services/Storage"
 import { LOGIN, LOGOUT, API_ERROR } from "../reducers/consts"
-import { fetch } from "./utils"
+import { fetchOrError } from "./utils"
 
 const loginOrRegister = async (endpoint, body, dispatch, callback) => {
 	const resp = await dispatch(
-		fetch(endpoint, {
+		fetchOrError(endpoint, {
 			method: "POST",
 			body: JSON.stringify(body)
 		})
@@ -24,7 +24,7 @@ const loginOrRegister = async (endpoint, body, dispatch, callback) => {
 }
 
 export const directLogin = (email, password, callback) => {
-	return async (dispatch, getState) => {
+	return async dispatch => {
 		await loginOrRegister(
 			"/login/direct",
 			{ email, password },
@@ -35,7 +35,7 @@ export const directLogin = (email, password, callback) => {
 }
 
 export const register = (params, callback) => {
-	return async (dispatch, getState) => {
+	return async dispatch => {
 		await loginOrRegister("/login/register", params, dispatch, callback)
 	}
 }
@@ -63,8 +63,10 @@ export const logout = (callback = () => {}) => {
 
 export const fetchUser = (callback = () => {}) => {
 	/* effectively checks if the token is valid */
-	return async (dispatch, getState) => {
-		const resp = await dispatch(fetch("/user/me", { method: "GET" }, false))
+	return async dispatch => {
+		const resp = await dispatch(
+			fetchOrError("/user/me", { method: "GET" }, false)
+		)
 		if (resp) {
 			dispatch(setUser(resp.json.user))
 			await callback(resp.json.user)

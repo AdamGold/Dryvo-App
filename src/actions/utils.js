@@ -1,21 +1,34 @@
 import { Platform, Linking } from "react-native"
-import { LOAD_FETCH_SERVICE, API_ERROR } from "../reducers/consts"
+import { LOAD_FETCH_SERVICE, API_ERROR, POP_ERROR } from "../reducers/consts"
+import { getLatestError } from "../error_handling"
 import moment from "moment"
 
-export const fetch = (endpoint, params, dispatchError = true) => {
+export const fetchOrError = (endpoint, params, dispatchError = true) => {
 	return async (dispatch, getState) => {
 		const { fetchService } = getState()
 		try {
 			const resp = await fetchService.fetch(endpoint, params)
 			return resp
 		} catch (error) {
-			if (dispatchError) {
-				if (error && error.hasOwnProperty("message"))
-					msg = error.message
-				dispatch({ type: API_ERROR, error })
+			if (dispatchError && error) {
+				let msg = error
+				if (error.hasOwnProperty("message")) msg = error.message
+				dispatch({ type: API_ERROR, error: msg })
 			}
 			return null
 		}
+	}
+}
+
+export const popLatestError = type => {
+	return (dispatch, getState) => {
+		const { errors } = getState()
+		const error = getLatestError(errors[type])
+		if (error) {
+			dispatch({ type: POP_ERROR, errorType: type })
+			return error
+		}
+		return null
 	}
 }
 

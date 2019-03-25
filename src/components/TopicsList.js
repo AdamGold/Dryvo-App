@@ -17,7 +17,7 @@ export default class TopicsList extends React.Component {
 
 	_renderEmpty = () => (
 		<EmptyState
-			image="lessons"
+			image="topics"
 			text={strings("empty_topics")}
 			style={styles.empty}
 		/>

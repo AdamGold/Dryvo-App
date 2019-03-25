@@ -16,6 +16,8 @@ import PageTitle from "../../components/PageTitle"
 import { MAIN_PADDING } from "../../consts"
 import { getStudents } from "../../actions/students"
 import { NavigationActions } from "react-navigation"
+import EmptyState from "../../components/EmptyState"
+import StudentsLoader from "../../components/StudentsLoader"
 
 export class AddPaymentChooseStudent extends React.Component {
 	constructor(props) {
@@ -25,7 +27,8 @@ export class AddPaymentChooseStudent extends React.Component {
 			student: {},
 			students: [],
 			page: 1,
-			nextUrl: ""
+			nextUrl: "",
+			loading: true
 		}
 
 		this.renderItem = this.renderItem.bind(this)
@@ -33,7 +36,7 @@ export class AddPaymentChooseStudent extends React.Component {
 	}
 
 	updateSearch = search => {
-		this.setState({ search }, () => {
+		this.setState({ search, loading: true }, () => {
 			this._getStudents(false)
 		})
 	}
@@ -46,7 +49,8 @@ export class AddPaymentChooseStudent extends React.Component {
 		}
 		this.setState({
 			students: newValue,
-			nextUrl: resp.nextUrl
+			nextUrl: resp.nextUrl,
+			loading: false
 		})
 	}
 
@@ -86,7 +90,9 @@ export class AddPaymentChooseStudent extends React.Component {
 			>
 				<Row
 					leftSide={
-						<Icon name="ios-add" type="ionicon" color="#000" />
+						<View style={styles.addButton}>
+							<Icon name="ios-add" type="ionicon" color="#000" />
+						</View>
 					}
 					style={{ ...styles.row, ...noneMargin }}
 				>
@@ -98,6 +104,36 @@ export class AddPaymentChooseStudent extends React.Component {
 					/>
 				</Row>
 			</TouchableHighlight>
+		)
+	}
+
+	_renderEmpty = () => (
+		<EmptyState
+			image="students"
+			text={strings("no_students")}
+			style={styles.empty}
+		/>
+	)
+
+	_renderStudents = () => {
+		if (this.state.loading) {
+			return (
+				<View style={styles.listLoader}>
+					<StudentsLoader />
+				</View>
+			)
+		}
+		return (
+			<FlatList
+				data={this.state.students}
+				keyboardShouldPersistTaps="always"
+				renderItem={this.renderItem}
+				keyExtractor={item => `student${item.student_id}`}
+				onEndReached={this.endReached}
+				keyboardDismissMode="on-drag"
+				keyboardShouldPersistTaps="always"
+				ListEmptyComponent={this._renderEmpty}
+			/>
 		)
 	}
 	render() {
@@ -143,15 +179,7 @@ export class AddPaymentChooseStudent extends React.Component {
 						testID="searchBar"
 					/>
 					<Separator />
-					<FlatList
-						data={this.state.students}
-						keyboardShouldPersistTaps="always"
-						renderItem={this.renderItem}
-						keyExtractor={item => `student${item.student_id}`}
-						onEndReached={this.endReached}
-						keyboardDismissMode="on-drag"
-						keyboardShouldPersistTaps="always"
-					/>
+					{this._renderStudents()}
 				</View>
 			</View>
 		)
@@ -198,6 +226,9 @@ const styles = StyleSheet.create({
 	nameStyle: {
 		fontSize: 18,
 		marginTop: 14
+	},
+	addButton: {
+		marginTop: 12
 	},
 	row: { marginTop: 20 },
 	closeButton: {

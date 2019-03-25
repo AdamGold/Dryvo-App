@@ -11,12 +11,14 @@ import {
 import { connect } from "react-redux"
 import { register } from "../../actions/auth"
 import { API_ERROR, POP_ERROR } from "../../reducers/consts"
-import { getLatestError } from "../../error_handling"
 import validate, { registerValidation } from "../../actions/validate"
 import { strings } from "../../i18n"
 import AuthInput from "../../components/AuthInput"
-import { MAIN_PADDING, colors } from "../../consts"
+import { MAIN_PADDING, DEFAULT_MESSAGE_TIME } from "../../consts"
 import { Icon } from "react-native-elements"
+import LoadingButton from "../../components/LoadingButton"
+import SlidingMessage from "../../components/SlidingMessage"
+import { popLatestError } from "../../actions/utils"
 
 export class SignUp extends React.Component {
 	constructor(props) {
@@ -24,7 +26,8 @@ export class SignUp extends React.Component {
 		this.register = this.register.bind(this)
 		this.role = this.props.navigation.getParam("role")
 		this.state = {
-			api_error: ""
+			api_error: "",
+			slidingMessageVisible: false
 		}
 		this.inputs = {
 			email: {},
@@ -42,10 +45,12 @@ export class SignUp extends React.Component {
 	}
 
 	componentDidUpdate() {
-		const apiError = getLatestError(this.props.errors[API_ERROR])
-		if (apiError) {
-			this.setState({ api_error: apiError })
-			this.props.dispatch({ type: POP_ERROR, errorType: API_ERROR })
+		const error = this.props.dispatch(popLatestError(API_ERROR))
+		if (error) {
+			this.setState({
+				error,
+				slidingMessageVisible: true
+			})
 		}
 	}
 
@@ -59,10 +64,22 @@ export class SignUp extends React.Component {
 		})
 
 		if (errors.length > 0) return
+		this.button.showLoading(true)
 
 		await this.props.dispatch(
-			register(this.state, () => {
-				this.props.navigation.navigate("App")
+			register(this.state, user => {
+				this.button.showLoading(false)
+				if (user) {
+					this.setState(
+						{ api_error: "", slidingMessageVisible: true },
+						() => {
+							setTimeout(
+								() => this.props.navigation.navigate("App"),
+								DEFAULT_MESSAGE_TIME
+							)
+						}
+					)
+				}
 			})
 		)
 	}
@@ -90,6 +107,14 @@ export class SignUp extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
+				<SlidingMessage
+					visible={this.state.slidingMessageVisible}
+					error={this.state.api_error}
+					success={strings("signup.success")}
+					close={() =>
+						this.setState({ slidingMessageVisible: false })
+					}
+				/>
 				<TouchableOpacity
 					onPress={() => {
 						this.props.navigation.goBack()
@@ -105,22 +130,21 @@ export class SignUp extends React.Component {
 					<KeyboardAvoidingView
 						behavior="position"
 						style={styles.form}
+						keyboardVerticalOffset={100}
 					>
 						<Image
 							source={require("../../../assets/images/register.png")}
 							style={styles.bigImage}
 						/>
-						<Text testID="rerror">{this.state.api_error}</Text>
+
 						{this.renderInputs()}
-						<TouchableOpacity
-							testID="facebookLogin"
+						<LoadingButton
+							title={strings("signup.signup_button")}
 							onPress={this.register}
+							ref={c => (this.button = c)}
 							style={styles.button}
-						>
-							<Text style={styles.buttonText}>
-								{strings("signup.signup_button")}
-							</Text>
-						</TouchableOpacity>
+							indicatorColor="#fff"
+						/>
 					</KeyboardAvoidingView>
 				</ScrollView>
 			</View>
@@ -138,13 +162,15 @@ const styles = StyleSheet.create({
 		resizeMode: "contain",
 		width: 160,
 		height: 160,
-		alignSelf: "center",
-		marginTop: 40
+		alignSelf: "center"
+	},
+	error: {
+		marginTop: 12,
+		color: "red",
+		alignSelf: "flex-start"
 	},
 	backButton: {
-		position: "absolute",
-		top: 0,
-		left: MAIN_PADDING,
+		alignSelf: "flex-start",
 		marginTop: 12
 	},
 	form: {
@@ -152,16 +178,7 @@ const styles = StyleSheet.create({
 		marginTop: MAIN_PADDING
 	},
 	button: {
-		borderRadius: 32,
-		padding: 20,
-		backgroundColor: colors.blue,
-		width: "100%",
-		marginTop: 20,
-		alignItems: "center"
-	},
-	buttonText: {
-		fontSize: 20,
-		color: "#fff"
+		marginTop: 20
 	}
 })
 

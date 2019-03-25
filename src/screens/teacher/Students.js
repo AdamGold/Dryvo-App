@@ -17,6 +17,7 @@ import { MAIN_PADDING, fullButton, colors } from "../../consts"
 import { Dropdown } from "react-native-material-dropdown"
 import { getStudents } from "../../actions/students"
 import EmptyState from "../../components/EmptyState"
+import StudentsLoader from "../../components/StudentsLoader"
 
 export class Students extends React.Component {
 	constructor(props) {
@@ -28,7 +29,8 @@ export class Students extends React.Component {
 			nextUrl: "",
 			orderByColumn: "",
 			orderByMethod: "asc",
-			sortIcon: "arrow-downward"
+			sortIcon: "arrow-downward",
+			loading: true
 		}
 		this.sortOptions = [
 			{ value: "balance", label: strings("teacher.students.balance") },
@@ -65,12 +67,13 @@ export class Students extends React.Component {
 		}
 		this.setState({
 			students: newValue,
-			nextUrl: resp.nextUrl
+			nextUrl: resp.nextUrl,
+			loading: false
 		})
 	}
 
 	updateSearch = search => {
-		this.setState({ search }, () => {
+		this.setState({ search, loading: true }, () => {
 			this._getStudents(false)
 		})
 	}
@@ -176,6 +179,21 @@ export class Students extends React.Component {
 		/>
 	)
 
+	_renderStudents = () => {
+		if (this.state.loading) {
+			return <StudentsLoader />
+		}
+		return (
+			<FlatList
+				data={this.state.students}
+				renderItem={this.renderItem}
+				onEndReached={this.endReached}
+				keyExtractor={item => `item${item.student_id}`}
+				ListEmptyComponent={this._renderEmpty}
+			/>
+		)
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -222,13 +240,7 @@ export class Students extends React.Component {
 						cancelButtonTitle={""}
 					/>
 
-					<FlatList
-						data={this.state.students}
-						renderItem={this.renderItem}
-						onEndReached={this.endReached}
-						keyExtractor={item => `item${item.student_id}`}
-						ListEmptyComponent={this._renderEmpty}
-					/>
+					{this._renderStudents()}
 				</View>
 				<TouchableHighlight
 					underlayColor="#ffffff00"

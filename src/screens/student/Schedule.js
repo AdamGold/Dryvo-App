@@ -22,6 +22,7 @@ import { getDateAndString } from "../../actions/lessons"
 import LessonPopup from "../../components/LessonPopup"
 import moment from "moment"
 import EmptyState from "../../components/EmptyState"
+import LessonsLoader from "../../components/LessonsLoader"
 
 export class Schedule extends React.Component {
 	static navigationOptions = () => {
@@ -175,6 +176,9 @@ export class Schedule extends React.Component {
 						// specify how each date should be rendered. day can be undefined if the item is not first in that day.
 						renderDay={() => undefined}
 						renderEmptyDate={this._renderEmpty}
+						renderEmptyData={() => {
+							return <LessonsLoader width={340} />
+						}}
 						// specify your item comparison function for increased performance
 						rowHasChanged={(r1, r2) => {
 							return r1.text !== r2.text || this.state.visible

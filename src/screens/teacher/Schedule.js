@@ -18,6 +18,7 @@ import Hours from "../../components/Hours"
 import { getDateAndString } from "../../actions/lessons"
 import LessonPopup from "../../components/LessonPopup"
 import EmptyState from "../../components/EmptyState"
+import LessonsLoader from "../../components/LessonsLoader"
 
 export class Schedule extends React.Component {
 	static navigationOptions = () => {
@@ -69,6 +70,9 @@ export class Schedule extends React.Component {
 	}
 
 	renderItem = (item, firstItemInDay) => {
+		let student = strings("teacher.no_student_applied")
+		if (item.student)
+			student = `${item.student.user.name}(${item.lesson_number})`
 		let style = {}
 		if (firstItemInDay) {
 			style = { marginTop: 20 }
@@ -89,9 +93,7 @@ export class Schedule extends React.Component {
 						}
 					>
 						<UserWithPic
-							name={`${item.student.user.name}(${
-								item.lesson_number
-							})`}
+							name={student}
 							imageContainerStyle={styles.imageContainerStyle}
 							extra={
 								<Fragment>
@@ -182,6 +184,9 @@ export class Schedule extends React.Component {
 						// specify how each date should be rendered. day can be undefined if the item is not first in that day.
 						renderDay={(day, item) => undefined}
 						renderEmptyDate={this._renderEmpty}
+						renderEmptyData={() => {
+							return <LessonsLoader width={340} />
+						}}
 						// specify your item comparison function for increased performance
 						rowHasChanged={(r1, r2) => {
 							return r1.text !== r2.text || this.state.visible

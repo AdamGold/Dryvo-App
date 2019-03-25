@@ -120,189 +120,96 @@ exports[`StudentProfile view renders correctly -> student's view 1`] = `
           }
         }
       >
-        <View
-          style={
-            Object {
-              "flexDirection": "row",
+        <View>
+          <RNSVGRect
+            fill={
+              Array [
+                0,
+                4278190080,
+              ]
             }
-          }
-        >
-          <Text
-            style={
-              Object {
-                "color": "rgb(121, 121, 121)",
-                "fontWeight": "bold",
-              }
+            fillOpacity={1}
+            fillRule={1}
+            height="6.4"
+            matrix={
+              Array [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+              ]
             }
-            testID="monthlyAmount"
-          >
-            נושאים
-          </Text>
-          <View
-            style={
-              Object {
-                "alignItems": "flex-end",
-                "flex": 1,
-                "marginLeft": "auto",
-              }
+            opacity={1}
+            originX={0}
+            originY={0}
+            propList={Array []}
+            rotation={0}
+            rx="4"
+            ry="4"
+            scaleX={1}
+            scaleY={1}
+            skewX={0}
+            skewY={0}
+            stroke={null}
+            strokeDasharray={null}
+            strokeDashoffset={null}
+            strokeLinecap={0}
+            strokeLinejoin={0}
+            strokeMiterlimit={4}
+            strokeOpacity={1}
+            strokeWidth={1}
+            vectorEffect={0}
+            width="80"
+            x={220}
+            y="32"
+          />
+          <RNSVGRect
+            fill={
+              Array [
+                0,
+                4278190080,
+              ]
             }
-          >
-            <View
-              accessible={true}
-              isTVSelectable={true}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                Object {
-                  "opacity": 1,
-                }
-              }
-            >
-              <View>
-                <View
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "backgroundColor": "transparent",
-                      "justifyContent": "center",
-                    }
-                  }
-                  theme={
-                    Object {
-                      "colors": Object {
-                        "disabled": "hsl(208, 8%, 90%)",
-                        "divider": "#bcbbc1",
-                        "error": "#ff190c",
-                        "grey0": "#393e42",
-                        "grey1": "#43484d",
-                        "grey2": "#5e6977",
-                        "grey3": "#86939e",
-                        "grey4": "#bdc6cf",
-                        "grey5": "#e1e8ee",
-                        "greyOutline": "#bbb",
-                        "platform": Object {
-                          "android": Object {
-                            "error": "#f44336",
-                            "primary": "#2196f3",
-                            "secondary": "#9C27B0",
-                            "success": "#4caf50",
-                            "warning": "#ffeb3b",
-                          },
-                          "ios": Object {
-                            "error": "#ff3b30",
-                            "primary": "#007aff",
-                            "secondary": "#5856d6",
-                            "success": "#4cd964",
-                            "warning": "#ffcc00",
-                          },
-                        },
-                        "primary": "#2089dc",
-                        "searchBg": "#303337",
-                        "secondary": "#8F0CE8",
-                        "success": "#52c41a",
-                        "warning": "#faad14",
-                      },
-                    }
-                  }
-                  underlayColor="white"
-                >
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      Array [
-                        Object {
-                          "color": "black",
-                          "fontSize": 20,
-                        },
-                        Object {
-                          "backgroundColor": "transparent",
-                        },
-                        Object {
-                          "fontFamily": "Material Icons",
-                          "fontStyle": "normal",
-                          "fontWeight": "normal",
-                        },
-                        Object {},
-                      ]
-                    }
-                    testID="iconIcon"
-                  >
-                    
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
+            fillOpacity={1}
+            fillRule={1}
+            height="6.4"
+            matrix={
+              Array [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+              ]
+            }
+            opacity={1}
+            originX={0}
+            originY={0}
+            propList={Array []}
+            rotation={0}
+            rx="4"
+            ry="4"
+            scaleX={1}
+            scaleY={1}
+            skewX={0}
+            skewY={0}
+            stroke={null}
+            strokeDasharray={null}
+            strokeDashoffset={null}
+            strokeLinecap={0}
+            strokeLinejoin={0}
+            strokeMiterlimit={4}
+            strokeOpacity={1}
+            strokeWidth={1}
+            vectorEffect={0}
+            width="40.44"
+            x="16"
+            y="32"
+          />
         </View>
-        <RCTScrollView
-          ListEmptyComponent={[Function]}
-          data={Array []}
-          disableVirtualization={false}
-          getItem={[Function]}
-          getItemCount={[Function]}
-          horizontal={false}
-          initialNumToRender={10}
-          keyExtractor={[Function]}
-          maxToRenderPerBatch={10}
-          numColumns={1}
-          onContentSizeChange={[Function]}
-          onEndReachedThreshold={2}
-          onLayout={[Function]}
-          onMomentumScrollEnd={[Function]}
-          onScroll={[Function]}
-          onScrollBeginDrag={[Function]}
-          onScrollEndDrag={[Function]}
-          renderItem={[Function]}
-          scrollEventThrottle={50}
-          stickyHeaderIndices={Array []}
-          updateCellsBatchingPeriod={50}
-          viewabilityConfigCallbackPairs={Array []}
-          windowSize={21}
-        >
-          <View>
-            <View
-              style={
-                Object {
-                  "alignItems": "center",
-                  "alignSelf": "center",
-                  "flex": 1,
-                  "justifyContent": "center",
-                }
-              }
-            >
-              <Image
-                source={
-                  Object {
-                    "testUri": "../../../assets/images/lessons.png",
-                  }
-                }
-                style={
-                  Object {
-                    "alignSelf": "center",
-                    "height": 150,
-                    "width": 200,
-                  }
-                }
-              />
-              <Text
-                style={
-                  Object {
-                    "color": "#e1e1e1",
-                    "fontSize": 28,
-                    "fontWeight": "bold",
-                    "marginTop": 40,
-                  }
-                }
-              >
-                עוד לא נלמדו נושאים
-              </Text>
-            </View>
-          </View>
-        </RCTScrollView>
       </View>
     </View>
   </View>
@@ -440,42 +347,95 @@ exports[`StudentProfile view renders correctly -> teacher's view 1`] = `
         >
           שיעור הבא
         </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "alignSelf": "center",
-              "flex": 1,
-              "justifyContent": "center",
+        <View>
+          <RNSVGRect
+            fill={
+              Array [
+                0,
+                4278190080,
+              ]
             }
-          }
-        >
-          <Image
-            source={
-              Object {
-                "testUri": "../../../assets/images/lessons.png",
-              }
+            fillOpacity={1}
+            fillRule={1}
+            height="6.4"
+            matrix={
+              Array [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+              ]
             }
-            style={
-              Object {
-                "alignSelf": "center",
-                "height": 150,
-                "width": 200,
-              }
-            }
+            opacity={1}
+            originX={0}
+            originY={0}
+            propList={Array []}
+            rotation={0}
+            rx="4"
+            ry="4"
+            scaleX={1}
+            scaleY={1}
+            skewX={0}
+            skewY={0}
+            stroke={null}
+            strokeDasharray={null}
+            strokeDashoffset={null}
+            strokeLinecap={0}
+            strokeLinejoin={0}
+            strokeMiterlimit={4}
+            strokeOpacity={1}
+            strokeWidth={1}
+            vectorEffect={0}
+            width="80"
+            x={220}
+            y="32"
           />
-          <Text
-            style={
-              Object {
-                "color": "#e1e1e1",
-                "fontSize": 28,
-                "fontWeight": "bold",
-                "marginTop": 40,
-              }
+          <RNSVGRect
+            fill={
+              Array [
+                0,
+                4278190080,
+              ]
             }
-          >
-            אין לך שיעורים!
-          </Text>
+            fillOpacity={1}
+            fillRule={1}
+            height="6.4"
+            matrix={
+              Array [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+              ]
+            }
+            opacity={1}
+            originX={0}
+            originY={0}
+            propList={Array []}
+            rotation={0}
+            rx="4"
+            ry="4"
+            scaleX={1}
+            scaleY={1}
+            skewX={0}
+            skewY={0}
+            stroke={null}
+            strokeDasharray={null}
+            strokeDashoffset={null}
+            strokeLinecap={0}
+            strokeLinejoin={0}
+            strokeMiterlimit={4}
+            strokeOpacity={1}
+            strokeWidth={1}
+            vectorEffect={0}
+            width="40.44"
+            x="16"
+            y="32"
+          />
         </View>
       </View>
       <View
@@ -510,42 +470,357 @@ exports[`StudentProfile view renders correctly -> teacher's view 1`] = `
         >
           מאזן כספי
         </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "center",
-              "alignSelf": "center",
-              "flex": 1,
-              "justifyContent": "center",
+        <View>
+          <RNSVGRect
+            fill={
+              Array [
+                0,
+                4278190080,
+              ]
             }
-          }
-        >
-          <Image
-            source={
-              Object {
-                "testUri": "../../../assets/images/payments.png",
-              }
+            fillOpacity={1}
+            fillRule={1}
+            height="49"
+            matrix={
+              Array [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+              ]
             }
-            style={
-              Object {
-                "alignSelf": "center",
-                "height": 150,
-                "width": 200,
-              }
-            }
+            opacity={1}
+            originX={0}
+            originY={0}
+            propList={Array []}
+            rotation={0}
+            rx="0"
+            ry="0"
+            scaleX={1}
+            scaleY={1}
+            skewX={0}
+            skewY={0}
+            stroke={null}
+            strokeDasharray={null}
+            strokeDashoffset={null}
+            strokeLinecap={0}
+            strokeLinejoin={0}
+            strokeMiterlimit={4}
+            strokeOpacity={1}
+            strokeWidth={1}
+            vectorEffect={0}
+            width="120"
+            x="90"
+            y="16"
           />
-          <Text
-            style={
-              Object {
-                "color": "#e1e1e1",
-                "fontSize": 28,
-                "fontWeight": "bold",
-                "marginTop": 40,
-              }
+          <RNSVGRect
+            fill={
+              Array [
+                0,
+                4278190080,
+              ]
             }
-          >
-            אין לך תשלומים!
-          </Text>
+            fillOpacity={1}
+            fillRule={1}
+            height="10"
+            matrix={
+              Array [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+              ]
+            }
+            opacity={1}
+            originX={0}
+            originY={0}
+            propList={Array []}
+            rotation={0}
+            rx="0"
+            ry="0"
+            scaleX={1}
+            scaleY={1}
+            skewX={0}
+            skewY={0}
+            stroke={null}
+            strokeDasharray={null}
+            strokeDashoffset={null}
+            strokeLinecap={0}
+            strokeLinejoin={0}
+            strokeMiterlimit={4}
+            strokeOpacity={1}
+            strokeWidth={1}
+            vectorEffect={0}
+            width="70"
+            x="115"
+            y="76"
+          />
+          <RNSVGRect
+            fill={
+              Array [
+                0,
+                4278190080,
+              ]
+            }
+            fillOpacity={1}
+            fillRule={1}
+            height="6.4"
+            matrix={
+              Array [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+              ]
+            }
+            opacity={1}
+            originX={0}
+            originY={0}
+            propList={Array []}
+            rotation={0}
+            rx="3"
+            ry="3"
+            scaleX={1}
+            scaleY={1}
+            skewX={0}
+            skewY={0}
+            stroke={null}
+            strokeDasharray={null}
+            strokeDashoffset={null}
+            strokeLinecap={0}
+            strokeLinejoin={0}
+            strokeMiterlimit={4}
+            strokeOpacity={1}
+            strokeWidth={1}
+            vectorEffect={0}
+            width="40"
+            x="17"
+            y="110"
+          />
+          <RNSVGRect
+            fill={
+              Array [
+                0,
+                4278190080,
+              ]
+            }
+            fillOpacity={1}
+            fillRule={1}
+            height="6.4"
+            matrix={
+              Array [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+              ]
+            }
+            opacity={1}
+            originX={0}
+            originY={0}
+            propList={Array []}
+            rotation={0}
+            rx="4"
+            ry="4"
+            scaleX={1}
+            scaleY={1}
+            skewX={0}
+            skewY={0}
+            stroke={null}
+            strokeDasharray={null}
+            strokeDashoffset={null}
+            strokeLinecap={0}
+            strokeLinejoin={0}
+            strokeMiterlimit={4}
+            strokeOpacity={1}
+            strokeWidth={1}
+            vectorEffect={0}
+            width="74.88"
+            x="180.77"
+            y="110"
+          />
+          <RNSVGCircle
+            cx="280"
+            cy="113.5"
+            fill={
+              Array [
+                0,
+                4278190080,
+              ]
+            }
+            fillOpacity={1}
+            fillRule={1}
+            matrix={
+              Array [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+              ]
+            }
+            opacity={1}
+            originX={0}
+            originY={0}
+            propList={Array []}
+            r="13"
+            rotation={0}
+            scaleX={1}
+            scaleY={1}
+            skewX={0}
+            skewY={0}
+            stroke={null}
+            strokeDasharray={null}
+            strokeDashoffset={null}
+            strokeLinecap={0}
+            strokeLinejoin={0}
+            strokeMiterlimit={4}
+            strokeOpacity={1}
+            strokeWidth={1}
+            vectorEffect={0}
+            x={0}
+            y={0}
+          />
+          <RNSVGCircle
+            cx="280"
+            cy="175.6"
+            fill={
+              Array [
+                0,
+                4278190080,
+              ]
+            }
+            fillOpacity={1}
+            fillRule={1}
+            matrix={
+              Array [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+              ]
+            }
+            opacity={1}
+            originX={0}
+            originY={0}
+            propList={Array []}
+            r="13"
+            rotation={0}
+            scaleX={1}
+            scaleY={1}
+            skewX={0}
+            skewY={0}
+            stroke={null}
+            strokeDasharray={null}
+            strokeDashoffset={null}
+            strokeLinecap={0}
+            strokeLinejoin={0}
+            strokeMiterlimit={4}
+            strokeOpacity={1}
+            strokeWidth={1}
+            vectorEffect={0}
+            x={0}
+            y={0}
+          />
+          <RNSVGRect
+            fill={
+              Array [
+                0,
+                4278190080,
+              ]
+            }
+            fillOpacity={1}
+            fillRule={1}
+            height="6.4"
+            matrix={
+              Array [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+              ]
+            }
+            opacity={1}
+            originX={0}
+            originY={0}
+            propList={Array []}
+            rotation={0}
+            rx="4"
+            ry="4"
+            scaleX={1}
+            scaleY={1}
+            skewX={0}
+            skewY={0}
+            stroke={null}
+            strokeDasharray={null}
+            strokeDashoffset={null}
+            strokeLinecap={0}
+            strokeLinejoin={0}
+            strokeMiterlimit={4}
+            strokeOpacity={1}
+            strokeWidth={1}
+            vectorEffect={0}
+            width="74.88"
+            x="180.77"
+            y="172"
+          />
+          <RNSVGRect
+            fill={
+              Array [
+                0,
+                4278190080,
+              ]
+            }
+            fillOpacity={1}
+            fillRule={1}
+            height="6.4"
+            matrix={
+              Array [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+              ]
+            }
+            opacity={1}
+            originX={0}
+            originY={0}
+            propList={Array []}
+            rotation={0}
+            rx="3"
+            ry="3"
+            scaleX={1}
+            scaleY={1}
+            skewX={0}
+            skewY={0}
+            stroke={null}
+            strokeDasharray={null}
+            strokeDashoffset={null}
+            strokeLinecap={0}
+            strokeLinejoin={0}
+            strokeMiterlimit={4}
+            strokeOpacity={1}
+            strokeWidth={1}
+            vectorEffect={0}
+            width="40"
+            x="17"
+            y="172"
+          />
         </View>
       </View>
       <View
@@ -569,189 +844,96 @@ exports[`StudentProfile view renders correctly -> teacher's view 1`] = `
           }
         }
       >
-        <View
-          style={
-            Object {
-              "flexDirection": "row",
+        <View>
+          <RNSVGRect
+            fill={
+              Array [
+                0,
+                4278190080,
+              ]
             }
-          }
-        >
-          <Text
-            style={
-              Object {
-                "color": "rgb(121, 121, 121)",
-                "fontWeight": "bold",
-              }
+            fillOpacity={1}
+            fillRule={1}
+            height="6.4"
+            matrix={
+              Array [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+              ]
             }
-            testID="monthlyAmount"
-          >
-            נושאים
-          </Text>
-          <View
-            style={
-              Object {
-                "alignItems": "flex-end",
-                "flex": 1,
-                "marginLeft": "auto",
-              }
+            opacity={1}
+            originX={0}
+            originY={0}
+            propList={Array []}
+            rotation={0}
+            rx="4"
+            ry="4"
+            scaleX={1}
+            scaleY={1}
+            skewX={0}
+            skewY={0}
+            stroke={null}
+            strokeDasharray={null}
+            strokeDashoffset={null}
+            strokeLinecap={0}
+            strokeLinejoin={0}
+            strokeMiterlimit={4}
+            strokeOpacity={1}
+            strokeWidth={1}
+            vectorEffect={0}
+            width="80"
+            x={220}
+            y="32"
+          />
+          <RNSVGRect
+            fill={
+              Array [
+                0,
+                4278190080,
+              ]
             }
-          >
-            <View
-              accessible={true}
-              isTVSelectable={true}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                Object {
-                  "opacity": 1,
-                }
-              }
-            >
-              <View>
-                <View
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "backgroundColor": "transparent",
-                      "justifyContent": "center",
-                    }
-                  }
-                  theme={
-                    Object {
-                      "colors": Object {
-                        "disabled": "hsl(208, 8%, 90%)",
-                        "divider": "#bcbbc1",
-                        "error": "#ff190c",
-                        "grey0": "#393e42",
-                        "grey1": "#43484d",
-                        "grey2": "#5e6977",
-                        "grey3": "#86939e",
-                        "grey4": "#bdc6cf",
-                        "grey5": "#e1e8ee",
-                        "greyOutline": "#bbb",
-                        "platform": Object {
-                          "android": Object {
-                            "error": "#f44336",
-                            "primary": "#2196f3",
-                            "secondary": "#9C27B0",
-                            "success": "#4caf50",
-                            "warning": "#ffeb3b",
-                          },
-                          "ios": Object {
-                            "error": "#ff3b30",
-                            "primary": "#007aff",
-                            "secondary": "#5856d6",
-                            "success": "#4cd964",
-                            "warning": "#ffcc00",
-                          },
-                        },
-                        "primary": "#2089dc",
-                        "searchBg": "#303337",
-                        "secondary": "#8F0CE8",
-                        "success": "#52c41a",
-                        "warning": "#faad14",
-                      },
-                    }
-                  }
-                  underlayColor="white"
-                >
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      Array [
-                        Object {
-                          "color": "black",
-                          "fontSize": 20,
-                        },
-                        Object {
-                          "backgroundColor": "transparent",
-                        },
-                        Object {
-                          "fontFamily": "Material Icons",
-                          "fontStyle": "normal",
-                          "fontWeight": "normal",
-                        },
-                        Object {},
-                      ]
-                    }
-                    testID="iconIcon"
-                  >
-                    
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
+            fillOpacity={1}
+            fillRule={1}
+            height="6.4"
+            matrix={
+              Array [
+                1,
+                0,
+                0,
+                1,
+                0,
+                0,
+              ]
+            }
+            opacity={1}
+            originX={0}
+            originY={0}
+            propList={Array []}
+            rotation={0}
+            rx="4"
+            ry="4"
+            scaleX={1}
+            scaleY={1}
+            skewX={0}
+            skewY={0}
+            stroke={null}
+            strokeDasharray={null}
+            strokeDashoffset={null}
+            strokeLinecap={0}
+            strokeLinejoin={0}
+            strokeMiterlimit={4}
+            strokeOpacity={1}
+            strokeWidth={1}
+            vectorEffect={0}
+            width="40.44"
+            x="16"
+            y="32"
+          />
         </View>
-        <RCTScrollView
-          ListEmptyComponent={[Function]}
-          data={Array []}
-          disableVirtualization={false}
-          getItem={[Function]}
-          getItemCount={[Function]}
-          horizontal={false}
-          initialNumToRender={10}
-          keyExtractor={[Function]}
-          maxToRenderPerBatch={10}
-          numColumns={1}
-          onContentSizeChange={[Function]}
-          onEndReachedThreshold={2}
-          onLayout={[Function]}
-          onMomentumScrollEnd={[Function]}
-          onScroll={[Function]}
-          onScrollBeginDrag={[Function]}
-          onScrollEndDrag={[Function]}
-          renderItem={[Function]}
-          scrollEventThrottle={50}
-          stickyHeaderIndices={Array []}
-          updateCellsBatchingPeriod={50}
-          viewabilityConfigCallbackPairs={Array []}
-          windowSize={21}
-        >
-          <View>
-            <View
-              style={
-                Object {
-                  "alignItems": "center",
-                  "alignSelf": "center",
-                  "flex": 1,
-                  "justifyContent": "center",
-                }
-              }
-            >
-              <Image
-                source={
-                  Object {
-                    "testUri": "../../../assets/images/lessons.png",
-                  }
-                }
-                style={
-                  Object {
-                    "alignSelf": "center",
-                    "height": 150,
-                    "width": 200,
-                  }
-                }
-              />
-              <Text
-                style={
-                  Object {
-                    "color": "#e1e1e1",
-                    "fontSize": 28,
-                    "fontWeight": "bold",
-                    "marginTop": 40,
-                  }
-                }
-              >
-                עוד לא נלמדו נושאים
-              </Text>
-            </View>
-          </View>
-        </RCTScrollView>
       </View>
     </View>
   </View>

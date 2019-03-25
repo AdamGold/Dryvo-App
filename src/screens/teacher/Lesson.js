@@ -1,8 +1,6 @@
 import React from "react"
 import {
 	KeyboardAvoidingView,
-	Keyboard,
-	Platform,
 	Text,
 	StyleSheet,
 	View,
@@ -10,7 +8,7 @@ import {
 	ScrollView
 } from "react-native"
 import { connect } from "react-redux"
-import { Input, Button, Icon } from "react-native-elements"
+import { Button, Icon } from "react-native-elements"
 import { strings } from "../../i18n"
 import PageTitle from "../../components/PageTitle"
 import {
@@ -18,7 +16,8 @@ import {
 	fullButton,
 	API_DATE_FORMAT,
 	DEFAULT_DURATION,
-	SHORT_API_DATE_FORMAT
+	SHORT_API_DATE_FORMAT,
+	DEFAULT_MESSAGE_TIME
 } from "../../consts"
 import NewLessonInput from "../../components/NewLessonInput"
 import Hours from "../../components/Hours"
@@ -26,6 +25,9 @@ import InputSelectionButton from "../../components/InputSelectionButton"
 import moment from "moment"
 import { getHoursDiff } from "../../actions/utils"
 import { API_ERROR } from "../../reducers/consts"
+import SlidingMessage from "../../components/SlidingMessage"
+import { fetchOrError } from "../../actions/utils"
+import { popLatestError } from "../../actions/utils"
 
 export class Lesson extends React.Component {
 	constructor(props) {
@@ -46,7 +48,8 @@ export class Lesson extends React.Component {
 			lesson,
 			allTopics: [],
 			progress: [],
-			finished: []
+			finished: [],
+			slidingMessageVisible: false
 		}
 		this._initializeInputs = this._initializeInputs.bind(this)
 		this.setRef = this.setRef.bind(this)
@@ -136,6 +139,16 @@ export class Lesson extends React.Component {
 				this.state[input] = ""
 			}
 		})
+	}
+
+	componentDidUpdate() {
+		const error = this.props.dispatch(popLatestError(API_ERROR))
+		if (error) {
+			this.setState({
+				error,
+				slidingMessageVisible: true
+			})
+		}
 	}
 
 	_getAvailableHours = async () => {
@@ -295,25 +308,27 @@ export class Lesson extends React.Component {
 	}
 
 	submit = async () => {
-		try {
-			let lessonId = ""
-			if (this.state.lesson) lessonId = this.state.lesson.id
-			const resp = await this.props.fetchService.fetch(
-				"/lessons/" + lessonId,
-				{
-					method: "POST",
-					body: JSON.stringify({
-						date: moment.utc(this.state.dateAndTime).toISOString(),
-						student_id: this.state.student.student_id,
-						meetup_place: this.state.meetup,
-						dropoff_place: this.state.dropoff
-					})
-				}
-			)
-			if (!lessonId) lessonId = resp.json["data"]["id"]
-			const topicsResp = await this.props.fetchService.fetch(
-				`/lessons/${lessonId}/topics`,
-				{
+		let lessonId = ""
+		if (this.state.lesson) lessonId = this.state.lesson.id
+		let student = {}
+		if (this.state.student)
+			student = { student_id: this.state.student.student_id }
+		const resp = await this.props.dispatch(
+			fetchOrError("/lessons/" + lessonId, {
+				method: "POST",
+				body: JSON.stringify({
+					date: moment.utc(this.state.dateAndTime).toISOString(),
+					meetup_place: this.state.meetup,
+					dropoff_place: this.state.dropoff,
+					...student
+				})
+			})
+		)
+		if (!lessonId) lessonId = resp.json["data"]["id"]
+		let topicsResp = true
+		if (this.state.progress.length > 0 || this.state.finished.length > 0) {
+			topicsResp = await this.props.dispatch(
+				fetchOrError(`/lessons/${lessonId}/topics`, {
 					method: "POST",
 					body: JSON.stringify({
 						topics: {
@@ -321,14 +336,16 @@ export class Lesson extends React.Component {
 							finished: this.state.finished
 						}
 					})
-				}
+				})
 			)
-			this.props.navigation.goBack()
-		} catch (error) {
-			console.log(error)
-			let msg = ""
-			if (error && error.hasOwnProperty("message")) msg = error.message
-			this.props.dispatch({ type: API_ERROR, error: msg })
+		}
+		if (resp && topicsResp) {
+			this.setState({ error: "", slidingMessageVisible: true }, () => {
+				setTimeout(
+					() => this.props.navigation.goBack(),
+					DEFAULT_MESSAGE_TIME
+				)
+			})
 		}
 	}
 
@@ -413,6 +430,14 @@ export class Lesson extends React.Component {
 	render() {
 		return (
 			<View style={{ flex: 1, marginTop: 20 }}>
+				<SlidingMessage
+					visible={this.state.slidingMessageVisible}
+					error={this.state.error}
+					success={strings("teacher.new_lesson.success")}
+					close={() =>
+						this.setState({ slidingMessageVisible: false })
+					}
+				/>
 				<View style={styles.headerRow}>
 					<Button
 						icon={<Icon name="arrow-forward" type="material" />}
@@ -437,7 +462,6 @@ export class Lesson extends React.Component {
 						keyboardDismissMode="on-drag"
 						keyboardShouldPersistTaps="always"
 					>
-						<Text testID="error">{this.state.error}</Text>
 						{this.renderInputs()}
 						<View style={styles.topics}>
 							<Text style={styles.titleInForm}>

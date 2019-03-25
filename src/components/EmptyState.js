@@ -7,7 +7,8 @@ export default class EmptyState extends React.Component {
 			lessons: require("../../assets/images/lessons.png"),
 			payments: require("../../assets/images/payments.png"),
 			notifications: require("../../assets/images/notifications.png"),
-			students: require("../../assets/images/students.png")
+			students: require("../../assets/images/students.png"),
+			topics: require("../../assets/images/topics.png")
 		}
 		return (
 			<View style={{ ...styles.container, ...this.props.style }}>
@@ -27,6 +28,7 @@ const styles = StyleSheet.create({
 	},
 	image: {
 		alignSelf: "center",
+		resizeMode: "contain",
 		width: 200,
 		height: 150
 	},
@@ -34,6 +36,6 @@ const styles = StyleSheet.create({
 		fontSize: 28,
 		fontWeight: "bold",
 		color: "#e1e1e1",
-		marginTop: 40
+		marginTop: 20
 	}
 })

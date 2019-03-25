@@ -30,6 +30,11 @@ export default class LessonPopup extends React.Component {
 	render() {
 		const { item } = this.props
 		if (!item) return null
+		let student = strings("teacher.no_student_applied")
+		if (item.student)
+			student = `${strings("teacher.home.lesson_number")} ${
+				item.lesson_number
+			} - ${item.student.user.name}`
 		let meetup = strings("not_set")
 		if (item.meetup_place) meetup = item.meetup_place.name
 		let dropoff = strings("not_set")
@@ -59,12 +64,7 @@ export default class LessonPopup extends React.Component {
 							}}
 						/>
 					</TouchableOpacity>
-					<Text style={styles.title}>
-						{`${strings("teacher.home.lesson_number")} ${
-							item.lesson_number
-						}`}{" "}
-						- {item.student.user.name}
-					</Text>
+					<Text style={styles.title}>{student}</Text>
 					<Text style={styles.approved}>{approved}</Text>
 					<View style={styles.row}>
 						<View style={styles.column}>

@@ -14,18 +14,21 @@ import {
 import { connect } from "react-redux"
 import { exchangeToken, openFacebook, directLogin } from "../../actions/auth"
 import { API_ERROR, POP_ERROR } from "../../reducers/consts"
-import { getLatestError } from "../../error_handling"
 import { strings } from "../../i18n"
-import { colors, MAIN_PADDING } from "../../consts"
+import { colors, MAIN_PADDING, DEFAULT_MESSAGE_TIME } from "../../consts"
 import Logo from "../../components/Logo"
 import AuthInput from "../../components/AuthInput"
+import LoadingButton from "../../components/LoadingButton"
 import validate, { loginValidation } from "../../actions/validate"
+import SlidingMessage from "../../components/SlidingMessage"
+import { popLatestError } from "../../actions/utils"
 
 export class SignIn extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			error: ""
+			error: "",
+			slidingMessageVisible: false
 		}
 		this.inputs = {
 			email: {},
@@ -76,10 +79,12 @@ export class SignIn extends React.Component {
 	}
 
 	componentDidUpdate() {
-		const error = getLatestError(this.props.errors[API_ERROR])
+		const error = this.props.dispatch(popLatestError(API_ERROR))
 		if (error) {
-			this.setState({ error })
-			this.props.dispatch({ type: POP_ERROR, errorType: API_ERROR })
+			this.setState({
+				error,
+				slidingMessageVisible: true
+			})
 		}
 	}
 
@@ -93,10 +98,21 @@ export class SignIn extends React.Component {
 		})
 
 		if (errors.length > 0) return
-
+		this.loginButton.showLoading(true)
 		await this.props.dispatch(
-			directLogin(this.state.email, this.state.password, () => {
-				this.props.navigation.navigate("App")
+			directLogin(this.state.email, this.state.password, user => {
+				this.loginButton.showLoading(false)
+				if (user) {
+					this.setState(
+						{ error: "", slidingMessageVisible: true },
+						() => {
+							setTimeout(
+								() => this.props.navigation.navigate("App"),
+								DEFAULT_MESSAGE_TIME
+							)
+						}
+					)
+				}
 			})
 		)
 	}
@@ -119,9 +135,18 @@ export class SignIn extends React.Component {
 			)
 		})
 	}
+
 	render() {
 		return (
 			<View style={styles.container}>
+				<SlidingMessage
+					visible={this.state.slidingMessageVisible}
+					error={this.state.error}
+					success={strings("signin.success")}
+					close={() =>
+						this.setState({ slidingMessageVisible: false })
+					}
+				/>
 				<View style={styles.topLogo}>
 					<Logo size="medium" />
 				</View>
@@ -131,37 +156,22 @@ export class SignIn extends React.Component {
 						keyboardShouldPersistTaps="always"
 					>
 						<View style={styles.formContainer}>
-							<Text testID="error">{this.state.error}</Text>
 							{this.renderInputs()}
-							<TouchableOpacity
-								testID="signInButton"
+							<LoadingButton
+								title={strings("signin.login_button")}
 								onPress={this.login}
-								style={styles.button}
-							>
-								<Text style={styles.buttonText}>
-									{strings("signin.login_button")}
-								</Text>
-							</TouchableOpacity>
+								ref={c => (this.loginButton = c)}
+								style={styles.loginButton}
+								textStyle={styles.loginText}
+							/>
 							<Text style={styles.or}>
 								{strings("signin.or")}
 							</Text>
-							<TouchableOpacity
-								testID="facebookLogin"
+							<LoadingButton
+								title={strings("signin.facebook_login")}
 								onPress={openFacebook}
-								style={{
-									...styles.button,
-									...styles.facebook
-								}}
-							>
-								<Text
-									style={{
-										...styles.buttonText,
-										color: "#fff"
-									}}
-								>
-									{strings("signin.facebook_login")}
-								</Text>
-							</TouchableOpacity>
+								ref={c => (this.facebookButton = c)}
+							/>
 							<TouchableOpacity
 								testID="signUpButton"
 								onPress={() => {
@@ -190,6 +200,10 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1
 	},
+	error: {
+		marginTop: 20,
+		color: "red"
+	},
 	topLogo: {
 		flex: 2,
 		justifyContent: "center",
@@ -202,21 +216,12 @@ const styles = StyleSheet.create({
 		paddingRight: MAIN_PADDING,
 		alignItems: "center"
 	},
-	button: {
-		borderRadius: 32,
-		padding: 20,
+	loginButton: {
 		backgroundColor: "#ececec",
-		width: "100%",
-		marginTop: 20,
-		alignItems: "center"
+		marginTop: 20
 	},
-	buttonText: {
-		fontSize: 20,
+	loginText: {
 		color: "#9b9b9b"
-	},
-	facebook: {
-		backgroundColor: colors.blue,
-		marginTop: 0
 	},
 	or: {
 		marginVertical: 16,

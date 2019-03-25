@@ -448,13 +448,14 @@ exports[`Topics view renders correctly 1`] = `
           <Image
             source={
               Object {
-                "testUri": "../../../assets/images/lessons.png",
+                "testUri": "../../../assets/images/topics.png",
               }
             }
             style={
               Object {
                 "alignSelf": "center",
                 "height": 150,
+                "resizeMode": "contain",
                 "width": 200,
               }
             }
@@ -465,7 +466,7 @@ exports[`Topics view renders correctly 1`] = `
                 "color": "#e1e1e1",
                 "fontSize": 28,
                 "fontWeight": "bold",
-                "marginTop": 40,
+                "marginTop": 20,
               }
             }
           >

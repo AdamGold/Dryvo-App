@@ -10,41 +10,61 @@ import {
 } from "react-native"
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
-import { SearchBar, Button, Icon } from "react-native-elements"
+import { Icon } from "react-native-elements"
 import PageTitle from "../../components/PageTitle"
-import { MAIN_PADDING, floatButtonOnlyStyle } from "../../consts"
+import {
+	MAIN_PADDING,
+	floatButtonOnlyStyle,
+	DEFAULT_MESSAGE_TIME
+} from "../../consts"
 import { API_ERROR } from "../../reducers/consts"
 import { NavigationActions } from "react-navigation"
+import SlidingMessage from "../../components/SlidingMessage"
+import { fetchOrError } from "../../actions/utils"
+import { popLatestError } from "../../actions/utils"
 
 export class AddPaymentChooseAmount extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			amount: "000.00"
+			amount: "000",
+			slidingMessageVisible: false
 		}
 
 		this.addPayment = this.addPayment.bind(this)
 	}
 
+	componentDidUpdate() {
+		const error = this.props.dispatch(popLatestError(API_ERROR))
+		if (error) {
+			this.setState({
+				error,
+				slidingMessageVisible: true
+			})
+		}
+	}
+
 	addPayment = async () => {
-		try {
-			const resp = await this.props.fetchService.fetch(
-				"/teacher/add_payment",
-				{
-					method: "POST",
-					body: JSON.stringify({
-						amount: this.state.amount,
-						student_id: this.props.navigation.getParam("student")
-							.student_id
-					})
-				}
-			)
-			this.props.navigation.dispatch(NavigationActions.back())
-		} catch (error) {
-			console.log(error)
-			let msg = ""
-			if (error && error.hasOwnProperty("message")) msg = error.message
-			this.props.dispatch({ type: API_ERROR, error: msg })
+		const resp = await this.props.dispatch(
+			fetchOrError("/teacher/add_payment", {
+				method: "POST",
+				body: JSON.stringify({
+					amount: parseInt(this.state.amount),
+					student_id: this.props.navigation.getParam("student")
+						.student_id
+				})
+			})
+		)
+		if (resp) {
+			this.setState({ error: "", slidingMessageVisible: true }, () => {
+				setTimeout(
+					() =>
+						this.props.navigation.dispatch(
+							NavigationActions.back()
+						),
+					DEFAULT_MESSAGE_TIME
+				)
+			})
 		}
 	}
 
@@ -55,6 +75,14 @@ export class AddPaymentChooseAmount extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
+				<SlidingMessage
+					visible={this.state.slidingMessageVisible}
+					error={this.state.error}
+					success={strings("teacher.add_payment.success")}
+					close={() =>
+						this.setState({ slidingMessageVisible: false })
+					}
+				/>
 				<View style={styles.headerRow}>
 					<TouchableOpacity
 						onPress={() => {
@@ -102,7 +130,8 @@ export class AddPaymentChooseAmount extends React.Component {
 
 function mapStateToProps(state) {
 	return {
-		fetchService: state.fetchService
+		fetchService: state.fetchService,
+		errors: state.errors
 	}
 }
 export default connect(mapStateToProps)(AddPaymentChooseAmount)

@@ -63,7 +63,13 @@ export class ChooseDate extends React.Component {
 			<Row
 				key={`item${item.id}`}
 				style={styles.lessonRow}
-				leftSide={<Hours duration={item.duration} date={item.date} />}
+				leftSide={
+					<Hours
+						style={styles.hours}
+						duration={item.duration}
+						date={item.date}
+					/>
+				}
 			>
 				<UserWithPic
 					name={student}
@@ -201,8 +207,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 		marginTop: 24
 	},
-	hour: {
-		color: "rgb(12,116,244)"
+	hours: {
+		marginTop: 4
 	},
 	nameStyle: {
 		fontSize: 18,

@@ -462,7 +462,6 @@ export class Lesson extends React.Component {
 						keyboardDismissMode="on-drag"
 						keyboardShouldPersistTaps="always"
 					>
-						<Text testID="error">{this.state.error}</Text>
 						{this.renderInputs()}
 						<View style={styles.topics}>
 							<Text style={styles.titleInForm}>

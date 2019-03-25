@@ -16,7 +16,8 @@ import {
 	MAIN_PADDING,
 	fullButton,
 	API_DATE_FORMAT,
-	SHORT_API_DATE_FORMAT
+	SHORT_API_DATE_FORMAT,
+	DEFAULT_MESSAGE_TIME
 } from "../../consts"
 import NewLessonInput from "../../components/NewLessonInput"
 import Hours from "../../components/Hours"
@@ -25,6 +26,10 @@ import moment from "moment"
 import { getHoursDiff } from "../../actions/utils"
 import { API_ERROR } from "../../reducers/consts"
 import DateTimePicker from "react-native-modal-datetime-picker"
+import SlidingMessage from "../../components/SlidingMessage"
+import { fetchOrError } from "../../actions/utils"
+import { popLatestError } from "../../actions/utils"
+import errors from "../../reducers/errors"
 
 export class Lesson extends React.Component {
 	constructor(props) {
@@ -35,7 +40,8 @@ export class Lesson extends React.Component {
 			hours: [],
 			dateAndTime: "",
 			lesson: null,
-			datePickerVisible: false
+			datePickerVisible: false,
+			slidingMessageVisible: false
 		}
 		this._initializeInputs = this._initializeInputs.bind(this)
 		this.setRef = this.setRef.bind(this)
@@ -82,6 +88,16 @@ export class Lesson extends React.Component {
 				this.state[input] = ""
 			}
 		})
+	}
+
+	componentDidUpdate() {
+		const error = this.props.dispatch(popLatestError(API_ERROR))
+		if (error) {
+			this.setState({
+				error,
+				slidingMessageVisible: true
+			})
+		}
 	}
 
 	_getAvailableHours = async () => {
@@ -184,8 +200,8 @@ export class Lesson extends React.Component {
 	}
 
 	createLesson = async () => {
-		try {
-			const resp = await this.props.fetchService.fetch("/lessons/", {
+		const resp = await this.props.dispatch(
+			fetchOrError("/lessons/", {
 				method: "POST",
 				body: JSON.stringify({
 					date: moment.utc(this.state.dateAndTime).toISOString(),
@@ -193,11 +209,14 @@ export class Lesson extends React.Component {
 					dropoff_place: this.state.dropoff
 				})
 			})
-		} catch (error) {
-			let msg = ""
-			console.log(error)
-			if (error && error.hasOwnProperty("message")) msg = error.message
-			this.props.dispatch({ type: API_ERROR, error: msg })
+		)
+		if (resp) {
+			this.setState({ error: "", slidingMessageVisible: true }, () => {
+				setTimeout(
+					() => this.props.navigation.navigate("Schedule"),
+					DEFAULT_MESSAGE_TIME
+				)
+			})
 		}
 	}
 
@@ -218,6 +237,14 @@ export class Lesson extends React.Component {
 	render() {
 		return (
 			<View style={{ flex: 1, marginTop: 20 }}>
+				<SlidingMessage
+					visible={this.state.slidingMessageVisible}
+					error={this.state.error}
+					success={strings("teacher.new_lesson.success")}
+					close={() =>
+						this.setState({ slidingMessageVisible: false })
+					}
+				/>
 				<View style={styles.headerRow}>
 					<PageTitle
 						style={styles.title}
@@ -235,7 +262,6 @@ export class Lesson extends React.Component {
 						keyboardDismissMode="on-drag"
 						keyboardShouldPersistTaps="always"
 					>
-						<Text testID="error">{this.state.error}</Text>
 						{this.renderInputs()}
 					</ScrollView>
 					<TouchableHighlight
@@ -292,7 +318,8 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
 	return {
 		fetchService: state.fetchService,
-		user: state.user
+		user: state.user,
+		errors: state.errors
 	}
 }
 export default connect(mapStateToProps)(Lesson)

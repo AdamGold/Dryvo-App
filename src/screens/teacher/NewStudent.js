@@ -13,15 +13,20 @@ import UserWithPic from "../../components/UserWithPic"
 import Separator from "../../components/Separator"
 import { SearchBar, Button, Icon } from "react-native-elements"
 import PageTitle from "../../components/PageTitle"
-import { MAIN_PADDING } from "../../consts"
+import { MAIN_PADDING, DEFAULT_MESSAGE_TIME } from "../../consts"
 import { API_ERROR } from "../../reducers/consts"
+import SlidingMessage from "../../components/SlidingMessage"
+import { fetchOrError } from "../../actions/utils"
+import { popLatestError } from "../../actions/utils"
 
 export class NewStudent extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			search: "",
-			users: []
+			users: [],
+			error: "",
+			slidingMessageVisible: false
 		}
 
 		this._getUsers = this._getUsers.bind(this)
@@ -34,18 +39,29 @@ export class NewStudent extends React.Component {
 		})
 	}
 
+	componentDidUpdate() {
+		const error = this.props.dispatch(popLatestError(API_ERROR))
+		if (error) {
+			this.setState({
+				error,
+				slidingMessageVisible: true
+			})
+		}
+	}
+
 	assignUser = async user => {
-		try {
-			const resp = await this.props.fetchService.fetch(
-				"/user/make_student?user_id=" + user.id,
-				{ method: "GET" }
-			)
-			this.props.navigation.goBack()
-		} catch (error) {
-			console.log(error)
-			let msg = ""
-			if (error && error.hasOwnProperty("message")) msg = error.message
-			this.props.dispatch({ type: API_ERROR, error: msg })
+		const resp = await this.props.dispatch(
+			fetchOrError("/user/make_student?user_id=" + user.id, {
+				method: "GET"
+			})
+		)
+		if (resp) {
+			this.setState({ error: "", slidingMessageVisible: true }, () => {
+				setTimeout(
+					() => this.props.navigation.goBack(),
+					DEFAULT_MESSAGE_TIME + 1000
+				)
+			})
 		}
 	}
 	_getUsers = async () => {
@@ -86,6 +102,14 @@ export class NewStudent extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
+				<SlidingMessage
+					visible={this.state.slidingMessageVisible}
+					error={this.state.error}
+					success={strings("teacher.students.success")}
+					close={() =>
+						this.setState({ slidingMessageVisible: false })
+					}
+				/>
 				<View style={styles.headerRow}>
 					<PageTitle
 						style={styles.title}
@@ -179,6 +203,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
 	return {
+		errors: state.errors,
 		fetchService: state.fetchService
 	}
 }

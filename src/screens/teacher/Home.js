@@ -84,6 +84,8 @@ export class Home extends React.Component {
 	}
 
 	renderItem = ({ item, index }) => {
+		let student = strings("teacher.no_student_applied")
+		if (item.student) student = item.student.user.name
 		const date = item.date
 		let meetup = strings("not_set")
 		if (item.meetup_place) meetup = item.meetup_place.name
@@ -106,7 +108,7 @@ export class Home extends React.Component {
 						}
 					>
 						<UserWithPic
-							name={item.student.user.name}
+							name={student}
 							extra={
 								<View style={{ alignItems: "flex-start" }}>
 									<Text style={styles.places}>

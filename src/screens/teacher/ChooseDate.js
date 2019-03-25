@@ -56,20 +56,24 @@ export class ChooseDate extends React.Component {
 			type="material"
 		/>
 	)
-	renderItem = ({ item, index }) => (
-		<Row
-			key={`item${item.id}`}
-			style={styles.lessonRow}
-			leftSide={<Hours duration={item.duration} date={item.date} />}
-		>
-			<UserWithPic
-				name={item.student.user.name}
-				nameStyle={styles.nameStyle}
-				width={42}
-				height={42}
-			/>
-		</Row>
-	)
+	renderItem = ({ item, index }) => {
+		let student = strings("teacher.no_student_applied")
+		if (item.student) student = item.student.user.name
+		return (
+			<Row
+				key={`item${item.id}`}
+				style={styles.lessonRow}
+				leftSide={<Hours duration={item.duration} date={item.date} />}
+			>
+				<UserWithPic
+					name={student}
+					nameStyle={styles.nameStyle}
+					width={42}
+					height={42}
+				/>
+			</Row>
+		)
+	}
 	_getItems = async date => {
 		const dates = getDateAndString(date)
 		const resp = await this.props.fetchService.fetch(

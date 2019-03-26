@@ -7,9 +7,10 @@
 	},
 	"default_error": "קרתה תקלה, אנא נסו שנית.",
 	"sort_by": "סדר לפי",
+	"filter_by": "סנן לפי",
 	"edit": "עריכה",
 	"approve": "אישור",
-	"postpone": "דחייה",
+	"reject": "ביטול",
 	"not_set": "לא נקבע",
 	"edit_lesson": "עריכת שיעור",
 	"done": "סיום",
@@ -63,7 +64,11 @@
 		},
 		"notifications": {
 			"new_lesson": "רוצה לקבוע שיעור",
-			"title": "התראות"
+			"title": "התראות",
+			"new_student": "רוצה להצטרף כתלמיד",
+			"new_payment": "ביצע העברה",
+			"lesson_approved": "השיעור אושר!",
+			"lesson_deleted": "השיעור בוטל."
 		},
 		"new_lesson": {
 			"title": "פרטי שיעור",
@@ -167,5 +172,10 @@
 		"Date is not valid": "התאריך אינו תקין.",
 		"Lesson must have a student assigned": "על מנת להוסיף נושאים, יש להוסיף תלמיד לשיעור.",
 		"Topic does not exist": "נושא זה אינו קיים."
+	},
+	"notifications": {
+		"students": "בקשות הצטרפות",
+		"lessons": "בקשות שיעורים",
+		"payments": "פעילויות כספיות"
 	}
 }

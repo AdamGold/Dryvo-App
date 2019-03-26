@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00C302E51ABCBA2D00DB3ED1 /* libRCTActionSheet.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302AC1ABCB8CE00DB3ED1 /* libRCTActionSheet.a */; };
 		00C302E71ABCBA2D00DB3ED1 /* libRCTGeolocation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 00C302BA1ABCB90400DB3ED1 /* libRCTGeolocation.a */; };
@@ -51,6 +52,7 @@
 		79AD93968B554D16B1B6AD18 /* Assistant-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BD34499C10384CCA9ACFED45 /* Assistant-Light.ttf */; };
 		7CC040D71255444BB59ABF54 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FAA2AB3497F346C2B35D997A /* Octicons.ttf */; };
 		7D54376AC88D456383716193 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EDBB27D04D6347B3BD7F8204 /* FontAwesome.ttf */; };
+		7E91D4BCF47542D2A4FAAB4A /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 933A2BDD0B8E41DB85DD9497 /* Montserrat-Bold.ttf */; };
 		7F587E1AF9E231DF0603E3D0 /* libPods-dryvofront-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE69131AC4D4675AFC35EFA5 /* libPods-dryvofront-tvOS.a */; };
 		832341BD1AAA6AB300B99B32 /* libRCTText.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 832341B51AAA6A8300B99B32 /* libRCTText.a */; };
 		8C7B764190B547A2A73832CB /* libRNSecureStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E5455D54A99A4212AE6A5D47 /* libRNSecureStorage.a */; };
@@ -69,7 +71,6 @@
 		E19309530CDE4580A29D4884 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 55062D345AA74BD787AAAA1E /* Entypo.ttf */; };
 		F147F954A01F415E99B8A621 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1B7086BD27064708BC1C0038 /* SimpleLineIcons.ttf */; };
 		FB71924AB27B45FB89F7CD06 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 82C17BF03890467281D0FE80 /* FontAwesome5_Solid.ttf */; };
-		7E91D4BCF47542D2A4FAAB4A /* Montserrat-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 933A2BDD0B8E41DB85DD9497 /* Montserrat-Bold.ttf */; };
 		FF43E59D026C4648BF3EC1E3 /* Montserrat-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 95563BF392D74206BD1C857D /* Montserrat-Regular.ttf */; };
 /* End PBXBuildFile section */
 
@@ -445,7 +446,9 @@
 		889E848C3CEB432784D01952 /* libRNVectorIcons.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRNVectorIcons.a; sourceTree = "<group>"; };
 		8AD1F876166E4CD9A7A46776 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		8C4C154B4F174DD94AD1AA01 /* Pods-dryvofront-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dryvofront-tvOSTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dryvofront-tvOSTests/Pods-dryvofront-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		933A2BDD0B8E41DB85DD9497 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Bold.ttf"; path = "../assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; };
 		93BD7B7F6A8D445487A7282A /* libRNVectorIcons-tvOS.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = "libRNVectorIcons-tvOS.a"; sourceTree = "<group>"; };
+		95563BF392D74206BD1C857D /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Montserrat-Regular.ttf"; path = "../assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; };
 		984D44C3AF5049EE818680DD /* libAppCenterReactNativeCrashes.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNativeCrashes.a; sourceTree = "<group>"; };
 		9A4CF217AF9F54B29320517E /* Pods-dryvofront-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-dryvofront-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-dryvofront-tvOS/Pods-dryvofront-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		9A82854D6393448DAE743392 /* libAppCenterReactNativeAnalytics.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libAppCenterReactNativeAnalytics.a; sourceTree = "<group>"; };
@@ -473,8 +476,6 @@
 		FAA2AB3497F346C2B35D997A /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		FACEA6A4119A4245A345EF47 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		FF4E8D5343284714AC2D280B /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNGestureHandler.xcodeproj; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; };
-		933A2BDD0B8E41DB85DD9497 /* Montserrat-Bold.ttf */ = {isa = PBXFileReference; name = "Montserrat-Bold.ttf"; path = "../assets/fonts/Montserrat-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
-		95563BF392D74206BD1C857D /* Montserrat-Regular.ttf */ = {isa = PBXFileReference; name = "Montserrat-Regular.ttf"; path = "../assets/fonts/Montserrat-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -978,8 +979,10 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
+				he,
 			);
 			mainGroup = 83CBB9F61A601CBA00E9B192;
 			productRefGroup = 83CBBA001A601CBA00E9B192 /* Products */;

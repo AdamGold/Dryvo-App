@@ -65,6 +65,44 @@ const customTextProps = {
 setCustomText(customTextProps)
 
 export default class App extends Component {
+	async componentDidMount() {
+		this.createNotificationListeners()
+	}
+	async createNotificationListeners() {
+		/*
+		 * Triggered when a particular notification has been received in foreground
+		 * */
+		this.notificationListener = firebase
+			.notifications()
+			.onNotification(notification => {
+				const { title, body } = notification
+				console.log("foreground notification")
+				console.log(title, body)
+			})
+
+		/*
+		 * If your app is in background, you can listen for when a notification is clicked / tapped / opened as follows:
+		 * */
+		this.notificationOpenedListener = firebase
+			.notifications()
+			.onNotificationOpened(notificationOpen => {
+				const { title, body } = notificationOpen.notification
+				console.log("background notification")
+				console.log(title, body)
+			})
+
+		/*
+		 * If your app is closed, you can check if it was opened by a notification being clicked / tapped / opened as follows:
+		 * */
+		const notificationOpen = await firebase
+			.notifications()
+			.getInitialNotification()
+		if (notificationOpen) {
+			const { title, body } = notificationOpen.notification
+			console.log("background2 notification")
+			console.log(title, body)
+		}
+	}
 	render() {
 		return (
 			<Provider store={store}>

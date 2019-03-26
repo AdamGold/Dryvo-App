@@ -26,6 +26,7 @@ project.xcworkspace
 # Android/IntelliJ
 #
 build/
+android/app/google-services.json
 .idea
 .gradle
 local.properties
@@ -34,6 +35,7 @@ appcenter-config.json
 # iOS
 ios/Pods
 AppCenter-Config.plist
+GoogleService-Info.plist
 
 # node.js
 #

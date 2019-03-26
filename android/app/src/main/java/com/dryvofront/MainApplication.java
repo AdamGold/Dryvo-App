@@ -16,6 +16,9 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.facebook.react.modules.i18nmanager.I18nUtil;
 import com.BV.LinearGradient.LinearGradientPackage;
+import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
+import io.invertase.firebase.notifications.RNFirebaseNotificationsPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -39,7 +42,10 @@ public class MainApplication extends Application implements ReactApplication {
             new VectorIconsPackage(),
             new RNSecureStoragePackage(),
             new RNGestureHandlerPackage(),
-            new LinearGradientPackage()
+            new LinearGradientPackage(),
+            new RNFirebasePackage(),
+            new RNFirebaseMessagingPackage(),
+            new RNFirebaseNotificationsPackage()
       );
     }
 

@@ -3,8 +3,9 @@ import { ActivityIndicator, StyleSheet, StatusBar, View } from "react-native"
 import Storage from "../../services/Storage"
 import { connect } from "react-redux"
 import { NOTIFICATIONS_KEY } from "../../consts"
-import { loadFetchService } from "../../actions/utils"
+import { loadFetchService, registerDeviceToken } from "../../actions/utils"
 import { fetchUser, logout } from "../../actions/auth"
+import firebase from "react-native-firebase"
 
 export class AuthLoading extends React.Component {
 	constructor(props) {
@@ -12,7 +13,37 @@ export class AuthLoading extends React.Component {
 		this._bootstrapAsync()
 		this._setNotifications()
 	}
+	async componentDidMount() {
+		this.checkPermission()
+	}
 
+	async checkPermission() {
+		const enabled = await firebase.messaging().hasPermission()
+		if (enabled) {
+			this.getToken()
+		} else {
+			this.requestPermission()
+		}
+	}
+
+	async getToken() {
+		fcmToken = await firebase.messaging().getToken()
+		if (fcmToken) {
+			// user has a device token
+			await this.props.dispatch(registerDeviceToken(fcmToken))
+		}
+	}
+
+	async requestPermission() {
+		try {
+			await firebase.messaging().requestPermission()
+			// User has authorised
+			this.getToken()
+		} catch (error) {
+			// User has rejected permissions
+			console.log("permission rejected")
+		}
+	}
 	_setNotifications = async () => {
 		// if no notification key set in storage (first time in app?), set to true
 		const notifications = await Storage.getItem(NOTIFICATIONS_KEY)

@@ -17,6 +17,47 @@ beforeEach(() => {
 	store = mockStore({ fetchService: new FetchService(), user })
 })
 describe("utils.js", () => {
+	it("should register device token", async () => {
+		const user = {
+			id: 1
+		}
+		const mockToken = "myMockToken"
+		const response = {}
+		fetch.mockResponseSuccess(JSON.stringify(response))
+		let registerToken = await store.dispatch(
+			utils.registerDeviceToken(mockToken)
+		)
+		let token = await Storage.getItem("firebase_token", true)
+		token = JSON.parse(token)
+		expect(token.token).toEqual("myMockToken")
+		store.clearActions()
+
+		// now its supposed to return null
+		registerToken = await store.dispatch(
+			utils.registerDeviceToken(mockToken)
+		)
+		expect(registerToken).toBe(undefined)
+		store.clearActions()
+	})
+	it("should override the token", async () => {
+		// now let's change the expiry and see that it overrides our token
+		let d = new Date()
+		d.setDate(d.getDate() - 1)
+		await Storage.setItem(
+			"firebase_token",
+			JSON.stringify({ token: null, d }),
+			true
+		)
+		fetch.mockResponseSuccess(JSON.stringify({}))
+		const registerToken = await store.dispatch(
+			utils.registerDeviceToken("newToken")
+		)
+		let token = await Storage.getItem("firebase_token", true)
+		token = JSON.parse(token)
+		expect(token.token).toEqual("newToken")
+		store.clearActions()
+	})
+
 	it("should dispatch pop error", () => {
 		const storeWithErrors = mockStore({
 			errors: { [API_ERROR]: ["test", "test2"] }

@@ -71,7 +71,11 @@ Array [
           "marginLeft": "auto",
         }
       }
-    />
+    >
+      <Text>
+        hello
+      </Text>
+    </View>
   </View>,
   <View
     style={

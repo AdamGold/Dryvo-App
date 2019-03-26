@@ -39,7 +39,13 @@ export default createBottomTabNavigator(
 				}
 			}
 		),
-		Notifications: Notifications,
+		Notifications: createStackNavigator(
+			{ Main: Notifications, StudentProfile, Lesson },
+			{
+				initialRouteKey: "Main",
+				headerMode: "none"
+			}
+		),
 		Add: {
 			screen: createStackNavigator(
 				{ ChooseDate, Lesson },

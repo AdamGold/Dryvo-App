@@ -12,6 +12,7 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <Firebase.h>
 #import <React/RCTLinkingManager.h>
 #import <React/RCTI18nUtil.h>
 
@@ -27,6 +28,7 @@
 
   [AppCenterReactNative register];  // Initialize AppCenter 
 
+  [FIRApp configure];
   #ifdef DEBUG
     jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
   #else

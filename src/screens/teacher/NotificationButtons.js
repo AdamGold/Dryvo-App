@@ -1,30 +1,19 @@
 import React, { Fragment } from "react"
-import { StyleSheet, View, Text, TouchableHighlight } from "react-native"
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native"
 import { strings } from "../../i18n"
+import { colors } from "../../consts"
 
 export default class NotificationButtons extends React.Component {
 	render() {
-		return (
-			<Fragment>
-				<TouchableHighlight
+		let edit,
+			size = 0.49
+		if (this.props.edit) {
+			size = 0.33
+			edit = (
+				<TouchableOpacity
 					underlayColor="#ffffff00"
-					testID="approve"
-					style={styles.touchable}
-				>
-					<View
-						style={{
-							...styles.button,
-							...{ backgroundColor: "rgb(12,116,244)" }
-						}}
-					>
-						<Text style={styles.buttonText}>
-							{strings("approve")}
-						</Text>
-					</View>
-				</TouchableHighlight>
-				<TouchableHighlight
-					underlayColor="#ffffff00"
-					style={styles.touchable}
+					style={{ flex: size }}
+					onPress={this.props.edit}
 				>
 					<View
 						style={{
@@ -34,10 +23,33 @@ export default class NotificationButtons extends React.Component {
 					>
 						<Text style={styles.buttonText}>{strings("edit")}</Text>
 					</View>
-				</TouchableHighlight>
-				<TouchableHighlight
+				</TouchableOpacity>
+			)
+		}
+		return (
+			<Fragment>
+				<TouchableOpacity
 					underlayColor="#ffffff00"
-					style={styles.touchable}
+					testID="approve"
+					style={{ flex: size }}
+					onPress={this.props.approve}
+				>
+					<View
+						style={{
+							...styles.button,
+							...{ backgroundColor: colors.blue }
+						}}
+					>
+						<Text style={styles.buttonText}>
+							{strings("approve")}
+						</Text>
+					</View>
+				</TouchableOpacity>
+				{edit}
+				<TouchableOpacity
+					underlayColor="#ffffff00"
+					style={{ flex: size }}
+					onPress={this.props.delete}
 				>
 					<View
 						style={{
@@ -46,19 +58,16 @@ export default class NotificationButtons extends React.Component {
 						}}
 					>
 						<Text style={styles.buttonText}>
-							{strings("postpone")}
+							{strings("reject")}
 						</Text>
 					</View>
-				</TouchableHighlight>
+				</TouchableOpacity>
 			</Fragment>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
-	touchable: {
-		flex: 0.33
-	},
 	button: {
 		alignItems: "center",
 		padding: 8,

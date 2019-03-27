@@ -21,6 +21,7 @@
 		"react-native": "0.57.8",
 		"react-native-calendars": "github:AdamGold/react-native-calendars",
 		"react-native-elements": "^1.0.0",
+		"react-native-firebase": "^5.2.3",
 		"react-native-gesture-handler": "^1.0.15",
 		"react-native-global-props": "^1.1.5",
 		"react-native-linear-gradient": "^2.5.4",
@@ -53,7 +54,8 @@
 		"setupFiles": [
 			"./__mocks__/mockStorage.js",
 			"./__mocks__/mockFetch.js",
-			"./__mocks__/mockContentLoader.js"
+			"./__mocks__/mockContentLoader.js",
+			"./__mocks__/mockFirebase.js"
 		],
 		"testMatch": [
 			"<rootDir>/tests/**/*.test.js"

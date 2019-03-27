@@ -18,16 +18,16 @@ beforeEach(() => {
 })
 describe("utils.js", () => {
 	it("should register device token", async () => {
-		const user = {
-			id: 1
-		}
 		const mockToken = "myMockToken"
 		const response = {}
 		fetch.mockResponseSuccess(JSON.stringify(response))
 		let registerToken = await store.dispatch(
 			utils.registerDeviceToken(mockToken)
 		)
-		let token = await Storage.getItem("firebase_token", true)
+		let token = await Storage.getItem(
+			"firebase_token_user_" + user.id,
+			true
+		)
 		token = JSON.parse(token)
 		expect(token.token).toEqual("myMockToken")
 		store.clearActions()
@@ -44,7 +44,7 @@ describe("utils.js", () => {
 		let d = new Date()
 		d.setDate(d.getDate() - 1)
 		await Storage.setItem(
-			"firebase_token",
+			"firebase_token_user_" + user.id,
 			JSON.stringify({ token: null, d }),
 			true
 		)
@@ -52,7 +52,10 @@ describe("utils.js", () => {
 		const registerToken = await store.dispatch(
 			utils.registerDeviceToken("newToken")
 		)
-		let token = await Storage.getItem("firebase_token", true)
+		let token = await Storage.getItem(
+			"firebase_token_user_" + user.id,
+			true
+		)
 		token = JSON.parse(token)
 		expect(token.token).toEqual("newToken")
 		store.clearActions()

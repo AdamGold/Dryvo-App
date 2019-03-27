@@ -27,7 +27,7 @@ export default createBottomTabNavigator(
 			}
 		),
 		Notifications,
-		Add: Lesson,
+		Lesson,
 		Schedule,
 		Profile
 	},

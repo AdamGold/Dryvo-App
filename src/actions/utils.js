@@ -65,8 +65,12 @@ export const getHoursDiff = (date, duration) => {
 }
 
 export const registerDeviceToken = token => {
-	return async dispatch => {
-		const existing_token = await Storage.getItem("firebase_token", true)
+	return async (dispatch, getState) => {
+		const { user } = getState()
+		const existing_token = await Storage.getItem(
+			"firebase_token_user_" + user.id,
+			true
+		)
 		// we already registered the firebase token.
 		// let's check it's expiry and only if it's expired,
 		// register again
@@ -79,7 +83,7 @@ export const registerDeviceToken = token => {
 const _registerDeviceToken = fcmToken => {
 	return async (dispatch, getState) => {
 		if (fcmToken) {
-			const { fetchService } = getState()
+			const { fetchService, user } = getState()
 			try {
 				const resp = await fetchService.fetch(
 					"/user/register_firebase_token",
@@ -94,7 +98,7 @@ const _registerDeviceToken = fcmToken => {
 					let date = new Date()
 					const expiry = date.setDate(date.getDate() + 7) // 7 days from now
 					await Storage.setItem(
-						"firebase_token",
+						"firebase_token_user_" + user.id,
 						JSON.stringify({ token: fcmToken, expiry }),
 						true
 					)

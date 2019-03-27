@@ -16,6 +16,8 @@ import EmptyState from "../../components/EmptyState"
 import StudentsLoader from "../../components/StudentsLoader"
 import Notification from "../../components/Notification"
 import moment from "moment"
+import LessonPopup from "../../components/LessonPopup"
+import Hours from "../../components/Hours"
 
 export class Notifications extends React.Component {
 	static navigationOptions = () => {
@@ -30,6 +32,10 @@ export class Notifications extends React.Component {
 		super(props)
 		this.filterOptions = [
 			{
+				value: "lessons/",
+				label: strings("notifications.scheduled_lessons")
+			},
+			{
 				value: "lessons/payments",
 				label: strings("notifications.payments")
 			}
@@ -41,7 +47,8 @@ export class Notifications extends React.Component {
 			filter:
 				this.props.navigation.getParam("filter") ||
 				this.filterOptions[0]["value"],
-			loading: true
+			loading: true,
+			visible: []
 		}
 
 		this._dropdownChange = this._dropdownChange.bind(this)
@@ -53,7 +60,9 @@ export class Notifications extends React.Component {
 		const resp = await this.props.fetchService.fetch(
 			"/" +
 				this.state.filter +
-				"?limit=20&order_by=created_at desc&page=" +
+				"?limit=20&order_by=created_at desc&creator_id=" +
+				this.props.user.my_teacher.user.id +
+				"&page=" +
 				this.state.page,
 			{
 				method: "GET"
@@ -71,16 +80,65 @@ export class Notifications extends React.Component {
 	}
 
 	renderPayment = ({ item, index }) => {
-		console.log(item.created_at)
+		const date = moment.utc(item.created_at).format("DD.MM.YY, HH:mm")
 		return (
 			<Notification
 				style={styles.notification}
 				key={`payment${item.id}`}
 				leftSide={<Text style={styles.amount}>{item.amount}₪</Text>}
-				basic={true}
-				date={moment.utc(item.created_at).format("DD.MM.YY, HH:mm")}
-				basicStyle={styles.date}
+				basic={<Text style={styles.basic}>{date}</Text>}
 			/>
+		)
+	}
+
+	lessonPress = item => {
+		let newVisible
+		if (this.state.visible.includes(item.id)) {
+			// we pop it
+			newVisible = this.state.visible.filter((v, i) => v != item.id)
+		} else {
+			newVisible = [...this.state.visible, item.id]
+		}
+		this.setState({ visible: newVisible })
+	}
+
+	renderLesson = ({ item, index }) => {
+		const visible = this.state.visible.includes(item.id) ? true : false
+		return (
+			<Fragment>
+				<TouchableOpacity onPress={() => this.lessonPress(item)}>
+					<Notification
+						style={styles.notification}
+						key={`lesson${item.id}`}
+						basic={
+							<Text style={styles.basic}>
+								{this.props.user.my_teacher.user.name}{" "}
+								{strings("notifications.teacher_scheduled")}
+							</Text>
+						}
+						leftSide={
+							<View>
+								<Text style={styles.lessonDate}>
+									{moment.utc(item.date).format("DD.MM")}
+								</Text>
+								<Text style={styles.lessonHour}>
+									<Hours
+										duration={item.duration}
+										date={item.date}
+									/>
+								</Text>
+							</View>
+						}
+					/>
+					<LessonPopup
+						visible={visible}
+						item={item}
+						onPress={this.lessonPress}
+						testID="lessonPopup"
+						navigation={this.props.navigation}
+					/>
+				</TouchableOpacity>
+			</Fragment>
 		)
 	}
 
@@ -193,14 +251,24 @@ const styles = StyleSheet.create({
 		fontSize: 20,
 		fontWeight: "bold"
 	},
-	date: {
+	basic: {
 		marginTop: 10,
 		fontSize: 18
+	},
+	lessonDate: {
+		fontSize: 22,
+		fontFamily: "Assistant-Light"
+	},
+	lessonHour: {
+		fontWeight: "bold",
+		fontSize: 14,
+		color: "rgb(12, 116, 244)"
 	}
 })
 
 function mapStateToProps(state) {
 	return {
+		user: state.user,
 		fetchService: state.fetchService
 	}
 }

@@ -25,11 +25,7 @@ export default class Notification extends React.Component {
 			/>
 		)
 		if (this.props.basic) {
-			row = (
-				<View style={styles.rightSide}>
-					<Text style={this.props.basicStyle}>{this.props.date}</Text>
-				</View>
-			)
+			row = <View style={styles.rightSide}>{this.props.basic}</View>
 		}
 		return (
 			<Fragment>

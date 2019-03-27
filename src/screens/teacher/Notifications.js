@@ -131,7 +131,7 @@ export class Notifications extends React.Component {
 				<TouchableOpacity onPress={() => this.lessonPress(item)}>
 					<Notification
 						style={styles.notification}
-						key={`lesson${item.student.student_id}`}
+						key={`lesson${item.id}`}
 						name={`${item.student.user.name}(${
 							item.lesson_number
 						})`}

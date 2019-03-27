@@ -171,11 +171,14 @@
 		"This hour is not available": "שעה זו אינה פנויה.",
 		"Date is not valid": "התאריך אינו תקין.",
 		"Lesson must have a student assigned": "על מנת להוסיף נושאים, יש להוסיף תלמיד לשיעור.",
-		"Topic does not exist": "נושא זה אינו קיים."
+		"Topic does not exist": "נושא זה אינו קיים.",
+		"Network request failed": "נתקלנו בבעיה. אנא נסה שנית."
 	},
 	"notifications": {
 		"students": "בקשות הצטרפות",
 		"lessons": "בקשות שיעורים",
-		"payments": "פעילויות כספיות"
+		"payments": "פעילויות כספיות",
+		"scheduled_lessons": "שיעורים שנקבעו",
+		"teacher_scheduled": "קבע שיעור"
 	}
 }

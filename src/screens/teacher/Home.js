@@ -23,6 +23,7 @@ import { getPayments } from "../../actions/lessons"
 import EmptyState from "../../components/EmptyState"
 import LessonsLoader from "../../components/LessonsLoader"
 import PaymentsLoader from "../../components/PaymentsLoader"
+import { NavigationActions } from "react-navigation"
 
 export class Home extends React.Component {
 	static navigationOptions = () => {
@@ -293,19 +294,31 @@ export class Home extends React.Component {
 							>
 								{strings("teacher.home.monthly_amount")}
 							</Text>
-							<View
+							<TouchableOpacity
 								style={{
 									flex: 1,
 									alignItems: "flex-end",
 									marginRight: "auto"
 								}}
+								onPress={() =>
+									this.props.navigation.navigate({
+										routeName: "Notifications",
+										params: {},
+										action: NavigationActions.navigate({
+											routeName: "Main",
+											params: {
+												filter: "lessons/payments"
+											}
+										})
+									})
+								}
 							>
 								<Icon
 									name="arrow-back"
 									type="material"
 									size={20}
 								/>
-							</View>
+							</TouchableOpacity>
 						</View>
 						{this._renderPayments()}
 					</ShadowRect>

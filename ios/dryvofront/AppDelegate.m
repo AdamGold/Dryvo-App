@@ -12,8 +12,12 @@
 
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
+#import <Firebase.h>
 #import <React/RCTLinkingManager.h>
 #import <React/RCTI18nUtil.h>
+#import "RNFirebaseNotifications.h"
+#import "RNFirebaseMessaging.h"
+#import <UserNotifications/UserNotifications.h>
 
 @implementation AppDelegate
 
@@ -27,6 +31,9 @@
 
   [AppCenterReactNative register];  // Initialize AppCenter 
 
+  [FIRApp configure];
+  [[UNUserNotificationCenter currentNotificationCenter] setDelegate:self];
+  [RNFirebaseNotifications configure];
   #ifdef DEBUG
     jsCodeLocation = [[RCTBundleURLProvider sharedSettings] jsBundleURLForBundleRoot:@"index" fallbackResource:nil];
   #else

@@ -15,6 +15,7 @@ import SignUpNav from "./screens/auth/SignUpNav"
 import AuthLoading from "./screens/auth/AuthLoading"
 import configureStore from "./Store"
 import { setCustomText } from "react-native-global-props"
+import firebase from "react-native-firebase"
 
 const store = configureStore()
 
@@ -23,10 +24,10 @@ const AppNav = createSwitchNavigator(
 		Teacher: Teacher,
 		Student: Student,
 		NormalUser: NormalUser,
-		UserLoading: UserLoading
+		First: UserLoading
 	},
 	{
-		initialRouteName: "UserLoading"
+		initialRouteName: "First"
 	}
 )
 const AuthStack = createStackNavigator(

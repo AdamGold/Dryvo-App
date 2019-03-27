@@ -13,8 +13,7 @@ describe("Notification", () => {
 					style={{ height: 30 }}
 					name="test"
 					type="new_lesson"
-					date="test"
-					hours="test-test"
+					leftSide={<Text>hello</Text>}
 				>
 					<Text>Hello</Text>
 				</Notification>

@@ -8,117 +8,6 @@ exports[`Notifications view renders correctly 1`] = `
     }
   }
 >
-  <Modal
-    animationType="none"
-    hardwareAccelerated={false}
-    hideModalContentWhileAnimating={false}
-    onModalHide={[Function]}
-    onModalWillHide={[Function]}
-    onModalWillShow={[Function]}
-    onRequestClose={[Function]}
-    onSwipeComplete={[Function]}
-    scrollOffset={0}
-    scrollOffsetMax={0}
-    scrollTo={null}
-    supportedOrientations={
-      Array [
-        "portrait",
-        "landscape",
-      ]
-    }
-    swipeDirection="up"
-    swipeThreshold={10}
-    transparent={true}
-    visible={false}
-  >
-    <View
-      accessible={true}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "backgroundColor": "black",
-          "bottom": 0,
-          "height": 1334,
-          "left": 0,
-          "opacity": 0,
-          "position": "absolute",
-          "right": 0,
-          "top": 0,
-          "width": 750,
-        }
-      }
-    />
-    <View
-      hideModalContentWhileAnimating={false}
-      onModalHide={[Function]}
-      onModalWillHide={[Function]}
-      onModalWillShow={[Function]}
-      onMoveShouldSetResponder={[Function]}
-      onMoveShouldSetResponderCapture={[Function]}
-      onResponderEnd={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderReject={[Function]}
-      onResponderRelease={[Function]}
-      onResponderStart={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      onStartShouldSetResponderCapture={[Function]}
-      onSwipeComplete={[Function]}
-      pointerEvents="box-none"
-      scrollOffset={0}
-      scrollOffsetMax={0}
-      scrollTo={null}
-      style={
-        Object {
-          "flex": 1,
-          "justifyContent": "flex-start",
-          "left": 0,
-          "margin": 0,
-          "top": 0,
-          "transform": Array [
-            Object {
-              "translateY": 0,
-            },
-          ],
-        }
-      }
-      supportedOrientations={
-        Array [
-          "portrait",
-          "landscape",
-        ]
-      }
-      swipeDirection="up"
-      swipeThreshold={10}
-    >
-      <View
-        style={
-          Object {
-            "alignItems": "flex-start",
-            "backgroundColor": "green",
-            "height": 100,
-            "padding": 20,
-            "paddingTop": 60,
-          }
-        }
-      >
-        <Text
-          style={
-            Object {
-              "color": "#fff",
-            }
-          }
-        />
-      </View>
-    </View>
-  </Modal>
   <View
     style={
       Object {
@@ -240,12 +129,8 @@ exports[`Notifications view renders correctly 1`] = `
                       data={
                         Array [
                           Object {
-                            "label": "בקשות שיעורים",
+                            "label": "שיעורים שנקבעו",
                             "value": "lessons/",
-                          },
-                          Object {
-                            "label": "בקשות הצטרפות",
-                            "value": "teacher/students",
                           },
                           Object {
                             "label": "פעילויות כספיות",
@@ -521,7 +406,7 @@ exports[`Notifications view renders correctly 1`] = `
                         "shadowRadius": 2,
                       },
                       Object {
-                        "height": 136,
+                        "height": 96,
                         "left": undefined,
                         "top": undefined,
                         "transform": Array [
@@ -546,12 +431,8 @@ exports[`Notifications view renders correctly 1`] = `
                     data={
                       Array [
                         Object {
-                          "label": "בקשות שיעורים",
+                          "label": "שיעורים שנקבעו",
                           "value": "lessons/",
-                        },
-                        Object {
-                          "label": "בקשות הצטרפות",
-                          "value": "teacher/students",
                         },
                         Object {
                           "label": "פעילויות כספיות",
@@ -650,104 +531,7 @@ exports[`Notifications view renders correctly 1`] = `
                               ]
                             }
                           >
-                            בקשות שיעורים
-                          </Text>
-                          <View
-                            style={
-                              Object {
-                                "backgroundColor": "rgba(0, 0, 0, .38)",
-                                "borderRadius": 0,
-                                "bottom": 0,
-                                "left": 0,
-                                "opacity": 0,
-                                "position": "absolute",
-                                "right": 0,
-                                "top": 0,
-                              }
-                            }
-                          />
-                          <View
-                            style={
-                              Array [
-                                Object {
-                                  "backgroundColor": "transparent",
-                                  "bottom": 0,
-                                  "left": 0,
-                                  "overflow": "hidden",
-                                  "position": "absolute",
-                                  "right": 0,
-                                  "top": 0,
-                                },
-                                Object {
-                                  "borderRadius": 0,
-                                },
-                              ]
-                            }
-                          />
-                        </View>
-                      </View>
-                      <View
-                        onLayout={[Function]}
-                        style={null}
-                      >
-                        <View
-                          accessible={true}
-                          focusAnimation={null}
-                          focusAnimationDuration={225}
-                          hitSlop={
-                            Object {
-                              "bottom": 6,
-                              "left": 4,
-                              "right": 4,
-                              "top": 6,
-                            }
-                          }
-                          onLayout={[Function]}
-                          onPress={[Function]}
-                          onPressIn={[Function]}
-                          onPressOut={[Function]}
-                          onResponderGrant={[Function]}
-                          onResponderMove={[Function]}
-                          onResponderRelease={[Function]}
-                          onResponderTerminate={[Function]}
-                          onResponderTerminationRequest={[Function]}
-                          onStartShouldSetResponder={[Function]}
-                          pointerEvents="box-only"
-                          rippleCentered={false}
-                          rippleColor="rgba(0, 0, 0, .38)"
-                          rippleDuration={400}
-                          rippleFades={true}
-                          rippleOpacity={0.54}
-                          rippleSequential={true}
-                          rippleSize={0}
-                          style={
-                            Object {
-                              "backgroundColor": "transparent",
-                              "borderRadius": 0,
-                              "height": 40,
-                              "justifyContent": "center",
-                              "paddingLeft": undefined,
-                              "paddingRight": undefined,
-                              "paddingVertical": 8,
-                            }
-                          }
-                        >
-                          <Text
-                            numberOfLines={1}
-                            style={
-                              Array [
-                                Object {
-                                  "textAlign": "left",
-                                },
-                                undefined,
-                                Object {
-                                  "color": "rgba(0, 0, 0, .87)",
-                                  "fontSize": 16,
-                                },
-                              ]
-                            }
-                          >
-                            בקשות הצטרפות
+                            שיעורים שנקבעו
                           </Text>
                           <View
                             style={

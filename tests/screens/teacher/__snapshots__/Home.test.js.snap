@@ -696,11 +696,20 @@ exports[`Home view renders correctly 1`] = `
             פעילויות כספיות
           </Text>
           <View
+            accessible={true}
+            isTVSelectable={true}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
               Object {
                 "alignItems": "flex-end",
                 "flex": 1,
                 "marginRight": "auto",
+                "opacity": 1,
               }
             }
           >

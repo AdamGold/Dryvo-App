@@ -19,6 +19,7 @@ Array [
           Object {
             "flex": 1,
             "flexDirection": "row",
+            "marginTop": 4,
           }
         }
       >
@@ -71,36 +72,9 @@ Array [
         }
       }
     >
-      <View
-        style={
-          Object {
-            "flex": 1,
-            "marginTop": 5,
-          }
-        }
-      >
-        <Text
-          style={
-            Object {
-              "fontFamily": "Assistant-Light",
-              "fontSize": 22,
-            }
-          }
-        >
-          test
-        </Text>
-        <Text
-          style={
-            Object {
-              "color": "rgb(12, 116, 244)",
-              "fontSize": 14,
-              "fontWeight": "bold",
-            }
-          }
-        >
-          test-test
-        </Text>
-      </View>
+      <Text>
+        hello
+      </Text>
     </View>
   </View>,
   <View
@@ -109,7 +83,7 @@ Array [
         "flex": 1,
         "flexDirection": "row",
         "justifyContent": "space-between",
-        "marginTop": 16,
+        "marginTop": 20,
       }
     }
   >

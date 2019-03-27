@@ -1,19 +1,42 @@
 import React from "react"
 import { ActivityIndicator, StyleSheet, StatusBar, View } from "react-native"
 import { connect } from "react-redux"
+import { NavigationActions } from "react-navigation"
 
 class UserLoading extends React.Component {
 	componentWillMount() {
+		const notificationData =
+			this.props.navigation.getParam("notification") || {}
+		let routeName
+		let extra = {}
+		if (notificationData.fromNotification) {
+			navigateTo = "Notifications"
+			let params
+			if (notificationData.data.hasOwnProperty("lesson")) {
+				navigateTo = "Lesson"
+				params = { lesson: JSON.parse(notificationData.data["lesson"]) }
+			}
+			extra = {
+				action: NavigationActions.navigate({
+					routeName: navigateTo,
+					params
+				})
+			}
+		}
 		if (this.props.user.hasOwnProperty("teacher_id")) {
 			// it's a teacher
-			this.props.navigation.navigate("Teacher")
+			routeName = "Teacher"
 		} else if (this.props.user.hasOwnProperty("my_teacher")) {
 			// it's a student
-			this.props.navigation.navigate("Student")
+			routeName = "Student"
 		} else {
-			// non of the above - normal user
 			this.props.navigation.navigate("NormalUser")
+			return
 		}
+		this.props.navigation.navigate({
+			routeName: routeName,
+			...extra
+		})
 	}
 
 	render() {

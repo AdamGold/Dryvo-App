@@ -3,7 +3,7 @@ import React from "react"
 
 import renderer from "react-test-renderer"
 
-import { Notifications } from "../../../src/screens/teacher/Notifications"
+import { Notifications } from "../../../src/screens/student/Notifications"
 
 describe("Notifications", () => {
 	test("view renders correctly", () => {

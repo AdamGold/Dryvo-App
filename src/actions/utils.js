@@ -2,6 +2,7 @@ import { Platform, Linking } from "react-native"
 import { LOAD_FETCH_SERVICE, API_ERROR, POP_ERROR } from "../reducers/consts"
 import { getLatestError } from "../error_handling"
 import moment from "moment"
+import Storage from "../services/Storage"
 
 export const fetchOrError = (endpoint, params, dispatchError = true) => {
 	return async (dispatch, getState) => {
@@ -61,4 +62,50 @@ export const getHoursDiff = (date, duration) => {
 		.format("HH:mm")
 
 	return { start, end }
+}
+
+export const registerDeviceToken = token => {
+	return async (dispatch, getState) => {
+		const { user } = getState()
+		const existing_token = await Storage.getItem(
+			"firebase_token_user_" + user.id,
+			true
+		)
+		// we already registered the firebase token.
+		// let's check it's expiry and only if it's expired,
+		// register again
+		if (existing_token && JSON.parse(existing_token).expiry >= new Date())
+			return
+		return await dispatch(_registerDeviceToken(token))
+	}
+}
+
+const _registerDeviceToken = fcmToken => {
+	return async (dispatch, getState) => {
+		if (fcmToken) {
+			const { fetchService, user } = getState()
+			try {
+				const resp = await fetchService.fetch(
+					"/user/register_firebase_token",
+					{
+						method: "POST",
+						body: JSON.stringify({
+							token: fcmToken
+						})
+					}
+				)
+				if (resp.status == 200) {
+					let date = new Date()
+					const expiry = date.setDate(date.getDate() + 7) // 7 days from now
+					await Storage.setItem(
+						"firebase_token_user_" + user.id,
+						JSON.stringify({ token: fcmToken, expiry }),
+						true
+					)
+				}
+			} catch (err) {
+				console.log(err)
+			}
+		}
+	}
 }

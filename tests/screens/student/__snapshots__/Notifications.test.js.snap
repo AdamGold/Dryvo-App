@@ -129,6 +129,10 @@ exports[`Notifications view renders correctly 1`] = `
                       data={
                         Array [
                           Object {
+                            "label": "שיעורים שנקבעו",
+                            "value": "lessons/",
+                          },
+                          Object {
                             "label": "פעילויות כספיות",
                             "value": "lessons/payments",
                           },
@@ -402,12 +406,12 @@ exports[`Notifications view renders correctly 1`] = `
                         "shadowRadius": 2,
                       },
                       Object {
-                        "height": 56,
+                        "height": 96,
                         "left": undefined,
                         "top": undefined,
                         "transform": Array [
                           Object {
-                            "translateY": -8,
+                            "translateY": -48,
                           },
                         ],
                         "width": undefined,
@@ -426,6 +430,10 @@ exports[`Notifications view renders correctly 1`] = `
                     }
                     data={
                       Array [
+                        Object {
+                          "label": "שיעורים שנקבעו",
+                          "value": "lessons/",
+                        },
                         Object {
                           "label": "פעילויות כספיות",
                           "value": "lessons/payments",
@@ -462,6 +470,103 @@ exports[`Notifications view renders correctly 1`] = `
                     windowSize={21}
                   >
                     <View>
+                      <View
+                        onLayout={[Function]}
+                        style={null}
+                      >
+                        <View
+                          accessible={true}
+                          focusAnimation={null}
+                          focusAnimationDuration={225}
+                          hitSlop={
+                            Object {
+                              "bottom": 6,
+                              "left": 4,
+                              "right": 4,
+                              "top": 6,
+                            }
+                          }
+                          onLayout={[Function]}
+                          onPress={[Function]}
+                          onPressIn={[Function]}
+                          onPressOut={[Function]}
+                          onResponderGrant={[Function]}
+                          onResponderMove={[Function]}
+                          onResponderRelease={[Function]}
+                          onResponderTerminate={[Function]}
+                          onResponderTerminationRequest={[Function]}
+                          onStartShouldSetResponder={[Function]}
+                          pointerEvents="box-only"
+                          rippleCentered={false}
+                          rippleColor="rgba(0, 0, 0, .38)"
+                          rippleDuration={400}
+                          rippleFades={true}
+                          rippleOpacity={0.54}
+                          rippleSequential={true}
+                          rippleSize={0}
+                          style={
+                            Object {
+                              "backgroundColor": "transparent",
+                              "borderRadius": 0,
+                              "height": 40,
+                              "justifyContent": "center",
+                              "paddingLeft": undefined,
+                              "paddingRight": undefined,
+                              "paddingVertical": 8,
+                            }
+                          }
+                        >
+                          <Text
+                            numberOfLines={1}
+                            style={
+                              Array [
+                                Object {
+                                  "textAlign": "left",
+                                },
+                                undefined,
+                                Object {
+                                  "color": "rgba(0, 0, 0, .87)",
+                                  "fontSize": 16,
+                                },
+                              ]
+                            }
+                          >
+                            שיעורים שנקבעו
+                          </Text>
+                          <View
+                            style={
+                              Object {
+                                "backgroundColor": "rgba(0, 0, 0, .38)",
+                                "borderRadius": 0,
+                                "bottom": 0,
+                                "left": 0,
+                                "opacity": 0,
+                                "position": "absolute",
+                                "right": 0,
+                                "top": 0,
+                              }
+                            }
+                          />
+                          <View
+                            style={
+                              Array [
+                                Object {
+                                  "backgroundColor": "transparent",
+                                  "bottom": 0,
+                                  "left": 0,
+                                  "overflow": "hidden",
+                                  "position": "absolute",
+                                  "right": 0,
+                                  "top": 0,
+                                },
+                                Object {
+                                  "borderRadius": 0,
+                                },
+                              ]
+                            }
+                          />
+                        </View>
+                      </View>
                       <View
                         onLayout={[Function]}
                         style={null}

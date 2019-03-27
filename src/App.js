@@ -15,6 +15,7 @@ import SignUpNav from "./screens/auth/SignUpNav"
 import AuthLoading from "./screens/auth/AuthLoading"
 import configureStore from "./Store"
 import { setCustomText } from "react-native-global-props"
+import firebase from "react-native-firebase"
 
 const store = configureStore()
 
@@ -77,7 +78,7 @@ export default class App extends Component {
 			.onNotification(notification => {
 				const { title, body } = notification
 				console.log("foreground notification")
-				console.log(title, body)
+				console.log(notification)
 			})
 
 		/*
@@ -88,7 +89,7 @@ export default class App extends Component {
 			.onNotificationOpened(notificationOpen => {
 				const { title, body } = notificationOpen.notification
 				console.log("background notification")
-				console.log(title, body)
+				console.log(notificationOpen)
 			})
 
 		/*
@@ -100,7 +101,7 @@ export default class App extends Component {
 		if (notificationOpen) {
 			const { title, body } = notificationOpen.notification
 			console.log("background2 notification")
-			console.log(title, body)
+			console.log(notificationOpen)
 		}
 	}
 	render() {

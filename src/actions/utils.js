@@ -86,7 +86,7 @@ const _registerDeviceToken = fcmToken => {
 					{
 						method: "POST",
 						body: JSON.stringify({
-							firebase_token: fcmToken
+							token: fcmToken
 						})
 					}
 				)

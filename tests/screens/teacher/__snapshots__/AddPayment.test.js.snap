@@ -287,60 +287,63 @@ exports[`AddPaymentChooseAmount view renders correctly 1`] = `
   <View
     onLayout={[Function]}
     style={
-      Array [
-        Object {
-          "flex": 1,
-        },
-        Object {
-          "paddingBottom": 0,
-        },
-      ]
+      Object {
+        "flex": 1,
+      }
     }
   >
     <View
-      accessible={true}
-      isTVSelectable={true}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={null}
+      style={
+        Object {
+          "bottom": 0,
+        }
+      }
     >
       <View
-        style={
-          Object {
-            "alignItems": "center",
-            "alignSelf": "center",
-            "backgroundColor": "rgb(12,116,244)",
-            "borderRadius": 28,
-            "elevation": 8,
-            "height": 56,
-            "justifyContent": "center",
-            "marginTop": 40,
-            "shadowColor": "rgb(12,116,244)",
-            "shadowOffset": Object {
-              "height": 8,
-              "width": 0,
-            },
-            "shadowOpacity": 0.5,
-            "shadowRadius": 16,
-            "width": "80%",
-          }
-        }
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={null}
       >
-        <Text
+        <View
           style={
             Object {
-              "color": "#fff",
-              "fontSize": 20,
-              "fontWeight": "bold",
+              "alignItems": "center",
+              "alignSelf": "center",
+              "backgroundColor": "rgb(12,116,244)",
+              "borderRadius": 28,
+              "elevation": 8,
+              "height": 56,
+              "justifyContent": "center",
+              "marginTop": 40,
+              "shadowColor": "rgb(12,116,244)",
+              "shadowOffset": Object {
+                "height": 8,
+                "width": 0,
+              },
+              "shadowOpacity": 0.5,
+              "shadowRadius": 16,
+              "width": "80%",
             }
           }
         >
-          סיום
-        </Text>
+          <Text
+            style={
+              Object {
+                "color": "#fff",
+                "fontSize": 20,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            סיום
+          </Text>
+        </View>
       </View>
     </View>
   </View>

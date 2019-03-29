@@ -155,6 +155,7 @@ exports[`Home view renders correctly 1`] = `
             "backgroundColor": "#fff",
             "borderRadius": 4,
             "elevation": 6,
+            "marginBottom": 20,
             "paddingHorizontal": 20,
             "paddingVertical": 12,
             "shadowColor": "#000",
@@ -280,7 +281,7 @@ exports[`Home view renders correctly 1`] = `
             "flex": 1,
             "flexDirection": "row",
             "marginBottom": 24,
-            "marginTop": 24,
+            "marginTop": 4,
           }
         }
       >
@@ -389,6 +390,7 @@ exports[`Home view renders correctly 1`] = `
             "backgroundColor": "#fff",
             "borderRadius": 4,
             "elevation": 6,
+            "marginBottom": 20,
             "paddingHorizontal": 20,
             "paddingVertical": 12,
             "shadowColor": "#000",

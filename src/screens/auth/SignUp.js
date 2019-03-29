@@ -6,7 +6,8 @@ import {
 	ScrollView,
 	KeyboardAvoidingView,
 	TouchableOpacity,
-	Image
+	Image,
+	Platform
 } from "react-native"
 import { connect } from "react-redux"
 import { register } from "../../actions/auth"
@@ -124,13 +125,15 @@ export class SignUp extends React.Component {
 					<Icon name="arrow-forward" type="material" />
 				</TouchableOpacity>
 				<ScrollView
-					keyboardDismissMode="on-drag"
-					keyboardShouldPersistTaps="always"
+					keyboardDismissMode={
+						Platform.OS === "ios" ? "interactive" : "on-drag"
+					}
+					keyboardShouldPersistTaps="handled"
 				>
 					<KeyboardAvoidingView
-						behavior="position"
+						behavior={Platform.OS === "ios" ? "position" : null}
 						style={styles.form}
-						keyboardVerticalOffset={100}
+						keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
 					>
 						<Image
 							source={require("../../../assets/images/register.png")}

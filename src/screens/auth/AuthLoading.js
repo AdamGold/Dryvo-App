@@ -95,15 +95,21 @@ export class AuthLoading extends React.Component {
 				this.checkPermission()
 				if (user === null) await this.props.dispatch(logout())
 				// logging out just to make sure
+				let action = {}
+				if (this.state.fromNotification && user) {
+					action = {
+						action: NavigationActions.navigate({
+							routeName: "First",
+							params: {
+								notification: this.state
+							}
+						})
+					}
+				}
 				this.props.navigation.navigate({
 					routeName: user ? "App" : "Auth",
 					params: {},
-					action: NavigationActions.navigate({
-						routeName: "First",
-						params: {
-							notification: this.state
-						}
-					})
+					...action
 				})
 			})
 		)

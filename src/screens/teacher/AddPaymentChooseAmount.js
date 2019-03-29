@@ -6,7 +6,8 @@ import {
 	TouchableHighlight,
 	TouchableOpacity,
 	TextInput,
-	KeyboardAvoidingView
+	KeyboardAvoidingView,
+	Platform
 } from "react-native"
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
@@ -108,7 +109,7 @@ export class AddPaymentChooseAmount extends React.Component {
 					/>
 				</View>
 				<KeyboardAvoidingView
-					behavior="padding"
+					behavior={Platform.OS === "ios" ? "position" : null}
 					keyboardVerticalOffset={62}
 					style={styles.container}
 				>

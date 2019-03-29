@@ -5,7 +5,8 @@ import {
 	Text,
 	StyleSheet,
 	TouchableOpacity,
-	KeyboardAvoidingView
+	KeyboardAvoidingView,
+	Platform
 } from "react-native"
 import {
 	deepLinkingListener,
@@ -150,10 +151,14 @@ export class SignIn extends React.Component {
 				<View style={styles.topLogo}>
 					<Logo size="medium" />
 				</View>
-				<KeyboardAvoidingView behavior="padding">
+				<KeyboardAvoidingView
+					behavior={Platform.OS === "ios" ? "padding" : null}
+				>
 					<ScrollView
-						keyboardDismissMode="on-drag"
-						keyboardShouldPersistTaps="always"
+						keyboardDismissMode={
+							Platform.OS === "ios" ? "interactive" : "on-drag"
+						}
+						keyboardShouldPersistTaps="handled"
 					>
 						<View style={styles.formContainer}>
 							{this.renderInputs()}

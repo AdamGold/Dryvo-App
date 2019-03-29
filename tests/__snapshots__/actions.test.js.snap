@@ -54,13 +54,7 @@ Array [
 ]
 `;
 
-exports[`auth.js logout tests should dispatch logout and remove tokens 1`] = `
-Array [
-  Object {
-    "type": "LOGOUT",
-  },
-]
-`;
+exports[`auth.js logout tests should dispatch logout and remove tokens 1`] = `Array []`;
 
 exports[`auth.js register tests should dispatch default error 1`] = `
 Array [

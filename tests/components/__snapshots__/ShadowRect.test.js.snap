@@ -8,6 +8,7 @@ exports[`ShadowRect view renders correctly 1`] = `
       "backgroundColor": "#fff",
       "borderRadius": 4,
       "elevation": 6,
+      "marginBottom": 20,
       "minHeight": 320,
       "paddingHorizontal": 20,
       "paddingVertical": 12,

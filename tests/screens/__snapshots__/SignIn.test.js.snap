@@ -175,8 +175,8 @@ exports[`SignIn view renders correctly 1`] = `
     }
   >
     <RCTScrollView
-      keyboardDismissMode="on-drag"
-      keyboardShouldPersistTaps="always"
+      keyboardDismissMode="interactive"
+      keyboardShouldPersistTaps="handled"
     >
       <View>
         <View

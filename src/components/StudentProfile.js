@@ -135,12 +135,12 @@ export default class StudentProfile extends React.Component {
 	render() {
 		const { student } = this.state
 
-		let teacherView
+		let teacherView = <View style={{ marginTop: 20 }} />
 		if (this.state.isTeacher) {
 			// teacher is logged in, show next lesson and payments
 			teacherView = (
 				<Fragment>
-					<ShadowRect style={styles.rect}>
+					<ShadowRect style={{ ...styles.rect, marginTop: 20 }}>
 						<Text style={styles.rectTitle} testID="schedule">
 							{strings("teacher.home.next_lesson")}
 						</Text>
@@ -164,7 +164,7 @@ export default class StudentProfile extends React.Component {
 			)
 		}
 		return (
-			<ScrollView>
+			<ScrollView style={{ flex: 1 }}>
 				<View style={styles.container}>
 					<View style={styles.header}>
 						<UserWithPic
@@ -211,9 +211,7 @@ const styles = StyleSheet.create({
 		flexDirection: "row",
 		alignItems: "center"
 	},
-	rect: {
-		marginTop: 20
-	},
+	rect: {},
 	rectTitle: {
 		fontWeight: "bold",
 		color: "rgb(121, 121, 121)"

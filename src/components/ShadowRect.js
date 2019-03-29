@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
 		shadowRadius: 20,
 		elevation: 6,
 		borderRadius: 4,
+		marginBottom: 20, // for android
 		paddingHorizontal: 20,
 		paddingVertical: 12,
 		alignItems: "flex-start",

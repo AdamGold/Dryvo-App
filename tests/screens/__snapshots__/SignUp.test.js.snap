@@ -215,8 +215,8 @@ exports[`SignUp view renders correctly 1`] = `
     </View>
   </View>
   <RCTScrollView
-    keyboardDismissMode="on-drag"
-    keyboardShouldPersistTaps="always"
+    keyboardDismissMode="interactive"
+    keyboardShouldPersistTaps="handled"
   >
     <View>
       <View

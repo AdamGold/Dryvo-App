@@ -219,7 +219,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignSelf: "center",
 		alignItems: "center",
-		marginTop: 24,
+		marginTop: 4,
 		marginBottom: 24
 	},
 	fullSchedule: {

@@ -5,7 +5,8 @@ import {
 	StyleSheet,
 	View,
 	TouchableHighlight,
-	ScrollView
+	ScrollView,
+	Platform
 } from "react-native"
 import { connect } from "react-redux"
 import { Button, Icon } from "react-native-elements"
@@ -452,15 +453,17 @@ export class Lesson extends React.Component {
 					/>
 				</View>
 				<KeyboardAvoidingView
-					behavior="padding"
+					behavior={Platform.OS === "ios" ? "padding" : null}
 					keyboardVerticalOffset={62}
 					style={styles.container}
 				>
 					<ScrollView
 						ref={ref => (this._scrollView = ref)}
 						style={styles.formContainer}
-						keyboardDismissMode="on-drag"
-						keyboardShouldPersistTaps="always"
+						keyboardDismissMode={
+							Platform.OS === "ios" ? "interactive" : "on-drag"
+						}
+						keyboardShouldPersistTaps="handled"
 					>
 						{this.renderInputs()}
 						<View style={styles.topics}>

@@ -67,6 +67,7 @@ export const getHoursDiff = (date, duration) => {
 export const registerDeviceToken = token => {
 	return async (dispatch, getState) => {
 		const { user } = getState()
+		if (!user) return
 		const existing_token = await Storage.getItem(
 			"firebase_token_user_" + user.id,
 			true

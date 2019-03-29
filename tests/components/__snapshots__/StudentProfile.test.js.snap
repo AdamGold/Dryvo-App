@@ -1,7 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StudentProfile view renders correctly -> student's view 1`] = `
-<RCTScrollView>
+<RCTScrollView
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
   <View>
     <View
       style={
@@ -102,11 +108,18 @@ exports[`StudentProfile view renders correctly -> student's view 1`] = `
       <View
         style={
           Object {
+            "marginTop": 20,
+          }
+        }
+      />
+      <View
+        style={
+          Object {
             "alignItems": "flex-start",
             "backgroundColor": "#fff",
             "borderRadius": 4,
             "elevation": 6,
-            "marginTop": 20,
+            "marginBottom": 20,
             "paddingHorizontal": 20,
             "paddingVertical": 12,
             "shadowColor": "#000",
@@ -217,7 +230,13 @@ exports[`StudentProfile view renders correctly -> student's view 1`] = `
 `;
 
 exports[`StudentProfile view renders correctly -> teacher's view 1`] = `
-<RCTScrollView>
+<RCTScrollView
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
   <View>
     <View
       style={
@@ -322,6 +341,7 @@ exports[`StudentProfile view renders correctly -> teacher's view 1`] = `
             "backgroundColor": "#fff",
             "borderRadius": 4,
             "elevation": 6,
+            "marginBottom": 20,
             "marginTop": 20,
             "paddingHorizontal": 20,
             "paddingVertical": 12,
@@ -445,7 +465,7 @@ exports[`StudentProfile view renders correctly -> teacher's view 1`] = `
             "backgroundColor": "#fff",
             "borderRadius": 4,
             "elevation": 6,
-            "marginTop": 20,
+            "marginBottom": 20,
             "paddingHorizontal": 20,
             "paddingVertical": 12,
             "shadowColor": "#000",
@@ -830,7 +850,7 @@ exports[`StudentProfile view renders correctly -> teacher's view 1`] = `
             "backgroundColor": "#fff",
             "borderRadius": 4,
             "elevation": 6,
-            "marginTop": 20,
+            "marginBottom": 20,
             "paddingHorizontal": 20,
             "paddingVertical": 12,
             "shadowColor": "#000",

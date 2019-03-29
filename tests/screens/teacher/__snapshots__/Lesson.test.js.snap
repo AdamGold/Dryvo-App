@@ -292,8 +292,8 @@ exports[`Lesson view renders correctly 1`] = `
     }
   >
     <RCTScrollView
-      keyboardDismissMode="on-drag"
-      keyboardShouldPersistTaps="always"
+      keyboardDismissMode="interactive"
+      keyboardShouldPersistTaps="handled"
       style={
         Object {
           "alignSelf": "center",
@@ -1516,8 +1516,8 @@ exports[`Lesson view renders correctly with existing lesson 1`] = `
     }
   >
     <RCTScrollView
-      keyboardDismissMode="on-drag"
-      keyboardShouldPersistTaps="always"
+      keyboardDismissMode="interactive"
+      keyboardShouldPersistTaps="handled"
       style={
         Object {
           "alignSelf": "center",

@@ -89,7 +89,7 @@ export class NewStudent extends React.Component {
 					}
 				>
 					<UserWithPic
-						name={item.name}
+						user={item}
 						nameStyle={styles.nameStyle}
 						width={64}
 						height={64}

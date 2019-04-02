@@ -14,6 +14,7 @@ describe("Notification", () => {
 					name="test"
 					type="new_lesson"
 					leftSide={<Text>hello</Text>}
+					user={{ name: "test", image: "testImage" }}
 				>
 					<Text>Hello</Text>
 				</Notification>

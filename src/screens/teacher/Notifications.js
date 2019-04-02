@@ -132,6 +132,7 @@ export class Notifications extends React.Component {
 					<Notification
 						style={styles.notification}
 						key={`lesson${item.id}`}
+						user={item.student.user}
 						name={`${item.student.user.name}(${
 							item.lesson_number
 						})`}
@@ -178,6 +179,7 @@ export class Notifications extends React.Component {
 				style={styles.notification}
 				key={`student${item.student_id}`}
 				name={`${item.user.name}`}
+				user={item.user}
 				type="new_student"
 			>
 				<NotificationButtons
@@ -202,6 +204,7 @@ export class Notifications extends React.Component {
 					key={`payment${item.id}`}
 					leftSide={<Text style={styles.amount}>{item.amount}₪</Text>}
 					name={`${item.student.user.name}`}
+					user={item.student.user}
 					type="new_payment"
 				/>
 			</TouchableOpacity>

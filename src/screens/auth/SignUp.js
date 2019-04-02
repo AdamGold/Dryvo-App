@@ -15,11 +15,12 @@ import { API_ERROR, POP_ERROR } from "../../reducers/consts"
 import validate, { registerValidation } from "../../actions/validate"
 import { strings } from "../../i18n"
 import AuthInput from "../../components/AuthInput"
-import { MAIN_PADDING, DEFAULT_MESSAGE_TIME } from "../../consts"
+import { MAIN_PADDING, DEFAULT_MESSAGE_TIME, DEFAULT_IMAGE } from "../../consts"
 import { Icon } from "react-native-elements"
 import LoadingButton from "../../components/LoadingButton"
 import SlidingMessage from "../../components/SlidingMessage"
 import { popLatestError } from "../../actions/utils"
+import UploadProfileImage from "../../components/UploadProfileImage"
 
 export class SignUp extends React.Component {
 	constructor(props) {
@@ -28,7 +29,9 @@ export class SignUp extends React.Component {
 		this.role = this.props.navigation.getParam("role")
 		this.state = {
 			api_error: "",
-			slidingMessageVisible: false
+			slidingMessageVisible: false,
+			imageError: "",
+			image: ""
 		}
 		this.inputs = {
 			email: {},
@@ -63,25 +66,38 @@ export class SignUp extends React.Component {
 			if (error) errors.push(error)
 			this.setState({ [input + "Error"]: error })
 		})
+		if (this.state.image == "") {
+			this.setState({ imageError: strings("signup.image_required") })
+			return
+		}
 
 		if (errors.length > 0) return
 		this.button.showLoading(true)
 
 		await this.props.dispatch(
-			register(this.state, user => {
-				this.button.showLoading(false)
-				if (user) {
-					this.setState(
-						{ api_error: "", slidingMessageVisible: true },
-						() => {
-							setTimeout(
-								() => this.props.navigation.navigate("App"),
-								DEFAULT_MESSAGE_TIME
-							)
-						}
-					)
+			register(
+				{
+					email: this.state.email,
+					area: this.state.area,
+					password: this.state.password,
+					name: this.state.name,
+					image: this.state.image
+				},
+				user => {
+					this.button.showLoading(false)
+					if (user) {
+						this.setState(
+							{ api_error: "", slidingMessageVisible: true },
+							() => {
+								setTimeout(
+									() => this.props.navigation.navigate("App"),
+									DEFAULT_MESSAGE_TIME
+								)
+							}
+						)
+					}
 				}
-			})
+			)
 		)
 	}
 
@@ -135,11 +151,16 @@ export class SignUp extends React.Component {
 						style={styles.form}
 						keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
 					>
-						<Image
-							source={require("../../../assets/images/register.png")}
-							style={styles.bigImage}
+						<UploadProfileImage
+							style={styles.profilePic}
+							image={this.state.image.uri || DEFAULT_IMAGE}
+							upload={async source => {
+								this.setState({ image: source, imageError: "" })
+							}}
 						/>
-
+						<Text style={styles.error}>
+							{this.state.imageError}
+						</Text>
 						{this.renderInputs()}
 						<LoadingButton
 							title={strings("signup.signup_button")}
@@ -161,16 +182,10 @@ const styles = StyleSheet.create({
 		paddingLeft: MAIN_PADDING,
 		paddingRight: MAIN_PADDING
 	},
-	bigImage: {
-		resizeMode: "contain",
-		width: 160,
-		height: 160,
-		alignSelf: "center"
-	},
 	error: {
 		marginTop: 12,
 		color: "red",
-		alignSelf: "flex-start"
+		fontSize: 12
 	},
 	backButton: {
 		alignSelf: "flex-start",
@@ -182,6 +197,12 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		marginTop: 20
+	},
+	profilePic: {
+		width: 80,
+		height: 80,
+		borderRadius: 40,
+		alignSelf: "center"
 	}
 })
 

@@ -235,21 +235,66 @@ exports[`SignUp view renders correctly 1`] = `
             }
           }
         >
-          <Image
-            source={
-              Object {
-                "testUri": "../../../assets/images/register.png",
-              }
-            }
+          <View
+            accessible={true}
+            isTVSelectable={true}
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
             style={
               Object {
-                "alignSelf": "center",
-                "height": 160,
-                "resizeMode": "contain",
-                "width": 160,
+                "opacity": 1,
               }
             }
-          />
+          >
+            <View
+              style={
+                Array [
+                  Object {
+                    "overflow": "hidden",
+                  },
+                  Object {
+                    "alignSelf": "center",
+                    "borderRadius": 40,
+                    "height": 80,
+                    "width": 80,
+                  },
+                ]
+              }
+            >
+              <FastImageView
+                resizeMode="cover"
+                source={
+                  Object {
+                    "uri": "https://res.cloudinary.com/hsmkon3br/image/upload/c_thumb,g_face,h_80,w_80/v1554188012/678099-profile-filled-256.png",
+                  }
+                }
+                style={
+                  Object {
+                    "bottom": 0,
+                    "left": 0,
+                    "position": "absolute",
+                    "right": 0,
+                    "top": 0,
+                  }
+                }
+              />
+            </View>
+          </View>
+          <Text
+            style={
+              Object {
+                "color": "red",
+                "fontSize": 12,
+                "marginTop": 12,
+              }
+            }
+          >
+            
+          </Text>
           <View
             style={
               Object {

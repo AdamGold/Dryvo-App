@@ -4,7 +4,6 @@ import {
 	View,
 	StyleSheet,
 	Text,
-	Image,
 	TouchableOpacity
 } from "react-native"
 import { strings } from "../i18n"
@@ -17,6 +16,8 @@ import StudentPayments from "./StudentPayments"
 import { getPayments } from "../actions/lessons"
 import StudentNextLessonView from "./StudentNextLessonView"
 import SimpleLoader from "./SimpleLoader"
+import { getUserImage } from "../actions/utils"
+import FastImage from "react-native-fast-image"
 
 export default class StudentProfile extends React.Component {
 	constructor(props) {
@@ -168,7 +169,7 @@ export default class StudentProfile extends React.Component {
 				<View style={styles.container}>
 					<View style={styles.header}>
 						<UserWithPic
-							name={student.user.name}
+							user={student.user}
 							extra={
 								<Text>
 									{student.new_lesson_number}{" "}
@@ -179,11 +180,10 @@ export default class StudentProfile extends React.Component {
 							height={54}
 						/>
 						<View style={styles.badges}>
-							<Image
+							<FastImage
 								style={styles.badge}
 								source={{
-									uri:
-										"https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80"
+									uri: getUserImage(student.my_teacher.user)
 								}}
 							/>
 						</View>

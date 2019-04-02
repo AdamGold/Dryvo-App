@@ -97,7 +97,7 @@ export class AddPaymentChooseStudent extends React.Component {
 					style={{ ...styles.row, ...noneMargin }}
 				>
 					<UserWithPic
-						name={item.user.name}
+						user={item.user}
 						nameStyle={styles.nameStyle}
 						width={64}
 						height={64}

@@ -86,6 +86,24 @@ Array [
 ]
 `;
 
+exports[`utils.js should dispatch API ERROR when trying to upload image 1`] = `
+Array [
+  Object {
+    "error": "קרתה תקלה, אנא נסו שנית.",
+    "type": "API_ERROR",
+  },
+]
+`;
+
+exports[`utils.js should dispatch CHANGE_USER_IMAGE 1`] = `
+Array [
+  Object {
+    "image": "test",
+    "type": "CHANGE_USER_IMAGE",
+  },
+]
+`;
+
 exports[`utils.js should dispatch pop error 1`] = `
 Array [
   Object {

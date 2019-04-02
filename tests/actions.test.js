@@ -6,7 +6,7 @@ import FetchService from "../src/services/Fetch"
 import Storage from "../src/services/Storage"
 import { Platform } from "react-native"
 import mockStore from "redux-mock-store"
-import { TOKEN_KEY, REFRESH_TOKEN_KEY } from "../src/consts"
+import { TOKEN_KEY, REFRESH_TOKEN_KEY, DEFAULT_IMAGE } from "../src/consts"
 import { API_ERROR } from "../src/reducers/consts"
 
 let user, store
@@ -102,6 +102,33 @@ describe("utils.js", () => {
 		await utils.deepLinkingListener(func)
 		expect(func).toBeCalled()
 	})
+
+	it("should return default image", () => {
+		let image = utils.getUserImage({ name: "test" })
+		expect(image).toEqual(DEFAULT_IMAGE)
+		image = utils.getUserImage(null)
+		expect(image).toEqual(DEFAULT_IMAGE)
+	})
+
+	it("should return user's image", () => {
+		const image = utils.getUserImage({ image: "test" })
+		expect(image).toEqual("test")
+	})
+
+	it("should dispatch API ERROR when trying to upload image", async () => {
+		fetch.mockResponseFailure()
+		await store.dispatch(utils.uploadUserImage({ uri: "test" }))
+		expect(store.getActions()).toMatchSnapshot()
+		store.clearActions()
+	})
+
+	it("should dispatch CHANGE_USER_IMAGE", async () => {
+		const example = { image: "test" }
+		fetch.mockResponseSuccess(JSON.stringify(example))
+		await store.dispatch(utils.uploadUserImage({ uri: "test" }))
+		expect(store.getActions()).toMatchSnapshot()
+		store.clearActions()
+	})
 })
 
 describe("auth.js", () => {
@@ -178,7 +205,8 @@ describe("auth.js", () => {
 						email: "t@t.com",
 						name: "t",
 						area: "t",
-						password: "test"
+						password: "test",
+						image: "test"
 					},
 					callback
 				)

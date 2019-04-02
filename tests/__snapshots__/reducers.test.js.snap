@@ -18,6 +18,16 @@ Object {
 }
 `;
 
+exports[`errors reducer should handle APP ERROR - insert \`test inside app error\` to array 1`] = `
+Object {
+  "API_ERROR": Array [],
+  "APP_ERROR": Array [
+    "test inside app error",
+  ],
+  "other": Array [],
+}
+`;
+
 exports[`errors reducer should handle POP ERROR and pop from array - return only \`test 1\` in array 1`] = `
 Object {
   "API_ERROR": Array [
@@ -30,6 +40,7 @@ Object {
 exports[`errors reducer should return the initial state - return dict of empty arrays with the correct keys 1`] = `
 Object {
   "API_ERROR": Array [],
+  "APP_ERROR": Array [],
   "other": Array [],
 }
 `;
@@ -47,6 +58,12 @@ Fetch {
     "Content-Type": "application/json",
   },
   "sentRequests": 0,
+}
+`;
+
+exports[`user reducer should handle CHANGE_USER_IMAGE - return user object with \`test2\` image 1`] = `
+Object {
+  "image": "test2",
 }
 `;
 

@@ -182,12 +182,6 @@ const styles = StyleSheet.create({
 		paddingLeft: MAIN_PADDING,
 		paddingRight: MAIN_PADDING
 	},
-	bigImage: {
-		resizeMode: "contain",
-		width: 160,
-		height: 160,
-		alignSelf: "center"
-	},
 	error: {
 		marginTop: 12,
 		color: "red",

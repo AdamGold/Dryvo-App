@@ -1,6 +1,7 @@
 import React from "react"
 import { View, Text, Image, StyleSheet } from "react-native"
 import { getUserImage } from "../actions/utils"
+import FastImage from "react-native-fast-image"
 
 export default class UserWithPic extends React.Component {
 	render() {
@@ -10,7 +11,7 @@ export default class UserWithPic extends React.Component {
 		return (
 			<View style={{ ...styles.container, ...this.props.style }}>
 				<View style={this.props.imageContainerStyle}>
-					<Image
+					<FastImage
 						style={{
 							...this.props.imageStyle,
 							...{

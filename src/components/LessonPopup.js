@@ -1,11 +1,12 @@
 import React from "react"
-import { StyleSheet, View, Image, Text, TouchableOpacity } from "react-native"
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native"
 import Modal from "react-native-modal"
 import { strings } from "../i18n"
 import Hours from "./Hours"
 import moment from "moment"
 import { fullButton } from "../consts"
 import { getUserImage } from "../actions/utils"
+import FastImage from "react-native-fast-image"
 
 export default class LessonPopup extends React.Component {
 	constructor(props) {
@@ -39,7 +40,7 @@ export default class LessonPopup extends React.Component {
 			} - ${item.student.user.name}`
 			if (item.student.user.image) {
 				image = (
-					<Image
+					<FastImage
 						style={styles.image}
 						source={{
 							uri: getUserImage(item.student.user)

@@ -3,10 +3,10 @@ import {
 	View,
 	StyleSheet,
 	TouchableOpacity,
-	ActivityIndicator,
-	Image
+	ActivityIndicator
 } from "react-native"
 import { showImagePicker } from "../actions/utils"
+import FastImage from "react-native-fast-image"
 
 export default class UploadProfileImage extends React.Component {
 	constructor(props) {
@@ -40,7 +40,7 @@ export default class UploadProfileImage extends React.Component {
 		}
 		return (
 			<TouchableOpacity onPress={this.uploadImage.bind(this)}>
-				<Image
+				<FastImage
 					style={this.props.style}
 					source={{
 						uri: this.props.image

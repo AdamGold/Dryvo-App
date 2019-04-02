@@ -178,7 +178,8 @@ describe("auth.js", () => {
 						email: "t@t.com",
 						name: "t",
 						area: "t",
-						password: "test"
+						password: "test",
+						image: "test"
 					},
 					callback
 				)

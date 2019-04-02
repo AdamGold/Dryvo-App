@@ -138,25 +138,31 @@ export const showImagePicker = callback => {
 	}
 	ImagePicker.showImagePicker(options, response => {
 		//const source = "data:image/jpeg;base64," + response.data
-		ImageResizer.createResizedImage(
-			response.uri,
-			DEFAULT_IMAGE_MAX_SIZE,
-			DEFAULT_IMAGE_MAX_SIZE,
-			"JPEG",
-			100
-		)
-			.then(resizeResponse => {
-				const source = {
-					uri: resizeResponse.uri,
-					name: resizeResponse.name,
-					type: response.type
-				}
+		if (response.didCancel) {
+			console.log("User cancelled image picker")
+		} else if (response.error) {
+			console.log("ImagePicker Error: ", response.error)
+		} else {
+			ImageResizer.createResizedImage(
+				response.uri,
+				DEFAULT_IMAGE_MAX_SIZE,
+				DEFAULT_IMAGE_MAX_SIZE,
+				"JPEG",
+				100
+			)
+				.then(resizeResponse => {
+					const source = {
+						uri: resizeResponse.uri,
+						name: resizeResponse.name,
+						type: response.type
+					}
 
-				callback(source)
-			})
-			.catch(err => {
-				dispatch({ type: APP_ERROR, error: DEFAULT_ERROR })
-			})
+					callback(source)
+				})
+				.catch(err => {
+					dispatch({ type: APP_ERROR, error: DEFAULT_ERROR })
+				})
+		}
 	})
 }
 

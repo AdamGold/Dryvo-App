@@ -24,6 +24,7 @@ import LessonsLoader from "../../components/LessonsLoader"
 import PaymentsLoader from "../../components/PaymentsLoader"
 import { NavigationActions } from "react-navigation"
 import { getUserImage, uploadUserImage } from "../../actions/utils"
+import UploadProfileImage from "../../components/UploadProfileImage"
 
 export class Home extends React.Component {
 	static navigationOptions = () => {

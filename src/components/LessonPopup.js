@@ -32,12 +32,21 @@ export default class LessonPopup extends React.Component {
 		const { item } = this.props
 		if (!item) return null
 		let student = strings("teacher.no_student_applied")
-		let user = null
+		let image
 		if (item.student) {
 			student = `${strings("teacher.home.lesson_number")} ${
 				item.lesson_number
 			} - ${item.student.user.name}`
-			user = item.student.user
+			if (item.student.user.image) {
+				image = (
+					<Image
+						style={styles.image}
+						source={{
+							uri: getUserImage(item.student.user)
+						}}
+					/>
+				)
+			}
 		}
 		let meetup = strings("not_set")
 		if (item.meetup_place) meetup = item.meetup_place.name
@@ -60,12 +69,7 @@ export default class LessonPopup extends React.Component {
 			>
 				<View style={styles.popup} testID={this.props.testID}>
 					<TouchableOpacity onPress={this.navigateToProfile}>
-						<Image
-							style={styles.image}
-							source={{
-								uri: getUserImage(user)
-							}}
-						/>
+						{image}
 					</TouchableOpacity>
 					<Text style={styles.title}>{student}</Text>
 					<Text style={styles.approved}>{approved}</Text>

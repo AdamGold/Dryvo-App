@@ -3,7 +3,6 @@ import {
 	ScrollView,
 	View,
 	Text,
-	Image,
 	StyleSheet,
 	TouchableHighlight,
 	TouchableOpacity
@@ -17,7 +16,8 @@ import { getPayments } from "../../actions/lessons"
 import { MAIN_PADDING } from "../../consts"
 import StudentPayments from "../../components/StudentPayments"
 import StudentNextLessonView from "../../components/StudentNextLessonView"
-import { getUserImage } from "../../actions/utils"
+import { getUserImage, uploadUserImage } from "../../actions/utils"
+import UploadProfileImage from "../../components/UploadProfileImage"
 
 export class Home extends React.Component {
 	static navigationOptions = () => {
@@ -106,10 +106,13 @@ export class Home extends React.Component {
 						</TouchableOpacity>
 					</View>
 					<View testID="welcomeHeader" style={styles.welcomeHeader}>
-						<Image
+						<UploadProfileImage
 							style={styles.profilePic}
-							source={{
-								uri: getUserImage(this.props.user)
+							image={getUserImage(this.props.user)}
+							upload={async source => {
+								await this.props.dispatch(
+									uploadUserImage(source)
+								)
 							}}
 						/>
 						<Text style={styles.welcomeText}>

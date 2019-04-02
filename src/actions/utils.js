@@ -1,9 +1,16 @@
 import { Platform, Linking } from "react-native"
-import { LOAD_FETCH_SERVICE, API_ERROR, POP_ERROR } from "../reducers/consts"
+import {
+	LOAD_FETCH_SERVICE,
+	API_ERROR,
+	POP_ERROR,
+	CHANGE_USER_IMAGE
+} from "../reducers/consts"
 import { DEFAULT_IMAGE } from "../consts"
 import { getLatestError } from "../error_handling"
+import { strings } from "../i18n"
 import moment from "moment"
 import Storage from "../services/Storage"
+import ImagePicker from "react-native-image-picker"
 
 export const fetchOrError = (endpoint, params, dispatchError = true) => {
 	return async (dispatch, getState) => {
@@ -117,5 +124,47 @@ export const getUserImage = user => {
 		return user["image"]
 	} else {
 		return DEFAULT_IMAGE
+	}
+}
+
+export const showImagePicker = callback => {
+	const options = {
+		title: strings("select_image"),
+		storageOptions: {
+			skipBackup: true
+		}
+	}
+	ImagePicker.showImagePicker(options, response => {
+		//const source = "data:image/jpeg;base64," + response.data
+		const source = {
+			uri: response.uri,
+			name: response.fileName,
+			type: response.type
+		}
+
+		callback(source)
+	})
+}
+
+export const uploadUserImage = source => {
+	return async (dispatch, getState) => {
+		const { fetchService } = getState()
+		var data = new FormData()
+		data.append("image", source)
+		try {
+			const resp = await fetchService.fetch("/user/image", {
+				method: "POST",
+				headers: {
+					"Content-Type": "multipart/form-data"
+				},
+				body: data
+			})
+			await dispatch({
+				type: CHANGE_USER_IMAGE,
+				image: resp.json["image"]
+			})
+		} catch (error) {
+			console.log(error)
+		}
 	}
 }

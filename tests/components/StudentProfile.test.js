@@ -5,7 +5,12 @@ import FetchService from "../../src/services/Fetch"
 import StudentProfile from "../../src/components/StudentProfile"
 
 const fetchService = new FetchService()
-const student = { student_id: 1, balance: 900, user: { name: "test" } }
+const student = {
+	student_id: 1,
+	balance: 900,
+	user: { name: "test" },
+	my_teacher: { user: {} }
+}
 const navigation = { navigate: jest.fn(), getParam: jest.fn() }
 const topics = {
 	new: [],
@@ -35,7 +40,10 @@ describe("StudentProfile", () => {
 		const tree = renderer
 			.create(
 				<StudentProfile
-					user={{ ...student, teacher_id: 1 }}
+					user={{
+						...student,
+						teacher_id: 1
+					}}
 					navigation={navigation}
 					fetchService={fetchService}
 				/>

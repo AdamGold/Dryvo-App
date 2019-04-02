@@ -122,21 +122,55 @@ exports[`Home view renders correctly 1`] = `
         }
         testID="welcomeHeader"
       >
-        <Image
-          source={
-            Object {
-              "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
-            }
-          }
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "borderRadius": 22,
-              "height": 44,
-              "marginBottom": 16,
-              "width": 44,
+              "opacity": 1,
             }
           }
-        />
+        >
+          <View
+            style={
+              Array [
+                Object {
+                  "overflow": "hidden",
+                },
+                Object {
+                  "borderRadius": 22,
+                  "height": 44,
+                  "marginBottom": 16,
+                  "width": 44,
+                },
+              ]
+            }
+          >
+            <FastImageView
+              resizeMode="cover"
+              source={
+                Object {
+                  "uri": "https://res.cloudinary.com/hsmkon3br/image/upload/c_thumb,g_face,h_80,w_80/v1554188012/678099-profile-filled-256.png",
+                }
+              }
+              style={
+                Object {
+                  "bottom": 0,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                }
+              }
+            />
+          </View>
+        </View>
         <Text
           style={
             Object {

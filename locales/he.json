@@ -21,6 +21,7 @@
 	"empty_students": "אין לך תלמידים!",
 	"no_students": "לא נמצאו תלמידים",
 	"empty_topics": "עוד לא נלמדו נושאים",
+	"select_image": "בחר תמונה",
 	"student_profile": {
 		"lessons": "שיעורים",
 		"my_teacher": "המורה שלי",
@@ -35,7 +36,8 @@
 		"sign_as": "הירשם בתור",
 		"student": "תלמיד",
 		"teacher": "מורה",
-		"success": "נרשמת בהצלחה!"
+		"success": "נרשמת בהצלחה!",
+		"image_required": "אנא העלה תמונה."
 	},
 	"signin": {
 		"login_button": "התחברות",

@@ -24,20 +24,38 @@ Array [
         }
       >
         <View>
-          <Image
-            source={
-              Object {
-                "uri": "https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80",
-              }
-            }
+          <View
             style={
-              Object {
-                "borderRadius": 27,
-                "height": 54,
-                "width": 54,
-              }
+              Array [
+                Object {
+                  "overflow": "hidden",
+                },
+                Object {
+                  "borderRadius": 27,
+                  "height": 54,
+                  "width": 54,
+                },
+              ]
             }
-          />
+          >
+            <FastImageView
+              resizeMode="cover"
+              source={
+                Object {
+                  "uri": "testImage",
+                }
+              }
+              style={
+                Object {
+                  "bottom": 0,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                }
+              }
+            />
+          </View>
         </View>
         <View
           style={

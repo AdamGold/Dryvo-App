@@ -105,7 +105,7 @@ export class Students extends React.Component {
 					}
 				>
 					<UserWithPic
-						name={item.user.name}
+						user={item.user}
 						extra={
 							<View style={{ alignItems: "flex-start" }}>
 								<Text>

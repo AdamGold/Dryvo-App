@@ -71,8 +71,11 @@ export class Schedule extends React.Component {
 
 	renderItem = (item, firstItemInDay) => {
 		let student = strings("teacher.no_student_applied")
-		if (item.student)
+		let user = null
+		if (item.student) {
 			student = `${item.student.user.name}(${item.lesson_number})`
+			user = item.student.user
+		}
 		let style = {}
 		if (firstItemInDay) {
 			style = { marginTop: 20 }
@@ -94,6 +97,7 @@ export class Schedule extends React.Component {
 					>
 						<UserWithPic
 							name={student}
+							user={user}
 							imageContainerStyle={styles.imageContainerStyle}
 							extra={
 								<Fragment>

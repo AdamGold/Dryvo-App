@@ -26,6 +26,15 @@ describe("user reducer", () => {
 			})
 		).toMatchSnapshot()
 	})
+
+	it("should handle CHANGE_USER_IMAGE - return user object with `test2` image", () => {
+		expect(
+			user(
+				{ image: "test1" },
+				{ type: consts.CHANGE_USER_IMAGE, image: "test2" }
+			)
+		).toMatchSnapshot()
+	})
 })
 
 describe("errors reducer", () => {
@@ -50,6 +59,15 @@ describe("errors reducer", () => {
 			errors(initialState, {
 				type: consts.API_ERROR,
 				error: ""
+			})
+		).toMatchSnapshot()
+	})
+
+	it("should handle APP ERROR - insert `test inside app error` to array", () => {
+		expect(
+			errors(undefined, {
+				type: consts.APP_ERROR,
+				error: "test inside app error"
 			})
 		).toMatchSnapshot()
 	})

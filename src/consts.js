@@ -7,6 +7,9 @@ export const ROOT_URL = "https://dryvo.herokuapp.com"
 export const API_DATE_FORMAT = "YYYY-MM-DDTHH:mm:ss.SSS"
 export const SHORT_API_DATE_FORMAT = "YYYY-MM-DD"
 export const DATE_FORMAT = "DD/MM/YYYY"
+export const DEFAULT_IMAGE =
+	"https://res.cloudinary.com/hsmkon3br/image/upload/c_thumb,g_face,h_80,w_80/v1554188012/678099-profile-filled-256.png"
+export const DEFAULT_IMAGE_MAX_SIZE = 200
 export const DEFAULT_MESSAGE_TIME = 1000
 export const STORAGE_PREFIX = "Dryvo_"
 export const DEFAULT_ERROR = strings("default_error")

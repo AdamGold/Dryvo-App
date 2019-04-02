@@ -11,22 +11,26 @@ export default class Notification extends React.Component {
 		if (this.props.children) {
 			children = <View style={styles.buttons}>{this.props.children}</View>
 		}
-		let row = (
-			<UserWithPic
-				name={this.props.name}
-				extra={
-					<Text>
-						{strings("teacher.notifications." + this.props.type)}
-					</Text>
-				}
-				width={54}
-				height={54}
-				style={styles.rightSide}
-			/>
-		)
-		if (this.props.basic) {
-			row = <View style={styles.rightSide}>{this.props.basic}</View>
+		let row = <View style={styles.rightSide}>{this.props.basic}</View>
+		if (!this.props.basic && this.props.user) {
+			row = (
+				<UserWithPic
+					name={this.props.name}
+					user={this.props.user}
+					extra={
+						<Text>
+							{strings(
+								"teacher.notifications." + this.props.type
+							)}
+						</Text>
+					}
+					width={54}
+					height={54}
+					style={styles.rightSide}
+				/>
+			)
 		}
+
 		return (
 			<Fragment>
 				<Row style={this.props.style} leftSide={this.props.leftSide}>

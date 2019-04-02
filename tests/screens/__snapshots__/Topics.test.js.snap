@@ -448,21 +448,38 @@ exports[`Topics view renders correctly 1`] = `
             }
           }
         >
-          <Image
-            source={
-              Object {
-                "testUri": "../../../assets/images/topics.png",
-              }
-            }
+          <View
             style={
-              Object {
-                "alignSelf": "center",
-                "height": 150,
-                "resizeMode": "contain",
-                "width": 200,
-              }
+              Array [
+                Object {
+                  "overflow": "hidden",
+                },
+                Object {
+                  "alignSelf": "center",
+                  "height": 150,
+                  "width": 200,
+                },
+              ]
             }
-          />
+          >
+            <FastImageView
+              resizeMode="contain"
+              source={
+                Object {
+                  "testUri": "../../../assets/images/topics.png",
+                }
+              }
+              style={
+                Object {
+                  "bottom": 0,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                }
+              }
+            />
+          </View>
           <Text
             style={
               Object {

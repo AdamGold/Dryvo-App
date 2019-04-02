@@ -174,7 +174,9 @@ export class SignIn extends React.Component {
 							</Text>
 							<LoadingButton
 								title={strings("signin.facebook_login")}
-								onPress={openFacebook}
+								onPress={() => {
+									openFacebook()
+								}}
 								ref={c => (this.facebookButton = c)}
 							/>
 							<TouchableOpacity

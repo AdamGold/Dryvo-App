@@ -9,13 +9,8 @@ import Storage from "../services/Storage"
 import { LOGIN, LOGOUT, API_ERROR } from "../reducers/consts"
 import { fetchOrError } from "./utils"
 
-const loginOrRegister = async (endpoint, body, dispatch, callback) => {
-	const resp = await dispatch(
-		fetchOrError(endpoint, {
-			method: "POST",
-			body: JSON.stringify(body)
-		})
-	)
+const loginOrRegister = async (endpoint, params, dispatch, callback) => {
+	const resp = await dispatch(fetchOrError(endpoint, params))
 	if (resp) {
 		await setTokens(resp.json.auth_token, resp.json.refresh_token)
 		await dispatch(setUser(resp.json.user))
@@ -25,9 +20,13 @@ const loginOrRegister = async (endpoint, body, dispatch, callback) => {
 
 export const directLogin = (email, password, callback) => {
 	return async dispatch => {
+		const requestParams = {
+			method: "POST",
+			body: JSON.stringify({ email, password })
+		}
 		await loginOrRegister(
 			"/login/direct",
-			{ email, password },
+			requestParams,
 			dispatch,
 			callback
 		)
@@ -36,7 +35,21 @@ export const directLogin = (email, password, callback) => {
 
 export const register = (params, callback) => {
 	return async dispatch => {
-		await loginOrRegister("/login/register", params, dispatch, callback)
+		var data = new FormData()
+		Object.keys(params).forEach(key => data.append(key, params[key]))
+		const requestParams = {
+			method: "POST",
+			headers: {
+				"Content-Type": "multipart/form-data"
+			},
+			body: data
+		}
+		await loginOrRegister(
+			"/login/register",
+			requestParams,
+			dispatch,
+			callback
+		)
 	}
 }
 

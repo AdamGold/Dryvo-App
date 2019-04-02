@@ -1,5 +1,6 @@
 import React from "react"
-import { View, Image, StyleSheet, Text } from "react-native"
+import { View, StyleSheet, Text } from "react-native"
+import FastImage from "react-native-fast-image"
 
 export default class EmptyState extends React.Component {
 	render() {
@@ -12,7 +13,11 @@ export default class EmptyState extends React.Component {
 		}
 		return (
 			<View style={{ ...styles.container, ...this.props.style }}>
-				<Image style={styles.image} source={images[this.props.image]} />
+				<FastImage
+					style={styles.image}
+					source={images[this.props.image]}
+					resizeMode={FastImage.resizeMode.contain}
+				/>
 				<Text style={styles.text}>{this.props.text}</Text>
 			</View>
 		)
@@ -28,7 +33,6 @@ const styles = StyleSheet.create({
 	},
 	image: {
 		alignSelf: "center",
-		resizeMode: "contain",
 		width: 200,
 		height: 150
 	},

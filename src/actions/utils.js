@@ -2,15 +2,17 @@ import { Platform, Linking } from "react-native"
 import {
 	LOAD_FETCH_SERVICE,
 	API_ERROR,
+	APP_ERROR,
 	POP_ERROR,
 	CHANGE_USER_IMAGE
 } from "../reducers/consts"
-import { DEFAULT_IMAGE } from "../consts"
+import { DEFAULT_IMAGE, DEFAULT_IMAGE_MAX_SIZE, DEFAULT_ERROR } from "../consts"
 import { getLatestError } from "../error_handling"
 import { strings } from "../i18n"
 import moment from "moment"
 import Storage from "../services/Storage"
 import ImagePicker from "react-native-image-picker"
+import ImageResizer from "react-native-image-resizer"
 
 export const fetchOrError = (endpoint, params, dispatchError = true) => {
 	return async (dispatch, getState) => {
@@ -113,7 +115,7 @@ const _registerDeviceToken = fcmToken => {
 					)
 				}
 			} catch (err) {
-				console.log(err)
+				dispatch({ type: API_ERROR, error: DEFAULT_ERROR })
 			}
 		}
 	}
@@ -136,13 +138,25 @@ export const showImagePicker = callback => {
 	}
 	ImagePicker.showImagePicker(options, response => {
 		//const source = "data:image/jpeg;base64," + response.data
-		const source = {
-			uri: response.uri,
-			name: response.fileName,
-			type: response.type
-		}
+		ImageResizer.createResizedImage(
+			response.uri,
+			DEFAULT_IMAGE_MAX_SIZE,
+			DEFAULT_IMAGE_MAX_SIZE,
+			"JPEG",
+			100
+		)
+			.then(resizeResponse => {
+				const source = {
+					uri: resizeResponse.uri,
+					name: resizeResponse.name,
+					type: response.type
+				}
 
-		callback(source)
+				callback(source)
+			})
+			.catch(err => {
+				dispatch({ type: APP_ERROR, error: DEFAULT_ERROR })
+			})
 	})
 }
 
@@ -164,7 +178,7 @@ export const uploadUserImage = source => {
 				image: resp.json["image"]
 			})
 		} catch (error) {
-			console.log(error)
+			dispatch({ type: API_ERROR, error: DEFAULT_ERROR })
 		}
 	}
 }

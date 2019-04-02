@@ -25,7 +25,6 @@ export default class UploadProfileImage extends React.Component {
 		})
 	}
 	render() {
-		console.log(this.props)
 		let loadingImage, loadingOverlay
 		if (this.state.loading) {
 			loadingImage = <ActivityIndicator style={styles.imageLoading} />

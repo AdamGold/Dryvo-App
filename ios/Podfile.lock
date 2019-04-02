@@ -80,6 +80,8 @@ PODS:
     - React/Core (= 0.57.8)
   - react-native-image-picker (0.28.1):
     - React
+  - react-native-image-resizer (1.0.1):
+    - React
   - React/Core (0.57.8):
     - yoga (= 0.57.8.React)
   - React/CxxBridge (0.57.8):
@@ -133,6 +135,7 @@ DEPENDENCIES:
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - GoogleAppMeasurement (= 5.3)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
+  - react-native-image-resizer (from `../node_modules/react-native-image-resizer`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
@@ -174,6 +177,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
+  react-native-image-resizer:
+    :path: "../node_modules/react-native-image-resizer"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   yoga:
@@ -199,9 +204,10 @@ SPEC CHECKSUMS:
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
   react-native-image-picker: f42de90075c5b1af53417af927631d909a1a746e
+  react-native-image-resizer: 04a3409e7d4ad646c4468671c69dec490def139c
   RNSVG: 4834be1d644eb77f0e3f6de851881b83758a3124
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: f84c38bd611d8ea4857a095f3f4877f123ca6384
+PODFILE CHECKSUM: b3ca0c5f719ed79ba9788547f3f00566bff5590f
 
 COCOAPODS: 1.5.0

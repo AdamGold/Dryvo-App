@@ -17,10 +17,71 @@ Array [
       <View
         style={
           Object {
+            "flex": 1,
+            "flexDirection": "row",
             "marginTop": 4,
           }
         }
-      />
+      >
+        <View>
+          <View
+            style={
+              Array [
+                Object {
+                  "overflow": "hidden",
+                },
+                Object {
+                  "borderRadius": 27,
+                  "height": 54,
+                  "width": 54,
+                },
+              ]
+            }
+          >
+            <FastImageView
+              resizeMode="cover"
+              source={
+                Object {
+                  "uri": "testImage",
+                }
+              }
+              style={
+                Object {
+                  "bottom": 0,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                }
+              }
+            />
+          </View>
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "flexDirection": "column",
+              "marginLeft": 16,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "fontWeight": "bold",
+              }
+            }
+          >
+            test
+          </Text>
+          <View>
+            <Text>
+              רוצה לקבוע שיעור
+            </Text>
+          </View>
+        </View>
+      </View>
     </View>
     <View
       style={

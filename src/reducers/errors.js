@@ -4,6 +4,7 @@ import { updateObject } from "./utils"
 
 const initialErrors = {
 	[API_ERROR]: [],
+	[APP_ERROR]: [],
 	other: []
 } // more errors to come
 

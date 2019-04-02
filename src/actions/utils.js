@@ -138,11 +138,7 @@ export const showImagePicker = callback => {
 	}
 	ImagePicker.showImagePicker(options, response => {
 		//const source = "data:image/jpeg;base64," + response.data
-		if (response.didCancel) {
-			console.log("User cancelled image picker")
-		} else if (response.error) {
-			console.log("ImagePicker Error: ", response.error)
-		} else {
+		if (!response.didCancel && !response.error) {
 			ImageResizer.createResizedImage(
 				response.uri,
 				DEFAULT_IMAGE_MAX_SIZE,

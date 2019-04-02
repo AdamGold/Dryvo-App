@@ -27,7 +27,14 @@ export default class UploadProfileImage extends React.Component {
 	render() {
 		let loadingImage, loadingOverlay
 		if (this.state.loading) {
-			loadingImage = <ActivityIndicator style={styles.imageLoading} />
+			loadingImage = (
+				<ActivityIndicator
+					style={{
+						...styles.imageLoading,
+						top: this.props.style.height / 3
+					}}
+				/>
+			)
 			loadingOverlay = (
 				<View
 					style={{
@@ -54,7 +61,7 @@ export default class UploadProfileImage extends React.Component {
 }
 
 const styles = StyleSheet.create({
-	imageLoading: { position: "absolute", alignSelf: "center", top: 12 },
+	imageLoading: { position: "absolute", alignSelf: "center" },
 	loadingStyle: {
 		position: "absolute",
 		backgroundColor: "rgba(0,0,0,0.7)",

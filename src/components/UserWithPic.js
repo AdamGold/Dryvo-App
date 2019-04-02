@@ -1,11 +1,12 @@
 import React from "react"
 import { View, Text, Image, StyleSheet } from "react-native"
+import { getUserImage } from "../actions/utils"
 
 export default class UserWithPic extends React.Component {
 	render() {
 		const width = this.props.width || 34
-		const img =
-			"https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80"
+		const img = getUserImage(this.props.user)
+		let name = this.props.name || this.props.user.name
 		return (
 			<View style={{ ...styles.container, ...this.props.style }}>
 				<View style={this.props.imageContainerStyle}>
@@ -19,13 +20,13 @@ export default class UserWithPic extends React.Component {
 							}
 						}}
 						source={{
-							uri: this.props.img || img
+							uri: img
 						}}
 					/>
 				</View>
 				<View style={styles.column}>
 					<Text style={{ ...styles.name, ...this.props.nameStyle }}>
-						{this.props.name}
+						{name}
 					</Text>
 					<View>{this.props.extra}</View>
 				</View>

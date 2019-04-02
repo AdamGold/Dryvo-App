@@ -5,6 +5,7 @@ import { strings } from "../i18n"
 import Hours from "./Hours"
 import moment from "moment"
 import { fullButton } from "../consts"
+import { getUserImage } from "../actions/utils"
 
 export default class LessonPopup extends React.Component {
 	constructor(props) {
@@ -31,10 +32,13 @@ export default class LessonPopup extends React.Component {
 		const { item } = this.props
 		if (!item) return null
 		let student = strings("teacher.no_student_applied")
-		if (item.student)
+		let user = null
+		if (item.student) {
 			student = `${strings("teacher.home.lesson_number")} ${
 				item.lesson_number
 			} - ${item.student.user.name}`
+			user = item.student.user
+		}
 		let meetup = strings("not_set")
 		if (item.meetup_place) meetup = item.meetup_place.name
 		let dropoff = strings("not_set")
@@ -59,8 +63,7 @@ export default class LessonPopup extends React.Component {
 						<Image
 							style={styles.image}
 							source={{
-								uri:
-									"https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80"
+								uri: getUserImage(user)
 							}}
 						/>
 					</TouchableOpacity>

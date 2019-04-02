@@ -24,6 +24,7 @@ import EmptyState from "../../components/EmptyState"
 import LessonsLoader from "../../components/LessonsLoader"
 import PaymentsLoader from "../../components/PaymentsLoader"
 import { NavigationActions } from "react-navigation"
+import { getUserImage } from "../../actions/utils"
 
 export class Home extends React.Component {
 	static navigationOptions = () => {
@@ -86,7 +87,11 @@ export class Home extends React.Component {
 
 	renderItem = ({ item, index }) => {
 		let student = strings("teacher.no_student_applied")
-		if (item.student) student = item.student.user.name
+		let user = null
+		if (item.student) {
+			student = item.student.user.name
+			user = item.student.user
+		}
 		const date = item.date
 		let meetup = strings("not_set")
 		if (item.meetup_place) meetup = item.meetup_place.name
@@ -110,6 +115,7 @@ export class Home extends React.Component {
 					>
 						<UserWithPic
 							name={student}
+							user={user}
 							extra={
 								<View style={{ alignItems: "flex-start" }}>
 									<Text style={styles.places}>
@@ -148,7 +154,7 @@ export class Home extends React.Component {
 				key={`payment${item.id}`}
 			>
 				<UserWithPic
-					name={item.student.user.name}
+					user={item.student.user}
 					nameStyle={styles.nameStyle}
 				/>
 			</Row>
@@ -250,8 +256,7 @@ export class Home extends React.Component {
 						<Image
 							style={styles.profilePic}
 							source={{
-								uri:
-									"https://images.unsplash.com/photo-1535643302794-19c3804b874b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2134&q=80"
+								uri: getUserImage(this.props.user)
 							}}
 						/>
 						<Text style={styles.welcomeText}>

@@ -1,5 +1,6 @@
 import { Platform, Linking } from "react-native"
 import { LOAD_FETCH_SERVICE, API_ERROR, POP_ERROR } from "../reducers/consts"
+import { DEFAULT_IMAGE } from "../consts"
 import { getLatestError } from "../error_handling"
 import moment from "moment"
 import Storage from "../services/Storage"
@@ -108,5 +109,13 @@ const _registerDeviceToken = fcmToken => {
 				console.log(err)
 			}
 		}
+	}
+}
+
+export const getUserImage = user => {
+	if (user && user.hasOwnProperty("image") && user["image"] != "") {
+		return user["image"]
+	} else {
+		return DEFAULT_IMAGE
 	}
 }

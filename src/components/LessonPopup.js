@@ -32,13 +32,14 @@ export default class LessonPopup extends React.Component {
 	render() {
 		const { item } = this.props
 		if (!item) return null
-		let student = strings("teacher.no_student_applied")
+		let name = strings("teacher.no_student_applied")
+		let number
 		let image
 		if (item.student) {
-			const name = item.student.user.name.slice(0, NAME_LENGTH)
-			student = `${strings("teacher.home.lesson_number")} ${
+			name = item.student.user.name.slice(0, NAME_LENGTH)
+			number = `${strings("teacher.home.lesson_number")} ${
 				item.lesson_number
-			} - ${name}`
+			}`
 			if (item.student.user.image) {
 				image = (
 					<FastImage
@@ -57,9 +58,7 @@ export default class LessonPopup extends React.Component {
 		let approved
 		if (!item.is_approved) {
 			approved = (
-				<Text style={{ color: "red" }}>
-					({strings("not_approved")})
-				</Text>
+				<Text style={styles.approved}>({strings("not_approved")})</Text>
 			)
 		}
 		return (
@@ -73,8 +72,9 @@ export default class LessonPopup extends React.Component {
 					<TouchableOpacity onPress={this.navigateToProfile}>
 						{image}
 					</TouchableOpacity>
-					<Text style={styles.title}>{student}</Text>
-					<Text style={styles.approved}>{approved}</Text>
+					<Text style={styles.title}>{name}</Text>
+					<Text style={styles.lessonNumber}>{number}</Text>
+					{approved}
 					<View style={styles.row}>
 						<View style={styles.column}>
 							<Text style={styles.titles}>
@@ -148,14 +148,20 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		fontSize: 18,
 		alignSelf: "center",
-		marginTop: 16
+		marginTop: 16,
+		maxHeight: 20
 	},
-	approved: { alignSelf: "center", marginTop: 6 },
+	lessonNumber: {
+		marginTop: 4,
+		alignSelf: "center",
+		color: "gray"
+	},
+	approved: { alignSelf: "center", marginTop: 4, color: "red" },
 	row: {
 		flex: 1,
 		flexDirection: "row",
 		alignItems: "flex-start",
-		marginTop: 20,
+		marginTop: 12,
 		maxHeight: 60
 	},
 	column: {

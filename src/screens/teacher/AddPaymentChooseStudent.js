@@ -2,16 +2,19 @@ import React from "react"
 import {
 	View,
 	StyleSheet,
-	Text,
+	TouchableOpacity,
 	FlatList,
-	TouchableHighlight
+	TouchableHighlight,
+	Platform,
+	KeyboardAvoidingView,
+	ScrollView
 } from "react-native"
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
 import Row from "../../components/Row"
 import UserWithPic from "../../components/UserWithPic"
 import Separator from "../../components/Separator"
-import { SearchBar, Button, Icon } from "react-native-elements"
+import { SearchBar, Icon } from "react-native-elements"
 import PageTitle from "../../components/PageTitle"
 import { MAIN_PADDING } from "../../consts"
 import { getStudents } from "../../actions/students"
@@ -143,43 +146,52 @@ export class AddPaymentChooseStudent extends React.Component {
 					style={styles.title}
 					title={strings("teacher.add_payment.title1")}
 					leftSide={
-						<Button
-							icon={
-								<Icon
-									name="ios-close"
-									type="ionicon"
-									size={36}
-								/>
-							}
+						<TouchableOpacity
 							onPress={() => {
 								this.props.navigation.dispatch(
 									NavigationActions.back()
 								)
 							}}
-							type="clear"
 							style={styles.closeButton}
-						/>
+						>
+							<Icon name="ios-close" type="ionicon" size={36} />
+						</TouchableOpacity>
 					}
 				/>
 				<View
 					style={styles.studentsSearchView}
 					testID="StudentsSearchView"
 				>
-					<SearchBar
-						placeholder={strings("teacher.students.search")}
-						onChangeText={this.updateSearch}
-						value={this.state.search}
-						platform="ios"
-						containerStyle={styles.searchBarContainer}
-						inputContainerStyle={styles.inputContainerStyle}
-						cancelButtonTitle={strings("teacher.students.cancel")}
-						inputStyle={styles.search}
-						textAlign="right"
-						autoFocus={true}
-						testID="searchBar"
-					/>
-					<Separator />
-					{this._renderStudents()}
+					<KeyboardAvoidingView
+						behavior={Platform.OS === "ios" ? "padding" : null}
+					>
+						<ScrollView
+							keyboardDismissMode={
+								Platform.OS === "ios"
+									? "interactive"
+									: "on-drag"
+							}
+							keyboardShouldPersistTaps="handled"
+						>
+							<SearchBar
+								placeholder={strings("teacher.students.search")}
+								onChangeText={this.updateSearch}
+								value={this.state.search}
+								platform="ios"
+								containerStyle={styles.searchBarContainer}
+								inputContainerStyle={styles.inputContainerStyle}
+								cancelButtonTitle={strings(
+									"teacher.students.cancel"
+								)}
+								inputStyle={styles.search}
+								textAlign="right"
+								autoFocus={true}
+								testID="searchBar"
+							/>
+							<Separator />
+							{this._renderStudents()}
+						</ScrollView>
+					</KeyboardAvoidingView>
 				</View>
 			</View>
 		)
@@ -232,6 +244,6 @@ const styles = StyleSheet.create({
 	},
 	row: { marginTop: 20 },
 	closeButton: {
-		marginTop: -6
+		marginTop: Platform.select({ ios: -6, android: -12 })
 	}
 })

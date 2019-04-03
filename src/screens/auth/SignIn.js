@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 import {
 	View,
 	ScrollView,
@@ -139,66 +139,59 @@ export class SignIn extends React.Component {
 
 	render() {
 		return (
-			<View style={styles.container}>
-				<SlidingMessage
-					visible={this.state.slidingMessageVisible}
-					error={this.state.error}
-					success={strings("signin.success")}
-					close={() =>
-						this.setState({ slidingMessageVisible: false })
-					}
-				/>
-				<View style={styles.topLogo}>
-					<Logo size="medium" />
+			<Fragment>
+				<View style={styles.container}>
+					<SlidingMessage
+						visible={this.state.slidingMessageVisible}
+						error={this.state.error}
+						success={strings("signin.success")}
+						close={() =>
+							this.setState({ slidingMessageVisible: false })
+						}
+					/>
+					<View style={styles.topLogo}>
+						<Logo size="medium" />
+					</View>
 				</View>
 				<KeyboardAvoidingView
 					behavior={Platform.OS === "ios" ? "padding" : null}
 				>
-					<ScrollView
-						keyboardDismissMode={
-							Platform.OS === "ios" ? "interactive" : "on-drag"
-						}
-						keyboardShouldPersistTaps="handled"
-					>
-						<View style={styles.formContainer}>
-							{this.renderInputs()}
-							<LoadingButton
-								title={strings("signin.login_button")}
-								onPress={this.login}
-								ref={c => (this.loginButton = c)}
-								style={styles.loginButton}
-								textStyle={styles.loginText}
-							/>
-							<Text style={styles.or}>
-								{strings("signin.or")}
-							</Text>
-							<LoadingButton
-								title={strings("signin.facebook_login")}
-								onPress={() => {
-									openFacebook()
-								}}
-								ref={c => (this.facebookButton = c)}
-							/>
-							<TouchableOpacity
-								testID="signUpButton"
-								onPress={() => {
-									this.props.navigation.navigate("SignUp")
-								}}
-							>
-								<View style={styles.signUpButton}>
-									<Text style={styles.callToAction}>
-										{strings("signin.not_yet_registered")}
-									</Text>
-									<Text style={styles.actionButton}>
-										{" "}
-										{strings("signin.signup_button")}
-									</Text>
-								</View>
-							</TouchableOpacity>
-						</View>
-					</ScrollView>
+					<View style={styles.formContainer}>
+						{this.renderInputs()}
+						<LoadingButton
+							title={strings("signin.login_button")}
+							onPress={this.login}
+							ref={c => (this.loginButton = c)}
+							style={styles.loginButton}
+							textStyle={styles.loginText}
+						/>
+						<Text style={styles.or}>{strings("signin.or")}</Text>
+						<LoadingButton
+							title={strings("signin.facebook_login")}
+							onPress={() => {
+								openFacebook()
+							}}
+							ref={c => (this.facebookButton = c)}
+						/>
+						<TouchableOpacity
+							testID="signUpButton"
+							onPress={() => {
+								this.props.navigation.navigate("SignUp")
+							}}
+						>
+							<View style={styles.signUpButton}>
+								<Text style={styles.callToAction}>
+									{strings("signin.not_yet_registered")}
+								</Text>
+								<Text style={styles.actionButton}>
+									{" "}
+									{strings("signin.signup_button")}
+								</Text>
+							</View>
+						</TouchableOpacity>
+					</View>
 				</KeyboardAvoidingView>
-			</View>
+			</Fragment>
 		)
 	}
 }
@@ -218,7 +211,6 @@ const styles = StyleSheet.create({
 		maxHeight: 240
 	},
 	formContainer: {
-		flex: 3,
 		paddingLeft: MAIN_PADDING,
 		paddingRight: MAIN_PADDING,
 		alignItems: "center"

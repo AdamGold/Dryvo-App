@@ -163,7 +163,7 @@ export class AddPaymentChooseStudent extends React.Component {
 					testID="StudentsSearchView"
 				>
 					<KeyboardAvoidingView
-						behavior={Platform.OS === "ios" ? "padding" : null}
+						behavior={Platform.OS === "ios" ? "padding" : "height"}
 					>
 						<ScrollView
 							keyboardDismissMode={

@@ -5,7 +5,10 @@ import {
 	TouchableHighlight,
 	StyleSheet,
 	FlatList,
-	TouchableOpacity
+	TouchableOpacity,
+	Platform,
+	ScrollView,
+	KeyboardAvoidingView
 } from "react-native"
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
@@ -190,6 +193,10 @@ export class Students extends React.Component {
 				onEndReached={this.endReached}
 				keyExtractor={item => `item${item.student_id}`}
 				ListEmptyComponent={this._renderEmpty}
+				keyboardShouldPersistTaps="handled"
+				keyboardDismissMode={
+					Platform.OS === "ios" ? "interactive" : "on-drag"
+				}
 			/>
 		)
 	}
@@ -219,7 +226,10 @@ export class Students extends React.Component {
 									label={strings("sort_by")}
 									data={this.sortOptions}
 									onChangeText={this._dropdownChange}
-									dropdownMargins={{ min: 0, max: 20 }}
+									dropdownMargins={{
+										min: 0,
+										max: 20
+									}}
 									dropdownOffset={{ top: 0, left: 0 }}
 									pickerStyle={{ marginTop: 60 }}
 								/>
@@ -242,6 +252,7 @@ export class Students extends React.Component {
 
 					{this._renderStudents()}
 				</View>
+
 				<TouchableHighlight
 					underlayColor="#ffffff00"
 					onPress={() => {

@@ -17,7 +17,7 @@ import Separator from "../../components/Separator"
 import { Icon } from "react-native-elements"
 import Hours from "../../components/Hours"
 import LessonPopup from "../../components/LessonPopup"
-import { MAIN_PADDING, colors } from "../../consts"
+import { MAIN_PADDING, colors, NAME_LENGTH } from "../../consts"
 import { getPayments } from "../../actions/lessons"
 import EmptyState from "../../components/EmptyState"
 import LessonsLoader from "../../components/LessonsLoader"
@@ -25,6 +25,7 @@ import PaymentsLoader from "../../components/PaymentsLoader"
 import { NavigationActions } from "react-navigation"
 import { getUserImage, uploadUserImage } from "../../actions/utils"
 import UploadProfileImage from "../../components/UploadProfileImage"
+import moment from "moment"
 
 export class Home extends React.Component {
 	static navigationOptions = () => {
@@ -39,7 +40,8 @@ export class Home extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			items: [],
+			currentLesson: null,
+			nextLesson: null,
 			payments: [],
 			sum: 0,
 			visible: [],
@@ -50,19 +52,36 @@ export class Home extends React.Component {
 	}
 
 	_sendRequests = async () => {
-		await this._getItems()
+		await this._getLessons()
 		await this._getPayments()
 		this.setState({ loading: false })
 	}
 
-	_getItems = async () => {
+	_getLessons = async () => {
 		const now = new Date().toISOString()
-		const resp = await this.props.fetchService.fetch(
+		const endOfDay = moment
+			.utc()
+			.endOf("day")
+			.toISOString()
+		const currentLessonResp = await this.props.fetchService.fetch(
+			"/lessons/?limit=1&is_approved=true&date=ge:" +
+				now +
+				"&date=le:" +
+				endOfDay,
+			{ method: "GET" }
+		)
+		const nextLessonResp = await this.props.fetchService.fetch(
 			"/lessons/?limit=2&is_approved=true&date=ge:" + now,
 			{ method: "GET" }
 		)
+		let nextLesson = nextLessonResp.json["data"][1]
+		if (currentLessonResp.json["data"].length == 0) {
+			// no current lesson (no lessons today)
+			nextLesson = nextLessonResp.json["data"][0]
+		}
 		this.setState({
-			items: [...this.state.items, ...resp.json["data"]]
+			currentLesson: currentLessonResp.json["data"],
+			nextLesson
 		})
 	}
 
@@ -85,7 +104,19 @@ export class Home extends React.Component {
 		this.setState({ visible: newVisible })
 	}
 
-	renderItem = ({ item, index }) => {
+	renderLesson = item => {
+		if (item.length == 0) {
+			return (
+				<Text
+					style={{
+						...styles.lessonRow,
+						...styles.noLesson
+					}}
+				>
+					{strings("teacher.home.no_lesson")}
+				</Text>
+			)
+		}
 		let student = strings("teacher.no_student_applied")
 		let user = null
 		if (item.student) {
@@ -161,17 +192,6 @@ export class Home extends React.Component {
 		)
 	}
 
-	lessonsSeperator = () => {
-		return (
-			<Fragment>
-				<Separator />
-				<Text style={styles.rectTitle}>
-					{strings("teacher.home.next_lesson")}
-				</Text>
-			</Fragment>
-		)
-	}
-
 	_renderEmpty = type => (
 		<EmptyState
 			image={type}
@@ -192,15 +212,19 @@ export class Home extends React.Component {
 				</View>
 			)
 		}
+
 		return (
-			<FlatList
-				data={this.state.items}
-				ListEmptyComponent={() => this._renderEmpty("lessons")}
-				renderItem={this.renderItem}
-				ItemSeparatorComponent={this.lessonsSeperator}
-				keyExtractor={item => `item${item.id}`}
-				extraData={this.state.visible}
-			/>
+			<Fragment>
+				<Text style={styles.rectTitle} testID="schedule">
+					{strings("teacher.home.current_lesson")}
+				</Text>
+				{this.renderLesson(this.state.currentLesson)}
+				<Separator />
+				<Text style={styles.rectTitle}>
+					{strings("teacher.home.next_lesson")}
+				</Text>
+				{this.renderLesson(this.state.nextLesson)}
+			</Fragment>
 		)
 	}
 
@@ -264,15 +288,11 @@ export class Home extends React.Component {
 						/>
 						<Text style={styles.welcomeText}>
 							{strings("teacher.home.welcome", {
-								name: this.props.user["name"]
+								name: this.props.user.name.slice(0, NAME_LENGTH)
 							})}
 						</Text>
 					</View>
 					<ShadowRect style={styles.schedule}>
-						<Text style={styles.rectTitle} testID="schedule">
-							{strings("teacher.home.current_lesson")}
-						</Text>
-
 						{this._renderLessons()}
 					</ShadowRect>
 
@@ -344,7 +364,7 @@ const styles = StyleSheet.create({
 		paddingRight: MAIN_PADDING,
 		alignItems: "center"
 	},
-	schedule: { minHeight: 240 },
+	schedule: { minHeight: 220 },
 	welcomeHeader: {
 		alignSelf: "center",
 		alignItems: "center",
@@ -417,7 +437,11 @@ const styles = StyleSheet.create({
 	paymentRow: {
 		marginTop: 12
 	},
-	listLoader: { marginTop: 20, alignSelf: "center" }
+	listLoader: { marginTop: 20, alignSelf: "center" },
+	noLesson: {
+		fontSize: 20,
+		alignSelf: "center"
+	}
 })
 
 function mapStateToProps(state) {

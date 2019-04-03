@@ -39,7 +39,6 @@ export class Lesson extends React.Component {
 			error: "",
 			hours: [],
 			dateAndTime: "",
-			lesson: null,
 			datePickerVisible: false,
 			slidingMessageVisible: false
 		}
@@ -51,8 +50,28 @@ export class Lesson extends React.Component {
 		this._handleDatePicked = this._handleDatePicked.bind(this)
 
 		this._initializeInputs()
+		this._initializeExistingLesson()
 	}
 
+	_initializeExistingLesson = async () => {
+		// if we're editing a lesson
+		let lesson = props.navigation.getParam("lesson") || null
+		if (props.navigation.getParam("lesson_id")) {
+			lesson = await getLessonById(props.navigation.getParam("lesson_id"))
+		}
+		if (lesson) {
+			// init duration, studentName, meetup, dropoff, hour
+			this.state = {
+				...this.state,
+				dateAndTime: moment.utc(lesson.date).format(API_DATE_FORMAT),
+				date: moment.utc(lesson.date).format(SHORT_API_DATE_FORMAT),
+				duration: lesson.duration.toString(),
+				meetup: (lesson.meetup_place || {}).name,
+				dropoff: (lesson.dropoff_place || {}).name,
+				hour: moment.utc(lesson.date).format("HH:mm")
+			}
+		}
+	}
 	_initializeInputs = () => {
 		this.inputs = {
 			date: {

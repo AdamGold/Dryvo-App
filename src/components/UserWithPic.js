@@ -2,12 +2,13 @@ import React from "react"
 import { View, Text, Image, StyleSheet } from "react-native"
 import { getUserImage } from "../actions/utils"
 import FastImage from "react-native-fast-image"
+import { NAME_LENGTH } from "../consts"
 
 export default class UserWithPic extends React.Component {
 	render() {
 		const width = this.props.width || 34
 		const img = getUserImage(this.props.user)
-		let name = this.props.name || this.props.user.name
+		const name = this.props.name || this.props.user.name
 		return (
 			<View style={{ ...styles.container, ...this.props.style }}>
 				<View style={this.props.imageContainerStyle}>
@@ -27,7 +28,7 @@ export default class UserWithPic extends React.Component {
 				</View>
 				<View style={styles.column}>
 					<Text style={{ ...styles.name, ...this.props.nameStyle }}>
-						{name}
+						{name.slice(0, NAME_LENGTH)}
 					</Text>
 					<View>{this.props.extra}</View>
 				</View>

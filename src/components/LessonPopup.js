@@ -4,7 +4,7 @@ import Modal from "react-native-modal"
 import { strings } from "../i18n"
 import Hours from "./Hours"
 import moment from "moment"
-import { fullButton } from "../consts"
+import { fullButton, NAME_LENGTH } from "../consts"
 import { getUserImage } from "../actions/utils"
 import FastImage from "react-native-fast-image"
 
@@ -35,9 +35,10 @@ export default class LessonPopup extends React.Component {
 		let student = strings("teacher.no_student_applied")
 		let image
 		if (item.student) {
+			const name = item.student.user.name.slice(0, NAME_LENGTH)
 			student = `${strings("teacher.home.lesson_number")} ${
 				item.lesson_number
-			} - ${item.student.user.name}`
+			} - ${name}`
 			if (item.student.user.image) {
 				image = (
 					<FastImage

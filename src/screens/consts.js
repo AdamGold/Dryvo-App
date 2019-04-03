@@ -16,7 +16,7 @@ export const tabBarOptions = {
 				iconName = "home"
 			} else if (routeName === "Notifications") {
 				iconName = "notifications"
-			} else if (routeName === "Lesson") {
+			} else if (routeName === "AddLesson" || routeName == "Lesson") {
 				iconName = "add-circle"
 			} else if (routeName === "Students") {
 				iconName = "people"

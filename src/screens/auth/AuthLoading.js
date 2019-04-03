@@ -47,7 +47,7 @@ export class AuthLoading extends React.Component {
 
 			this.setState({
 				fromNotification: true,
-				data: notificationOpen.notification._data
+				data: JSON.parse(notificationOpen.notification._data)
 			})
 		}
 	}

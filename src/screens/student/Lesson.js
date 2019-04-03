@@ -55,9 +55,11 @@ export class Lesson extends React.Component {
 
 	_initializeExistingLesson = async () => {
 		// if we're editing a lesson
-		let lesson = props.navigation.getParam("lesson") || null
-		if (props.navigation.getParam("lesson_id")) {
-			lesson = await getLessonById(props.navigation.getParam("lesson_id"))
+		let lesson = this.props.navigation.getParam("lesson") || null
+		if (this.props.navigation.getParam("lesson_id")) {
+			lesson = await getLessonById(
+				this.props.navigation.getParam("lesson_id")
+			)
 		}
 		if (lesson) {
 			// init duration, studentName, meetup, dropoff, hour

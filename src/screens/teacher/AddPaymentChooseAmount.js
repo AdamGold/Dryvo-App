@@ -29,7 +29,7 @@ export class AddPaymentChooseAmount extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			amount: "000",
+			amount: "",
 			slidingMessageVisible: false
 		}
 
@@ -99,16 +99,16 @@ export class AddPaymentChooseAmount extends React.Component {
 					/>
 				</View>
 				<KeyboardAvoidingView
-					behavior={Platform.OS === "ios" ? "padding" : "height"}
+					behavior={Platform.OS === "ios" ? "height" : "height"}
 					keyboardVerticalOffset={Platform.select({
-						ios: 0,
+						ios: 40,
 						android: 24
 					})}
 					style={styles.container}
 				>
 					<View style={styles.amountContainer}>
 						<TextInput
-							placeholder="000.00"
+							placeholder="000"
 							value={this.state.amount}
 							onChangeText={amount => this.changeAmount(amount)}
 							style={styles.amountInput}

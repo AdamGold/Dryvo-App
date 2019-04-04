@@ -4,10 +4,11 @@ import {
 	Text,
 	View,
 	StyleSheet,
-	TouchableOpacity
+	TouchableOpacity,
+	Alert
 } from "react-native"
 import { connect } from "react-redux"
-import { strings } from "../i18n"
+import { strings, errors } from "../i18n"
 import ShadowRect from "../components/ShadowRect"
 import {
 	MAIN_PADDING,
@@ -22,7 +23,6 @@ import { logout, setUser } from "../actions/auth"
 import { API_ERROR } from "../reducers/consts"
 import Storage from "../services/Storage"
 import { fetchOrError } from "../actions/utils"
-import SlidingMessage from "../components/SlidingMessage"
 import { popLatestError } from "../actions/utils"
 
 export class Settings extends React.Component {
@@ -33,9 +33,7 @@ export class Settings extends React.Component {
 			name: "",
 			area: "",
 			password: "",
-			notifications: "true",
-			error: "",
-			slidingMessageVisible: false
+			notifications: "true"
 		}
 		this.state = this.defaultState
 		this._initNotifications()
@@ -52,10 +50,7 @@ export class Settings extends React.Component {
 	componentDidUpdate() {
 		const error = this.props.dispatch(popLatestError(API_ERROR))
 		if (error) {
-			this.setState({
-				error,
-				slidingMessageVisible: true
-			})
+			Alert.alert(strings("errors.title"), errors(error))
 		}
 	}
 
@@ -72,7 +67,8 @@ export class Settings extends React.Component {
 		)
 		if (resp) {
 			await this.props.dispatch(setUser(resp.json.data))
-			this.setState({ ...this.defaultState, slidingMessageVisible: true })
+			Alert.alert(strings("settings.success"))
+			this.setState(this.defaultState)
 		}
 	}
 
@@ -111,14 +107,6 @@ export class Settings extends React.Component {
 				keyboardShouldPersistTaps="always"
 			>
 				<View style={styles.container}>
-					<SlidingMessage
-						visible={this.state.slidingMessageVisible}
-						error={this.state.error}
-						success={strings("settings.success")}
-						close={() =>
-							this.setState({ slidingMessageVisible: false })
-						}
-					/>
 					<PageTitle
 						style={styles.title}
 						title={strings("settings.title")}

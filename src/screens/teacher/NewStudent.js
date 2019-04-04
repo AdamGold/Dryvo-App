@@ -4,10 +4,10 @@ import {
 	StyleSheet,
 	FlatList,
 	TouchableHighlight,
-	ScrollView
+	Alert
 } from "react-native"
 import { connect } from "react-redux"
-import { strings } from "../../i18n"
+import { strings, errors } from "../../i18n"
 import Row from "../../components/Row"
 import UserWithPic from "../../components/UserWithPic"
 import Separator from "../../components/Separator"
@@ -15,7 +15,6 @@ import { SearchBar, Button, Icon } from "react-native-elements"
 import PageTitle from "../../components/PageTitle"
 import { MAIN_PADDING, DEFAULT_MESSAGE_TIME } from "../../consts"
 import { API_ERROR } from "../../reducers/consts"
-import SlidingMessage from "../../components/SlidingMessage"
 import { fetchOrError } from "../../actions/utils"
 import { popLatestError } from "../../actions/utils"
 
@@ -24,9 +23,7 @@ export class NewStudent extends React.Component {
 		super(props)
 		this.state = {
 			search: "",
-			users: [],
-			error: "",
-			slidingMessageVisible: false
+			users: []
 		}
 
 		this._getUsers = this._getUsers.bind(this)
@@ -42,10 +39,7 @@ export class NewStudent extends React.Component {
 	componentDidUpdate() {
 		const error = this.props.dispatch(popLatestError(API_ERROR))
 		if (error) {
-			this.setState({
-				error,
-				slidingMessageVisible: true
-			})
+			Alert.alert(strings("errors.title"), errors(error))
 		}
 	}
 
@@ -56,12 +50,7 @@ export class NewStudent extends React.Component {
 			})
 		)
 		if (resp) {
-			this.setState({ error: "", slidingMessageVisible: true }, () => {
-				setTimeout(
-					() => this.props.navigation.goBack(),
-					DEFAULT_MESSAGE_TIME + 1000
-				)
-			})
+			this.props.navigation.goBack()
 		}
 	}
 	_getUsers = async () => {
@@ -102,14 +91,6 @@ export class NewStudent extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<SlidingMessage
-					visible={this.state.slidingMessageVisible}
-					error={this.state.error}
-					success={strings("teacher.students.success")}
-					close={() =>
-						this.setState({ slidingMessageVisible: false })
-					}
-				/>
 				<View style={styles.headerRow}>
 					<PageTitle
 						style={styles.title}

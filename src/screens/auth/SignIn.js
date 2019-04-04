@@ -6,7 +6,8 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 	KeyboardAvoidingView,
-	Platform
+	Platform,
+	Alert
 } from "react-native"
 import {
 	deepLinkingListener,
@@ -14,23 +15,19 @@ import {
 } from "../../actions/utils"
 import { connect } from "react-redux"
 import { exchangeToken, openFacebook, directLogin } from "../../actions/auth"
-import { API_ERROR, POP_ERROR } from "../../reducers/consts"
-import { strings } from "../../i18n"
+import { API_ERROR } from "../../reducers/consts"
+import { strings, errors } from "../../i18n"
 import { colors, MAIN_PADDING, DEFAULT_MESSAGE_TIME } from "../../consts"
 import Logo from "../../components/Logo"
 import AuthInput from "../../components/AuthInput"
 import LoadingButton from "../../components/LoadingButton"
 import validate, { loginValidation } from "../../actions/validate"
-import SlidingMessage from "../../components/SlidingMessage"
 import { popLatestError } from "../../actions/utils"
 
 export class SignIn extends React.Component {
 	constructor(props) {
 		super(props)
-		this.state = {
-			error: "",
-			slidingMessageVisible: false
-		}
+		this.state = {}
 		this.inputs = {
 			email: {},
 			password: { secureTextEntry: true, iconName: "security" }
@@ -63,29 +60,17 @@ export class SignIn extends React.Component {
 		/* dismiss all errors on focus
 		https://stackoverflow.com/questions/49458226/react-native-react-navigation-rerender-panel-on-goback
 		*/
-		this.willFocusSubscription = this.props.navigation.addListener(
-			"willFocus",
-			payload => {
-				this.setState({
-					error: ""
-				})
-			}
-		)
 		deepLinkingListener(this.handleOpenURL)
 	}
 
 	async componentWillUnmount() {
-		this.willFocusSubscription.remove()
 		await deepLinkingRemoveListener(this.handleOpenURL)
 	}
 
 	componentDidUpdate() {
 		const error = this.props.dispatch(popLatestError(API_ERROR))
 		if (error) {
-			this.setState({
-				error,
-				slidingMessageVisible: true
-			})
+			Alert.alert(strings("errors.title"), errors(error))
 		}
 	}
 
@@ -103,15 +88,7 @@ export class SignIn extends React.Component {
 		await this.props.dispatch(
 			directLogin(this.state.email, this.state.password, user => {
 				if (user) {
-					this.setState(
-						{ error: "", slidingMessageVisible: true },
-						() => {
-							setTimeout(
-								() => this.props.navigation.navigate("App"),
-								DEFAULT_MESSAGE_TIME
-							)
-						}
-					)
+					this.props.navigation.navigate("App")
 				} else {
 					this.loginButton.showLoading(false)
 				}
@@ -141,14 +118,6 @@ export class SignIn extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<SlidingMessage
-					visible={this.state.slidingMessageVisible}
-					error={this.state.error}
-					success={strings("signin.success")}
-					close={() =>
-						this.setState({ slidingMessageVisible: false })
-					}
-				/>
 				<View style={styles.topLogo}>
 					<Logo size="medium" />
 				</View>

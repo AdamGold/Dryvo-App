@@ -1,7 +1,7 @@
 import React from "react"
 import { StyleSheet, View, Text } from "react-native"
 import Modal from "react-native-modal"
-import { strings } from "../i18n"
+import { errors } from "../i18n"
 
 export default class SlidingMessage extends React.Component {
 	render() {
@@ -30,7 +30,7 @@ export default class SlidingMessage extends React.Component {
 				>
 					<Text style={styles.text}>
 						{this.props.error
-							? strings(`errors.${this.props.error}`)
+							? errors(`errors.${this.props.error}`)
 							: this.props.success}
 					</Text>
 				</View>

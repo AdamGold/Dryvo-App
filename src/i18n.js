@@ -27,7 +27,14 @@ ReactNative.I18nManager.forceRTL(true)
 // The method we'll use instead of a regular string
 export function strings(name, params = {}) {
 	// remove last dot - https://regex101.com/r/0gT7sm/1
-	return i18n.t(name.replace(/\.$/, ""), params)
+	return i18n.t(name, params)
+}
+
+export function errors(name, params = {}) {
+	return i18n.t(name.replace(/\.$/, ""), {
+		...params,
+		defaults: [{ scope: "default_error" }]
+	})
 }
 
 export function dates(format, date) {

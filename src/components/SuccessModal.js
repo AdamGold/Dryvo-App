@@ -14,6 +14,7 @@ export default class SuccessModal extends React.Component {
 				animationType="slide"
 				transparent={false}
 				visible={this.props.visible}
+				onRequestClose={() => {}}
 			>
 				<View style={styles.container}>
 					<FastImage

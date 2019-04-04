@@ -180,9 +180,9 @@ export class Schedule extends React.Component {
 						// initially selected day
 						selected={Date()}
 						// Max amount of months allowed to scroll to the past. Default = 50
-						pastScrollRange={50}
+						pastScrollRange={12}
 						// Max amount of months allowed to scroll to the future. Default = 50
-						futureScrollRange={50}
+						futureScrollRange={4}
 						// specify how each item should be rendered in agenda
 						renderItem={this.renderItem}
 						// specify how each date should be rendered. day can be undefined if the item is not first in that day.

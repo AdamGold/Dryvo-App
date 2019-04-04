@@ -161,17 +161,17 @@ export class SignUp extends React.Component {
 						this.setState({ slidingMessageVisible: false })
 					}
 				/>
-				<KeyboardAvoidingView
-					behavior={Platform.OS === "ios" ? "padding" : null}
+				<TouchableOpacity
+					onPress={() => {
+						this.props.navigation.goBack()
+					}}
+					style={styles.backButton}
 				>
-					<TouchableOpacity
-						onPress={() => {
-							this.props.navigation.goBack()
-						}}
-						style={styles.backButton}
-					>
-						<Icon name="arrow-forward" type="material" />
-					</TouchableOpacity>
+					<Icon name="arrow-forward" type="material" />
+				</TouchableOpacity>
+				<KeyboardAvoidingView
+					behavior={Platform.OS === "ios" ? "position" : null}
+				>
 					<ScrollView
 						keyboardDismissMode={
 							Platform.OS === "ios" ? "interactive" : "on-drag"

@@ -5,7 +5,9 @@ import {
 	TouchableHighlight,
 	StyleSheet,
 	FlatList,
-	TouchableOpacity
+	TouchableOpacity,
+	Platform,
+	Keyboard
 } from "react-native"
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
@@ -30,7 +32,8 @@ export class Students extends React.Component {
 			orderByColumn: "",
 			orderByMethod: "asc",
 			sortIcon: "arrow-downward",
-			loading: true
+			loading: true,
+			buttonVisible: true
 		}
 		this.sortOptions = [
 			{ value: "balance", label: strings("teacher.students.balance") },
@@ -53,10 +56,34 @@ export class Students extends React.Component {
 				this._getStudents(false)
 			}
 		)
+		if (Platform.OS === "android") {
+			this.keyboardEventListeners = [
+				Keyboard.addListener(
+					"keyboardDidShow",
+					this._handleKeyboardShow
+				),
+				Keyboard.addListener(
+					"keyboardDidHide",
+					this._handleKeyboardHide
+				)
+			]
+		}
 	}
 
 	componentWillUnmount() {
 		this.willFocusSubscription.remove()
+		this.keyboardEventListeners &&
+			this.keyboardEventListeners.forEach(eventListener =>
+				eventListener.remove()
+			)
+	}
+
+	_handleKeyboardHide = () => {
+		this.setState({ buttonVisible: true })
+	}
+
+	_handleKeyboardShow = () => {
+		this.setState({ buttonVisible: false })
 	}
 
 	_getStudents = async (append = true) => {
@@ -190,11 +217,32 @@ export class Students extends React.Component {
 				onEndReached={this.endReached}
 				keyExtractor={item => `item${item.student_id}`}
 				ListEmptyComponent={this._renderEmpty}
+				keyboardShouldPersistTaps="handled"
+				keyboardDismissMode={
+					Platform.OS === "ios" ? "interactive" : "on-drag"
+				}
 			/>
 		)
 	}
 
 	render() {
+		let addButton
+		if (this.state.buttonVisible) {
+			addButton = (
+				<TouchableHighlight
+					underlayColor="#ffffff00"
+					onPress={() => {
+						this.props.navigation.navigate("NewStudent")
+					}}
+				>
+					<View testID="newStudentButton" style={fullButton}>
+						<Text style={styles.buttonText}>
+							{strings("teacher.students.add")}
+						</Text>
+					</View>
+				</TouchableHighlight>
+			)
+		}
 		return (
 			<View style={styles.container}>
 				<View testID="StudentsView" style={styles.students}>
@@ -219,7 +267,10 @@ export class Students extends React.Component {
 									label={strings("sort_by")}
 									data={this.sortOptions}
 									onChangeText={this._dropdownChange}
-									dropdownMargins={{ min: 0, max: 20 }}
+									dropdownMargins={{
+										min: 0,
+										max: 20
+									}}
 									dropdownOffset={{ top: 0, left: 0 }}
 									pickerStyle={{ marginTop: 60 }}
 								/>
@@ -242,18 +293,7 @@ export class Students extends React.Component {
 
 					{this._renderStudents()}
 				</View>
-				<TouchableHighlight
-					underlayColor="#ffffff00"
-					onPress={() => {
-						this.props.navigation.navigate("NewStudent")
-					}}
-				>
-					<View testID="newStudentButton" style={fullButton}>
-						<Text style={styles.buttonText}>
-							{strings("teacher.students.add")}
-						</Text>
-					</View>
-				</TouchableHighlight>
+				{addButton}
 			</View>
 		)
 	}

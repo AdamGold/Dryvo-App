@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 import {
 	View,
 	Text,
@@ -6,8 +6,8 @@ import {
 	ScrollView,
 	KeyboardAvoidingView,
 	TouchableOpacity,
-	Image,
-	Platform
+	Platform,
+	Keyboard
 } from "react-native"
 import { connect } from "react-redux"
 import { register } from "../../actions/auth"
@@ -46,6 +46,35 @@ export class SignUp extends React.Component {
 			this.state[input] = ""
 			this.state[input + "Error"] = ""
 		})
+	}
+	componentDidMount() {
+		if (Platform.OS === "android") {
+			this.keyboardEventListeners = [
+				Keyboard.addListener(
+					"keyboardDidShow",
+					this._handleKeyboardShow
+				),
+				Keyboard.addListener(
+					"keyboardDidHide",
+					this._handleKeyboardHide
+				)
+			]
+		}
+	}
+
+	componentWillUnmount() {
+		this.keyboardEventListeners &&
+			this.keyboardEventListeners.forEach(eventListener =>
+				eventListener.remove()
+			)
+	}
+
+	_handleKeyboardHide = () => {
+		this.scrollView.scrollTo({ y: 0 })
+	}
+
+	_handleKeyboardShow = () => {
+		this.scrollView.scrollToEnd()
 	}
 
 	componentDidUpdate() {
@@ -140,48 +169,47 @@ export class SignUp extends React.Component {
 				>
 					<Icon name="arrow-forward" type="material" />
 				</TouchableOpacity>
-				<ScrollView
-					keyboardDismissMode={
-						Platform.OS === "ios" ? "interactive" : "on-drag"
-					}
-					keyboardShouldPersistTaps="handled"
+				<KeyboardAvoidingView
+					behavior={Platform.OS === "ios" ? "position" : null}
 				>
-					<KeyboardAvoidingView
-						behavior={Platform.OS === "ios" ? "position" : null}
-						style={styles.form}
-						keyboardVerticalOffset={Platform.OS === "ios" ? 100 : 0}
+					<ScrollView
+						keyboardDismissMode={
+							Platform.OS === "ios" ? "interactive" : "on-drag"
+						}
+						keyboardShouldPersistTaps="handled"
+						ref={r => (this.scrollView = r)}
 					>
-						<UploadProfileImage
-							style={styles.profilePic}
-							image={this.state.image.uri || DEFAULT_IMAGE}
-							upload={async source => {
-								this.setState({ image: source, imageError: "" })
-							}}
-						/>
-						<Text style={styles.error}>
-							{this.state.imageError}
-						</Text>
-						{this.renderInputs()}
-						<LoadingButton
-							title={strings("signup.signup_button")}
-							onPress={this.register}
-							ref={c => (this.button = c)}
-							style={styles.button}
-							indicatorColor="#fff"
-						/>
-					</KeyboardAvoidingView>
-				</ScrollView>
+						<View style={styles.formContainer}>
+							<UploadProfileImage
+								style={styles.profilePic}
+								image={this.state.image.uri || DEFAULT_IMAGE}
+								upload={async source => {
+									this.setState({
+										image: source,
+										imageError: ""
+									})
+								}}
+							/>
+							<Text style={styles.error}>
+								{this.state.imageError}
+							</Text>
+							{this.renderInputs()}
+							<LoadingButton
+								title={strings("signup.signup_button")}
+								onPress={this.register}
+								ref={c => (this.button = c)}
+								style={styles.button}
+								indicatorColor="#fff"
+							/>
+						</View>
+					</ScrollView>
+				</KeyboardAvoidingView>
 			</View>
 		)
 	}
 }
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		paddingLeft: MAIN_PADDING,
-		paddingRight: MAIN_PADDING
-	},
 	error: {
 		marginTop: 12,
 		color: "red",
@@ -189,7 +217,8 @@ const styles = StyleSheet.create({
 	},
 	backButton: {
 		alignSelf: "flex-start",
-		marginTop: 12
+		marginTop: 12,
+		marginLeft: MAIN_PADDING
 	},
 	form: {
 		flex: 1,
@@ -203,6 +232,16 @@ const styles = StyleSheet.create({
 		height: 80,
 		borderRadius: 40,
 		alignSelf: "center"
+	},
+	container: {
+		flex: 1
+	},
+	formContainer: {
+		flex: 1,
+		paddingLeft: MAIN_PADDING,
+		paddingRight: MAIN_PADDING,
+		alignItems: "center",
+		paddingBottom: 40
 	}
 })
 

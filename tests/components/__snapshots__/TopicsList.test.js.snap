@@ -2,7 +2,6 @@
 
 exports[`TopicsList view renders correctly 1`] = `
 <RCTScrollView
-  ListEmptyComponent={[Function]}
   data={
     Array [
       Object {

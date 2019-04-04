@@ -24,36 +24,29 @@ import NewLessonInput from "../../components/NewLessonInput"
 import Hours from "../../components/Hours"
 import InputSelectionButton from "../../components/InputSelectionButton"
 import moment from "moment"
-import { getHoursDiff } from "../../actions/utils"
 import { API_ERROR } from "../../reducers/consts"
 import SlidingMessage from "../../components/SlidingMessage"
-import { fetchOrError } from "../../actions/utils"
-import { popLatestError } from "../../actions/utils"
+import { getHoursDiff, fetchOrError, popLatestError } from "../../actions/utils"
+import { getLessonById } from "../../actions/lessons"
 
 export class Lesson extends React.Component {
 	constructor(props) {
 		super(props)
 		const duration = props.user.lesson_duration || DEFAULT_DURATION
-		const lesson = props.navigation.getParam("lesson")
 		this.state = {
-			date:
-				props.navigation.getParam("date") ||
-				moment.utc((lesson || {}).date).format(SHORT_API_DATE_FORMAT),
+			date: props.navigation.getParam("date"),
 			error: "",
 			hours: [],
 			students: [],
-			student: (lesson || {}).student,
-			dateAndTime:
-				moment.utc((lesson || {}).date).format(API_DATE_FORMAT) || "",
+			student: {},
+			dateAndTime: "",
 			defaultDuration: duration.toString(),
-			lesson,
 			allTopics: [],
 			progress: [],
 			finished: [],
 			slidingMessageVisible: false
 		}
 		this._initializeInputs = this._initializeInputs.bind(this)
-		this.setRef = this.setRef.bind(this)
 		this.onChangeText = this.onChangeText.bind(this)
 		this._onHourPress = this._onHourPress.bind(this)
 		this._onStudentPress = this._onStudentPress.bind(this)
@@ -61,17 +54,25 @@ export class Lesson extends React.Component {
 
 		this._initializeInputs()
 		this._getAvailableHours()
-		this._getTopics()
 		this._initializeExistingLesson()
 	}
 
-	_initializeExistingLesson = () => {
+	_initializeExistingLesson = async () => {
 		// if we're editing a lesson
-		const { lesson } = this.state
+		let lesson = this.props.navigation.getParam("lesson") || null
+		if (this.props.navigation.getParam("lesson_id")) {
+			lesson = await getLessonById(
+				this.props.navigation.getParam("lesson_id")
+			)
+		}
 		if (lesson) {
 			// init duration, studentName, meetup, dropoff, hour
 			this.state = {
 				...this.state,
+				lesson,
+				student: lesson.student,
+				date: moment.utc(lesson.date).format(SHORT_API_DATE_FORMAT),
+				dateAndTime: moment.utc(lesson.date).format(API_DATE_FORMAT),
 				studentName: lesson.student.user.name,
 				duration: lesson.duration.toString(),
 				meetup: (lesson.meetup_place || {}).name,
@@ -79,6 +80,7 @@ export class Lesson extends React.Component {
 				hour: moment.utc(lesson.date).format("HH:mm")
 			}
 		}
+		await this._getTopics()
 	}
 
 	_initializeInputs = () => {
@@ -120,18 +122,11 @@ export class Lesson extends React.Component {
 			},
 			meetup: {
 				iconName: "navigation",
-				iconType: "feather",
-				onSubmitEditing: () => {
-					this.dropoffInput.focus()
-					this._scrollView.scrollTo({ y: 50, animated: true })
-				}
+				iconType: "feather"
 			},
 			dropoff: {
 				iconName: "map-pin",
-				iconType: "feather",
-				onSubmitEditing: () => {
-					this._touchable.touchableHandlePress()
-				}
+				iconType: "feather"
 			}
 		}
 
@@ -193,15 +188,10 @@ export class Lesson extends React.Component {
 
 	onChangeText = (name, value) => this.setState({ [name]: value })
 
-	setRef = (input, name) => {
-		this[`${name}Input`] = input
-	}
-
 	renderInputs = () => {
 		const keys = Object.keys(this.inputs)
 		return keys.map((name, index) => {
 			const props = this.inputs[name]
-			const next = keys[index + 1]
 			return (
 				<NewLessonInput
 					key={`key${index}`}
@@ -209,12 +199,10 @@ export class Lesson extends React.Component {
 					editable={props.editable}
 					selectTextOnFocus={props.selectTextOnFocus}
 					autoFocus={props.autoFocus}
-					setRef={this.setRef}
 					onFocus={this.onFocus}
 					onBlur={props.onBlur || this.onBlur}
 					onChangeText={props.onChangeText || this.onChangeText}
 					iconName={props.iconName}
-					next={() => this[`${next}Input`]}
 					state={this.state}
 					iconType={props.iconType}
 					onSubmitEditing={props.onSubmitEditing}
@@ -418,6 +406,7 @@ export class Lesson extends React.Component {
 	}
 
 	buildTopicsUrl = () => {
+		if (!this.state.lesson || !this.state.student) return
 		let url = "/lessons"
 		if (this.state.lesson) {
 			return url + `/${this.state.lesson.id}/topics`
@@ -475,7 +464,6 @@ export class Lesson extends React.Component {
 					</ScrollView>
 					<TouchableHighlight
 						underlayColor="#ffffff00"
-						ref={touchable => (this._touchable = touchable)}
 						onPress={this.submit}
 					>
 						<View testID="finishButton" style={styles.submitButton}>

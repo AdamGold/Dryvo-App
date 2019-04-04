@@ -258,7 +258,8 @@ const styles = StyleSheet.create({
 	logout: {
 		fontWeight: "bold",
 		alignSelf: "center",
-		color: "red"
+		color: "red",
+		marginBottom: MAIN_PADDING
 	},
 	leftSide: { flex: 1, marginLeft: "auto" }
 })

@@ -10,7 +10,7 @@ import {
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
 import PageTitle from "../../components/PageTitle"
-import { MAIN_PADDING } from "../../consts"
+import { MAIN_PADDING, NAME_LENGTH } from "../../consts"
 import { Dropdown } from "react-native-material-dropdown"
 import EmptyState from "../../components/EmptyState"
 import StudentsLoader from "../../components/StudentsLoader"
@@ -112,7 +112,10 @@ export class Notifications extends React.Component {
 						key={`lesson${item.id}`}
 						basic={
 							<Text style={styles.basic}>
-								{this.props.user.my_teacher.user.name}{" "}
+								{this.props.user.my_teacher.user.name.slice(
+									0,
+									NAME_LENGTH
+								)}{" "}
 								{strings("notifications.teacher_scheduled")}
 							</Text>
 						}

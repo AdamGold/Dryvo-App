@@ -24,6 +24,8 @@ import moment from "moment"
 import EmptyState from "../../components/EmptyState"
 import LessonsLoader from "../../components/LessonsLoader"
 
+const EMPTY_LESSON = { empty: true }
+
 export class Schedule extends React.Component {
 	static navigationOptions = () => {
 		return {
@@ -56,6 +58,11 @@ export class Schedule extends React.Component {
 		)
 		// get lessons until end of week and divide to array with date as key
 		let items = { [dates.dateString]: [] }
+		if (resp.json["data"].length == 0) {
+			// no lessons at all this week. let's show empty
+			items[dates.dateString] = [EMPTY_LESSON]
+			this.setState({ items })
+		}
 		resp.json["data"].forEach(lesson => {
 			const dateString = moment
 				.utc(lesson.date)
@@ -80,6 +87,10 @@ export class Schedule extends React.Component {
 	}
 
 	renderItem = (item, firstItemInDay) => {
+		if (item === EMPTY_LESSON) {
+			// this means everything is null
+			return this._renderEmpty()
+		}
 		let dayTitle
 		if (firstItemInDay) {
 			dayTitle = (
@@ -168,14 +179,14 @@ export class Schedule extends React.Component {
 						// initially selected day
 						selected={Date()}
 						// Max amount of months allowed to scroll to the past. Default = 50
-						pastScrollRange={50}
+						pastScrollRange={12}
 						// Max amount of months allowed to scroll to the future. Default = 50
-						futureScrollRange={50}
+						futureScrollRange={4}
 						// specify how each item should be rendered in agenda
 						renderItem={this.renderItem}
 						// specify how each date should be rendered. day can be undefined if the item is not first in that day.
 						renderDay={() => undefined}
-						renderEmptyDate={this._renderEmpty}
+						renderEmptyDate={() => null}
 						renderEmptyData={() => {
 							return <LessonsLoader width={340} />
 						}}

@@ -2,16 +2,18 @@ import React from "react"
 import {
 	View,
 	StyleSheet,
-	Text,
+	TouchableOpacity,
 	FlatList,
-	TouchableHighlight
+	Platform,
+	KeyboardAvoidingView,
+	ScrollView
 } from "react-native"
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
 import Row from "../../components/Row"
 import UserWithPic from "../../components/UserWithPic"
 import Separator from "../../components/Separator"
-import { SearchBar, Button, Icon } from "react-native-elements"
+import { SearchBar, Icon } from "react-native-elements"
 import PageTitle from "../../components/PageTitle"
 import { MAIN_PADDING } from "../../consts"
 import { getStudents } from "../../actions/students"
@@ -83,8 +85,7 @@ export class AddPaymentChooseStudent extends React.Component {
 			noneMargin = { marginTop: 0 }
 		}
 		return (
-			<TouchableHighlight
-				underlayColor="#f9f9f9"
+			<TouchableOpacity
 				key={`student${item.student_id}`}
 				onPress={() => this.onPress(item)}
 			>
@@ -103,7 +104,7 @@ export class AddPaymentChooseStudent extends React.Component {
 						height={64}
 					/>
 				</Row>
-			</TouchableHighlight>
+			</TouchableOpacity>
 		)
 	}
 
@@ -126,13 +127,15 @@ export class AddPaymentChooseStudent extends React.Component {
 		return (
 			<FlatList
 				data={this.state.students}
-				keyboardShouldPersistTaps="always"
 				renderItem={this.renderItem}
 				keyExtractor={item => `student${item.student_id}`}
 				onEndReached={this.endReached}
-				keyboardDismissMode="on-drag"
-				keyboardShouldPersistTaps="always"
+				keyboardDismissMode={
+					Platform.OS === "ios" ? "interactive" : "on-drag"
+				}
+				keyboardShouldPersistTaps="handled"
 				ListEmptyComponent={this._renderEmpty}
+				style={{ paddingBottom: 60 }}
 			/>
 		)
 	}
@@ -143,43 +146,43 @@ export class AddPaymentChooseStudent extends React.Component {
 					style={styles.title}
 					title={strings("teacher.add_payment.title1")}
 					leftSide={
-						<Button
-							icon={
-								<Icon
-									name="ios-close"
-									type="ionicon"
-									size={36}
-								/>
-							}
+						<TouchableOpacity
 							onPress={() => {
 								this.props.navigation.dispatch(
 									NavigationActions.back()
 								)
 							}}
-							type="clear"
 							style={styles.closeButton}
-						/>
+						>
+							<Icon name="ios-close" type="ionicon" size={36} />
+						</TouchableOpacity>
 					}
 				/>
 				<View
 					style={styles.studentsSearchView}
 					testID="StudentsSearchView"
 				>
-					<SearchBar
-						placeholder={strings("teacher.students.search")}
-						onChangeText={this.updateSearch}
-						value={this.state.search}
-						platform="ios"
-						containerStyle={styles.searchBarContainer}
-						inputContainerStyle={styles.inputContainerStyle}
-						cancelButtonTitle={strings("teacher.students.cancel")}
-						inputStyle={styles.search}
-						textAlign="right"
-						autoFocus={true}
-						testID="searchBar"
-					/>
-					<Separator />
-					{this._renderStudents()}
+					<KeyboardAvoidingView
+						behavior={Platform.OS === "ios" ? "padding" : null}
+					>
+						<SearchBar
+							placeholder={strings("teacher.students.search")}
+							onChangeText={this.updateSearch}
+							value={this.state.search}
+							platform="ios"
+							containerStyle={styles.searchBarContainer}
+							inputContainerStyle={styles.inputContainerStyle}
+							cancelButtonTitle={strings(
+								"teacher.students.cancel"
+							)}
+							inputStyle={styles.search}
+							textAlign="right"
+							autoFocus={true}
+							testID="searchBar"
+						/>
+						<Separator />
+						{this._renderStudents()}
+					</KeyboardAvoidingView>
 				</View>
 			</View>
 		)
@@ -232,6 +235,6 @@ const styles = StyleSheet.create({
 	},
 	row: { marginTop: 20 },
 	closeButton: {
-		marginTop: -6
+		marginTop: Platform.select({ ios: -6, android: -12 })
 	}
 })

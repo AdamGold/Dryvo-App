@@ -931,6 +931,7 @@ exports[`Settings view renders correctly 1`] = `
               "alignSelf": "center",
               "color": "red",
               "fontWeight": "bold",
+              "marginBottom": 26,
             }
           }
         >

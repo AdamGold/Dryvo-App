@@ -4,7 +4,8 @@ import {
 	Text,
 	TouchableHighlight,
 	StyleSheet,
-	FlatList
+	FlatList,
+	Platform
 } from "react-native"
 import { connect } from "react-redux"
 import { strings, dates } from "../../i18n"
@@ -178,12 +179,12 @@ export class ChooseDate extends React.Component {
 							date: this.state.selected
 						})
 					}}
+					style={fullButton}
+					testID="continueButton"
 				>
-					<View testID="continueButton" style={fullButton}>
-						<Text style={styles.buttonText}>
-							{strings("teacher.new_lesson.continue")}
-						</Text>
-					</View>
+					<Text style={styles.buttonText}>
+						{strings("teacher.new_lesson.continue")}
+					</Text>
 				</TouchableHighlight>
 			</View>
 		)

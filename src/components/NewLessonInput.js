@@ -33,16 +33,11 @@ export default class NewLessonInput extends React.Component {
 					}}
 					textAlign={"right"}
 					autoFocus={this.props.autoFocus || false}
-					ref={input => {
-						this.props.setRef(input, name)
-					}}
 					onSubmitEditing={() => {
 						if (this.props.onSubmitEditing) {
 							this.props.onSubmitEditing()
 							return
 						}
-						if (!this.props.next) return
-						this.props.next().focus()
 					}}
 					leftIcon={
 						<Icon

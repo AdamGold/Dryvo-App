@@ -190,7 +190,7 @@ exports[`Home view renders correctly 1`] = `
             "borderRadius": 4,
             "elevation": 6,
             "marginBottom": 20,
-            "minHeight": 240,
+            "minHeight": 220,
             "paddingHorizontal": 20,
             "paddingVertical": 12,
             "shadowColor": "#000",
@@ -204,19 +204,6 @@ exports[`Home view renders correctly 1`] = `
           }
         }
       >
-        <Text
-          style={
-            Object {
-              "alignSelf": "flex-start",
-              "color": "rgb(121, 121, 121)",
-              "fontSize": 16,
-              "fontWeight": "bold",
-            }
-          }
-          testID="schedule"
-        >
-          שיעור נוכחי
-        </Text>
         <View
           style={
             Object {

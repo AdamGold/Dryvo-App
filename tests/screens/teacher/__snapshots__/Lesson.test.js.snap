@@ -2066,14 +2066,12 @@ exports[`Lesson view renders correctly with existing lesson 1`] = `
             <TextInput
               allowFontScaling={true}
               autoFocus={false}
-              editable={false}
               onBlur={[Function]}
               onChangeText={[Function]}
               onFocus={[Function]}
               onSubmitEditing={[Function]}
               placeholder="שם התלמיד/ה"
               placeholderTextColor="lightgray"
-              selectTextOnFocus={false}
               style={
                 Object {
                   "alignSelf": "center",

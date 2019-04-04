@@ -10,11 +10,12 @@ import { TOKEN_KEY, REFRESH_TOKEN_KEY, DEFAULT_IMAGE } from "../src/consts"
 import { API_ERROR } from "../src/reducers/consts"
 
 let user, store
+const fetchService = new FetchService()
 beforeAll(() => {
 	user = { id: 1, name: "test" }
 })
 beforeEach(() => {
-	store = mockStore({ fetchService: new FetchService(), user })
+	store = mockStore({ fetchService: fetchService, user })
 })
 describe("utils.js", () => {
 	it("should register device token", async () => {
@@ -296,6 +297,15 @@ describe("lessons.js", () => {
 			const ret1 = await lessons.getPayments(new FetchService())
 			expect(ret1.payments).toEqual(response.data)
 			expect(Object.keys(ret1).length).toEqual(2)
+		})
+	})
+
+	describe("getLessonById", () => {
+		it("should return the lesson response from the server", async () => {
+			const example = { data: { test: "test" } }
+			fetch.mockResponseSuccess(JSON.stringify(example))
+			const resp = await lessons.getLessonById(fetchService, 999)
+			expect(resp).toEqual(example.data)
 		})
 	})
 })

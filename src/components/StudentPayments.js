@@ -33,7 +33,11 @@ export default class StudentPayment extends React.Component {
 	}
 
 	_renderEmpty = () => (
-		<EmptyState image="payments" text={strings("empty_payments")} />
+		<EmptyState
+			image="payments"
+			text={strings("empty_payments")}
+			imageSize="small"
+		/>
 	)
 
 	render() {

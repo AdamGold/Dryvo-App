@@ -208,6 +208,7 @@ export class Home extends React.Component {
 			image={type}
 			text={strings(`empty_${type}`)}
 			style={styles.empty}
+			imageSize="small"
 		/>
 	)
 

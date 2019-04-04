@@ -8,12 +8,26 @@ const images = {
 	students: require("../../assets/images/students.png"),
 	topics: require("../../assets/images/topics.png")
 }
+const sizes = {
+	small: {
+		width: 120,
+		height: 80
+	},
+	big: {
+		width: 200,
+		height: 150
+	}
+}
 export default class EmptyState extends React.Component {
 	render() {
 		return (
 			<View style={{ ...styles.container, ...this.props.style }}>
 				<FastImage
-					style={styles.image}
+					style={{
+						...styles.image,
+						width: sizes[this.props.imageSize]["width"],
+						height: sizes[this.props.imageSize]["height"]
+					}}
 					source={images[this.props.image]}
 					resizeMode={FastImage.resizeMode.contain}
 				/>
@@ -32,8 +46,7 @@ const styles = StyleSheet.create({
 	},
 	image: {
 		alignSelf: "center",
-		width: 200,
-		height: 150
+		...sizes.big
 	},
 	text: {
 		fontSize: 28,

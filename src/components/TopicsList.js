@@ -16,7 +16,11 @@ export default class TopicsList extends React.Component {
 	}
 
 	_renderEmpty = () => (
-		<EmptyState image="topics" text={strings("empty_topics")} />
+		<EmptyState
+			image="topics"
+			text={strings("empty_topics")}
+			imageSize="small"
+		/>
 	)
 
 	render() {

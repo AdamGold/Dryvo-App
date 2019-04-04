@@ -4,6 +4,7 @@ exports[`SuccessModal view renders correctly 1`] = `
 <Modal
   animationType="slide"
   hardwareAccelerated={false}
+  onRequestClose={[Function]}
   transparent={false}
   visible={true}
 >

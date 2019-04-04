@@ -12,6 +12,7 @@ exports[`Lesson view renders correctly 1`] = `
   <Modal
     animationType="slide"
     hardwareAccelerated={false}
+    onRequestClose={[Function]}
     transparent={false}
     visible={false}
   >
@@ -1235,6 +1236,7 @@ exports[`Lesson view renders correctly with existing lesson 1`] = `
   <Modal
     animationType="slide"
     hardwareAccelerated={false}
+    onRequestClose={[Function]}
     transparent={false}
     visible={false}
   >

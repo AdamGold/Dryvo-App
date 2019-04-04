@@ -1,16 +1,15 @@
 import React from "react"
 import { View, StyleSheet, Text } from "react-native"
 import FastImage from "react-native-fast-image"
-
+const images = {
+	lessons: require("../../assets/images/lessons.png"),
+	payments: require("../../assets/images/payments.png"),
+	notifications: require("../../assets/images/notifications.png"),
+	students: require("../../assets/images/students.png"),
+	topics: require("../../assets/images/topics.png")
+}
 export default class EmptyState extends React.Component {
 	render() {
-		const images = {
-			lessons: require("../../assets/images/lessons.png"),
-			payments: require("../../assets/images/payments.png"),
-			notifications: require("../../assets/images/notifications.png"),
-			students: require("../../assets/images/students.png"),
-			topics: require("../../assets/images/topics.png")
-		}
 		return (
 			<View style={{ ...styles.container, ...this.props.style }}>
 				<FastImage

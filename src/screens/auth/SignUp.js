@@ -21,6 +21,7 @@ import { Icon } from "react-native-elements"
 import LoadingButton from "../../components/LoadingButton"
 import { popLatestError } from "../../actions/utils"
 import UploadProfileImage from "../../components/UploadProfileImage"
+import SuccessModal from "../../components/SuccessModal"
 
 export class SignUp extends React.Component {
 	constructor(props) {
@@ -28,7 +29,7 @@ export class SignUp extends React.Component {
 		this.register = this.register.bind(this)
 		this.role = this.props.navigation.getParam("role")
 		this.state = {
-			slidingMessageVisible: false,
+			successVisible: false,
 			imageError: "",
 			image: ""
 		}
@@ -109,9 +110,10 @@ export class SignUp extends React.Component {
 					image: this.state.image
 				},
 				user => {
-					this.button.showLoading(false)
 					if (user) {
-						this.props.navigation.navigate("App")
+						this.setState({ successVisible: true })
+					} else {
+						this.button.showLoading(false)
 					}
 				}
 			)
@@ -141,6 +143,17 @@ export class SignUp extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
+				<SuccessModal
+					visible={this.state.successVisible}
+					image="signup"
+					title={strings("signup.success_title")}
+					desc={strings("signup.success_desc")}
+					buttonPress={() => {
+						this.setState({ successVisible: false })
+						this.props.navigation.navigate("App")
+					}}
+					button={strings("signup.success_button")}
+				/>
 				<TouchableOpacity
 					onPress={() => {
 						this.props.navigation.goBack()

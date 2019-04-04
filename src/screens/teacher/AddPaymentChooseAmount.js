@@ -7,30 +7,28 @@ import {
 	TouchableOpacity,
 	TextInput,
 	KeyboardAvoidingView,
-	Platform
+	Platform,
+	Alert,
+	Modal
 } from "react-native"
 import { connect } from "react-redux"
-import { strings } from "../../i18n"
+import { strings, errors } from "../../i18n"
 import { Icon } from "react-native-elements"
 import PageTitle from "../../components/PageTitle"
-import {
-	MAIN_PADDING,
-	floatButtonOnlyStyle,
-	DEFAULT_MESSAGE_TIME,
-	fullButton
-} from "../../consts"
+import { MAIN_PADDING, DEFAULT_MESSAGE_TIME, fullButton } from "../../consts"
 import { API_ERROR } from "../../reducers/consts"
 import { NavigationActions } from "react-navigation"
-import SlidingMessage from "../../components/SlidingMessage"
 import { fetchOrError } from "../../actions/utils"
 import { popLatestError } from "../../actions/utils"
+import SuccessModal from "../../components/SuccessModal"
 
 export class AddPaymentChooseAmount extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			amount: "000",
-			slidingMessageVisible: false
+			student: this.props.navigation.getParam("student"),
+			amount: "",
+			successVisible: false
 		}
 
 		this.addPayment = this.addPayment.bind(this)
@@ -39,10 +37,7 @@ export class AddPaymentChooseAmount extends React.Component {
 	componentDidUpdate() {
 		const error = this.props.dispatch(popLatestError(API_ERROR))
 		if (error) {
-			this.setState({
-				error,
-				slidingMessageVisible: true
-			})
+			Alert.alert(strings("errors.title"), errors(error))
 		}
 	}
 
@@ -52,21 +47,12 @@ export class AddPaymentChooseAmount extends React.Component {
 				method: "POST",
 				body: JSON.stringify({
 					amount: parseInt(this.state.amount),
-					student_id: this.props.navigation.getParam("student")
-						.student_id
+					student_id: this.state.student.student_id
 				})
 			})
 		)
 		if (resp) {
-			this.setState({ error: "", slidingMessageVisible: true }, () => {
-				setTimeout(
-					() =>
-						this.props.navigation.dispatch(
-							NavigationActions.back()
-						),
-					DEFAULT_MESSAGE_TIME
-				)
-			})
+			this.setState({ successVisible: true })
 		}
 	}
 
@@ -77,13 +63,19 @@ export class AddPaymentChooseAmount extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<SlidingMessage
-					visible={this.state.slidingMessageVisible}
-					error={this.state.error}
-					success={strings("teacher.add_payment.success")}
-					close={() =>
-						this.setState({ slidingMessageVisible: false })
-					}
+				<SuccessModal
+					visible={this.state.successVisible}
+					image="payment"
+					title={strings("teacher.add_payment.success_title")}
+					desc={strings("teacher.add_payment.success_desc", {
+						amount: this.state.amount,
+						student: this.state.student.user.name
+					})}
+					buttonPress={() => {
+						this.setState({ successVisible: false })
+						this.props.navigation.navigate("Home")
+					}}
+					button={strings("teacher.add_payment.success_button")}
 				/>
 				<View style={styles.headerRow}>
 					<TouchableOpacity

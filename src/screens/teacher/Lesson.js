@@ -6,11 +6,12 @@ import {
 	View,
 	TouchableHighlight,
 	ScrollView,
-	Platform
+	Platform,
+	Alert
 } from "react-native"
 import { connect } from "react-redux"
 import { Button, Icon } from "react-native-elements"
-import { strings } from "../../i18n"
+import { strings, errors } from "../../i18n"
 import PageTitle from "../../components/PageTitle"
 import {
 	MAIN_PADDING,
@@ -25,9 +26,9 @@ import Hours from "../../components/Hours"
 import InputSelectionButton from "../../components/InputSelectionButton"
 import moment from "moment"
 import { API_ERROR } from "../../reducers/consts"
-import SlidingMessage from "../../components/SlidingMessage"
 import { getHoursDiff, fetchOrError, popLatestError } from "../../actions/utils"
 import { getLessonById } from "../../actions/lessons"
+import SuccessModal from "../../components/SuccessModal"
 
 export class Lesson extends React.Component {
 	constructor(props) {
@@ -35,7 +36,6 @@ export class Lesson extends React.Component {
 		const duration = props.user.lesson_duration || DEFAULT_DURATION
 		this.state = {
 			date: props.navigation.getParam("date"),
-			error: "",
 			hours: [],
 			students: [],
 			student: {},
@@ -44,7 +44,7 @@ export class Lesson extends React.Component {
 			allTopics: [],
 			progress: [],
 			finished: [],
-			slidingMessageVisible: false
+			successVisible: false
 		}
 		this._initializeInputs = this._initializeInputs.bind(this)
 		this.onChangeText = this.onChangeText.bind(this)
@@ -140,10 +140,7 @@ export class Lesson extends React.Component {
 	componentDidUpdate() {
 		const error = this.props.dispatch(popLatestError(API_ERROR))
 		if (error) {
-			this.setState({
-				error,
-				slidingMessageVisible: true
-			})
+			Alert.alert(strings("errors.title"), errors(error))
 		}
 	}
 
@@ -329,12 +326,7 @@ export class Lesson extends React.Component {
 			)
 		}
 		if (resp && topicsResp) {
-			this.setState({ error: "", slidingMessageVisible: true }, () => {
-				setTimeout(
-					() => this.props.navigation.goBack(),
-					DEFAULT_MESSAGE_TIME
-				)
-			})
+			this.setState({ successVisible: true })
 		}
 	}
 
@@ -418,15 +410,29 @@ export class Lesson extends React.Component {
 	}
 
 	render() {
+		let desc = strings("teacher.new_lesson.success_desc_with_student", {
+			student: this.state.studentName,
+			hours: this.state.hour,
+			date: this.state.date
+		})
+		if (this.state.studentName == "") {
+			desc = strings("teacher.new_lesson.success_desc_without_student", {
+				hours: this.state.hour,
+				date: this.state.date
+			})
+		}
 		return (
 			<View style={{ flex: 1, marginTop: 20 }}>
-				<SlidingMessage
-					visible={this.state.slidingMessageVisible}
-					error={this.state.error}
-					success={strings("teacher.new_lesson.success")}
-					close={() =>
-						this.setState({ slidingMessageVisible: false })
-					}
+				<SuccessModal
+					visible={this.state.successVisible}
+					image="lesson"
+					title={strings("teacher.new_lesson.success_title")}
+					desc={desc}
+					buttonPress={() => {
+						this.setState({ successVisible: false })
+						this.props.navigation.navigate("ChooseDate")
+					}}
+					button={strings("teacher.new_lesson.success_button")}
 				/>
 				<View style={styles.headerRow}>
 					<Button

@@ -2,16 +2,19 @@ import React from "react"
 
 import renderer from "react-test-renderer"
 
-import SlidingMessage from "../../src/components/SlidingMessage"
+import SuccessModal from "../../src/components/SuccessModal"
 
-describe("SlidingMessage", () => {
+describe("SuccessModal", () => {
 	test("view renders correctly", () => {
 		const tree = renderer
 			.create(
-				<SlidingMessage
-					success="success!"
+				<SuccessModal
 					visible={true}
-					close={jest.fn}
+					image="lesson"
+					title="test"
+					desc="desc test"
+					button="button test"
+					buttonPress={jest.fn}
 				/>
 			)
 			.toJSON()

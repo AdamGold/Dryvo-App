@@ -5,10 +5,11 @@ import {
 	TouchableHighlight,
 	StyleSheet,
 	FlatList,
-	TouchableOpacity
+	TouchableOpacity,
+	Alert
 } from "react-native"
 import { connect } from "react-redux"
-import { strings } from "../../i18n"
+import { strings, errors } from "../../i18n"
 import PageTitle from "../../components/PageTitle"
 import { MAIN_PADDING } from "../../consts"
 import { Dropdown } from "react-native-material-dropdown"
@@ -19,7 +20,6 @@ import NotificationButtons from "./NotificationButtons"
 import Hours from "../../components/Hours"
 import moment from "moment"
 import LessonPopup from "../../components/LessonPopup"
-import SlidingMessage from "../../components/SlidingMessage"
 
 export class Notifications extends React.Component {
 	static navigationOptions = () => {
@@ -51,8 +51,7 @@ export class Notifications extends React.Component {
 				this.props.navigation.getParam("filter") ||
 				this.filterOptions[0]["value"],
 			loading: true,
-			visible: [],
-			slidingMessageVisible: false
+			visible: []
 		}
 
 		this._dropdownChange = this._dropdownChange.bind(this)
@@ -98,13 +97,8 @@ export class Notifications extends React.Component {
 			{ method: "GET" }
 		)
 		if (resp) {
-			this.setState(
-				{
-					message: strings("teacher.notifications.lesson_approved"),
-					slidingMessageVisible: true
-				},
-				() => this._getItems()
-			)
+			Alert.alert(strings("teacher.notifications.lesson_approved"))
+			this._getItems()
 		}
 	}
 
@@ -114,13 +108,8 @@ export class Notifications extends React.Component {
 			method: "DELETE"
 		})
 		if (resp) {
-			this.setState(
-				{
-					message: strings("teacher.notifications.lesson_deleted"),
-					slidingMessageVisible: true
-				},
-				() => this._getItems()
-			)
+			Alert.alert(strings("teacher.notifications.lesson_deleted"))
+			this._getItems()
 		}
 	}
 
@@ -270,13 +259,6 @@ export class Notifications extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<SlidingMessage
-					visible={this.state.slidingMessageVisible}
-					success={this.state.message}
-					close={() =>
-						this.setState({ slidingMessageVisible: false })
-					}
-				/>
 				<View testID="NotificationsView" style={styles.notifications}>
 					<PageTitle
 						style={styles.title}

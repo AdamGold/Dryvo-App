@@ -6,6 +6,11 @@ import renderer from "react-test-renderer"
 import { AddPaymentChooseAmount } from "../../../src/screens/teacher/AddPaymentChooseAmount"
 import { AddPaymentChooseStudent } from "../../../src/screens/teacher/AddPaymentChooseStudent"
 
+const navigation = {
+	getParam: param => {
+		if (param == "student") return { student_id: 1, user: { name: "test" } }
+	}
+}
 describe("AddPaymentChooseStudent", () => {
 	test("view renders correctly", () => {
 		const tree = renderer.create(<AddPaymentChooseStudent />).toJSON()
@@ -15,7 +20,9 @@ describe("AddPaymentChooseStudent", () => {
 
 describe("AddPaymentChooseAmount", () => {
 	test("view renders correctly", () => {
-		const tree = renderer.create(<AddPaymentChooseAmount />).toJSON()
+		const tree = renderer
+			.create(<AddPaymentChooseAmount navigation={navigation} />)
+			.toJSON()
 		expect(tree).toMatchSnapshot()
 	})
 })

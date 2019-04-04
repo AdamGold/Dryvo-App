@@ -114,7 +114,11 @@ export class ChooseDate extends React.Component {
 	}
 
 	_renderEmpty = () => (
-		<EmptyState image="lessons" text={strings("empty_lessons")} />
+		<EmptyState
+			image="lessons"
+			text={strings("empty_lessons")}
+			imageSize="small"
+		/>
 	)
 
 	_renderLessons = () => {

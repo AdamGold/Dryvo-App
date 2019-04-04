@@ -7,20 +7,21 @@ import {
 	KeyboardAvoidingView,
 	TouchableOpacity,
 	Platform,
-	Keyboard
+	Keyboard,
+	Alert
 } from "react-native"
 import { connect } from "react-redux"
 import { register } from "../../actions/auth"
-import { API_ERROR, POP_ERROR } from "../../reducers/consts"
+import { API_ERROR } from "../../reducers/consts"
 import validate, { registerValidation } from "../../actions/validate"
-import { strings } from "../../i18n"
+import { strings, errors } from "../../i18n"
 import AuthInput from "../../components/AuthInput"
-import { MAIN_PADDING, DEFAULT_MESSAGE_TIME, DEFAULT_IMAGE } from "../../consts"
+import { MAIN_PADDING, DEFAULT_IMAGE } from "../../consts"
 import { Icon } from "react-native-elements"
 import LoadingButton from "../../components/LoadingButton"
-import SlidingMessage from "../../components/SlidingMessage"
 import { popLatestError } from "../../actions/utils"
 import UploadProfileImage from "../../components/UploadProfileImage"
+import SuccessModal from "../../components/SuccessModal"
 
 export class SignUp extends React.Component {
 	constructor(props) {
@@ -28,8 +29,7 @@ export class SignUp extends React.Component {
 		this.register = this.register.bind(this)
 		this.role = this.props.navigation.getParam("role")
 		this.state = {
-			api_error: "",
-			slidingMessageVisible: false,
+			successVisible: false,
 			imageError: "",
 			image: ""
 		}
@@ -80,10 +80,7 @@ export class SignUp extends React.Component {
 	componentDidUpdate() {
 		const error = this.props.dispatch(popLatestError(API_ERROR))
 		if (error) {
-			this.setState({
-				error,
-				slidingMessageVisible: true
-			})
+			Alert.alert(strings("errors.title"), errors(error))
 		}
 	}
 
@@ -113,17 +110,10 @@ export class SignUp extends React.Component {
 					image: this.state.image
 				},
 				user => {
-					this.button.showLoading(false)
 					if (user) {
-						this.setState(
-							{ api_error: "", slidingMessageVisible: true },
-							() => {
-								setTimeout(
-									() => this.props.navigation.navigate("App"),
-									DEFAULT_MESSAGE_TIME
-								)
-							}
-						)
+						this.setState({ successVisible: true })
+					} else {
+						this.button.showLoading(false)
 					}
 				}
 			)
@@ -153,13 +143,16 @@ export class SignUp extends React.Component {
 	render() {
 		return (
 			<View style={styles.container}>
-				<SlidingMessage
-					visible={this.state.slidingMessageVisible}
-					error={this.state.api_error}
-					success={strings("signup.success")}
-					close={() =>
-						this.setState({ slidingMessageVisible: false })
-					}
+				<SuccessModal
+					visible={this.state.successVisible}
+					image="signup"
+					title={strings("signup.success_title")}
+					desc={strings("signup.success_desc")}
+					buttonPress={() => {
+						this.setState({ successVisible: false })
+						this.props.navigation.navigate("App")
+					}}
+					button={strings("signup.success_button")}
 				/>
 				<TouchableOpacity
 					onPress={() => {

@@ -31,7 +31,7 @@ export function strings(name, params = {}) {
 }
 
 export function errors(name, params = {}) {
-	return i18n.t(name.replace(/\.$/, ""), {
+	return i18n.t("errors." + name.replace(/\.$/, ""), {
 		...params,
 		defaults: [{ scope: "default_error" }]
 	})

@@ -4,7 +4,6 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 	FlatList,
-	TouchableHighlight,
 	Platform,
 	KeyboardAvoidingView,
 	ScrollView
@@ -86,8 +85,7 @@ export class AddPaymentChooseStudent extends React.Component {
 			noneMargin = { marginTop: 0 }
 		}
 		return (
-			<TouchableHighlight
-				underlayColor="#f9f9f9"
+			<TouchableOpacity
 				key={`student${item.student_id}`}
 				onPress={() => this.onPress(item)}
 			>
@@ -106,7 +104,7 @@ export class AddPaymentChooseStudent extends React.Component {
 						height={64}
 					/>
 				</Row>
-			</TouchableHighlight>
+			</TouchableOpacity>
 		)
 	}
 
@@ -129,13 +127,15 @@ export class AddPaymentChooseStudent extends React.Component {
 		return (
 			<FlatList
 				data={this.state.students}
-				keyboardShouldPersistTaps="always"
 				renderItem={this.renderItem}
 				keyExtractor={item => `student${item.student_id}`}
 				onEndReached={this.endReached}
-				keyboardDismissMode="on-drag"
-				keyboardShouldPersistTaps="always"
+				keyboardDismissMode={
+					Platform.OS === "ios" ? "interactive" : "on-drag"
+				}
+				keyboardShouldPersistTaps="handled"
 				ListEmptyComponent={this._renderEmpty}
+				style={{ paddingBottom: 60 }}
 			/>
 		)
 	}
@@ -163,34 +163,25 @@ export class AddPaymentChooseStudent extends React.Component {
 					testID="StudentsSearchView"
 				>
 					<KeyboardAvoidingView
-						behavior={Platform.OS === "ios" ? "padding" : "height"}
+						behavior={Platform.OS === "ios" ? "padding" : null}
 					>
-						<ScrollView
-							keyboardDismissMode={
-								Platform.OS === "ios"
-									? "interactive"
-									: "on-drag"
-							}
-							keyboardShouldPersistTaps="handled"
-						>
-							<SearchBar
-								placeholder={strings("teacher.students.search")}
-								onChangeText={this.updateSearch}
-								value={this.state.search}
-								platform="ios"
-								containerStyle={styles.searchBarContainer}
-								inputContainerStyle={styles.inputContainerStyle}
-								cancelButtonTitle={strings(
-									"teacher.students.cancel"
-								)}
-								inputStyle={styles.search}
-								textAlign="right"
-								autoFocus={true}
-								testID="searchBar"
-							/>
-							<Separator />
-							{this._renderStudents()}
-						</ScrollView>
+						<SearchBar
+							placeholder={strings("teacher.students.search")}
+							onChangeText={this.updateSearch}
+							value={this.state.search}
+							platform="ios"
+							containerStyle={styles.searchBarContainer}
+							inputContainerStyle={styles.inputContainerStyle}
+							cancelButtonTitle={strings(
+								"teacher.students.cancel"
+							)}
+							inputStyle={styles.search}
+							textAlign="right"
+							autoFocus={true}
+							testID="searchBar"
+						/>
+						<Separator />
+						{this._renderStudents()}
 					</KeyboardAvoidingView>
 				</View>
 			</View>

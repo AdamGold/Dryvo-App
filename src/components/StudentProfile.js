@@ -18,14 +18,17 @@ import StudentNextLessonView from "./StudentNextLessonView"
 import SimpleLoader from "./SimpleLoader"
 import { getUserImage } from "../actions/utils"
 import FastImage from "react-native-fast-image"
+import { NavigationActions } from "react-navigation"
 
 export default class StudentProfile extends React.Component {
 	constructor(props) {
 		super(props)
 		let student = this.props.user
+		let showBackButton = false
 		if (this.props.navigation.getParam("student")) {
 			// if we are in other student's profile
 			student = this.props.navigation.getParam("student")
+			showBackButton = true
 		}
 		let isTeacher = false
 		if (this.props.user.hasOwnProperty("teacher_id")) {
@@ -38,7 +41,8 @@ export default class StudentProfile extends React.Component {
 			payments: [],
 			nextLesson: "",
 			isTeacher,
-			loading: true
+			loading: true,
+			showBackButton
 		}
 
 		this._handleRequests()
@@ -135,7 +139,19 @@ export default class StudentProfile extends React.Component {
 
 	render() {
 		const { student } = this.state
-
+		let backButton
+		if (this.state.showBackButton) {
+			backButton = (
+				<TouchableOpacity
+					onPress={() => {
+						this.props.navigation.dispatch(NavigationActions.back())
+					}}
+					style={styles.backButton}
+				>
+					<Icon name="arrow-forward" type="material" />
+				</TouchableOpacity>
+			)
+		}
 		let teacherView = <View style={{ marginTop: 20 }} />
 		if (this.state.isTeacher) {
 			// teacher is logged in, show next lesson and payments
@@ -168,6 +184,7 @@ export default class StudentProfile extends React.Component {
 			<ScrollView style={{ flex: 1 }}>
 				<View style={styles.container}>
 					<View style={styles.header}>
+						{backButton}
 						<UserWithPic
 							user={student.user}
 							extra={
@@ -206,6 +223,7 @@ const styles = StyleSheet.create({
 		marginTop: 20,
 		alignItems: "center"
 	},
+	backButton: { marginRight: 8 },
 	header: {
 		maxHeight: 60,
 		flexDirection: "row",

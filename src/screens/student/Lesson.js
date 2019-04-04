@@ -39,20 +39,40 @@ export class Lesson extends React.Component {
 			error: "",
 			hours: [],
 			dateAndTime: "",
-			lesson: null,
 			datePickerVisible: false,
 			slidingMessageVisible: false
 		}
 		this._initializeInputs = this._initializeInputs.bind(this)
-		this.setRef = this.setRef.bind(this)
 		this.onChangeText = this.onChangeText.bind(this)
 		this._onHourPress = this._onHourPress.bind(this)
 		this.createLesson = this.createLesson.bind(this)
 		this._handleDatePicked = this._handleDatePicked.bind(this)
 
 		this._initializeInputs()
+		this._initializeExistingLesson()
 	}
 
+	_initializeExistingLesson = async () => {
+		// if we're editing a lesson
+		let lesson = this.props.navigation.getParam("lesson") || null
+		if (this.props.navigation.getParam("lesson_id")) {
+			lesson = await getLessonById(
+				this.props.navigation.getParam("lesson_id")
+			)
+		}
+		if (lesson) {
+			// init duration, studentName, meetup, dropoff, hour
+			this.state = {
+				...this.state,
+				dateAndTime: moment.utc(lesson.date).format(API_DATE_FORMAT),
+				date: moment.utc(lesson.date).format(SHORT_API_DATE_FORMAT),
+				duration: lesson.duration.toString(),
+				meetup: (lesson.meetup_place || {}).name,
+				dropoff: (lesson.dropoff_place || {}).name,
+				hour: moment.utc(lesson.date).format("HH:mm")
+			}
+		}
+	}
 	_initializeInputs = () => {
 		this.inputs = {
 			date: {
@@ -69,18 +89,11 @@ export class Lesson extends React.Component {
 			},
 			meetup: {
 				iconName: "navigation",
-				iconType: "feather",
-				onSubmitEditing: () => {
-					this.dropoffInput.focus()
-					this._scrollView.scrollTo({ y: 50, animated: true })
-				}
+				iconType: "feather"
 			},
 			dropoff: {
 				iconName: "map-pin",
-				iconType: "feather",
-				onSubmitEditing: () => {
-					this._touchable.touchableHandlePress()
-				}
+				iconType: "feather"
 			}
 		}
 		Object.keys(this.inputs).forEach(input => {
@@ -125,10 +138,6 @@ export class Lesson extends React.Component {
 
 	onChangeText = (name, value) => this.setState({ [name]: value })
 
-	setRef = (input, name) => {
-		this[`${name}Input`] = input
-	}
-
 	renderInputs = () => {
 		const keys = Object.keys(this.inputs)
 		return keys.map((name, index) => {
@@ -141,12 +150,10 @@ export class Lesson extends React.Component {
 					editable={props.editable}
 					selectTextOnFocus={props.selectTextOnFocus}
 					autoFocus={props.autoFocus}
-					setRef={this.setRef}
 					onFocus={props.onFocus || this.onFocus}
 					onBlur={props.onBlur || this.onBlur}
 					onChangeText={props.onChangeText || this.onChangeText}
 					iconName={props.iconName}
-					next={() => this[`${next}Input`]}
 					state={this.state}
 					iconType={props.iconType}
 					onSubmitEditing={props.onSubmitEditing}
@@ -304,7 +311,8 @@ const styles = StyleSheet.create({
 	},
 	formContainer: {
 		width: 340,
-		alignSelf: "center"
+		alignSelf: "center",
+		marginBottom: 70
 	},
 	submitButton: fullButton,
 	doneText: {

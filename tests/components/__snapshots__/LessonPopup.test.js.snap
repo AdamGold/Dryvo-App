@@ -110,30 +110,35 @@ exports[`LessonPopup view renders correctly 1`] = `
             "fontSize": 18,
             "fontWeight": "bold",
             "marginTop": 16,
+            "maxHeight": 20,
           }
         }
       >
-        שיעור מספר undefined - test
+        test
       </Text>
       <Text
         style={
           Object {
             "alignSelf": "center",
-            "marginTop": 6,
+            "color": "gray",
+            "marginTop": 4,
           }
         }
       >
-        <Text
-          style={
-            Object {
-              "color": "red",
-            }
+        שיעור undefined
+      </Text>
+      <Text
+        style={
+          Object {
+            "alignSelf": "center",
+            "color": "red",
+            "marginTop": 4,
           }
-        >
-          (
-          לא מאושר
-          )
-        </Text>
+        }
+      >
+        (
+        לא מאושר
+        )
       </Text>
       <View
         style={
@@ -141,7 +146,7 @@ exports[`LessonPopup view renders correctly 1`] = `
             "alignItems": "flex-start",
             "flex": 1,
             "flexDirection": "row",
-            "marginTop": 20,
+            "marginTop": 12,
             "maxHeight": 60,
           }
         }
@@ -222,7 +227,7 @@ exports[`LessonPopup view renders correctly 1`] = `
             "alignItems": "flex-start",
             "flex": 1,
             "flexDirection": "row",
-            "marginTop": 20,
+            "marginTop": 12,
             "maxHeight": 60,
           }
         }

@@ -46,7 +46,7 @@ export default createBottomTabNavigator(
 				headerMode: "none"
 			}
 		),
-		Lesson: {
+		AddLesson: {
 			screen: createStackNavigator(
 				{ ChooseDate, Lesson },
 				{

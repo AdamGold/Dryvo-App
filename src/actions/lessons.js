@@ -26,17 +26,32 @@ export async function getPayments(fetchService, forMonth = true, extra = "") {
 		forMonthURL = `&created_at=ge:${firstDay.toISOString()}&created_at=le:${lastDay.toISOString()}`
 	}
 	if (extra) extra = `&${extra}`
-	const resp = await fetchService.fetch(
-		`/lessons/payments?order_by=created_at desc${forMonthURL}${extra}`,
-		{ method: "GET" }
-	)
-	var sum = 0
-	for (var i = 0, _len = resp.json["data"].length; i < _len; i++) {
-		sum += resp.json["data"][i]["amount"]
-	}
+	try {
+		const resp = await fetchService.fetch(
+			`/lessons/payments?order_by=created_at desc${forMonthURL}${extra}`,
+			{ method: "GET" }
+		)
+		var sum = 0
+		for (var i = 0, _len = resp.json["data"].length; i < _len; i++) {
+			sum += resp.json["data"][i]["amount"]
+		}
 
-	return {
-		payments: resp.json["data"],
-		sum
+		return {
+			payments: resp.json["data"],
+			sum
+		}
+	} catch (error) {
+		return { payments: [], sum: 0 }
+	}
+}
+
+export async function getLessonById(fetchService, id) {
+	try {
+		const resp = await fetchService.fetch(`/lessons/${id}`, {
+			method: "GET"
+		})
+		return resp.json["data"]
+	} catch (error) {
+		return null
 	}
 }

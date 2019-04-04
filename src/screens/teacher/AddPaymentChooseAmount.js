@@ -16,7 +16,8 @@ import PageTitle from "../../components/PageTitle"
 import {
 	MAIN_PADDING,
 	floatButtonOnlyStyle,
-	DEFAULT_MESSAGE_TIME
+	DEFAULT_MESSAGE_TIME,
+	fullButton
 } from "../../consts"
 import { API_ERROR } from "../../reducers/consts"
 import { NavigationActions } from "react-navigation"
@@ -97,31 +98,31 @@ export class AddPaymentChooseAmount extends React.Component {
 						title={strings("teacher.add_payment.title2")}
 					/>
 				</View>
-				<View style={styles.amountContainer}>
-					<TextInput
-						placeholder="000.00"
-						value={this.state.amount}
-						onChangeText={amount => this.changeAmount(amount)}
-						style={styles.amountInput}
-						autoFocus={true}
-						maxLength={5}
-						keyboardType="number-pad"
-					/>
-				</View>
 				<KeyboardAvoidingView
-					behavior={Platform.OS === "ios" ? "position" : null}
-					keyboardVerticalOffset={62}
+					behavior={Platform.OS === "ios" ? "padding" : "height"}
+					keyboardVerticalOffset={Platform.select({
+						ios: 0,
+						android: 24
+					})}
 					style={styles.container}
 				>
+					<View style={styles.amountContainer}>
+						<TextInput
+							placeholder="000.00"
+							value={this.state.amount}
+							onChangeText={amount => this.changeAmount(amount)}
+							style={styles.amountInput}
+							autoFocus={true}
+							maxLength={5}
+							keyboardType="number-pad"
+						/>
+					</View>
 					<TouchableHighlight
 						underlayColor="#ffffff00"
 						onPress={this.addPayment}
+						style={styles.floatButton}
 					>
-						<View style={styles.floatButton}>
-							<Text style={styles.buttonText}>
-								{strings("done")}
-							</Text>
-						</View>
+						<Text style={styles.buttonText}>{strings("done")}</Text>
 					</TouchableHighlight>
 				</KeyboardAvoidingView>
 			</View>
@@ -170,9 +171,6 @@ const styles = StyleSheet.create({
 		fontSize: 20
 	},
 	floatButton: {
-		...floatButtonOnlyStyle,
-		alignSelf: "center",
-		width: "80%",
-		marginTop: 40
+		...fullButton
 	}
 })

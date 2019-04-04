@@ -62,7 +62,8 @@
 			"welcome": "שלום, {{name}}",
 			"full_schedule": "לו״ז מלא",
 			"add_payment": "הוסף תשלום",
-			"lesson_number": "שיעור מספר"
+			"lesson_number": "שיעור",
+			"no_lesson": "לא נקבע שיעור"
 		},
 		"notifications": {
 			"new_lesson": "רוצה לקבוע שיעור",

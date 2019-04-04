@@ -102,7 +102,6 @@ export class SignIn extends React.Component {
 		this.loginButton.showLoading(true)
 		await this.props.dispatch(
 			directLogin(this.state.email, this.state.password, user => {
-				this.loginButton.showLoading(false)
 				if (user) {
 					this.setState(
 						{ error: "", slidingMessageVisible: true },
@@ -113,6 +112,8 @@ export class SignIn extends React.Component {
 							)
 						}
 					)
+				} else {
+					this.loginButton.showLoading(false)
 				}
 			})
 		)

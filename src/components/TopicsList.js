@@ -16,20 +16,18 @@ export default class TopicsList extends React.Component {
 	}
 
 	_renderEmpty = () => (
-		<EmptyState
-			image="topics"
-			text={strings("empty_topics")}
-			style={styles.empty}
-		/>
+		<EmptyState image="topics" text={strings("empty_topics")} />
 	)
 
 	render() {
+		if (this.props.topics.length == 0) {
+			return this._renderEmpty()
+		}
 		return (
 			<FlatList
 				data={this.props.topics}
 				renderItem={this.renderTopic}
 				keyExtractor={item => `topic${item.id}`}
-				ListEmptyComponent={this._renderEmpty}
 			/>
 		)
 	}

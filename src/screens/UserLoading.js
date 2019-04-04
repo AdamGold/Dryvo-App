@@ -14,7 +14,9 @@ class UserLoading extends React.Component {
 			let params
 			if (notificationData.data.hasOwnProperty("lesson")) {
 				navigateTo = "Lesson"
-				params = { lesson: JSON.parse(notificationData.data["lesson"]) }
+				params = {
+					lesson_id: notificationData.data["lesson_id"]
+				}
 			}
 			extra = {
 				action: NavigationActions.navigate({

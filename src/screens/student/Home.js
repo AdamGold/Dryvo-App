@@ -13,7 +13,7 @@ import { strings } from "../../i18n"
 import { Icon } from "react-native-elements"
 import LessonPopup from "../../components/LessonPopup"
 import { getPayments } from "../../actions/lessons"
-import { MAIN_PADDING } from "../../consts"
+import { MAIN_PADDING, NAME_LENGTH } from "../../consts"
 import StudentPayments from "../../components/StudentPayments"
 import StudentNextLessonView from "../../components/StudentNextLessonView"
 import { getUserImage, uploadUserImage } from "../../actions/utils"
@@ -117,7 +117,7 @@ export class Home extends React.Component {
 						/>
 						<Text style={styles.welcomeText}>
 							{strings("teacher.home.welcome", {
-								name: this.props.user["name"]
+								name: this.props.user.name.slice(0, NAME_LENGTH)
 							})}
 						</Text>
 					</View>

@@ -13,19 +13,20 @@ const user = {
 }
 const dateString = "03-14-2019"
 const mockedDate = new Date(Date.UTC(dateString))
+const navigation = {
+	getParam: param => {
+		if (param == "date") return dateString
+	},
+	goBack: jest.fn(),
+	navigate: jest.fn()
+}
 describe("Lesson", () => {
 	test("view renders correctly", () => {
 		const tree = renderer
 			.create(
 				<Lesson
 					user={user}
-					navigation={{
-						getParam: param => {
-							if (param == "date") return dateString
-						},
-						goBack: jest.fn(),
-						navigate: jest.fn()
-					}}
+					navigation={navigation}
 					fetchService={fetchService}
 					dispatch={jest.fn()}
 				/>

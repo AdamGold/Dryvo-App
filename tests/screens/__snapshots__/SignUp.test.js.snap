@@ -9,103 +9,102 @@ exports[`SignUp view renders correctly 1`] = `
   }
 >
   <Modal
-    animationType="none"
+    animationType="slide"
     hardwareAccelerated={false}
-    hideModalContentWhileAnimating={false}
-    onModalHide={[Function]}
-    onModalWillHide={[Function]}
-    onModalWillShow={[Function]}
-    onRequestClose={[Function]}
-    onSwipeComplete={[Function]}
-    scrollOffset={0}
-    scrollOffsetMax={0}
-    scrollTo={null}
-    supportedOrientations={
-      Array [
-        "portrait",
-        "landscape",
-      ]
-    }
-    swipeDirection="up"
-    swipeThreshold={10}
-    transparent={true}
+    transparent={false}
     visible={false}
   >
     <View
-      accessible={true}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
       style={
         Object {
-          "backgroundColor": "black",
-          "bottom": 0,
-          "height": 1334,
-          "left": 0,
-          "opacity": 0,
-          "position": "absolute",
-          "right": 0,
-          "top": 0,
-          "width": 750,
-        }
-      }
-    />
-    <View
-      hideModalContentWhileAnimating={false}
-      onModalHide={[Function]}
-      onModalWillHide={[Function]}
-      onModalWillShow={[Function]}
-      onMoveShouldSetResponder={[Function]}
-      onMoveShouldSetResponderCapture={[Function]}
-      onResponderEnd={[Function]}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderReject={[Function]}
-      onResponderRelease={[Function]}
-      onResponderStart={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      onStartShouldSetResponderCapture={[Function]}
-      onSwipeComplete={[Function]}
-      pointerEvents="box-none"
-      scrollOffset={0}
-      scrollOffsetMax={0}
-      scrollTo={null}
-      style={
-        Object {
+          "alignItems": "center",
           "flex": 1,
-          "justifyContent": "flex-start",
-          "left": 0,
-          "margin": 0,
-          "top": 0,
-          "transform": Array [
-            Object {
-              "translateY": 0,
-            },
-          ],
+          "justifyContent": "center",
+          "paddingLeft": 26,
+          "paddingRight": 26,
         }
       }
-      supportedOrientations={
-        Array [
-          "portrait",
-          "landscape",
-        ]
-      }
-      swipeDirection="up"
-      swipeThreshold={10}
     >
       <View
         style={
+          Array [
+            Object {
+              "overflow": "hidden",
+            },
+            Object {
+              "height": 120,
+              "width": 120,
+            },
+          ]
+        }
+      >
+        <FastImageView
+          resizeMode="contain"
+          source={
+            Object {
+              "testUri": "../../../assets/images/sign_up_success.png",
+            }
+          }
+          style={
+            Object {
+              "bottom": 0,
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            }
+          }
+        />
+      </View>
+      <Text
+        style={
           Object {
-            "alignItems": "flex-start",
-            "backgroundColor": "green",
-            "height": 100,
-            "padding": 20,
-            "paddingTop": 60,
+            "fontSize": 24,
+            "fontWeight": "bold",
+            "marginTop": 24,
+          }
+        }
+      >
+        נרשמת בהצלחה!
+      </Text>
+      <Text
+        style={
+          Object {
+            "color": "gray",
+            "marginTop": 12,
+            "textAlign": "center",
+          }
+        }
+      >
+        ההרשמה עברה בהצלחה. כעת אנו ממתינים שהמורה אליו נרשמת יאשר אותך בתור תלמיד.
+      </Text>
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgb(12,116,244)",
+            "borderRadius": 28,
+            "elevation": 8,
+            "height": 56,
+            "justifyContent": "center",
+            "marginTop": 40,
+            "opacity": 1,
+            "shadowColor": "rgb(12,116,244)",
+            "shadowOffset": Object {
+              "height": 8,
+              "width": 0,
+            },
+            "shadowOpacity": 0.5,
+            "shadowRadius": 16,
+            "width": 160,
           }
         }
       >
@@ -116,7 +115,7 @@ exports[`SignUp view renders correctly 1`] = `
             }
           }
         >
-          נרשמת בהצלחה!
+          עבור לעמוד הראשי
         </Text>
       </View>
     </View>

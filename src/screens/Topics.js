@@ -1,5 +1,5 @@
 import React from "react"
-import { View, StyleSheet, FlatList, Text } from "react-native"
+import { View, StyleSheet, ScrollView, Text } from "react-native"
 import { connect } from "react-redux"
 import { strings } from "../i18n"
 import PageTitle from "../components/PageTitle"
@@ -18,40 +18,42 @@ export class Topics extends React.Component {
 	render() {
 		const topics = this.props.navigation.getParam("topics")
 		return (
-			<View style={styles.container}>
-				<View style={styles.headerRow}>
-					<Button
-						icon={<Icon name="arrow-forward" type="material" />}
-						onPress={() => {
-							this.props.navigation.goBack()
-						}}
-						type="clear"
-						style={{ marginTop: -6 }}
-					/>
-					<PageTitle
-						style={styles.title}
-						title={strings("teacher.new_lesson.topics")}
-					/>
+			<ScrollView style={{ flex: 1 }}>
+				<View style={styles.container}>
+					<View style={styles.headerRow}>
+						<Button
+							icon={<Icon name="arrow-forward" type="material" />}
+							onPress={() => {
+								this.props.navigation.goBack()
+							}}
+							type="clear"
+							style={{ marginTop: -6 }}
+						/>
+						<PageTitle
+							style={styles.title}
+							title={strings("teacher.new_lesson.topics")}
+						/>
+					</View>
+					<ShadowRect style={styles.main}>
+						<Text style={styles.rectTitle}>
+							{strings("student_profile.in_progress_topics")}
+						</Text>
+						<TopicsList topics={topics["in_progress"]} />
+					</ShadowRect>
+					<ShadowRect style={styles.main}>
+						<Text style={styles.rectTitle}>
+							{strings("student_profile.finished_topics")}
+						</Text>
+						<TopicsList topics={topics["finished"]} />
+					</ShadowRect>
+					<ShadowRect style={styles.main}>
+						<Text style={styles.rectTitle}>
+							{strings("student_profile.new_topics")}
+						</Text>
+						<TopicsList topics={topics["new"]} />
+					</ShadowRect>
 				</View>
-				<ShadowRect style={styles.main}>
-					<Text style={styles.rectTitle}>
-						{strings("student_profile.in_progress_topics")}
-					</Text>
-					<TopicsList topics={topics["in_progress"]} />
-				</ShadowRect>
-				<ShadowRect style={styles.main}>
-					<Text style={styles.rectTitle}>
-						{strings("student_profile.finished_topics")}
-					</Text>
-					<TopicsList topics={topics["finished"]} />
-				</ShadowRect>
-				<ShadowRect style={styles.main}>
-					<Text style={styles.rectTitle}>
-						{strings("student_profile.new_topics")}
-					</Text>
-					<TopicsList topics={topics["new"]} />
-				</ShadowRect>
-			</View>
+			</ScrollView>
 		)
 	}
 }

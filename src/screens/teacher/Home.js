@@ -47,8 +47,19 @@ export class Home extends React.Component {
 			visible: [],
 			loading: true
 		}
+	}
 
-		this._sendRequests()
+	componentDidMount() {
+		this.willFocusSubscription = this.props.navigation.addListener(
+			"willFocus",
+			payload => {
+				this._sendRequests()
+			}
+		)
+	}
+
+	componentWillUnmount() {
+		this.willFocusSubscription.remove()
 	}
 
 	_sendRequests = async () => {
@@ -197,6 +208,7 @@ export class Home extends React.Component {
 			image={type}
 			text={strings(`empty_${type}`)}
 			style={styles.empty}
+			imageSize="small"
 		/>
 	)
 

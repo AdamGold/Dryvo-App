@@ -1,0 +1,116 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SuccessModal view renders correctly 1`] = `
+<Modal
+  animationType="slide"
+  hardwareAccelerated={false}
+  transparent={false}
+  visible={true}
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "justifyContent": "center",
+        "paddingLeft": 26,
+        "paddingRight": 26,
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "overflow": "hidden",
+          },
+          Object {
+            "height": 120,
+            "width": 120,
+          },
+        ]
+      }
+    >
+      <FastImageView
+        resizeMode="contain"
+        source={
+          Object {
+            "testUri": "../../../assets/images/lesson_success.png",
+          }
+        }
+        style={
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          }
+        }
+      />
+    </View>
+    <Text
+      style={
+        Object {
+          "fontSize": 24,
+          "fontWeight": "bold",
+          "marginTop": 24,
+        }
+      }
+    >
+      test
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "gray",
+          "marginTop": 12,
+          "textAlign": "center",
+        }
+      }
+    >
+      desc test
+    </Text>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgb(12,116,244)",
+          "borderRadius": 28,
+          "elevation": 8,
+          "height": 56,
+          "justifyContent": "center",
+          "marginTop": 40,
+          "opacity": 1,
+          "shadowColor": "rgb(12,116,244)",
+          "shadowOffset": Object {
+            "height": 8,
+            "width": 0,
+          },
+          "shadowOpacity": 0.5,
+          "shadowRadius": 16,
+          "width": 160,
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#fff",
+          }
+        }
+      >
+        button test
+      </Text>
+    </View>
+  </View>
+</Modal>
+`;

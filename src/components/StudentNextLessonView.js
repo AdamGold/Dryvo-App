@@ -42,6 +42,7 @@ export default class StudentNextLessonView extends React.Component {
 					image="lessons"
 					text={strings("empty_lessons")}
 					style={styles.empty}
+					imageSize="small"
 				/>
 			)
 		}

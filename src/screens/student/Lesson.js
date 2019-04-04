@@ -7,10 +7,11 @@ import {
 	StyleSheet,
 	View,
 	TouchableHighlight,
-	ScrollView
+	ScrollView,
+	Alert
 } from "react-native"
 import { connect } from "react-redux"
-import { strings } from "../../i18n"
+import { strings, errors } from "../../i18n"
 import PageTitle from "../../components/PageTitle"
 import {
 	MAIN_PADDING,
@@ -26,10 +27,9 @@ import moment from "moment"
 import { getHoursDiff } from "../../actions/utils"
 import { API_ERROR } from "../../reducers/consts"
 import DateTimePicker from "react-native-modal-datetime-picker"
-import SlidingMessage from "../../components/SlidingMessage"
 import { fetchOrError } from "../../actions/utils"
 import { popLatestError } from "../../actions/utils"
-import errors from "../../reducers/errors"
+import SuccessModal from "../../components/SuccessModal"
 
 export class Lesson extends React.Component {
 	constructor(props) {
@@ -40,7 +40,7 @@ export class Lesson extends React.Component {
 			hours: [],
 			dateAndTime: "",
 			datePickerVisible: false,
-			slidingMessageVisible: false
+			successVisible: false
 		}
 		this._initializeInputs = this._initializeInputs.bind(this)
 		this.onChangeText = this.onChangeText.bind(this)
@@ -106,10 +106,7 @@ export class Lesson extends React.Component {
 	componentDidUpdate() {
 		const error = this.props.dispatch(popLatestError(API_ERROR))
 		if (error) {
-			this.setState({
-				error,
-				slidingMessageVisible: true
-			})
+			Alert.alert(strings("errors.title"), errors(error))
 		}
 	}
 
@@ -218,12 +215,7 @@ export class Lesson extends React.Component {
 			})
 		)
 		if (resp) {
-			this.setState({ error: "", slidingMessageVisible: true }, () => {
-				setTimeout(
-					() => this.props.navigation.navigate("Schedule"),
-					DEFAULT_MESSAGE_TIME
-				)
-			})
+			this.setState({ successVisible: true })
 		}
 	}
 
@@ -244,13 +236,19 @@ export class Lesson extends React.Component {
 	render() {
 		return (
 			<View style={{ flex: 1, marginTop: 20 }}>
-				<SlidingMessage
-					visible={this.state.slidingMessageVisible}
-					error={this.state.error}
-					success={strings("teacher.new_lesson.success")}
-					close={() =>
-						this.setState({ slidingMessageVisible: false })
-					}
+				<SuccessModal
+					visible={this.state.successVisible}
+					image="lesson"
+					title={strings("student.new_lesson.success_title")}
+					desc={strings("student.new_lesson.success_desc", {
+						hours: this.state.hour,
+						date: this.state.date
+					})}
+					buttonPress={() => {
+						this.setState({ successVisible: false })
+						this.props.navigation.navigate("Schedule")
+					}}
+					button={strings("student.new_lesson.success_button")}
 				/>
 				<View style={styles.headerRow}>
 					<PageTitle

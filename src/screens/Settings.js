@@ -22,8 +22,7 @@ import RectInput from "../components/RectInput"
 import { logout, setUser } from "../actions/auth"
 import { API_ERROR } from "../reducers/consts"
 import Storage from "../services/Storage"
-import { fetchOrError } from "../actions/utils"
-import { popLatestError } from "../actions/utils"
+import { fetchOrError, popLatestError } from "../actions/utils"
 
 export class Settings extends React.Component {
 	constructor(props) {
@@ -174,7 +173,13 @@ export class Settings extends React.Component {
 					</Text>
 					<ShadowRect style={styles.rect}>
 						<View style={styles.rectInsideView}>
-							<Text>{strings("settings.work_hours")}</Text>
+							<TouchableOpacity
+								onPress={() =>
+									this.props.navigation.navigate("WorkDays")
+								}
+							>
+								<Text>{strings("settings.work_hours")}</Text>
+							</TouchableOpacity>
 						</View>
 						<TouchableOpacity
 							onPress={this.toggleNotifications.bind(this)}

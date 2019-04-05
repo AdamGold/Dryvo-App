@@ -30,7 +30,8 @@ export default createBottomTabNavigator(
 					}
 				),
 				AddPayment,
-				Settings
+				Settings,
+				WorkDays
 			},
 			{
 				initialRouteName: "Main",

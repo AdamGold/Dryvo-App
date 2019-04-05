@@ -51,7 +51,8 @@ export class WorkDays extends React.Component {
 		this.days.forEach(day => {
 			this.state.daysWithHours[day] = []
 		})
-		this.daysFromApi = {}
+
+		this.changedDays = {} // keep track of only changed days
 
 		this._getDays()
 	}
@@ -90,7 +91,6 @@ export class WorkDays extends React.Component {
 				}
 				newState[day].push(hour)
 			})
-			this.daysFromApi = newState
 			this.setState({
 				daysWithHours: newState,
 				loading: false
@@ -135,13 +135,15 @@ export class WorkDays extends React.Component {
 			daysWithHours: { ...this.state.daysWithHours, [pickedDay]: newDay }
 		})
 
+		this.changedDays[pickedDay] = newDay
+
 		this._hideDateTimePicker()
 	}
 
 	_addHours = day => {
-		let newDay = [...this.state.daysWithHours[day], DEFAULT_HOURS]
+		let newHours = [...this.state.daysWithHours[day], DEFAULT_HOURS]
 		this.setState({
-			daysWithHours: { ...this.state.daysWithHours, [day]: newDay }
+			daysWithHours: { ...this.state.daysWithHours, [day]: newHours }
 		})
 	}
 	_renderHours = day => {
@@ -206,12 +208,11 @@ export class WorkDays extends React.Component {
 	}
 
 	save = async () => {
-		console.log(this.daysFromApi)
-		console.log(this.state.daysWithHours)
+		// don't send the non-changed days for better efficiency
 		const resp = await this.props.dispatch(
 			fetchOrError("/teacher/work_days", {
 				method: "POST",
-				body: JSON.stringify(this.state.daysWithHours)
+				body: JSON.stringify(this.changedDays)
 			})
 		)
 		if (resp) {

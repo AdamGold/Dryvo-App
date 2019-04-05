@@ -7,7 +7,8 @@ import {
 	Platform,
 	ScrollView,
 	TouchableHighlight,
-	Alert
+	Alert,
+	ActivityIndicator
 } from "react-native"
 import { connect } from "react-redux"
 import { strings, errors } from "../../i18n"
@@ -37,7 +38,8 @@ export class WorkDays extends React.Component {
 		this.state = {
 			isTimePickerVisible: false,
 			daysWithHours: {},
-			fromSchedule: this.props.navigation.getParam("fromSchedule")
+			fromSchedule: this.props.navigation.getParam("fromSchedule"),
+			loading: true
 		}
 
 		this.days = [0, 1, 2, 3, 4, 5, 6]
@@ -49,13 +51,14 @@ export class WorkDays extends React.Component {
 		this.days.forEach(day => {
 			this.state.daysWithHours[day] = []
 		})
+		this.daysFromApi = {}
 
 		this._getDays()
 	}
 
 	_getDays = async () => {
 		try {
-			let extra
+			let extra = ""
 			if (this.state.fromSchedule) {
 				const startOfWeek = moment()
 					.startOf("week")
@@ -87,8 +90,10 @@ export class WorkDays extends React.Component {
 				}
 				newState[day].push(hour)
 			})
+			this.daysFromApi = newState
 			this.setState({
-				daysWithHours: newState
+				daysWithHours: newState,
+				loading: false
 			})
 		} catch (error) {}
 	}
@@ -175,9 +180,10 @@ export class WorkDays extends React.Component {
 			if (index == 0) {
 				style = { marginTop: 0 }
 			}
+			const dayNames = strings("date.day_names")
 			return (
 				<View key={`day${index}`} style={{ ...styles.day, ...style }}>
-					<Text style={styles.dayTitle}>{day}</Text>
+					<Text style={styles.dayTitle}>{dayNames[index]}</Text>
 					{this._renderHours(day)}
 					<TouchableOpacity
 						style={styles.addButton}
@@ -200,6 +206,7 @@ export class WorkDays extends React.Component {
 	}
 
 	save = async () => {
+		console.log(this.daysFromApi)
 		console.log(this.state.daysWithHours)
 		const resp = await this.props.dispatch(
 			fetchOrError("/teacher/work_days", {
@@ -214,6 +221,19 @@ export class WorkDays extends React.Component {
 	}
 
 	render() {
+		if (this.state.loading) {
+			return (
+				<View
+					style={{
+						flex: 1,
+						alignItems: "center",
+						justifyContent: "center"
+					}}
+				>
+					<ActivityIndicator />
+				</View>
+			)
+		}
 		let title = strings("teacher.work_days.title")
 		if (this.state.fromSchedule) {
 			title = strings("teacher.work_days.title_from_schedule")
@@ -228,9 +248,7 @@ export class WorkDays extends React.Component {
 							leftSide={
 								<TouchableOpacity
 									onPress={() => {
-										this.props.navigation.dispatch(
-											NavigationActions.back()
-										)
+										this.props.navigation.goBack()
 									}}
 									style={styles.closeButton}
 								>

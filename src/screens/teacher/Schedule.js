@@ -13,7 +13,7 @@ import Row from "../../components/Row"
 import UserWithPic from "../../components/UserWithPic"
 import { Icon } from "react-native-elements"
 import Separator from "../../components/Separator"
-import { calendarTheme, MAIN_PADDING } from "../../consts"
+import { calendarTheme, MAIN_PADDING, themeBlue, colors } from "../../consts"
 import Hours from "../../components/Hours"
 import { getDateAndString } from "../../actions/lessons"
 import LessonPopup from "../../components/LessonPopup"
@@ -173,6 +173,17 @@ export class Schedule extends React.Component {
 		return (
 			<View style={styles.container}>
 				<View testID="ScheduleView" style={styles.schedule}>
+					<TouchableOpacity
+						onPress={() =>
+							this.props.navigation.navigate("WorkDays", {
+								fromSchedule: true
+							})
+						}
+					>
+						<Text style={styles.workDays}>
+							{strings("teacher.schedule.change_work_days")}
+						</Text>
+					</TouchableOpacity>
 					<Agenda
 						items={this.state.items}
 						// callback that gets called on day press
@@ -221,6 +232,10 @@ export class Schedule extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		flex: 1
+	},
+	workDays: {
+		color: colors.blue,
+		alignSelf: "center"
 	},
 	calendar: {
 		flex: 1

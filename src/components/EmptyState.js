@@ -20,13 +20,17 @@ const sizes = {
 }
 export default class EmptyState extends React.Component {
 	render() {
+		let size = sizes["big"]
+		if (sizes.hasOwnProperty(this.props.imageSize)) {
+			size = sizes[this.props.imageSize]
+		}
 		return (
 			<View style={{ ...styles.container, ...this.props.style }}>
 				<FastImage
 					style={{
 						...styles.image,
-						width: sizes[this.props.imageSize]["width"],
-						height: sizes[this.props.imageSize]["height"]
+						width: size["width"],
+						height: size["height"]
 					}}
 					source={images[this.props.image]}
 					resizeMode={FastImage.resizeMode.contain}

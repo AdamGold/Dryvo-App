@@ -53,6 +53,7 @@
   [self.window makeKeyAndVisible];
   [[RCTI18nUtil sharedInstance] allowRTL:YES];
   [[RCTI18nUtil sharedInstance] forceRTL:YES];
+  [[UIDatePicker appearance] setLocale:[[NSLocale alloc]initWithLocaleIdentifier:@"en_GB"]];
   return YES;
 }
 

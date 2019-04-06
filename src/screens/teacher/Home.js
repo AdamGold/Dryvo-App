@@ -85,13 +85,22 @@ export class Home extends React.Component {
 			"/lessons/?limit=2&is_approved=true&date=ge:" + now,
 			{ method: "GET" }
 		)
-		let nextLesson = nextLessonResp.json["data"][1]
-		if (currentLessonResp.json["data"].length == 0) {
-			// no current lesson (no lessons today)
-			nextLesson = nextLessonResp.json["data"][0]
+		let nextLesson = null,
+			currentLesson = null
+
+		if (nextLessonResp.json["data"].length > 0) {
+			nextLesson = nextLessonResp.json["data"][1]
+		} else {
+			if (currentLessonResp.json["data"].length == 0) {
+				// no current lesson (no lessons today)
+				nextLesson = nextLessonResp.json["data"][0]
+			} else {
+				currentLesson = currentLessonResp.json["data"][0]
+			}
 		}
+
 		this.setState({
-			currentLesson: currentLessonResp.json["data"],
+			currentLesson,
 			nextLesson
 		})
 	}
@@ -116,7 +125,7 @@ export class Home extends React.Component {
 	}
 
 	renderLesson = item => {
-		if (item.length == 0) {
+		if (!item) {
 			return (
 				<Text
 					style={{

@@ -5,6 +5,7 @@ import {
 	View,
 	StyleSheet,
 	TouchableOpacity,
+	TouchableHighlight,
 	Alert
 } from "react-native"
 import { connect } from "react-redux"
@@ -22,8 +23,7 @@ import RectInput from "../components/RectInput"
 import { logout, setUser } from "../actions/auth"
 import { API_ERROR } from "../reducers/consts"
 import Storage from "../services/Storage"
-import { fetchOrError } from "../actions/utils"
-import { popLatestError } from "../actions/utils"
+import { fetchOrError, popLatestError } from "../actions/utils"
 
 export class Settings extends React.Component {
 	constructor(props) {
@@ -173,11 +173,22 @@ export class Settings extends React.Component {
 						{strings("settings.general")}
 					</Text>
 					<ShadowRect style={styles.rect}>
-						<View style={styles.rectInsideView}>
-							<Text>{strings("settings.work_hours")}</Text>
-						</View>
-						<TouchableOpacity
+						<TouchableHighlight
+							underlayColor="#f8f8f8"
+							onPress={() =>
+								this.props.navigation.navigate("WorkDays")
+							}
+							style={styles.fullWidth}
+						>
+							<View style={styles.rectInsideView}>
+								<Text>{strings("settings.work_hours")}</Text>
+							</View>
+						</TouchableHighlight>
+
+						<TouchableHighlight
+							underlayColor="#f8f8f8"
 							onPress={this.toggleNotifications.bind(this)}
+							style={styles.fullWidth}
 						>
 							<View style={styles.rectInsideView}>
 								<Text style={styles.rightSide}>
@@ -190,16 +201,16 @@ export class Settings extends React.Component {
 									)}
 								</Text>
 							</View>
-						</TouchableOpacity>
+						</TouchableHighlight>
 						<View style={styles.rectInsideView}>
 							<Text>{strings("settings.support")}</Text>
 						</View>
 					</ShadowRect>
-					<TouchableOpacity onPress={this.logout.bind(this)}>
+					<TouchableHighlight onPress={this.logout.bind(this)}>
 						<Text style={styles.logout}>
 							{strings("settings.logout")}
 						</Text>
-					</TouchableOpacity>
+					</TouchableHighlight>
 				</View>
 			</ScrollView>
 		)
@@ -249,7 +260,11 @@ const styles = StyleSheet.create({
 		color: "red",
 		marginBottom: MAIN_PADDING
 	},
-	leftSide: { flex: 1, marginLeft: "auto" }
+	leftSide: { flex: 1, marginLeft: "auto" },
+	fullWidth: {
+		flex: 1,
+		width: "100%"
+	}
 })
 
 function mapStateToProps(state) {

@@ -723,20 +723,37 @@ exports[`Settings view renders correctly 1`] = `
         }
       >
         <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "flexDirection": "row",
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
+              "flex": 1,
               "width": "100%",
             }
           }
         >
-          <Text>
-            שעות עבודה
-          </Text>
+          <View
+            style={
+              Object {
+                "borderBottomColor": "#f7f7f7",
+                "borderBottomWidth": 1,
+                "flexDirection": "row",
+                "paddingHorizontal": 20,
+                "paddingVertical": 12,
+                "width": "100%",
+              }
+            }
+          >
+            <Text>
+              שעות עבודה
+            </Text>
+          </View>
         </View>
         <View
           accessible={true}
@@ -749,7 +766,8 @@ exports[`Settings view renders correctly 1`] = `
           onStartShouldSetResponder={[Function]}
           style={
             Object {
-              "opacity": 1,
+              "flex": 1,
+              "width": "100%",
             }
           }
         >
@@ -806,11 +824,7 @@ exports[`Settings view renders correctly 1`] = `
         onResponderTerminate={[Function]}
         onResponderTerminationRequest={[Function]}
         onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-          }
-        }
+        style={null}
       >
         <Text
           style={

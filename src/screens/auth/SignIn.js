@@ -75,15 +75,21 @@ export class SignIn extends React.Component {
 	}
 
 	async login() {
-		let error,
-			errors = []
-		Object.keys(this.inputs).forEach(input => {
-			error = validate(input, this.state[input], loginValidation)
-			if (error) errors.push(error)
-			this.setState({ [input + "Error"]: error })
-		})
+		let error = "",
+			flag = true
 
-		if (errors.length > 0) return
+		for (let input of Object.keys(this.inputs)) {
+			error = validate(input, this.state[input], loginValidation)
+			if (error) {
+				flag = false
+				break
+			}
+		}
+
+		if (!flag) {
+			Alert.alert(error)
+			return
+		}
 		this.loginButton.showLoading(true)
 		await this.props.dispatch(
 			directLogin(this.state.email, this.state.password, user => {
@@ -107,7 +113,6 @@ export class SignIn extends React.Component {
 					value={this.state[name]}
 					testID={`${name}Input`}
 					iconName={props.iconName || name}
-					errorMessage={this.state[`${name}Error`]}
 					validation={loginValidation}
 					secureTextEntry={props.secureTextEntry || false}
 				/>

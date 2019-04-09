@@ -206,11 +206,11 @@ export class Settings extends React.Component {
 							<Text>{strings("settings.support")}</Text>
 						</View>
 					</ShadowRect>
-					<TouchableHighlight onPress={this.logout.bind(this)}>
+					<TouchableOpacity onPress={this.logout.bind(this)}>
 						<Text style={styles.logout}>
 							{strings("settings.logout")}
 						</Text>
-					</TouchableHighlight>
+					</TouchableOpacity>
 				</View>
 			</ScrollView>
 		)

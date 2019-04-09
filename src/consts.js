@@ -6,6 +6,7 @@ export const NOTIFICATIONS_KEY = "notifications"
 export const ROOT_URL = "https://dryvo.herokuapp.com"
 export const API_DATE_FORMAT = "YYYY-MM-DDTHH:mm:ss.SSS"
 export const SHORT_API_DATE_FORMAT = "YYYY-MM-DD"
+export const DISPLAY_SHORT_DATE_FORMAT = "DD.MM.YYYY"
 export const DATE_FORMAT = "DD/MM/YYYY"
 export const DEFAULT_IMAGE =
 	"https://res.cloudinary.com/hsmkon3br/image/upload/c_thumb,g_face,h_80,w_80/v1554188012/678099-profile-filled-256.png"

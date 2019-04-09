@@ -78,7 +78,7 @@ export class Home extends React.Component {
 		return (
 			<Fragment>
 				<StudentNextLessonView
-					onPress={() => this.lessonPress()}
+					lessonPress={() => this.lessonPress()}
 					testID="lessonRowTouchable"
 					lesson={lesson}
 					loading={this.state.loading}

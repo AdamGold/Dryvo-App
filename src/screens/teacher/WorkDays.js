@@ -18,7 +18,8 @@ import {
 	colors,
 	fullButton,
 	API_DATE_FORMAT,
-	SHORT_API_DATE_FORMAT
+	SHORT_API_DATE_FORMAT,
+	DISPLAY_SHORT_DATE_FORMAT
 } from "../../consts"
 import { Icon } from "react-native-elements"
 import DateTimePicker from "react-native-modal-datetime-picker"
@@ -141,6 +142,8 @@ export class WorkDays extends React.Component {
 	}
 
 	_addHours = day => {
+		console.log(day)
+		console.log(this.state.daysWithHours[day])
 		let newHours = [...this.state.daysWithHours[day], DEFAULT_HOURS]
 		this.setState({
 			daysWithHours: { ...this.state.daysWithHours, [day]: newHours }
@@ -185,7 +188,10 @@ export class WorkDays extends React.Component {
 			const dayNames = strings("date.day_names")
 			return (
 				<View key={`day${index}`} style={{ ...styles.day, ...style }}>
-					<Text style={styles.dayTitle}>{dayNames[index]}</Text>
+					<Text style={styles.dayTitle}>
+						{dayNames[index]}(
+						{moment(day).format(DISPLAY_SHORT_DATE_FORMAT)})
+					</Text>
 					{this._renderHours(day)}
 					<TouchableOpacity
 						style={styles.addButton}
@@ -241,26 +247,26 @@ export class WorkDays extends React.Component {
 		}
 		return (
 			<Fragment>
-				<ScrollView>
-					<View style={styles.container}>
-						<PageTitle
-							style={styles.title}
-							title={title}
-							leftSide={
-								<TouchableOpacity
-									onPress={() => {
-										this.props.navigation.goBack()
-									}}
-									style={styles.closeButton}
-								>
-									<Icon
-										name="ios-close"
-										type="ionicon"
-										size={36}
-									/>
-								</TouchableOpacity>
-							}
-						/>
+				<View style={styles.container}>
+					<PageTitle
+						style={styles.title}
+						title={title}
+						leftSide={
+							<TouchableOpacity
+								onPress={() => {
+									this.props.navigation.goBack()
+								}}
+								style={styles.closeButton}
+							>
+								<Icon
+									name="ios-close"
+									type="ionicon"
+									size={36}
+								/>
+							</TouchableOpacity>
+						}
+					/>
+					<ScrollView style={styles.scrollContainer}>
 						<View style={styles.days}>{this._renderDays()}</View>
 						<DateTimePicker
 							isVisible={this.state.isTimePickerVisible}
@@ -269,8 +275,8 @@ export class WorkDays extends React.Component {
 							onCancel={this._hideDateTimePicker}
 							is24Hour={true}
 						/>
-					</View>
-				</ScrollView>
+					</ScrollView>
+				</View>
 				<TouchableHighlight
 					underlayColor="#ffffff00"
 					onPress={this.save.bind(this)}
@@ -291,6 +297,9 @@ const styles = StyleSheet.create({
 		marginLeft: MAIN_PADDING,
 		marginRight: MAIN_PADDING,
 		marginTop: 20
+	},
+	scrollContainer: {
+		marginBottom: 100
 	},
 	title: {
 		marginTop: 4

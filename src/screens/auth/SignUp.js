@@ -30,7 +30,6 @@ export class SignUp extends React.Component {
 		this.role = this.props.navigation.getParam("role")
 		this.state = {
 			successVisible: false,
-			imageError: "",
 			image: ""
 		}
 		this.inputs = {
@@ -44,7 +43,6 @@ export class SignUp extends React.Component {
 		}
 		Object.keys(this.inputs).forEach(input => {
 			this.state[input] = ""
-			this.state[input + "Error"] = ""
 		})
 	}
 	componentDidMount() {
@@ -86,18 +84,19 @@ export class SignUp extends React.Component {
 
 	async register() {
 		let error,
-			errors = []
-		Object.keys(this.inputs).forEach(input => {
+			flag = true
+		for (let input of Object.keys(this.inputs)) {
 			error = validate(input, this.state[input], registerValidation)
-			if (error) errors.push(error)
-			this.setState({ [input + "Error"]: error })
-		})
-		if (this.state.image == "") {
-			this.setState({ imageError: strings("signup.image_required") })
-			return
+			if (error) {
+				flag = false
+				break
+			}
 		}
 
-		if (errors.length > 0) return
+		if (!flag) {
+			Alert.alert(error)
+			return
+		}
 		this.button.showLoading(true)
 
 		await this.props.dispatch(
@@ -132,7 +131,6 @@ export class SignUp extends React.Component {
 					value={this.state[name]}
 					testID={`r${name}Input`}
 					iconName={props.iconName || name}
-					errorMessage={this.state[`${name}Error`]}
 					validation={registerValidation}
 					secureTextEntry={props.secureTextEntry || false}
 				/>
@@ -178,14 +176,10 @@ export class SignUp extends React.Component {
 								image={this.state.image.uri || DEFAULT_IMAGE}
 								upload={async source => {
 									this.setState({
-										image: source,
-										imageError: ""
+										image: source
 									})
 								}}
 							/>
-							<Text style={styles.error}>
-								{this.state.imageError}
-							</Text>
 							{this.renderInputs()}
 							<LoadingButton
 								title={strings("signup.signup_button")}
@@ -234,7 +228,7 @@ const styles = StyleSheet.create({
 		paddingLeft: MAIN_PADDING,
 		paddingRight: MAIN_PADDING,
 		alignItems: "center",
-		paddingBottom: 40
+		paddingBottom: 20
 	}
 })
 

@@ -17,8 +17,7 @@ import {
 	MAIN_PADDING,
 	fullButton,
 	API_DATE_FORMAT,
-	SHORT_API_DATE_FORMAT,
-	DEFAULT_MESSAGE_TIME
+	SHORT_API_DATE_FORMAT
 } from "../../consts"
 import NewLessonInput from "../../components/NewLessonInput"
 import Hours from "../../components/Hours"
@@ -34,13 +33,15 @@ import SuccessModal from "../../components/SuccessModal"
 export class Lesson extends React.Component {
 	constructor(props) {
 		super(props)
+		this.initState = {
+			hours: [],
+			dateAndTime: ""
+		}
 		this.state = {
 			date: "",
-			error: "",
-			hours: [],
-			dateAndTime: "",
 			datePickerVisible: false,
-			successVisible: false
+			successVisible: false,
+			...this.initState
 		}
 		this._initializeInputs = this._initializeInputs.bind(this)
 		this.onChangeText = this.onChangeText.bind(this)
@@ -73,7 +74,7 @@ export class Lesson extends React.Component {
 			}
 		}
 	}
-	_initializeInputs = () => {
+	_initializeInputs = (force = false) => {
 		this.inputs = {
 			date: {
 				iconName: "date-range",
@@ -97,7 +98,7 @@ export class Lesson extends React.Component {
 			}
 		}
 		Object.keys(this.inputs).forEach(input => {
-			if (!this.state[input]) {
+			if (!this.state[input] || force) {
 				this.state[input] = ""
 			}
 		})
@@ -174,6 +175,11 @@ export class Lesson extends React.Component {
 	}
 
 	renderHours = () => {
+		if (this.state.hours.length == 0 && this.state.date) {
+			return (
+				<Text>{strings("student.new_lesson.no_hours_available")}</Text>
+			)
+		}
 		return this.state.hours.map((hours, index) => {
 			let selected = false
 			let selectedTextStyle
@@ -215,7 +221,8 @@ export class Lesson extends React.Component {
 			})
 		)
 		if (resp) {
-			this.setState({ successVisible: true })
+			this._initializeInputs(true)
+			this.setState({ ...this.initState, successVisible: true })
 		}
 	}
 

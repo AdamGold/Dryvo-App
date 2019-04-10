@@ -1136,7 +1136,7 @@ exports[`Lesson view renders correctly 1`] = `
         >
           <View>
             <RCTDatePicker
-              date={1554881312939}
+              date={1554882718201}
               minuteInterval={1}
               mode="date"
               onChange={[Function]}
@@ -2363,7 +2363,7 @@ exports[`Lesson view renders correctly with existing lesson 1`] = `
         >
           <View>
             <RCTDatePicker
-              date={1554881312939}
+              date={1554882718201}
               minuteInterval={1}
               mode="date"
               onChange={[Function]}

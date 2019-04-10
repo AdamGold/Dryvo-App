@@ -29,15 +29,15 @@ export class Settings extends React.Component {
 	constructor(props) {
 		// only here for the test suite to work
 		super(props)
-		this.defaultState = {
-			name: this.props.user.user.name,
-			area: this.props.user.user.area,
+		this.state = {
+			name: this.props.user.name,
+			area: this.props.user.area,
+			phone: this.props.user.phone,
 			password: "",
 			price: this.props.user.price,
 			duration: this.props.user.lesson_duration,
 			notifications: "true"
 		}
-		this.state = this.defaultState
 		this._initNotifications()
 	}
 
@@ -59,16 +59,30 @@ export class Settings extends React.Component {
 	submitTeacherInfo = async () => {
 		await this.submit("/teacher/edit_data", {
 			price: this.state.price,
-			duration: this.state.duration
+			lesson_duration: this.state.duration
 		})
 	}
 
 	submitInfo = async () => {
-		await this.submit("/login/edit_data", {
+		const resp1 = await this.submit("/login/edit_data", {
 			name: this.state.name,
 			area: this.state.area,
-			password: this.state.password
+			password: this.state.password,
+			phone: this.state.phone
 		})
+		let resp2 = true
+		if (this.props.user.hasOwnProperty("teacher_id")) {
+			resp2 = await this.submitTeacherInfo()
+		}
+
+		if (resp1) {
+			if (resp2) {
+				await this.props.dispatch(setUser(resp2.json.data))
+			} else {
+				await this.props.dispatch(setUser(resp1.json.data))
+			}
+			Alert.alert(strings("settings.success"))
+		}
 	}
 
 	submit = async (endpoint, body) => {
@@ -78,11 +92,7 @@ export class Settings extends React.Component {
 				body: JSON.stringify(body)
 			})
 		)
-		if (resp) {
-			await this.props.dispatch(setUser(resp.json.data))
-			Alert.alert(strings("settings.success"))
-			this.setState(this.defaultState)
-		}
+		return resp
 	}
 
 	onChangeText = (param, value) => {
@@ -129,37 +139,22 @@ export class Settings extends React.Component {
 			)
 			extraForm = (
 				<Fragment>
-					<Text style={styles.rectTitle}>
-						{strings("settings.teacher_info")}
-					</Text>
-					<ShadowRect style={styles.rect}>
-						<RectInput
-							label={strings("signup.price")}
-							iconName="payment"
-							value={this.state.price.toString()}
-							onChangeText={value =>
-								this.onChangeText("price", value)
-							}
-						/>
-						<RectInput
-							label={strings("signup.time")}
-							iconName="access-time"
-							value={this.state.duration.toString()}
-							onChangeText={value =>
-								this.onChangeText("duration", value)
-							}
-						/>
-						<TouchableOpacity
-							style={styles.button}
-							onPress={this.submitTeacherInfo.bind(this)}
-						>
-							<View>
-								<Text style={styles.buttonText}>
-									{strings("settings.submit")}
-								</Text>
-							</View>
-						</TouchableOpacity>
-					</ShadowRect>
+					<RectInput
+						label={strings("signup.price")}
+						iconName="payment"
+						value={this.state.price.toString()}
+						onChangeText={value =>
+							this.onChangeText("price", value)
+						}
+					/>
+					<RectInput
+						label={strings("signup.time")}
+						iconName="access-time"
+						value={this.state.duration.toString()}
+						onChangeText={value =>
+							this.onChangeText("duration", value)
+						}
+					/>
 				</Fragment>
 			)
 		}
@@ -237,7 +232,15 @@ export class Settings extends React.Component {
 								this.onChangeText("area", value)
 							}
 						/>
-
+						<RectInput
+							label={strings("signup.phone")}
+							iconName="phone"
+							value={this.state.phone}
+							onChangeText={value =>
+								this.onChangeText("phone", value)
+							}
+						/>
+						{extraForm}
 						<RectInput
 							label={strings("signin.password")}
 							iconName="security"
@@ -258,7 +261,6 @@ export class Settings extends React.Component {
 							</View>
 						</TouchableOpacity>
 					</ShadowRect>
-					{extraForm}
 
 					<TouchableOpacity onPress={this.logout.bind(this)}>
 						<Text style={styles.logout}>

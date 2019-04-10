@@ -13,7 +13,7 @@ import Row from "../../components/Row"
 import UserWithPic from "../../components/UserWithPic"
 import { Icon } from "react-native-elements"
 import Separator from "../../components/Separator"
-import { calendarTheme, MAIN_PADDING, themeBlue, colors } from "../../consts"
+import { calendarTheme, MAIN_PADDING, colors } from "../../consts"
 import Hours from "../../components/Hours"
 import { getDateAndString } from "../../actions/lessons"
 import LessonPopup from "../../components/LessonPopup"
@@ -92,7 +92,11 @@ export class Schedule extends React.Component {
 					<Row
 						style={{ ...styles.row, ...style }}
 						leftSide={
-							<Hours duration={item.duration} date={date} />
+							<Hours
+								style={styles.hours}
+								duration={item.duration}
+								date={date}
+							/>
 						}
 					>
 						<UserWithPic
@@ -103,11 +107,11 @@ export class Schedule extends React.Component {
 								<Fragment>
 									<Text style={styles.places}>
 										{strings("teacher.new_lesson.meetup")}:{" "}
-										{meetup}
+										{meetup.slice(0, 20)}
 									</Text>
 									<Text style={styles.places}>
 										{strings("teacher.new_lesson.dropoff")}:{" "}
-										{dropoff}
+										{dropoff.slice(0, 20)}
 									</Text>
 								</Fragment>
 							}
@@ -267,10 +271,9 @@ const styles = StyleSheet.create({
 	nameStyle: {
 		marginTop: -4
 	},
-	hour: {
-		fontSize: 20,
-		color: "gray",
-		marginTop: -12
+	hours: {
+		marginTop: 8,
+		fontSize: 20
 	},
 	userWithPic: { marginLeft: 10 },
 	empty: {

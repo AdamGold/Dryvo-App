@@ -5,6 +5,7 @@ import {
 	StyleSheet,
 	View,
 	TouchableHighlight,
+	TouchableOpacity,
 	ScrollView,
 	Platform,
 	Alert
@@ -19,7 +20,7 @@ import {
 	API_DATE_FORMAT,
 	DEFAULT_DURATION,
 	SHORT_API_DATE_FORMAT,
-	DEFAULT_MESSAGE_TIME
+	DISPLAY_SHORT_DATE_FORMAT
 } from "../../consts"
 import NewLessonInput from "../../components/NewLessonInput"
 import Hours from "../../components/Hours"
@@ -29,6 +30,7 @@ import { API_ERROR } from "../../reducers/consts"
 import { getHoursDiff, fetchOrError, popLatestError } from "../../actions/utils"
 import { getLessonById } from "../../actions/lessons"
 import SuccessModal from "../../components/SuccessModal"
+import DateTimePicker from "react-native-modal-datetime-picker"
 
 export class Lesson extends React.Component {
 	constructor(props) {
@@ -44,7 +46,8 @@ export class Lesson extends React.Component {
 			allTopics: [],
 			progress: [],
 			finished: [],
-			successVisible: false
+			successVisible: false,
+			datePickerVisible: false
 		}
 		this._initializeInputs = this._initializeInputs.bind(this)
 		this.onChangeText = this.onChangeText.bind(this)
@@ -89,11 +92,6 @@ export class Lesson extends React.Component {
 			studentEditable = { editable: false, selectTextOnFocus: false }
 		}
 		this.inputs = {
-			date: {
-				iconName: "date-range",
-				editable: false,
-				selectTextOnFocus: false
-			},
 			duration: {
 				iconName: "swap-horiz",
 				extraPlaceholder: ` (${strings(
@@ -104,12 +102,6 @@ export class Lesson extends React.Component {
 					this.onBlur(input)
 				},
 				style: { marginTop: 0 }
-			},
-			hour: {
-				iconName: "access-time",
-				below: this.renderHours,
-				editable: false,
-				selectTextOnFocus: false
 			},
 			studentName: {
 				iconName: "person-outline",
@@ -142,6 +134,20 @@ export class Lesson extends React.Component {
 		if (error) {
 			Alert.alert(strings("errors.title"), errors(error))
 		}
+	}
+
+	_showDateTimePicker = () => this.setState({ datePickerVisible: true })
+
+	_hideDateTimePicker = () => this.setState({ datePickerVisible: false })
+
+	_handleDatePicked = date => {
+		this._hideDateTimePicker()
+		this.setState(
+			{ date: moment.utc(date).format(SHORT_API_DATE_FORMAT) },
+			() => {
+				this._getAvailableHours()
+			}
+		)
 	}
 
 	_getAvailableHours = async () => {
@@ -212,6 +218,7 @@ export class Lesson extends React.Component {
 	}
 
 	_onHourPress = date => {
+		this._scrollView.scrollToEnd()
 		const hours = getHoursDiff(
 			date,
 			this.state.duration || this.state.defaultDuration
@@ -223,6 +230,11 @@ export class Lesson extends React.Component {
 	}
 
 	renderHours = () => {
+		if (this.state.hours.length == 0) {
+			return (
+				<Text>{strings("student.new_lesson.no_hours_available")}</Text>
+			)
+		}
 		return this.state.hours.map((hours, index) => {
 			let selected = false
 			let selectedTextStyle
@@ -267,6 +279,16 @@ export class Lesson extends React.Component {
 	}
 
 	renderStudents = () => {
+		if (this.state.students.length == 0) {
+			if (this.state.studentName) {
+				return (
+					<Text>{strings("teacher.new_lesson.empty_students")}</Text>
+				)
+			}
+			return (
+				<Text>{strings("teacher.new_lesson.enter_student_name")}</Text>
+			)
+		}
 		return this.state.students.map((student, index) => {
 			let selected = false
 			let selectedTextStyle
@@ -357,6 +379,14 @@ export class Lesson extends React.Component {
 	}
 
 	renderTopics = () => {
+		if (this.state.allTopics.length == 0) {
+			if (this.state.studentName) {
+				return <Text>{strings("teacher.new_lesson.empty_topics")}</Text>
+			}
+			return (
+				<Text>{strings("teacher.new_lesson.enter_student_name")}</Text>
+			)
+		}
 		return this.state.allTopics.map((topic, index) => {
 			let selected = false
 			let secondTimeSelected = false
@@ -410,17 +440,19 @@ export class Lesson extends React.Component {
 	}
 
 	render() {
+		let date = moment(this.state.date).format(DISPLAY_SHORT_DATE_FORMAT)
 		let desc = strings("teacher.new_lesson.success_desc_with_student", {
 			student: this.state.studentName,
 			hours: this.state.hour,
-			date: this.state.date
+			date
 		})
 		if (this.state.studentName == "") {
 			desc = strings("teacher.new_lesson.success_desc_without_student", {
 				hours: this.state.hour,
-				date: this.state.date
+				date
 			})
 		}
+
 		return (
 			<View style={{ flex: 1, marginTop: 20 }}>
 				<SuccessModal
@@ -460,13 +492,27 @@ export class Lesson extends React.Component {
 						}
 						keyboardShouldPersistTaps="handled"
 					>
+						<TouchableOpacity onPress={this._showDateTimePicker}>
+							<View style={styles.nonInputContainer}>
+								<Text style={styles.nonInputTitle}>
+									{strings("teacher.new_lesson.date")}
+								</Text>
+								<Text>{date}</Text>
+							</View>
+						</TouchableOpacity>
+						<View style={styles.nonInputContainer}>
+							<Text style={styles.nonInputTitle}>
+								{strings("teacher.new_lesson.hour")}
+							</Text>
+						</View>
+						<View style={styles.rects}>{this.renderHours()}</View>
 						{this.renderInputs()}
-						<View style={styles.topics}>
-							<Text style={styles.titleInForm}>
+						<View style={styles.nonInputContainer}>
+							<Text style={styles.nonInputTitle}>
 								{strings("teacher.new_lesson.topics")}
 							</Text>
-							{this.renderTopics()}
 						</View>
+						<View style={styles.rects}>{this.renderTopics()}</View>
 					</ScrollView>
 					<TouchableHighlight
 						underlayColor="#ffffff00"
@@ -479,6 +525,11 @@ export class Lesson extends React.Component {
 						</View>
 					</TouchableHighlight>
 				</KeyboardAvoidingView>
+				<DateTimePicker
+					isVisible={this.state.datePickerVisible}
+					onConfirm={this._handleDatePicked}
+					onCancel={this._hideDateTimePicker}
+				/>
 			</View>
 		)
 	}
@@ -534,14 +585,21 @@ const styles = StyleSheet.create({
 	hoursText: {
 		color: "gray"
 	},
-	titleInForm: {
-		alignSelf: "flex-start",
-		fontSize: 18,
-		fontWeight: "bold",
+	rects: {
+		flex: 1,
+		flexWrap: "wrap",
+		flexDirection: "row",
+		justifyContent: "center",
 		marginBottom: 12
 	},
-	topics: {
+	nonInputContainer: {
+		alignItems: "flex-start",
 		marginLeft: MAIN_PADDING
+	},
+	nonInputTitle: {
+		fontWeight: "bold",
+		marginBottom: 8,
+		marginTop: 12
 	}
 })
 

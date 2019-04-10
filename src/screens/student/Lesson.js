@@ -74,6 +74,7 @@ export class Lesson extends React.Component {
 				dropoff: (lesson.dropoff_place || {}).name,
 				hour: moment.utc(lesson.date).format("HH:mm")
 			}
+			await this._getAvailableHours()
 		}
 	}
 	_initializeInputs = (force = false) => {

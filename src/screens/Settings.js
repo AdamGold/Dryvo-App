@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 import {
 	ScrollView,
 	Text,
@@ -30,9 +30,11 @@ export class Settings extends React.Component {
 		// only here for the test suite to work
 		super(props)
 		this.defaultState = {
-			name: "",
-			area: "",
+			name: this.props.user.user.name,
+			area: this.props.user.user.area,
 			password: "",
+			price: this.props.user.price,
+			duration: this.props.user.lesson_duration,
 			notifications: "true"
 		}
 		this.state = this.defaultState
@@ -54,15 +56,26 @@ export class Settings extends React.Component {
 		}
 	}
 
+	submitTeacherInfo = async () => {
+		await this.submit("/teacher/edit_data", {
+			price: this.state.price,
+			duration: this.state.duration
+		})
+	}
+
 	submitInfo = async () => {
+		await this.submit("/login/edit_data", {
+			name: this.state.name,
+			area: this.state.area,
+			password: this.state.password
+		})
+	}
+
+	submit = async (endpoint, body) => {
 		const resp = await this.props.dispatch(
-			fetchOrError("/login/edit_data", {
+			fetchOrError(endpoint, {
 				method: "POST",
-				body: JSON.stringify({
-					name: this.state.name,
-					area: this.state.area,
-					password: this.state.password
-				})
+				body: JSON.stringify(body)
 			})
 		)
 		if (resp) {
@@ -101,6 +114,55 @@ export class Settings extends React.Component {
 	}
 
 	render() {
+		let workDays, extraForm
+		if (this.props.user.hasOwnProperty("teacher_id")) {
+			workDays = (
+				<TouchableHighlight
+					underlayColor="#f8f8f8"
+					onPress={() => this.props.navigation.navigate("WorkDays")}
+					style={styles.fullWidth}
+				>
+					<View style={styles.rectInsideView}>
+						<Text>{strings("settings.work_hours")}</Text>
+					</View>
+				</TouchableHighlight>
+			)
+			extraForm = (
+				<Fragment>
+					<Text style={styles.rectTitle}>
+						{strings("settings.teacher_info")}
+					</Text>
+					<ShadowRect style={styles.rect}>
+						<RectInput
+							label={strings("signup.price")}
+							iconName="payment"
+							value={this.state.price.toString()}
+							onChangeText={value =>
+								this.onChangeText("price", value)
+							}
+						/>
+						<RectInput
+							label={strings("signup.time")}
+							iconName="access-time"
+							value={this.state.duration.toString()}
+							onChangeText={value =>
+								this.onChangeText("duration", value)
+							}
+						/>
+						<TouchableOpacity
+							style={styles.button}
+							onPress={this.submitTeacherInfo.bind(this)}
+						>
+							<View>
+								<Text style={styles.buttonText}>
+									{strings("settings.submit")}
+								</Text>
+							</View>
+						</TouchableOpacity>
+					</ShadowRect>
+				</Fragment>
+			)
+		}
 		return (
 			<ScrollView
 				keyboardDismissMode="on-drag"
@@ -130,61 +192,10 @@ export class Settings extends React.Component {
 						}
 					/>
 					<Text style={styles.rectTitle}>
-						{strings("settings.personal_info")}
-					</Text>
-					<ShadowRect style={styles.rect}>
-						<RectInput
-							label={strings("signup.name")}
-							iconName="person"
-							value={this.state.name}
-							onChangeText={value =>
-								this.onChangeText("name", value)
-							}
-						/>
-						<RectInput
-							label={strings("signup.area")}
-							iconName="person-pin"
-							value={this.state.area}
-							onChangeText={value =>
-								this.onChangeText("area", value)
-							}
-						/>
-						<RectInput
-							label={strings("signin.password")}
-							iconName="security"
-							value={this.state.password}
-							onChangeText={value =>
-								this.onChangeText("password", value)
-							}
-							secureTextEntry
-						/>
-						<TouchableOpacity
-							style={styles.button}
-							onPress={this.submitInfo.bind(this)}
-						>
-							<View>
-								<Text style={styles.buttonText}>
-									{strings("settings.submit")}
-								</Text>
-							</View>
-						</TouchableOpacity>
-					</ShadowRect>
-					<Text style={styles.rectTitle}>
 						{strings("settings.general")}
 					</Text>
 					<ShadowRect style={styles.rect}>
-						<TouchableHighlight
-							underlayColor="#f8f8f8"
-							onPress={() =>
-								this.props.navigation.navigate("WorkDays")
-							}
-							style={styles.fullWidth}
-						>
-							<View style={styles.rectInsideView}>
-								<Text>{strings("settings.work_hours")}</Text>
-							</View>
-						</TouchableHighlight>
-
+						{workDays}
 						<TouchableHighlight
 							underlayColor="#f8f8f8"
 							onPress={this.toggleNotifications.bind(this)}
@@ -206,6 +217,49 @@ export class Settings extends React.Component {
 							<Text>{strings("settings.support")}</Text>
 						</View>
 					</ShadowRect>
+					<Text style={styles.rectTitle}>
+						{strings("settings.personal_info")}
+					</Text>
+					<ShadowRect style={styles.rect}>
+						<RectInput
+							label={strings("signup.name")}
+							iconName="person"
+							value={this.state.name}
+							onChangeText={value =>
+								this.onChangeText("name", value)
+							}
+						/>
+						<RectInput
+							label={strings("signup.area")}
+							iconName="person-pin"
+							value={this.state.area}
+							onChangeText={value =>
+								this.onChangeText("area", value)
+							}
+						/>
+
+						<RectInput
+							label={strings("signin.password")}
+							iconName="security"
+							value={this.state.password}
+							onChangeText={value =>
+								this.onChangeText("password", value)
+							}
+							secureTextEntry
+						/>
+						<TouchableOpacity
+							style={styles.button}
+							onPress={this.submitInfo.bind(this)}
+						>
+							<View>
+								<Text style={styles.buttonText}>
+									{strings("settings.submit")}
+								</Text>
+							</View>
+						</TouchableOpacity>
+					</ShadowRect>
+					{extraForm}
+
 					<TouchableOpacity onPress={this.logout.bind(this)}>
 						<Text style={styles.logout}>
 							{strings("settings.logout")}
@@ -269,6 +323,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
 	return {
+		user: state.user,
 		errors: state.errors
 	}
 }

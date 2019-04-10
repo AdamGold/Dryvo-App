@@ -31,7 +31,7 @@
 	},
 	"signup": {
 		"name": "שם מלא",
-		"area": "איזור למידה",
+		"area": "איזור",
 		"signup_button": "הרשמה",
 		"sign_as": "הירשם בתור",
 		"student": "תלמיד",
@@ -40,7 +40,9 @@
 		"image_required": "אנא העלה תמונה.",
 		"success_title": "נרשמת בהצלחה!",
 		"success_desc": "ההרשמה עברה בהצלחה. כעת אנו ממתינים שהמורה אליו נרשמת יאשר אותך בתור תלמיד.",
-		"success_button": "עבור לעמוד הראשי"
+		"success_button": "עבור לעמוד הראשי",
+		"price": "מחיר",
+		"time": "זמן שיעור"
 	},
 	"signin": {
 		"login_button": "התחברות",
@@ -152,7 +154,8 @@
 		"notifications_true": "מופעל",
 		"notifications_false": "כבוי",
 		"support": "תמיכה",
-		"success": "פרטים שונו בהצלחה!"
+		"success": "פרטים שונו בהצלחה!",
+		"teacher_info": "פרטי שיעור"
 	},
 	"date": {
 		"formats": {

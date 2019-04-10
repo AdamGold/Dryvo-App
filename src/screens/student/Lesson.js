@@ -7,6 +7,7 @@ import {
 	StyleSheet,
 	View,
 	TouchableHighlight,
+	TouchableOpacity,
 	ScrollView,
 	Alert
 } from "react-native"
@@ -17,7 +18,8 @@ import {
 	MAIN_PADDING,
 	fullButton,
 	API_DATE_FORMAT,
-	SHORT_API_DATE_FORMAT
+	SHORT_API_DATE_FORMAT,
+	DISPLAY_SHORT_DATE_FORMAT
 } from "../../consts"
 import NewLessonInput from "../../components/NewLessonInput"
 import Hours from "../../components/Hours"
@@ -76,18 +78,6 @@ export class Lesson extends React.Component {
 	}
 	_initializeInputs = (force = false) => {
 		this.inputs = {
-			date: {
-				iconName: "date-range",
-				onFocus: () => {
-					this._showDateTimePicker()
-				}
-			},
-			hour: {
-				iconName: "access-time",
-				below: this.renderHours,
-				editable: false,
-				selectTextOnFocus: false
-			},
 			meetup: {
 				iconName: "navigation",
 				iconType: "feather"
@@ -164,6 +154,7 @@ export class Lesson extends React.Component {
 	}
 
 	_onHourPress = date => {
+		this._scrollView.scrollToEnd()
 		const hours = getHoursDiff(
 			date,
 			this.props.user.my_teacher.lesson_duration
@@ -175,9 +166,18 @@ export class Lesson extends React.Component {
 	}
 
 	renderHours = () => {
-		if (this.state.hours.length == 0 && this.state.date) {
+		if (this.state.hours.length == 0) {
+			if (this.state.date) {
+				return (
+					<Text>
+						{strings("student.new_lesson.no_hours_available")}
+					</Text>
+				)
+			}
 			return (
-				<Text>{strings("student.new_lesson.no_hours_available")}</Text>
+				<Text>
+					{strings("student.new_lesson.pick_date_before_hours")}
+				</Text>
 			)
 		}
 		return this.state.hours.map((hours, index) => {
@@ -241,6 +241,10 @@ export class Lesson extends React.Component {
 	}
 
 	render() {
+		let date = strings("student.new_lesson.pick_date")
+		if (this.state.date) {
+			date = moment(this.state.date).format(DISPLAY_SHORT_DATE_FORMAT)
+		}
 		return (
 			<View style={{ flex: 1, marginTop: 20 }}>
 				<SuccessModal
@@ -276,6 +280,20 @@ export class Lesson extends React.Component {
 						}
 						keyboardShouldPersistTaps="handled"
 					>
+						<TouchableOpacity onPress={this._showDateTimePicker}>
+							<View style={styles.nonInputContainer}>
+								<Text style={styles.nonInputTitle}>
+									{strings("teacher.new_lesson.date")}
+								</Text>
+								<Text>{date}</Text>
+							</View>
+						</TouchableOpacity>
+						<View style={styles.nonInputContainer}>
+							<Text style={styles.nonInputTitle}>
+								{strings("teacher.new_lesson.hour")}
+							</Text>
+						</View>
+						<View style={styles.hours}>{this.renderHours()}</View>
 						{this.renderInputs()}
 					</ScrollView>
 					<TouchableHighlight
@@ -327,6 +345,21 @@ const styles = StyleSheet.create({
 	},
 	hoursText: {
 		color: "gray"
+	},
+	hours: {
+		flex: 1,
+		flexWrap: "wrap",
+		flexDirection: "row",
+		justifyContent: "center"
+	},
+	nonInputContainer: {
+		alignItems: "flex-start",
+		marginLeft: MAIN_PADDING
+	},
+	nonInputTitle: {
+		fontWeight: "bold",
+		marginBottom: 8,
+		marginTop: 12
 	}
 })
 

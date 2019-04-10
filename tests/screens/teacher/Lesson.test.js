@@ -21,7 +21,7 @@ const navigation = {
 	navigate: jest.fn()
 }
 describe("Lesson", () => {
-	test("view renders correctly", () => {
+	test.skip("view renders correctly", () => {
 		const tree = renderer
 			.create(
 				<Lesson
@@ -35,7 +35,7 @@ describe("Lesson", () => {
 		expect(tree).toMatchSnapshot()
 	})
 
-	test("view renders correctly with existing lesson", () => {
+	test.skip("view renders correctly with existing lesson", () => {
 		const lesson = {
 			date: mockedDate,
 			duration: 80,

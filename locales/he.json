@@ -91,7 +91,10 @@
 			"success_title": "השיעור עודכן בהצלחה!",
 			"success_desc_with_student": "נשלחה התראה לתלמיד %{student} עבור שיעור בתאריך %{date} בשעות %{hours}.",
 			"success_desc_without_student": "עודכן השיעור בתאריך %{date} בשעות %{hours}. כרגע אין תלמיד הרשום לשיעור זה.",
-			"success_button": "צור שיעור חדש"
+			"success_button": "צור שיעור חדש",
+			"empty_topics": "אין נושאים אפשריים",
+			"empty_students": "לא נמצאו תלמידים",
+			"enter_student_name": "תחילה, הכנס שם תלמיד"
 		},
 		"schedule": {
 			"change_work_days": "שינוי שעות עבודה בשבוע זה"
@@ -132,7 +135,9 @@
 			"success_title": "בקשת השיעור נשלחה!",
 			"success_desc": "נשלחה בקשה לתאריך %{date}, בשעות %{hours}. אנא המתן שהבקשה תאושר.",
 			"success_button": "עבור ללוח הזמנים",
-			"no_hours_available": "אין שעות פנויות"
+			"no_hours_available": "אין שעות פנויות",
+			"pick_date": "בחר תאריך",
+			"pick_date_before_hours": "בחר תאריך על מנת לצפות בשעות"
 		}
 	},
 	"settings": {

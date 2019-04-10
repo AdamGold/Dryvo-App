@@ -131,9 +131,11 @@ export class WorkDays extends React.Component {
 			[`${pickedType}_hour`]: hour,
 			[`${pickedType}_minutes`]: minutes
 		}
+		let newState = { ...this.state.daysWithHours }
+		newState[pickedDay] = newDay
 
 		this.setState({
-			daysWithHours: { ...this.state.daysWithHours, [pickedDay]: newDay }
+			daysWithHours: newState
 		})
 
 		this.changedDays[pickedDay] = newDay
@@ -142,11 +144,11 @@ export class WorkDays extends React.Component {
 	}
 
 	_addHours = day => {
-		console.log(day)
-		console.log(this.state.daysWithHours[day])
 		let newHours = [...this.state.daysWithHours[day], DEFAULT_HOURS]
+		let newState = { ...this.state.daysWithHours }
+		newState[day] = newHours
 		this.setState({
-			daysWithHours: { ...this.state.daysWithHours, [day]: newHours }
+			daysWithHours: newState
 		})
 	}
 	_renderHours = day => {
@@ -299,7 +301,7 @@ const styles = StyleSheet.create({
 		marginTop: 20
 	},
 	scrollContainer: {
-		marginBottom: 100
+		marginBottom: fullButton.height + 12
 	},
 	title: {
 		marginTop: 4

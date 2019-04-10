@@ -17,7 +17,6 @@ import {
 	MAIN_PADDING,
 	colors,
 	fullButton,
-	API_DATE_FORMAT,
 	SHORT_API_DATE_FORMAT,
 	DISPLAY_SHORT_DATE_FORMAT
 } from "../../consts"
@@ -151,6 +150,13 @@ export class WorkDays extends React.Component {
 			daysWithHours: newState
 		})
 	}
+
+	_removeHours = (day, index) => {
+		let newState = { ...this.state.daysWithHours }
+		newState[day].splice(index, 1)
+		this.setState({ daysWithHours: newState })
+	}
+
 	_renderHours = day => {
 		return this.state.daysWithHours[day].map((hour, index) => {
 			return (
@@ -177,12 +183,24 @@ export class WorkDays extends React.Component {
 							{hour.to_minutes.toString().padStart(2, "0")}
 						</Text>
 					</TouchableOpacity>
+					<TouchableOpacity
+						onPress={() => this._removeHours(day, index)}
+					>
+						<Text style={styles.remove}>
+							{strings("teacher.work_days.remove_hours")}
+						</Text>
+					</TouchableOpacity>
 				</View>
 			)
 		})
 	}
 	_renderDays = () => {
 		return Object.keys(this.state.daysWithHours).map((day, index) => {
+			let dateString = ""
+			if (this.state.fromSchedule)
+				dateString = `(${moment(day).format(
+					DISPLAY_SHORT_DATE_FORMAT
+				)})`
 			let style = {}
 			if (index == 0) {
 				style = { marginTop: 0 }
@@ -191,8 +209,7 @@ export class WorkDays extends React.Component {
 			return (
 				<View key={`day${index}`} style={{ ...styles.day, ...style }}>
 					<Text style={styles.dayTitle}>
-						{dayNames[index]}(
-						{moment(day).format(DISPLAY_SHORT_DATE_FORMAT)})
+						{dayNames[index]} {dateString}
 					</Text>
 					{this._renderHours(day)}
 					<TouchableOpacity
@@ -353,6 +370,10 @@ const styles = StyleSheet.create({
 	buttonText: {
 		color: "#fff",
 		fontWeight: "bold"
+	},
+	remove: {
+		color: colors.blue,
+		marginTop: 6
 	}
 })
 function mapStateToProps(state) {

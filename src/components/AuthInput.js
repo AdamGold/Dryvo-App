@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 import { View, StyleSheet } from "react-native"
 import { Input, Icon } from "react-native-elements"
 import { colors } from "../consts"
@@ -25,32 +25,39 @@ export default class AuthInput extends React.Component {
 		})
 	}
 	render() {
+		let below
+		if (this.props.below)
+			below = <View style={styles.belowStyle}>{this.props.below()}</View>
 		return (
-			<Input
-				placeholder={this.props.placeholder}
-				onChangeText={this.props.onChangeText}
-				onFocus={this.onFocus.bind(this)}
-				onBlur={this.onBlur.bind(this)}
-				value={this.props.value}
-				secureTextEntry={this.props.secureTextEntry}
-				testID={this.props.testID}
-				errorMessage={this.state.error || this.props.errorMessage}
-				inputContainerStyle={styles.inputContainer}
-				inputStyle={styles.input}
-				leftIcon={
-					<View style={styles.inputIcon}>
-						<Icon
-							name={this.props.iconName}
-							type="material"
-							size={20}
-							color={
-								this.state.selectedColor || this.defaultColor
-							}
-						/>
-					</View>
-				}
-				ref={this.props.ref_}
-			/>
+			<Fragment>
+				<Input
+					placeholder={this.props.placeholder}
+					onChangeText={this.props.onChangeText}
+					onFocus={this.onFocus.bind(this)}
+					onBlur={this.onBlur.bind(this)}
+					value={this.props.value}
+					secureTextEntry={this.props.secureTextEntry}
+					testID={this.props.testID}
+					errorMessage={this.state.error || this.props.errorMessage}
+					inputContainerStyle={styles.inputContainer}
+					inputStyle={styles.input}
+					leftIcon={
+						<View style={styles.inputIcon}>
+							<Icon
+								name={this.props.iconName}
+								type="material"
+								size={20}
+								color={
+									this.state.selectedColor ||
+									this.defaultColor
+								}
+							/>
+						</View>
+					}
+					ref={this.props.ref_}
+				/>
+				{below}
+			</Fragment>
 		)
 	}
 }
@@ -68,5 +75,12 @@ const styles = StyleSheet.create({
 	},
 	inputIcon: {
 		marginLeft: 6
+	},
+	belowStyle: {
+		marginTop: 12,
+		flex: 1,
+		flexWrap: "wrap",
+		flexDirection: "row",
+		justifyContent: "center"
 	}
 })

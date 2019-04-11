@@ -22,6 +22,7 @@ import LoadingButton from "../../components/LoadingButton"
 import { popLatestError } from "../../actions/utils"
 import UploadProfileImage from "../../components/UploadProfileImage"
 import SuccessModal from "../../components/SuccessModal"
+import InputSelectionButton from "../../components/InputSelectionButton"
 
 export class SignUp extends React.Component {
 	constructor(props) {
@@ -30,7 +31,9 @@ export class SignUp extends React.Component {
 		this.role = this.props.navigation.getParam("role")
 		this.state = {
 			successVisible: false,
-			image: ""
+			image: "",
+			teachers: [],
+			teacher_id: null
 		}
 		this._initInputs()
 	}
@@ -50,7 +53,17 @@ export class SignUp extends React.Component {
 			}
 		} else {
 			extraInputs = {
-				teacher: {}
+				teacher: {
+					iconName: "directions-car",
+					placeholder: strings("signup.teacher"),
+					below: this._renderTeachers,
+					onChangeText: value => {
+						this.setState({
+							teacher: value
+						})
+						this._getTeachers(value)
+					}
+				}
 			}
 		}
 		this.inputs = {
@@ -93,6 +106,56 @@ export class SignUp extends React.Component {
 			this.keyboardEventListeners.forEach(eventListener =>
 				eventListener.remove()
 			)
+	}
+
+	_getTeachers = async (name = "") => {
+		if (name.length < 2) return
+		const resp = await this.props.fetchService.fetch(
+			"/teacher/?name=" + name,
+			{
+				method: "GET"
+			}
+		)
+		this.setState({
+			teachers: resp.json["data"]
+		})
+	}
+
+	_onTeacherPress = teacher => {
+		this.setState({
+			teacher_id: teacher.id,
+			teacher: teacher.user.name
+		})
+	}
+
+	renderStudents = () => {
+		if (this.state.teachers.length == 0 && this.state.teacher) {
+			return <Text>{strings("teacher.new_lesson.empty_students")}</Text>
+		}
+		return this.state.teachers.map((teacher, index) => {
+			let selected = false
+			let selectedTextStyle
+			if (this.state.teacher == teacher.user.name) {
+				selected = true
+				selectedTextStyle = { color: "#fff" }
+			}
+			return (
+				<InputSelectionButton
+					selected={selected}
+					key={`teacher${index}`}
+					onPress={() => this._onTeacherPress(teacher)}
+				>
+					<Text
+						style={{
+							...styles.hoursText,
+							...selectedTextStyle
+						}}
+					>
+						{teacher.user.name}
+					</Text>
+				</InputSelectionButton>
+			)
+		})
 	}
 
 	_handleKeyboardHide = () => {
@@ -151,6 +214,14 @@ export class SignUp extends React.Component {
 		)
 	}
 
+	_onChangeText = input => {
+		let v = input
+		if (props.int) {
+			v = v.replace(/[^0-9]/g, "")
+		}
+		this.setState({ [name]: v })
+	}
+
 	renderInputs = () => {
 		return Object.keys(this.inputs).map((name, index) => {
 			const props = this.inputs[name]
@@ -159,18 +230,15 @@ export class SignUp extends React.Component {
 					key={`key${name}`}
 					name={name}
 					placeholder={props.placeholder || strings("signin." + name)}
-					onChangeText={input => {
-						let v = input
-						if (props.int) {
-							v = v.replace(/[^0-9]/g, "")
-						}
-						this.setState({ [name]: v })
-					}}
+					onChangeText={
+						props.onChangeText || this._onChangeText.bind(this)
+					}
 					value={this.state[name]}
 					testID={`r${name}Input`}
 					iconName={props.iconName || name}
 					validation={registerValidation}
 					secureTextEntry={props.secureTextEntry || false}
+					below={props.below}
 				/>
 			)
 		})
@@ -272,7 +340,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
 	return {
-		errors: state.errors
+		errors: state.errors,
+		fetchService: state.fetchService
 	}
 }
 

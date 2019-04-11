@@ -122,7 +122,7 @@ exports[`AuthInput view renders correctly 1`] = `
     <TextInput
       allowFontScaling={true}
       onBlur={[Function]}
-      onChangeText={[MockFunction]}
+      onChangeText={[Function]}
       onFocus={[Function]}
       placeholder="test"
       secureTextEntry={true}

@@ -2,7 +2,8 @@ import {
 	ROOT_URL,
 	TOKEN_KEY,
 	REFRESH_TOKEN_KEY,
-	DEFAULT_ERROR
+	DEFAULT_ERROR,
+	signUpRoles
 } from "../consts"
 import { Linking } from "react-native"
 import Storage from "../services/Storage"
@@ -33,7 +34,7 @@ export const directLogin = (email, password, callback) => {
 	}
 }
 
-export const register = (params, callback) => {
+export const register = (params, callback, role = "") => {
 	return async dispatch => {
 		var data = new FormData()
 		Object.keys(params).forEach(key => data.append(key, params[key]))
@@ -44,11 +45,40 @@ export const register = (params, callback) => {
 			},
 			body: data
 		}
+		const newCallback = async user => {
+			if (user) {
+				let roleRequest
+				if (role == signUpRoles.student) {
+					roleRequest = await dispatch(
+						fetchOrError(
+							"/user/make_student?teacher_id=" +
+								params.teacher_id,
+							{
+								method: "GET"
+							}
+						)
+					)
+				} else if (role == signUpRoles.teacher) {
+					roleRequest = await dispatch(
+						fetchOrError("/user/make_teacher?", {
+							method: "POST",
+							body: JSON.stringify({
+								price: params.price,
+								lesson_duration: params.duration
+							})
+						})
+					)
+				}
+				if (roleRequest) await callback(user)
+				else await callback(undefined)
+			}
+		}
+
 		await loginOrRegister(
 			"/login/register",
 			requestParams,
 			dispatch,
-			callback
+			newCallback
 		)
 	}
 }
@@ -64,12 +94,12 @@ export const setUser = user => {
 	}
 }
 
-export const logout = (callback = () => {}) => {
+export const logout = (callback = async () => {}) => {
 	return async dispatch => {
 		console.log("Logging out")
 		await Storage.removeItem(TOKEN_KEY, true)
 		await Storage.removeItem(REFRESH_TOKEN_KEY, true)
-		callback()
+		await callback()
 		setTimeout(() => {
 			dispatch({ type: LOGOUT })
 		}, 100)

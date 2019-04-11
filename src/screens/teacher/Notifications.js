@@ -206,9 +206,11 @@ export class Notifications extends React.Component {
 		}
 		let render = this.renderLesson
 		let type = "lesson"
+		let key = "id"
 		if (this.state.filter.includes("students")) {
 			render = this.renderStudent
 			type = "student"
+			key = "student_id"
 		} else if (this.state.filter.includes("payments")) {
 			render = this.renderPayment
 			type = "payment"
@@ -218,7 +220,7 @@ export class Notifications extends React.Component {
 				data={this.state.items}
 				renderItem={render}
 				onEndReached={this.endReached}
-				keyExtractor={item => `${type}${item.id}`}
+				keyExtractor={item => `${type}${item[key]}`}
 				ListEmptyComponent={this._renderEmpty}
 				extraData={this.state.visible}
 			/>

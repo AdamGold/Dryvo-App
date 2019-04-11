@@ -50,6 +50,10 @@ export class NewStudent extends React.Component {
 			})
 		)
 		if (resp) {
+			Alert.alert(
+				strings("teacher.students.success_title"),
+				strings("teacher.students.success")
+			)
 			this.props.navigation.goBack()
 		}
 	}
@@ -71,10 +75,13 @@ export class NewStudent extends React.Component {
 				onPress={() => {
 					this.assignUser(item)
 				}}
+				style={styles.row}
 			>
 				<Row
 					leftSide={
-						<Icon name="ios-add" type="ionicon" color="#000" />
+						<View style={styles.icon}>
+							<Icon name="ios-add" type="ionicon" color="#000" />
+						</View>
 					}
 				>
 					<UserWithPic
@@ -179,7 +186,9 @@ const styles = StyleSheet.create({
 	nameStyle: {
 		fontSize: 18,
 		marginTop: 14
-	}
+	},
+	row: { marginTop: 12 },
+	icon: { marginTop: 16 }
 })
 
 function mapStateToProps(state) {

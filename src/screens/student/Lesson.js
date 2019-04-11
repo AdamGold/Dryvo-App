@@ -246,6 +246,10 @@ export class Lesson extends React.Component {
 		if (this.state.date) {
 			date = moment(this.state.date).format(DISPLAY_SHORT_DATE_FORMAT)
 		}
+		const today = moment().format(SHORT_API_DATE_FORMAT)
+		const fourMonthsAway = moment()
+			.add(4, "months")
+			.format(SHORT_API_DATE_FORMAT)
 		return (
 			<View style={{ flex: 1, marginTop: 20 }}>
 				<SuccessModal
@@ -313,6 +317,8 @@ export class Lesson extends React.Component {
 					isVisible={this.state.datePickerVisible}
 					onConfirm={this._handleDatePicked}
 					onCancel={this._hideDateTimePicker}
+					minDate={today}
+					maxDate={fourMonthsAway}
 				/>
 			</View>
 		)

@@ -61,5 +61,12 @@ export const registerValidation = {
 			minimum: 1,
 			message: "^" + strings("signin.invalid_field")
 		}
+	},
+	phone: {
+		length: {
+			minimum: 10,
+			maximum: 10,
+			message: "^" + strings("signin.invalid_field")
+		}
 	}
 }

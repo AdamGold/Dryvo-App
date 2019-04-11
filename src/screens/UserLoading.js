@@ -25,10 +25,16 @@ class UserLoading extends React.Component {
 				})
 			}
 		}
-		if (this.props.user.hasOwnProperty("teacher_id")) {
+		if (
+			this.props.user.hasOwnProperty("teacher_id") &&
+			this.props.user.is_approved
+		) {
 			// it's a teacher
 			routeName = "Teacher"
-		} else if (this.props.user.hasOwnProperty("my_teacher")) {
+		} else if (
+			this.props.user.hasOwnProperty("my_teacher") &&
+			this.props.user.is_approved
+		) {
 			// it's a student
 			routeName = "Student"
 		} else {

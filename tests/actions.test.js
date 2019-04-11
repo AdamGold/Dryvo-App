@@ -30,7 +30,7 @@ describe("utils.js", () => {
 			true
 		)
 		token = JSON.parse(token)
-		expect(token.token).toEqual("myMockToken")
+		expect(token.token).toEqual(mockToken)
 		store.clearActions()
 
 		// now its supposed to return null
@@ -38,6 +38,16 @@ describe("utils.js", () => {
 			utils.registerDeviceToken(mockToken)
 		)
 		expect(registerToken).toBe(undefined)
+		store.clearActions()
+
+		// now we force it
+		fetch.mockResponseSuccess(JSON.stringify({}))
+		registerToken = await store.dispatch(
+			utils.registerDeviceToken("somethingElse", true)
+		)
+		token = await Storage.getItem("firebase_token_user_" + user.id, true)
+		token = JSON.parse(token)
+		expect(token.token).toEqual("somethingElse")
 		store.clearActions()
 	})
 	it("should override the token", async () => {
@@ -59,6 +69,17 @@ describe("utils.js", () => {
 		)
 		token = JSON.parse(token)
 		expect(token.token).toEqual("newToken")
+		store.clearActions()
+	})
+
+	it("should delete device token", async () => {
+		fetch.mockResponseSuccess(JSON.stringify({}))
+		await store.dispatch(utils.deleteDeviceToken())
+		let token = await Storage.getItem(
+			"firebase_token_user_" + user.id,
+			true
+		)
+		expect(token).toEqual(null)
 		store.clearActions()
 	})
 
@@ -130,6 +151,18 @@ describe("utils.js", () => {
 		expect(store.getActions()).toMatchSnapshot()
 		store.clearActions()
 	})
+
+	it("should store device token", async () => {
+		fetch.mockResponseSuccess(JSON.stringify({}))
+		await store.dispatch(utils.getFirebaseToken(true))
+		let token = await Storage.getItem(
+			"firebase_token_user_" + user.id,
+			true
+		)
+		token = JSON.parse(token)
+		expect(token.token).toEqual("mockToken")
+		store.clearActions()
+	})
 })
 
 describe("auth.js", () => {
@@ -180,7 +213,7 @@ describe("auth.js", () => {
 
 	describe("logout tests", () => {
 		it("should dispatch logout and remove tokens", async () => {
-			const callback = jest.fn(() => {})
+			const callback = jest.fn(async () => {})
 			let ret = await store.dispatch(auth.logout(callback))
 			expect(callback).toBeCalled()
 			const token = await Storage.getItem(TOKEN_KEY, true)

@@ -86,6 +86,9 @@ export const registerDeviceToken = (token, force) => {
 		// we already registered the firebase token.
 		// let's check it's expiry and only if it's expired,
 		// register again
+		console.log("aloha")
+		console.log(token)
+		console.log(force)
 		if (
 			existing_token &&
 			JSON.parse(existing_token).expiry >= new Date() &&
@@ -106,9 +109,6 @@ export const deleteDeviceToken = () => {
 			"firebase_token_user_" + user.id,
 			true
 		)
-		// we already registered the firebase token.
-		// let's check it's expiry and only if it's expired,
-		// register again
 		if (existing_token) {
 			try {
 				await Storage.removeItem("firebase_token_user_" + user.id, true)
@@ -234,7 +234,7 @@ export function checkFirebasePermission(
 
 export function getFirebaseToken(force) {
 	return async dispatch => {
-		fcmToken = await firebase.messaging().getToken()
+		const fcmToken = await firebase.messaging().getToken()
 		if (fcmToken) {
 			// user has a device token
 			await dispatch(registerDeviceToken(fcmToken, force))

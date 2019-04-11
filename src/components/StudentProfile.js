@@ -186,7 +186,7 @@ export default class StudentProfile extends React.Component {
 					<View style={styles.header}>
 						{backButton}
 						<UserWithPic
-							user={student.user}
+							user={student.user || student}
 							extra={
 								<Text>
 									{student.new_lesson_number}{" "}

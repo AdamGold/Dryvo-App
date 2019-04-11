@@ -19,7 +19,7 @@ import AuthInput from "../../components/AuthInput"
 import { MAIN_PADDING, DEFAULT_IMAGE, signUpRoles } from "../../consts"
 import { Icon } from "react-native-elements"
 import LoadingButton from "../../components/LoadingButton"
-import { popLatestError } from "../../actions/utils"
+import { popLatestError, checkFirebasePermission } from "../../actions/utils"
 import UploadProfileImage from "../../components/UploadProfileImage"
 import SuccessModal from "../../components/SuccessModal"
 import InputSelectionButton from "../../components/InputSelectionButton"
@@ -197,8 +197,11 @@ export class SignUp extends React.Component {
 					duration: parseInt(this.state.duration),
 					teacher_id: this.state.teacher_id
 				},
-				user => {
+				async user => {
 					if (user) {
+						await this.props.dispatch(
+							checkFirebasePermission(true, true)
+						)
 						this.setState({ successVisible: true })
 					} else {
 						this.button.showLoading(false)

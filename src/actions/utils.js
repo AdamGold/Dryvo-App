@@ -13,6 +13,7 @@ import moment from "moment"
 import Storage from "../services/Storage"
 import ImagePicker from "react-native-image-picker"
 import ImageResizer from "react-native-image-resizer"
+import firebase from "react-native-firebase"
 
 export const fetchOrError = (endpoint, params, dispatchError = true) => {
 	return async (dispatch, getState) => {
@@ -74,7 +75,7 @@ export const getHoursDiff = (date, duration) => {
 	return { start, end }
 }
 
-export const registerDeviceToken = token => {
+export const registerDeviceToken = (token, force) => {
 	return async (dispatch, getState) => {
 		const { user } = getState()
 		if (!user) return
@@ -85,9 +86,39 @@ export const registerDeviceToken = token => {
 		// we already registered the firebase token.
 		// let's check it's expiry and only if it's expired,
 		// register again
-		if (existing_token && JSON.parse(existing_token).expiry >= new Date())
+		console.log("aloha")
+		console.log(token)
+		console.log(force)
+		if (
+			existing_token &&
+			JSON.parse(existing_token).expiry >= new Date() &&
+			!force
+		) {
+			console.log("found existing token, not registering")
 			return
+		}
 		return await dispatch(_registerDeviceToken(token))
+	}
+}
+
+export const deleteDeviceToken = () => {
+	return async (dispatch, getState) => {
+		const { user, fetchService } = getState()
+		if (!user) return
+		const existing_token = await Storage.getItem(
+			"firebase_token_user_" + user.id,
+			true
+		)
+		if (existing_token) {
+			try {
+				await Storage.removeItem("firebase_token_user_" + user.id, true)
+				await fetchService.fetch("/user/delete_firebase_token", {
+					method: "GET"
+				})
+			} catch (error) {
+				dispatch({ type: API_ERROR, error: DEFAULT_ERROR })
+			}
+		}
 	}
 }
 
@@ -106,6 +137,7 @@ const _registerDeviceToken = fcmToken => {
 					}
 				)
 				if (resp.status == 200) {
+					console.log("registered token")
 					let date = new Date()
 					const expiry = date.setDate(date.getDate() + 7) // 7 days from now
 					await Storage.setItem(
@@ -181,6 +213,44 @@ export const uploadUserImage = source => {
 			})
 		} catch (error) {
 			dispatch({ type: API_ERROR, error: DEFAULT_ERROR })
+		}
+	}
+}
+
+export function checkFirebasePermission(
+	requestPermission = false,
+	force = false
+) {
+	return async dispatch => {
+		const enabled = await firebase.messaging().hasPermission()
+		if (enabled) {
+			await dispatch(getFirebaseToken(force))
+		} else {
+			if (requestPermission)
+				await dispatch(requestFirebasePermission(force))
+		}
+	}
+}
+
+export function getFirebaseToken(force) {
+	return async dispatch => {
+		const fcmToken = await firebase.messaging().getToken()
+		if (fcmToken) {
+			// user has a device token
+			await dispatch(registerDeviceToken(fcmToken, force))
+		}
+	}
+}
+
+export function requestFirebasePermission() {
+	return async dispatch => {
+		try {
+			await firebase.messaging().requestPermission()
+			// User has authorised
+			await dispatch(getFirebaseToken())
+		} catch (error) {
+			// User has rejected permissions
+			console.log("permission rejected")
 		}
 	}
 }

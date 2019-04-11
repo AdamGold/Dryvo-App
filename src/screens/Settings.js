@@ -24,6 +24,7 @@ import { logout, setUser } from "../actions/auth"
 import { API_ERROR } from "../reducers/consts"
 import Storage from "../services/Storage"
 import { fetchOrError, popLatestError } from "../actions/utils"
+import validate, { registerValidation } from "../actions/validate"
 
 export class Settings extends React.Component {
 	constructor(props) {
@@ -64,6 +65,21 @@ export class Settings extends React.Component {
 	}
 
 	submitInfo = async () => {
+		let error,
+			flag = true
+		for (let input of ["phone", "password"]) {
+			if (this.state[input] != "") {
+				error = validate(input, this.state[input], registerValidation)
+				if (error) {
+					flag = false
+					break
+				}
+			}
+		}
+		if (!flag) {
+			Alert.alert(error)
+			return
+		}
 		const resp1 = await this.submit("/login/edit_data", {
 			name: this.state.name,
 			area: this.state.area,
@@ -148,7 +164,7 @@ export class Settings extends React.Component {
 						}
 					/>
 					<RectInput
-						label={strings("signup.time")}
+						label={strings("signup.duration")}
 						iconName="access-time"
 						value={this.state.duration.toString()}
 						onChangeText={value =>

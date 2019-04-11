@@ -6,7 +6,7 @@ import { strings } from "../../i18n"
 import SuccessModal from "../../components/SuccessModal"
 import { signUpRoles } from "../../consts"
 
-class Home extends React.Component {
+export class Home extends React.Component {
 	constructor(props) {
 		super(props)
 		this.logout = this.logout.bind(this)

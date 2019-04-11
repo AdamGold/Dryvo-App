@@ -36,7 +36,9 @@ export class SignUp extends React.Component {
 			teacher_id: null
 		}
 		this._initInputs()
-		this._getTeachers()
+		if (this.role == signUpRoles.student) {
+			this._getTeachers()
+		}
 	}
 
 	_initInputs = () => {
@@ -171,14 +173,16 @@ export class SignUp extends React.Component {
 			}
 		}
 
+		if (!this.state.teacher_id && this.role == signUpRoles.student) {
+			error = errors("select_teacher")
+			flag = false
+		}
+
 		if (!flag) {
 			Alert.alert(error)
 			return
 		}
-		if (!this.state.teacher_id && this.role == signUpRoles.student) {
-			Alert.alert(errors("select_teacher"))
-			return
-		}
+
 		this.button.showLoading(true)
 		await this.props.dispatch(
 			register(

@@ -1,4 +1,4 @@
-import React, { Fragment } from "react"
+import React from "react"
 import { View, StyleSheet } from "react-native"
 import { Input, Icon } from "react-native-elements"
 import { colors } from "../consts"
@@ -26,36 +26,33 @@ export default class AuthInput extends React.Component {
 	}
 	render() {
 		return (
-			<Fragment>
-				<Input
-					placeholder={this.props.placeholder}
-					onChangeText={value =>
-						this.props.onChangeText(this.props.name, value)
-					}
-					onFocus={this.onFocus.bind(this)}
-					onBlur={this.onBlur.bind(this)}
-					value={this.props.value}
-					secureTextEntry={this.props.secureTextEntry}
-					testID={this.props.testID}
-					errorMessage={this.state.error || this.props.errorMessage}
-					inputContainerStyle={styles.inputContainer}
-					inputStyle={styles.input}
-					leftIcon={
-						<View style={styles.inputIcon}>
-							<Icon
-								name={this.props.iconName}
-								type="material"
-								size={20}
-								color={
-									this.state.selectedColor ||
-									this.defaultColor
-								}
-							/>
-						</View>
-					}
-					ref={this.props.ref_}
-				/>
-			</Fragment>
+			<Input
+				placeholder={this.props.placeholder}
+				onChangeText={value =>
+					this.props.onChangeText(this.props.name, value)
+				}
+				onFocus={this.onFocus.bind(this)}
+				onBlur={this.onBlur.bind(this)}
+				value={this.props.value}
+				secureTextEntry={this.props.secureTextEntry}
+				testID={this.props.testID}
+				errorMessage={this.state.error || this.props.errorMessage}
+				inputContainerStyle={styles.inputContainer}
+				inputStyle={styles.input}
+				leftIcon={
+					<View style={styles.inputIcon}>
+						<Icon
+							name={this.props.iconName}
+							type="material"
+							size={20}
+							color={
+								this.state.selectedColor || this.defaultColor
+							}
+						/>
+					</View>
+				}
+				ref={this.props.ref_}
+			/>
 		)
 	}
 }

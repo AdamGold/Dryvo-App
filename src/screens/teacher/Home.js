@@ -216,7 +216,6 @@ export class Home extends React.Component {
 		<EmptyState
 			image={type}
 			text={strings(`empty_${type}`)}
-			style={styles.empty}
 			imageSize="small"
 		/>
 	)
@@ -259,6 +258,18 @@ export class Home extends React.Component {
 		}
 		let sumColor = colors.green
 		if (this.state.sum < 0) sumColor = "red"
+		let list
+		if (this.state.payments.length == 0) {
+			list = this._renderEmpty("payments")
+		} else {
+			list = (
+				<FlatList
+					data={this.state.payments.slice(0, 2)}
+					renderItem={this.renderPaymentItem}
+					keyExtractor={item => `payment${item.id}`}
+				/>
+			)
+		}
 		return (
 			<Fragment>
 				<View style={styles.amountView}>
@@ -276,12 +287,7 @@ export class Home extends React.Component {
 					</TouchableOpacity>
 				</View>
 				<Separator />
-				<FlatList
-					data={this.state.payments.slice(0, 2)}
-					renderItem={this.renderPaymentItem}
-					keyExtractor={item => `payment${item.id}`}
-					ListEmptyComponent={() => this._renderEmpty("payments")}
-				/>
+				{list}
 			</Fragment>
 		)
 	}

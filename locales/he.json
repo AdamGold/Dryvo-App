@@ -31,16 +31,21 @@
 	},
 	"signup": {
 		"name": "שם מלא",
-		"area": "איזור למידה",
+		"area": "איזור",
 		"signup_button": "הרשמה",
 		"sign_as": "הירשם בתור",
 		"student": "תלמיד",
-		"teacher": "מורה",
+		"teacher": "בחירת מורה",
+		"as_teacher": "מורה",
 		"success": "נרשמת בהצלחה!",
 		"image_required": "אנא העלה תמונה.",
 		"success_title": "נרשמת בהצלחה!",
-		"success_desc": "ההרשמה עברה בהצלחה. כעת אנו ממתינים שהמורה אליו נרשמת יאשר אותך בתור תלמיד.",
-		"success_button": "עבור לעמוד הראשי"
+		"student_success_desc": "ההרשמה עברה בהצלחה. כעת אנו ממתינים שהמורה אליו נרשמת יאשר אותך בתור תלמיד.",
+		"teacher_success_desc": "ההרשמה עברה בהצלחה. כעת יש להמתין שהמערכת תאשר אותך בתור מורה.",
+		"success_button": "עבור לעמוד הראשי",
+		"price": "מחיר",
+		"duration": "זמן שיעור",
+		"phone": "מספר פלאפון"
 	},
 	"signin": {
 		"login_button": "התחברות",
@@ -51,7 +56,7 @@
 		"verify_password": "אימות סיסמה",
 		"invalid_email": "האימייל אינו תקני.",
 		"invalid_password": "סיסמתך צריכה לכלול חמישה תווים לפחות.",
-		"invalid_field": "שדה זה הוא חובה.",
+		"invalid_field": "אחד מהשדות ריק או אינו תקין.",
 		"or": "או",
 		"not_yet_registered": "עוד אין לך חשבון?",
 		"success": "התחברת בהצלחה!"
@@ -107,6 +112,7 @@
 			"balance": "מאזן כספי",
 			"lesson_number": "מספר שיעור",
 			"join_date": "הצטרפות",
+			"success_title": "הבקשה נשלחה!",
 			"success": "נשלחה בקשת צירוף לתלמיד - יש להמתין לאישור התלמיד."
 		},
 		"add_payment": {
@@ -152,7 +158,8 @@
 		"notifications_true": "מופעל",
 		"notifications_false": "כבוי",
 		"support": "תמיכה",
-		"success": "פרטים שונו בהצלחה!"
+		"success": "פרטים שונו בהצלחה!",
+		"teacher_info": "פרטי שיעור"
 	},
 	"date": {
 		"formats": {
@@ -205,7 +212,8 @@
 		"Date is not valid": "התאריך אינו תקין.",
 		"Lesson must have a student assigned": "על מנת להוסיף נושאים, יש להוסיף תלמיד לשיעור.",
 		"Topic does not exist": "נושא זה אינו קיים.",
-		"Network request failed": "נתקלנו בבעיה. אנא נסה שנית."
+		"Network request failed": "נתקלנו בבעיה. אנא נסה שנית.",
+		"select_teacher": "אנא בחר מורה."
 	},
 	"notifications": {
 		"students": "בקשות הצטרפות",
@@ -213,5 +221,13 @@
 		"payments": "פעילויות כספיות",
 		"scheduled_lessons": "שיעורים שנקבעו",
 		"teacher_scheduled": "קבע שיעור"
+	},
+	"normal_user": {
+		"home": {
+			"pending": "ממתינים לאישורך!",
+			"teacher_pending_desc": "נתוניך נקלטו במערכת, כעת יש להמתין לאישור המנהלים.",
+			"student_pending_desc": "נתוניך נקלטו במערכת, יש להמתין לאישורך על ידי המורה שאליו נרשמת.",
+			"normal_pending_desc": "נתוניך נקלטו במערכת. אנא המתן לאישור המנהלים."
+		}
 	}
 }

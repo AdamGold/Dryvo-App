@@ -2,7 +2,12 @@ import React from "react"
 import { View, Text, StyleSheet, TouchableOpacity, Image } from "react-native"
 import { connect } from "react-redux"
 import { Icon } from "react-native-elements"
-import { floatButtonOnlyStyle, colors, MAIN_PADDING } from "../../consts"
+import {
+	floatButtonOnlyStyle,
+	colors,
+	MAIN_PADDING,
+	signUpRoles
+} from "../../consts"
 import { strings } from "../../i18n"
 import { NavigationActions } from "react-navigation"
 
@@ -10,7 +15,7 @@ export class SignUpAs extends React.Component {
 	constructor(props) {
 		super(props)
 		this.state = {
-			selected: "student"
+			selected: signUpRoles.student
 		}
 	}
 	_select = param => {
@@ -56,7 +61,7 @@ export class SignUpAs extends React.Component {
 				<Text style={styles.title}>{strings("signup.sign_as")}</Text>
 				<TouchableOpacity
 					style={{ ...styles.button, ...studentSelected }}
-					onPress={() => this._select("student")}
+					onPress={() => this._select(signUpRoles.student)}
 				>
 					<View style={styles.row}>
 						<Image
@@ -76,7 +81,7 @@ export class SignUpAs extends React.Component {
 
 				<TouchableOpacity
 					style={{ ...styles.button, ...teacherSelected }}
-					onPress={() => this._select("teacher")}
+					onPress={() => this._select(signUpRoles.teacher)}
 				>
 					<View style={styles.row}>
 						<Image
@@ -90,7 +95,7 @@ export class SignUpAs extends React.Component {
 								marginTop: 20
 							}}
 						>
-							{strings("signup.teacher")}
+							{strings("signup.as_teacher")}
 						</Text>
 					</View>
 				</TouchableOpacity>

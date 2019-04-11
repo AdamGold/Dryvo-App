@@ -28,7 +28,9 @@ export default class AuthInput extends React.Component {
 		return (
 			<Input
 				placeholder={this.props.placeholder}
-				onChangeText={this.props.onChangeText}
+				onChangeText={value =>
+					this.props.onChangeText(this.props.name, value)
+				}
 				onFocus={this.onFocus.bind(this)}
 				onBlur={this.onBlur.bind(this)}
 				value={this.props.value}

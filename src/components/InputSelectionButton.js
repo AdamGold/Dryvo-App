@@ -4,7 +4,7 @@ import { colors } from "../consts"
 
 export default class InputSelectionButton extends React.Component {
 	render() {
-		let style = styles.rects
+		let style = { ...styles.rects, ...this.props.style }
 		if (this.props.selected || this.props.secondTimeSelected) {
 			style = { ...style, ...styles.selected }
 		}

@@ -109,7 +109,9 @@ export class SignIn extends React.Component {
 					key={`key${name}`}
 					name={name}
 					placeholder={strings("signin." + name)}
-					onChangeText={input => this.setState({ [name]: input })}
+					onChangeText={(name, input) =>
+						this.setState({ [name]: input })
+					}
 					value={this.state[name]}
 					testID={`${name}Input`}
 					iconName={props.iconName || name}

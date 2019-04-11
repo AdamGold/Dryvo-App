@@ -8,7 +8,12 @@ const navigation = { navigate: jest.fn(), getParam: param => topics }
 describe("Settings", () => {
 	test("view renders correctly", () => {
 		const tree = renderer
-			.create(<Settings navigation={navigation} />)
+			.create(
+				<Settings
+					user={{ name: "test", area: "testa" }}
+					navigation={navigation}
+				/>
+			)
 			.toJSON()
 		expect(tree).toMatchSnapshot()
 	})

@@ -175,7 +175,7 @@ export class SignUp extends React.Component {
 			Alert.alert(error)
 			return
 		}
-		if (!this.state.teacher_id) {
+		if (!this.state.teacher_id && this.role == signUpRoles.student) {
 			Alert.alert(errors("select_teacher"))
 			return
 		}

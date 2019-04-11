@@ -54,7 +54,7 @@
 		"verify_password": "אימות סיסמה",
 		"invalid_email": "האימייל אינו תקני.",
 		"invalid_password": "סיסמתך צריכה לכלול חמישה תווים לפחות.",
-		"invalid_field": "שדה זה הוא חובה.",
+		"invalid_field": "אחד מהשדות ריק או אינו תקין.",
 		"or": "או",
 		"not_yet_registered": "עוד אין לך חשבון?",
 		"success": "התחברת בהצלחה!"

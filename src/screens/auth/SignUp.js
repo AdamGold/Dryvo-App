@@ -39,6 +39,10 @@ export class SignUp extends React.Component {
 				iconName: "person-pin",
 				placeholder: strings("signup.area")
 			},
+			phone: {
+				iconName: "phone",
+				placeholder: strings("signup.phone")
+			},
 			password: { secureTextEntry: true, iconName: "security" }
 		}
 		Object.keys(this.inputs).forEach(input => {
@@ -106,6 +110,7 @@ export class SignUp extends React.Component {
 					area: this.state.area,
 					password: this.state.password,
 					name: this.state.name,
+					phone: this.state.phone,
 					image: this.state.image
 				},
 				user => {
@@ -139,6 +144,9 @@ export class SignUp extends React.Component {
 	}
 
 	render() {
+		if (this.role == "student") {
+		} else {
+		}
 		return (
 			<View style={styles.container}>
 				<SuccessModal

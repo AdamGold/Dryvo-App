@@ -5,6 +5,7 @@ import { connect } from "react-redux"
 import { strings } from "../../i18n"
 import SuccessModal from "../../components/SuccessModal"
 import { signUpRoles } from "../../consts"
+import { deleteDeviceToken } from "../../actions/utils"
 
 export class Home extends React.Component {
 	constructor(props) {
@@ -20,9 +21,10 @@ export class Home extends React.Component {
 		}
 	}
 
-	logout() {
+	async logout() {
+		await this.props.dispatch(deleteDeviceToken())
 		this.props.dispatch(
-			logout(() => {
+			logout(async () => {
 				this.props.navigation.navigate("Auth")
 			})
 		)

@@ -23,7 +23,11 @@ import RectInput from "../components/RectInput"
 import { logout, setUser } from "../actions/auth"
 import { API_ERROR } from "../reducers/consts"
 import Storage from "../services/Storage"
-import { fetchOrError, popLatestError } from "../actions/utils"
+import {
+	fetchOrError,
+	popLatestError,
+	deleteDeviceToken
+} from "../actions/utils"
 import validate, { registerValidation } from "../actions/validate"
 
 export class Settings extends React.Component {
@@ -42,9 +46,10 @@ export class Settings extends React.Component {
 		this._initNotifications()
 	}
 
-	logout = () => {
+	logout = async () => {
+		await this.props.dispatch(deleteDeviceToken())
 		this.props.dispatch(
-			logout(() => {
+			logout(async () => {
 				this.props.navigation.navigate("Auth")
 			})
 		)

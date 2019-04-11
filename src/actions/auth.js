@@ -94,12 +94,12 @@ export const setUser = user => {
 	}
 }
 
-export const logout = (callback = () => {}) => {
+export const logout = (callback = async () => {}) => {
 	return async dispatch => {
 		console.log("Logging out")
 		await Storage.removeItem(TOKEN_KEY, true)
 		await Storage.removeItem(REFRESH_TOKEN_KEY, true)
-		callback()
+		await callback()
 		setTimeout(() => {
 			dispatch({ type: LOGOUT })
 		}, 100)

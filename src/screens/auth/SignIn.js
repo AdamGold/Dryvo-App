@@ -17,12 +17,12 @@ import { connect } from "react-redux"
 import { exchangeToken, openFacebook, directLogin } from "../../actions/auth"
 import { API_ERROR } from "../../reducers/consts"
 import { strings, errors } from "../../i18n"
-import { colors, MAIN_PADDING, DEFAULT_MESSAGE_TIME } from "../../consts"
+import { colors, MAIN_PADDING } from "../../consts"
 import Logo from "../../components/Logo"
 import AuthInput from "../../components/AuthInput"
 import LoadingButton from "../../components/LoadingButton"
 import validate, { loginValidation } from "../../actions/validate"
-import { popLatestError } from "../../actions/utils"
+import { popLatestError, checkFirebasePermission } from "../../actions/utils"
 
 export class SignIn extends React.Component {
 	constructor(props) {
@@ -92,8 +92,11 @@ export class SignIn extends React.Component {
 		}
 		this.loginButton.showLoading(true)
 		await this.props.dispatch(
-			directLogin(this.state.email, this.state.password, user => {
+			directLogin(this.state.email, this.state.password, async user => {
 				if (user) {
+					await this.props.dispatch(
+						checkFirebasePermission(false, true)
+					)
 					this.props.navigation.navigate("App")
 				} else {
 					this.loginButton.showLoading(false)

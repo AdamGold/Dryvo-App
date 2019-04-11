@@ -180,7 +180,7 @@ describe("auth.js", () => {
 
 	describe("logout tests", () => {
 		it("should dispatch logout and remove tokens", async () => {
-			const callback = jest.fn(() => {})
+			const callback = jest.fn(async () => {})
 			let ret = await store.dispatch(auth.logout(callback))
 			expect(callback).toBeCalled()
 			const token = await Storage.getItem(TOKEN_KEY, true)

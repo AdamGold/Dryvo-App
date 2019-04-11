@@ -16,7 +16,7 @@ import { API_ERROR } from "../../reducers/consts"
 import validate, { registerValidation } from "../../actions/validate"
 import { strings, errors } from "../../i18n"
 import AuthInput from "../../components/AuthInput"
-import { MAIN_PADDING, DEFAULT_IMAGE } from "../../consts"
+import { MAIN_PADDING, DEFAULT_IMAGE, signUpRoles } from "../../consts"
 import { Icon } from "react-native-elements"
 import LoadingButton from "../../components/LoadingButton"
 import { popLatestError } from "../../actions/utils"
@@ -32,6 +32,27 @@ export class SignUp extends React.Component {
 			successVisible: false,
 			image: ""
 		}
+		this._initInputs()
+	}
+
+	_initInputs = () => {
+		let extraInputs
+		if (this.role == signUpRoles.teacher) {
+			extraInputs = {
+				duration: {
+					iconName: "access-time",
+					placeholder: strings("signup.duration")
+				},
+				price: {
+					iconName: "payment",
+					placeholder: strings("signup.price")
+				}
+			}
+		} else {
+			extraInputs = {
+				teacher: {}
+			}
+		}
 		this.inputs = {
 			email: {},
 			name: { iconName: "person", placeholder: strings("signup.name") },
@@ -41,14 +62,17 @@ export class SignUp extends React.Component {
 			},
 			phone: {
 				iconName: "phone",
-				placeholder: strings("signup.phone")
+				placeholder: strings("signup.phone"),
+				int: true
 			},
+			...extraInputs,
 			password: { secureTextEntry: true, iconName: "security" }
 		}
 		Object.keys(this.inputs).forEach(input => {
 			this.state[input] = ""
 		})
 	}
+
 	componentDidMount() {
 		if (Platform.OS === "android") {
 			this.keyboardEventListeners = [
@@ -111,7 +135,9 @@ export class SignUp extends React.Component {
 					password: this.state.password,
 					name: this.state.name,
 					phone: this.state.phone,
-					image: this.state.image
+					image: this.state.image,
+					price: parseInt(this.state.price),
+					duration: parseInt(this.state.duration)
 				},
 				user => {
 					if (user) {
@@ -119,7 +145,8 @@ export class SignUp extends React.Component {
 					} else {
 						this.button.showLoading(false)
 					}
-				}
+				},
+				this.role
 			)
 		)
 	}
@@ -132,7 +159,13 @@ export class SignUp extends React.Component {
 					key={`key${name}`}
 					name={name}
 					placeholder={props.placeholder || strings("signin." + name)}
-					onChangeText={input => this.setState({ [name]: input })}
+					onChangeText={input => {
+						let v = input
+						if (props.int) {
+							v = v.replace(/[^0-9]/g, "")
+						}
+						this.setState({ [name]: v })
+					}}
 					value={this.state[name]}
 					testID={`r${name}Input`}
 					iconName={props.iconName || name}
@@ -144,16 +177,13 @@ export class SignUp extends React.Component {
 	}
 
 	render() {
-		if (this.role == "student") {
-		} else {
-		}
 		return (
 			<View style={styles.container}>
 				<SuccessModal
 					visible={this.state.successVisible}
 					image="signup"
 					title={strings("signup.success_title")}
-					desc={strings("signup.success_desc")}
+					desc={strings("signup." + this.role + "_success_desc")}
 					buttonPress={() => {
 						this.setState({ successVisible: false })
 						this.props.navigation.navigate("App")

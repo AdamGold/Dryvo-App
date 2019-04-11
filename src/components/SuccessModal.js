@@ -5,13 +5,15 @@ import { floatButtonOnlyStyle, MAIN_PADDING } from "../consts"
 const images = {
 	lesson: require("../../assets/images/lesson_success.png"),
 	payment: require("../../assets/images/payment_success.png"),
-	signup: require("../../assets/images/sign_up_success.png")
+	signup: require("../../assets/images/sign_up_success.png"),
+	pending: require("../../assets/images/pending.png")
 }
 export default class SuccessModal extends React.Component {
 	render() {
+		const animation = this.props.animationType || "slide"
 		return (
 			<Modal
-				animationType="slide"
+				animationType={animation}
 				transparent={false}
 				visible={this.props.visible}
 				onRequestClose={() => {}}

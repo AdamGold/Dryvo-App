@@ -2,7 +2,8 @@ import {
 	ROOT_URL,
 	TOKEN_KEY,
 	REFRESH_TOKEN_KEY,
-	DEFAULT_ERROR
+	DEFAULT_ERROR,
+	signUpRoles
 } from "../consts"
 import { Linking } from "react-native"
 import Storage from "../services/Storage"
@@ -14,7 +15,7 @@ const loginOrRegister = async (endpoint, params, dispatch, callback) => {
 	if (resp) {
 		await setTokens(resp.json.auth_token, resp.json.refresh_token)
 		await dispatch(setUser(resp.json.user))
-		await callback(resp.json.user)
+		return resp.json.user
 	} else await callback(undefined)
 }
 
@@ -24,16 +25,19 @@ export const directLogin = (email, password, callback) => {
 			method: "POST",
 			body: JSON.stringify({ email, password })
 		}
-		await loginOrRegister(
+		const user = await loginOrRegister(
 			"/login/direct",
 			requestParams,
 			dispatch,
 			callback
 		)
+		if (user) {
+			await callback(user)
+		}
 	}
 }
 
-export const register = (params, callback) => {
+export const register = (params, callback, role = "") => {
 	return async dispatch => {
 		var data = new FormData()
 		Object.keys(params).forEach(key => data.append(key, params[key]))
@@ -44,12 +48,40 @@ export const register = (params, callback) => {
 			},
 			body: data
 		}
-		await loginOrRegister(
+		const user = await loginOrRegister(
 			"/login/register",
 			requestParams,
 			dispatch,
 			callback
 		)
+		if (user) {
+			if (role == signUpRoles.student) {
+				await dispatch(
+					fetchOrError(
+						"/user/make_student?user_id=" +
+							user.id +
+							"&teacher_id=" +
+							params.teacher_id,
+						{
+							method: "GET"
+						}
+					)
+				)
+			} else if (role == signUpRoles.teacher) {
+				await dispatch(
+					fetchOrError("/user/make_teacher?", {
+						method: "POST",
+						body: JSON.stringify({
+							user_id: user.id,
+							price: params.price,
+							lesson_duration: params.duration
+						})
+					})
+				)
+			}
+
+			await callback(user)
+		}
 	}
 }
 

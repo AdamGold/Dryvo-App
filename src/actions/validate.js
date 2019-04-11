@@ -67,10 +67,6 @@ export const registerValidation = {
 			minimum: 10,
 			maximum: 10,
 			message: "^" + strings("signin.invalid_field")
-		},
-		numericality: {
-			noStrings: true,
-			message: "^" + strings("signin.invalid_field")
 		}
 	}
 }

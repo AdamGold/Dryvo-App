@@ -17,6 +17,14 @@ export const DEFAULT_ERROR = strings("default_error")
 export const MAIN_PADDING = 26
 export const DEFAULT_DURATION = 40
 export const NAME_LENGTH = 16
+
+export const signUpRoles = {
+	student: "student",
+	teacher: "teacher",
+	normal: "normal"
+}
+
+/* styles */
 export const colors = {
 	blue: "rgb(12,116,244)",
 	green: "rgb(24, 199, 20)"

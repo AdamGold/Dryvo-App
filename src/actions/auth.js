@@ -15,7 +15,7 @@ const loginOrRegister = async (endpoint, params, dispatch, callback) => {
 	if (resp) {
 		await setTokens(resp.json.auth_token, resp.json.refresh_token)
 		await dispatch(setUser(resp.json.user))
-		return resp.json.user
+		await callback(resp.json.user)
 	} else await callback(undefined)
 }
 
@@ -25,15 +25,12 @@ export const directLogin = (email, password, callback) => {
 			method: "POST",
 			body: JSON.stringify({ email, password })
 		}
-		const user = await loginOrRegister(
+		await loginOrRegister(
 			"/login/direct",
 			requestParams,
 			dispatch,
 			callback
 		)
-		if (user) {
-			await callback(user)
-		}
 	}
 }
 
@@ -48,40 +45,41 @@ export const register = (params, callback, role = "") => {
 			},
 			body: data
 		}
-		const user = await loginOrRegister(
+		const newCallback = async user => {
+			if (user) {
+				let roleRequest
+				if (role == signUpRoles.student) {
+					roleRequest = await dispatch(
+						fetchOrError(
+							"/user/make_student?teacher_id=" +
+								params.teacher_id,
+							{
+								method: "GET"
+							}
+						)
+					)
+				} else if (role == signUpRoles.teacher) {
+					roleRequest = await dispatch(
+						fetchOrError("/user/make_teacher?", {
+							method: "POST",
+							body: JSON.stringify({
+								price: params.price,
+								lesson_duration: params.duration
+							})
+						})
+					)
+				}
+				if (roleRequest) await callback(user)
+				else await callback(undefined)
+			}
+		}
+
+		await loginOrRegister(
 			"/login/register",
 			requestParams,
 			dispatch,
-			callback
+			newCallback
 		)
-		if (user) {
-			if (role == signUpRoles.student) {
-				await dispatch(
-					fetchOrError(
-						"/user/make_student?user_id=" +
-							user.id +
-							"&teacher_id=" +
-							params.teacher_id,
-						{
-							method: "GET"
-						}
-					)
-				)
-			} else if (role == signUpRoles.teacher) {
-				await dispatch(
-					fetchOrError("/user/make_teacher?", {
-						method: "POST",
-						body: JSON.stringify({
-							user_id: user.id,
-							price: params.price,
-							lesson_duration: params.duration
-						})
-					})
-				)
-			}
-
-			await callback(user)
-		}
 	}
 }
 

@@ -36,6 +36,7 @@ export class SignUp extends React.Component {
 			teacher_id: null
 		}
 		this._initInputs()
+		this._getTeachers()
 	}
 
 	_initInputs = () => {
@@ -51,20 +52,6 @@ export class SignUp extends React.Component {
 					placeholder: strings("signup.price")
 				}
 			}
-		} else {
-			extraInputs = {
-				teacher: {
-					iconName: "directions-car",
-					placeholder: strings("signup.teacher"),
-					below: this._renderTeachers,
-					onChangeText: value => {
-						this.setState({
-							teacher: value
-						})
-						this._getTeachers(value)
-					}
-				}
-			}
 		}
 		this.inputs = {
 			email: {},
@@ -76,7 +63,9 @@ export class SignUp extends React.Component {
 			phone: {
 				iconName: "phone",
 				placeholder: strings("signup.phone"),
-				int: true
+				onChangeText: (name, value) => {
+					this.setState({ [name]: value.replace(/[^0-9]/g, "") })
+				}
 			},
 			...extraInputs,
 			password: { secureTextEntry: true, iconName: "security" }
@@ -108,14 +97,10 @@ export class SignUp extends React.Component {
 			)
 	}
 
-	_getTeachers = async (name = "") => {
-		if (name.length < 2) return
-		const resp = await this.props.fetchService.fetch(
-			"/teacher/?name=" + name,
-			{
-				method: "GET"
-			}
-		)
+	_getTeachers = async () => {
+		const resp = await this.props.fetchService.fetch("/teacher/", {
+			method: "GET"
+		})
 		this.setState({
 			teachers: resp.json["data"]
 		})
@@ -123,16 +108,17 @@ export class SignUp extends React.Component {
 
 	_onTeacherPress = teacher => {
 		this.setState({
-			teacher_id: teacher.id,
+			teacher_id: teacher.teacher_id,
 			teacher: teacher.user.name
 		})
 	}
 
-	renderStudents = () => {
-		if (this.state.teachers.length == 0 && this.state.teacher) {
-			return <Text>{strings("teacher.new_lesson.empty_students")}</Text>
-		}
+	_renderTeachers = () => {
 		return this.state.teachers.map((teacher, index) => {
+			let style = {}
+			if (index == 0) {
+				style = { marginLeft: 0 }
+			}
 			let selected = false
 			let selectedTextStyle
 			if (this.state.teacher == teacher.user.name) {
@@ -144,6 +130,7 @@ export class SignUp extends React.Component {
 					selected={selected}
 					key={`teacher${index}`}
 					onPress={() => this._onTeacherPress(teacher)}
+					style={style}
 				>
 					<Text
 						style={{
@@ -188,8 +175,11 @@ export class SignUp extends React.Component {
 			Alert.alert(error)
 			return
 		}
+		if (!this.state.teacher_id) {
+			Alert.alert(errors("select_teacher"))
+			return
+		}
 		this.button.showLoading(true)
-
 		await this.props.dispatch(
 			register(
 				{
@@ -200,7 +190,8 @@ export class SignUp extends React.Component {
 					phone: this.state.phone,
 					image: this.state.image,
 					price: parseInt(this.state.price),
-					duration: parseInt(this.state.duration)
+					duration: parseInt(this.state.duration),
+					teacher_id: this.state.teacher_id
 				},
 				user => {
 					if (user) {
@@ -214,12 +205,8 @@ export class SignUp extends React.Component {
 		)
 	}
 
-	_onChangeText = input => {
-		let v = input
-		if (props.int) {
-			v = v.replace(/[^0-9]/g, "")
-		}
-		this.setState({ [name]: v })
+	_onChangeText = (name, input) => {
+		this.setState({ [name]: input })
 	}
 
 	renderInputs = () => {
@@ -238,13 +225,25 @@ export class SignUp extends React.Component {
 					iconName={props.iconName || name}
 					validation={registerValidation}
 					secureTextEntry={props.secureTextEntry || false}
-					below={props.below}
 				/>
 			)
 		})
 	}
 
 	render() {
+		let selectTeacher
+		if (this.role == signUpRoles.student) {
+			selectTeacher = (
+				<View style={styles.teachers}>
+					<Text style={styles.nonInputTitle}>
+						{strings("signup.teacher")}
+					</Text>
+					<View style={styles.teachersList}>
+						{this._renderTeachers()}
+					</View>
+				</View>
+			)
+		}
 		return (
 			<View style={styles.container}>
 				<SuccessModal
@@ -287,6 +286,8 @@ export class SignUp extends React.Component {
 								}}
 							/>
 							{this.renderInputs()}
+
+							{selectTeacher}
 							<LoadingButton
 								title={strings("signup.signup_button")}
 								onPress={this.register}
@@ -335,6 +336,22 @@ const styles = StyleSheet.create({
 		paddingRight: MAIN_PADDING,
 		alignItems: "center",
 		paddingBottom: 20
+	},
+	nonInputTitle: {
+		marginTop: 12,
+		alignSelf: "flex-start",
+		fontWeight: "bold"
+	},
+	teachers: {
+		flex: 1,
+		alignSelf: "flex-start",
+		marginLeft: MAIN_PADDING
+	},
+	teachersList: {
+		flex: 1,
+		flexWrap: "wrap",
+		flexDirection: "row",
+		justifyContent: "flex-start"
 	}
 })
 

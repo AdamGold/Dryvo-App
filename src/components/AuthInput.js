@@ -25,14 +25,13 @@ export default class AuthInput extends React.Component {
 		})
 	}
 	render() {
-		let below
-		if (this.props.below)
-			below = <View style={styles.belowStyle}>{this.props.below()}</View>
 		return (
 			<Fragment>
 				<Input
 					placeholder={this.props.placeholder}
-					onChangeText={this.props.onChangeText}
+					onChangeText={value =>
+						this.props.onChangeText(this.props.name, value)
+					}
 					onFocus={this.onFocus.bind(this)}
 					onBlur={this.onBlur.bind(this)}
 					value={this.props.value}
@@ -56,7 +55,6 @@ export default class AuthInput extends React.Component {
 					}
 					ref={this.props.ref_}
 				/>
-				{below}
 			</Fragment>
 		)
 	}
@@ -75,12 +73,5 @@ const styles = StyleSheet.create({
 	},
 	inputIcon: {
 		marginLeft: 6
-	},
-	belowStyle: {
-		marginTop: 12,
-		flex: 1,
-		flexWrap: "wrap",
-		flexDirection: "row",
-		justifyContent: "center"
 	}
 })

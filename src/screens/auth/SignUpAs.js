@@ -95,7 +95,7 @@ export class SignUpAs extends React.Component {
 								marginTop: 20
 							}}
 						>
-							{strings("signup.teacher")}
+							{strings("signup.as_teacher")}
 						</Text>
 					</View>
 				</TouchableOpacity>

@@ -35,7 +35,8 @@
 		"signup_button": "הרשמה",
 		"sign_as": "הירשם בתור",
 		"student": "תלמיד",
-		"teacher": "מורה",
+		"teacher": "בחירת מורה",
+		"as_teacher": "מורה",
 		"success": "נרשמת בהצלחה!",
 		"image_required": "אנא העלה תמונה.",
 		"success_title": "נרשמת בהצלחה!",
@@ -210,7 +211,8 @@
 		"Date is not valid": "התאריך אינו תקין.",
 		"Lesson must have a student assigned": "על מנת להוסיף נושאים, יש להוסיף תלמיד לשיעור.",
 		"Topic does not exist": "נושא זה אינו קיים.",
-		"Network request failed": "נתקלנו בבעיה. אנא נסה שנית."
+		"Network request failed": "נתקלנו בבעיה. אנא נסה שנית.",
+		"select_teacher": "אנא בחר מורה."
 	},
 	"notifications": {
 		"students": "בקשות הצטרפות",
@@ -223,7 +225,8 @@
 		"home": {
 			"pending": "ממתינים לאישורך!",
 			"teacher_pending_desc": "נתוניך נקלטו במערכת, כעת יש להמתין לאישור המנהלים.",
-			"student_pending_desc": "נתוניך נקלטו במערכת, יש להמתין לאישורך על ידי המורה שאליו נרשמת."
+			"student_pending_desc": "נתוניך נקלטו במערכת, יש להמתין לאישורך על ידי המורה שאליו נרשמת.",
+			"normal_pending_desc": "נתוניך נקלטו במערכת. אנא המתן לאישור המנהלים."
 		}
 	}
 }

@@ -10,6 +10,7 @@ class Home extends React.Component {
 	constructor(props) {
 		super(props)
 		this.logout = this.logout.bind(this)
+		this.role = "normal"
 		if (this.props.user.hasOwnProperty("teacher_id")) {
 			// it's a teacher
 			this.role = signUpRoles.teacher

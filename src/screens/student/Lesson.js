@@ -68,11 +68,17 @@ export class Lesson extends React.Component {
 			this.state = {
 				...this.state,
 				dateAndTime: moment.utc(lesson.date).format(API_DATE_FORMAT),
-				date: moment.utc(lesson.date).format(SHORT_API_DATE_FORMAT),
+				date: moment
+					.utc(lesson.date)
+					.local()
+					.format(SHORT_API_DATE_FORMAT),
 				duration: lesson.duration.toString(),
 				meetup: (lesson.meetup_place || {}).name,
 				dropoff: (lesson.dropoff_place || {}).name,
-				hour: moment.utc(lesson.date).format("HH:mm")
+				hour: moment
+					.utc(lesson.date)
+					.local()
+					.format("HH:mm")
 			}
 			await this._getAvailableHours()
 		}
@@ -234,7 +240,7 @@ export class Lesson extends React.Component {
 	_handleDatePicked = date => {
 		this._hideDateTimePicker()
 		this.setState(
-			{ date: moment.utc(date).format(SHORT_API_DATE_FORMAT) },
+			{ date: moment(date).format(SHORT_API_DATE_FORMAT) },
 			() => {
 				this._getAvailableHours()
 			}

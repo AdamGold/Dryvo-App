@@ -32,6 +32,12 @@ const DEFAULT_HOURS = {
 	to_hour: 17,
 	to_minutes: 0
 }
+const DEFAULT_UTC_HOURS = {
+	from_hour: DEFAULT_HOURS.from_hour - moment().utcOffset() / 60,
+	from_minutes: DEFAULT_HOURS.from_minutes,
+	to_hour: DEFAULT_HOURS.to_hour - moment().utcOffset() / 60,
+	to_minutes: DEFAULT_HOURS.to_minutes
+}
 export class WorkDays extends React.Component {
 	constructor(props) {
 		super(props)
@@ -48,11 +54,13 @@ export class WorkDays extends React.Component {
 			// to specific dates
 			this.days = this._getWeekDays()
 		}
-		this.days.forEach(day => {
-			this.state.daysWithHours[day] = []
-		})
 
 		this.changedDays = {} // keep track of only changed days
+
+		this.days.forEach(day => {
+			this.changedDays[day] = []
+			this.state.daysWithHours[day] = []
+		})
 
 		this._getDays()
 	}
@@ -122,7 +130,13 @@ export class WorkDays extends React.Component {
 
 	_handleDatePicked = date => {
 		const hour = moment(date).format("HH")
+		const UTCHour = moment(date)
+			.utc()
+			.format("HH")
 		const minutes = moment(date).format("mm")
+		const UTCMinutes = moment(date)
+			.utc()
+			.format("mm")
 		const { pickedDay, pickedIndex, pickedType } = this.state
 		let newDay = [...this.state.daysWithHours[pickedDay]]
 		newDay[pickedIndex] = {
@@ -137,7 +151,12 @@ export class WorkDays extends React.Component {
 			daysWithHours: newState
 		})
 
-		this.changedDays[pickedDay] = newDay
+		let newUTCDay = [...this.changedDays[pickedDay]]
+		newUTCDay[pickedIndex][`${pickedType}_hour`] = UTCHour
+		newUTCDay[pickedIndex][`${pickedType}_minutes`] = UTCMinutes
+
+		this.changedDays[pickedDay] = newUTCDay
+		console.log(this.changedDays)
 
 		this._hideDateTimePicker()
 	}
@@ -146,6 +165,7 @@ export class WorkDays extends React.Component {
 		let newHours = [...this.state.daysWithHours[day], DEFAULT_HOURS]
 		let newState = { ...this.state.daysWithHours }
 		newState[day] = newHours
+		this.changedDays[day].push(DEFAULT_UTC_HOURS)
 		this.setState({
 			daysWithHours: newState
 		})
@@ -154,6 +174,7 @@ export class WorkDays extends React.Component {
 	_removeHours = (day, index) => {
 		let newState = { ...this.state.daysWithHours }
 		newState[day].splice(index, 1)
+		this.changedDays[day].splice(index, 1)
 		this.setState({ daysWithHours: newState })
 	}
 

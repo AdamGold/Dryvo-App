@@ -130,7 +130,10 @@ export class Notifications extends React.Component {
 						leftSide={
 							<View>
 								<Text style={styles.date}>
-									{moment.utc(item.date).format("DD.MM")}
+									{moment
+										.utc(item.date)
+										.local()
+										.format("DD.MM")}
 								</Text>
 								<Text style={styles.hour}>
 									<Hours

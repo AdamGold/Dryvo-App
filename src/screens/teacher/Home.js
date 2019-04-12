@@ -89,13 +89,12 @@ export class Home extends React.Component {
 			currentLesson = null
 
 		if (nextLessonResp.json["data"].length > 0) {
-			nextLesson = nextLessonResp.json["data"][1]
-		} else {
 			if (currentLessonResp.json["data"].length == 0) {
 				// no current lesson (no lessons today)
 				nextLesson = nextLessonResp.json["data"][0]
 			} else {
 				currentLesson = currentLessonResp.json["data"][0]
+				nextLesson = nextLessonResp.json["data"][1]
 			}
 		}
 

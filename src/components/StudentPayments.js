@@ -26,7 +26,10 @@ export default class StudentPayment extends React.Component {
 				key={`payment${item.id}`}
 			>
 				<Text style={styles.dateOfPayment}>
-					{moment.utc(item.created_at).format(DATE_FORMAT)}
+					{moment
+						.utc(item.created_at)
+						.local()
+						.format(DATE_FORMAT)}
 				</Text>
 			</Row>
 		)

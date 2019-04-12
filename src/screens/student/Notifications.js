@@ -80,7 +80,10 @@ export class Notifications extends React.Component {
 	}
 
 	renderPayment = ({ item, index }) => {
-		const date = moment.utc(item.created_at).format("DD.MM.YY, HH:mm")
+		const date = moment
+			.utc(item.created_at)
+			.local()
+			.format("DD.MM.YY, HH:mm")
 		return (
 			<Notification
 				style={styles.notification}
@@ -122,7 +125,10 @@ export class Notifications extends React.Component {
 						leftSide={
 							<View>
 								<Text style={styles.lessonDate}>
-									{moment.utc(item.date).format("DD.MM")}
+									{moment
+										.utc(item.date)
+										.local()
+										.format("DD.MM")}
 								</Text>
 								<Text style={styles.lessonHour}>
 									<Hours

@@ -66,10 +66,14 @@ export const deepLinkingRemoveListener = async func => {
 }
 
 export const getHoursDiff = (date, duration) => {
-	const start = moment.utc(date).format("HH:mm")
+	const start = moment
+		.utc(date)
+		.local()
+		.format("HH:mm")
 	const end = moment
 		.utc(date)
 		.add(duration, "minutes")
+		.local()
 		.format("HH:mm")
 
 	return { start, end }

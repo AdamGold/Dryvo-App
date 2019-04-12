@@ -81,7 +81,10 @@ export default class LessonPopup extends React.Component {
 								{strings("teacher.new_lesson.date")}
 							</Text>
 							<Text style={styles.texts}>
-								{moment.utc(item.date).format("DD-MM-YYYY")}
+								{moment
+									.utc(item.date)
+									.local()
+									.format("DD-MM-YYYY")}
 							</Text>
 						</View>
 						<View style={{ ...styles.column, marginLeft: 2 }}>

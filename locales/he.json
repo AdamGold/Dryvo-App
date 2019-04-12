@@ -78,8 +78,10 @@
 			"title": "התראות",
 			"new_student": "רוצה להצטרף כתלמיד",
 			"new_payment": "ביצע העברה",
-			"lesson_approved": "השיעור אושר!",
-			"lesson_deleted": "השיעור בוטל."
+			"lessons_approved": "השיעור אושר!",
+			"lessons_deleted": "השיעור בוטל.",
+			"student_approved": "הבקשה אושרה!",
+			"student_deleted": "הבקשה נדחתה."
 		},
 		"new_lesson": {
 			"title": "פרטי שיעור",

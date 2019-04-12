@@ -69,9 +69,12 @@ export const register = (params, callback, role = "") => {
 						})
 					)
 				}
-				if (roleRequest) await callback(user)
-				else await callback(undefined)
+				if (roleRequest) {
+					await callback(user)
+					return
+				}
 			}
+			await callback(undefined)
 		}
 
 		await loginOrRegister(

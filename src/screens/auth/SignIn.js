@@ -24,6 +24,7 @@ import LoadingButton from "../../components/LoadingButton"
 import validate, { loginValidation } from "../../actions/validate"
 import { popLatestError, checkFirebasePermission } from "../../actions/utils"
 
+let deepLinked = false
 export class SignIn extends React.Component {
 	constructor(props) {
 		super(props)
@@ -41,7 +42,9 @@ export class SignIn extends React.Component {
 	}
 
 	handleOpenURL = async event => {
-		if (event.url) {
+		console.log(deepLinked)
+		if (event.url && !deepLinked) {
+			deepLinked = true
 			let url = event.url.replace("#_=_", "")
 			console.log(`Launched from deeplink ${url}`)
 			url = new URLSearchParams(url).toString()

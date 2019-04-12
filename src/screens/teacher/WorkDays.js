@@ -151,12 +151,10 @@ export class WorkDays extends React.Component {
 			daysWithHours: newState
 		})
 
-		let newUTCDay = [...this.changedDays[pickedDay]]
-		newUTCDay[pickedIndex][`${pickedType}_hour`] = UTCHour
-		newUTCDay[pickedIndex][`${pickedType}_minutes`] = UTCMinutes
-
-		this.changedDays[pickedDay] = newUTCDay
-		console.log(this.changedDays)
+		this.changedDays[pickedDay][pickedIndex][`${pickedType}_hour`] = UTCHour
+		this.changedDays[pickedDay][pickedIndex][
+			`${pickedType}_minutes`
+		] = UTCMinutes
 
 		this._hideDateTimePicker()
 	}

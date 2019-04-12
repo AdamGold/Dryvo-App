@@ -92,12 +92,13 @@ export class Notifications extends React.Component {
 	}
 
 	approve = async (type, item) => {
+		const id = item.id || item.student_id
 		const resp = await this.props.fetchService.fetch(
-			`/${type}/${item.id}/approve`,
+			`/${type}/${id}/approve`,
 			{ method: "GET" }
 		)
 		if (resp) {
-			Alert.alert(strings("teacher.notifications.lesson_approved"))
+			Alert.alert(strings(`teacher.notifications.${type}_approved`))
 			this._getItems()
 		}
 	}
@@ -108,7 +109,7 @@ export class Notifications extends React.Component {
 			method: "DELETE"
 		})
 		if (resp) {
-			Alert.alert(strings("teacher.notifications.lesson_deleted"))
+			Alert.alert(strings(`teacher.notifications.${type}_deleted`))
 			this._getItems()
 		}
 	}
@@ -172,8 +173,8 @@ export class Notifications extends React.Component {
 				type="new_student"
 			>
 				<NotificationButtons
-					approve={() => this.approve("students", item)}
-					delete={() => this.delete("students", item)}
+					approve={() => this.approve("student", item)}
+					delete={() => this.delete("student", item)}
 				/>
 			</Notification>
 		)

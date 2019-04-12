@@ -86,9 +86,6 @@ export const registerDeviceToken = (token, force) => {
 		// we already registered the firebase token.
 		// let's check it's expiry and only if it's expired,
 		// register again
-		console.log("aloha")
-		console.log(token)
-		console.log(force)
 		if (
 			existing_token &&
 			JSON.parse(existing_token).expiry >= new Date() &&

@@ -16,6 +16,7 @@ import AuthLoading from "./screens/auth/AuthLoading"
 import configureStore from "./Store"
 import { setCustomText } from "react-native-global-props"
 import firebase from "react-native-firebase"
+import codePush from "react-native-code-push"
 
 const store = configureStore()
 
@@ -65,7 +66,7 @@ const customTextProps = {
 }
 setCustomText(customTextProps)
 
-export default class App extends Component {
+class App extends Component {
 	render() {
 		return (
 			<Provider store={store}>
@@ -76,3 +77,7 @@ export default class App extends Component {
 		)
 	}
 }
+
+const app = codePush(App)
+
+export default app

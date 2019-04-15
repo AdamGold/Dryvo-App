@@ -102,5 +102,7 @@
 	<string>$(PRODUCT_NAME) would like to save photos to your photo gallery to change your profile picture</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to your microphone (for videos)</string>
+	<key>CodePushDeploymentKey</key>
+	<string>fx64DK6ZWN5px5LPbU2MIjclTUmDS185I7f5E</string>
 </dict>
 </plist>

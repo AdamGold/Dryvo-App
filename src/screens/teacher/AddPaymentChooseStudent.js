@@ -135,7 +135,7 @@ export class AddPaymentChooseStudent extends React.Component {
 				}
 				keyboardShouldPersistTaps="handled"
 				ListEmptyComponent={this._renderEmpty}
-				style={{ paddingBottom: 60 }}
+				style={{ flex: 1 }}
 			/>
 		)
 	}
@@ -164,6 +164,10 @@ export class AddPaymentChooseStudent extends React.Component {
 				>
 					<KeyboardAvoidingView
 						behavior={Platform.OS === "ios" ? "padding" : null}
+						keyboardVerticalOffset={
+							Platform.OS === "ios" ? 100 : null
+						}
+						style={{ flex: 1 }}
 					>
 						<SearchBar
 							placeholder={strings("teacher.students.search")}
@@ -204,7 +208,7 @@ const styles = StyleSheet.create({
 		marginRight: MAIN_PADDING,
 		marginTop: 20
 	},
-	studentsSearchView: { paddingTop: 0 },
+	studentsSearchView: { paddingTop: 0, flex: 1 },
 	searchBarContainer: {
 		backgroundColor: "transparent",
 		paddingBottom: 0,

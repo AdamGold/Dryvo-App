@@ -474,6 +474,7 @@ exports[`AddPaymentChooseStudent view renders correctly 1`] = `
   <View
     style={
       Object {
+        "flex": 1,
         "paddingTop": 0,
       }
     }
@@ -482,9 +483,14 @@ exports[`AddPaymentChooseStudent view renders correctly 1`] = `
     <View
       onLayout={[Function]}
       style={
-        Object {
-          "paddingBottom": 0,
-        }
+        Array [
+          Object {
+            "flex": 1,
+          },
+          Object {
+            "paddingBottom": 0,
+          },
+        ]
       }
     >
       <View

@@ -461,7 +461,7 @@ export class Lesson extends React.Component {
 
 		const fourMonthsAway = moment()
 			.add(4, "months")
-			.format(SHORT_API_DATE_FORMAT)
+			.toDate()
 
 		return (
 			<View style={{ flex: 1, marginTop: 20 }}>
@@ -539,7 +539,7 @@ export class Lesson extends React.Component {
 					isVisible={this.state.datePickerVisible}
 					onConfirm={this._handleDatePicked}
 					onCancel={this._hideDateTimePicker}
-					maxDate={fourMonthsAway}
+					maximumDate={fourMonthsAway}
 				/>
 			</View>
 		)

@@ -6,9 +6,15 @@ PODS:
     - AppCenter/Core
   - AppCenterReactNativeShared (1.12.2):
     - AppCenter/Core (= 1.13.2)
+  - Base64 (1.1.2)
   - boost-for-react-native (1.63.0)
   - BVLinearGradient (2.5.4):
     - React
+  - CodePush (5.6.0):
+    - Base64 (~> 1.1)
+    - JWT (~> 3.0.0-beta.7)
+    - React
+    - SSZipArchive (~> 2.1)
   - DoubleConversion (1.1.6)
   - Firebase/Core (5.11.0):
     - Firebase/CoreOnly
@@ -71,6 +77,8 @@ PODS:
     - GoogleUtilities/Logger
   - GoogleUtilities/UserDefaults (5.5.0):
     - GoogleUtilities/Logger
+  - JWT (3.0.0-beta.11):
+    - Base64 (~> 1.1.2)
   - libwebp (1.0.2):
     - libwebp/core (= 1.0.2)
     - libwebp/dec (= 1.0.2)
@@ -159,6 +167,7 @@ PODS:
   - SDWebImage/WebP (4.4.6):
     - libwebp (>= 0.5)
     - SDWebImage/Core
+  - SSZipArchive (2.1.4)
   - yoga (0.57.8.React)
 
 DEPENDENCIES:
@@ -166,6 +175,7 @@ DEPENDENCIES:
   - AppCenter/Crashes (~> 1.13.2)
   - AppCenterReactNativeShared (~> 1.12.2)
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
+  - CodePush (from `../node_modules/react-native-code-push`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - Firebase/Core (~> 5.11.0)
   - Firebase/Messaging (~> 5.11.0)
@@ -191,6 +201,7 @@ SPEC REPOS:
   https://github.com/CocoaPods/Specs.git:
     - AppCenter
     - AppCenterReactNativeShared
+    - Base64
     - boost-for-react-native
     - Firebase
     - FirebaseAnalytics
@@ -201,14 +212,18 @@ SPEC REPOS:
     - FLAnimatedImage
     - GoogleAppMeasurement
     - GoogleUtilities
+    - JWT
     - libwebp
     - nanopb
     - Protobuf
     - SDWebImage
+    - SSZipArchive
 
 EXTERNAL SOURCES:
   BVLinearGradient:
     :path: "../node_modules/react-native-linear-gradient"
+  CodePush:
+    :path: "../node_modules/react-native-code-push"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   Folly:
@@ -231,8 +246,10 @@ EXTERNAL SOURCES:
 SPEC CHECKSUMS:
   AppCenter: bce7fe1098e8e8aeb70aaae1898600534069f549
   AppCenterReactNativeShared: 6c0750b874f3242c47cb64083e23b835975c6aa2
+  Base64: cecfb41a004124895a7bcee567a89bae5a89d49b
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
   BVLinearGradient: b0b70acf63ee888829b7c2ebbf6b50e227396e55
+  CodePush: f6b348759cdc42c734d9c3a46ceb2997c270b12e
   DoubleConversion: bb338842f62ab1d708ceb63ec3d999f0f3d98ecd
   Firebase: b48f9e653da971ecce5b8c749684bc8bb2d26bd3
   FirebaseAnalytics: 63202d2665de4e6adcbdce189135255d8b5962ba
@@ -245,6 +262,7 @@ SPEC CHECKSUMS:
   glog: e8acf0ebbf99759d3ff18c86c292a5898282dcde
   GoogleAppMeasurement: 5029d78f2b438bd30ffb44e6c558b57c21622727
   GoogleUtilities: 6481e6318c5fcabaaa8513ef8120f329055d7c10
+  JWT: 05028b9624591bba9681bb57df2c5f95fa258bad
   libwebp: b068a3bd7c45f7460f6715be7bed1a18fd5d6b48
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
@@ -254,8 +272,9 @@ SPEC CHECKSUMS:
   react-native-image-resizer: 04a3409e7d4ad646c4468671c69dec490def139c
   RNSVG: 4834be1d644eb77f0e3f6de851881b83758a3124
   SDWebImage: 3f3f0c02f09798048c47a5ed0a13f17b063572d8
+  SSZipArchive: 41455d4b8d2b6ab93990820b50dc697c2554a322
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: 1b66af8ea28481c3990b3141bdfcf7aa851e53e9
+PODFILE CHECKSUM: ce7f31233aed6e2da71f3f888aa1f8dfd6d99842
 
 COCOAPODS: 1.5.0

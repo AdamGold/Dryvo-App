@@ -20,6 +20,7 @@
 		"react-dom": "^16.7.0",
 		"react-native": "0.57.8",
 		"react-native-calendars": "github:AdamGold/react-native-calendars",
+		"react-native-code-push": "^5.6.0",
 		"react-native-elements": "^1.0.0",
 		"react-native-fast-image": "^5.2.0",
 		"react-native-firebase": "^5.2.3",

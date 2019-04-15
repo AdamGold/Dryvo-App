@@ -50,7 +50,7 @@ export class SignIn extends React.Component {
 			url = new URLSearchParams(url).toString()
 			let regex = /token=(.*)/
 			const token = url.match(regex)[1]
-			console.log(`New exchange token ${token}`)
+			console.log(`New exchange token`)
 			this.props.dispatch(
 				exchangeToken(token, user => {
 					this.props.navigation.navigate("App")

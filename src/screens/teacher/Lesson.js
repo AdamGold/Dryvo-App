@@ -31,6 +31,7 @@ import { getHoursDiff, fetchOrError, popLatestError } from "../../actions/utils"
 import { getLessonById } from "../../actions/lessons"
 import SuccessModal from "../../components/SuccessModal"
 import DateTimePicker from "react-native-modal-datetime-picker"
+import Analytics from "appcenter-analytics"
 
 export class Lesson extends React.Component {
 	constructor(props) {
@@ -354,6 +355,12 @@ export class Lesson extends React.Component {
 			)
 		}
 		if (resp && topicsResp) {
+			Analytics.trackEvent("Teacher lesson created", {
+				Category: "Lesson",
+				date: moment.utc(this.state.dateAndTime).toISOString(),
+				studentName: this.state.studentName,
+				respFromServer: JSON.stringify(resp.json)
+			})
 			this.setState({ successVisible: true })
 		}
 	}

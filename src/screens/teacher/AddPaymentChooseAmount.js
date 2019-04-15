@@ -21,6 +21,7 @@ import { NavigationActions } from "react-navigation"
 import { fetchOrError } from "../../actions/utils"
 import { popLatestError } from "../../actions/utils"
 import SuccessModal from "../../components/SuccessModal"
+import Analytics from "appcenter-analytics"
 
 export class AddPaymentChooseAmount extends React.Component {
 	constructor(props) {
@@ -52,6 +53,10 @@ export class AddPaymentChooseAmount extends React.Component {
 			})
 		)
 		if (resp) {
+			Analytics.trackEvent("Payment added", {
+				Category: "Payment",
+				state: JSON.stringify(this.state)
+			})
 			this.setState({ successVisible: true })
 		}
 	}

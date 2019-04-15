@@ -31,6 +31,7 @@ import DateTimePicker from "react-native-modal-datetime-picker"
 import { fetchOrError } from "../../actions/utils"
 import { popLatestError } from "../../actions/utils"
 import SuccessModal from "../../components/SuccessModal"
+import Analytics from "appcenter-analytics"
 
 export class Lesson extends React.Component {
 	constructor(props) {
@@ -228,6 +229,11 @@ export class Lesson extends React.Component {
 			})
 		)
 		if (resp) {
+			Analytics.trackEvent("Student lesson created", {
+				Category: "Lesson",
+				date: moment.utc(this.state.dateAndTime).toISOString(),
+				respFromServer: JSON.stringify(resp.json)
+			})
 			this._initializeInputs(true)
 			this.setState({ ...this.initState, successVisible: true })
 		}

@@ -23,6 +23,7 @@ import AuthInput from "../../components/AuthInput"
 import LoadingButton from "../../components/LoadingButton"
 import validate, { loginValidation } from "../../actions/validate"
 import { popLatestError, checkFirebasePermission } from "../../actions/utils"
+import Analytics from "appcenter-analytics"
 
 let deepLinked = false
 export class SignIn extends React.Component {
@@ -47,10 +48,11 @@ export class SignIn extends React.Component {
 			deepLinked = true
 			let url = event.url.replace("#_=_", "")
 			console.log(`Launched from deeplink ${url}`)
+			Analytics.trackEvent("Deeplink launch", { from: url })
 			url = new URLSearchParams(url).toString()
 			let regex = /token=(.*)/
 			const token = url.match(regex)[1]
-			console.log(`New exchange token ${token}`)
+			console.log(`New exchange token`)
 			this.props.dispatch(
 				exchangeToken(token, user => {
 					this.props.navigation.navigate("App")

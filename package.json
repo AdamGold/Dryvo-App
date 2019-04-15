@@ -59,7 +59,8 @@
 			"./__mocks__/mockFetch.js",
 			"./__mocks__/mockContentLoader.js",
 			"./__mocks__/mockFirebase.js",
-			"./__mocks__/mockFormData.js"
+			"./__mocks__/mockFormData.js",
+			"./__mocks__/mockAnalytics.js"
 		],
 		"testMatch": [
 			"<rootDir>/tests/**/*.test.js"

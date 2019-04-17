@@ -3,13 +3,11 @@ import {
 	View,
 	StyleSheet,
 	Text,
-	TouchableHighlight,
 	TouchableOpacity,
 	TextInput,
 	KeyboardAvoidingView,
 	Platform,
-	Alert,
-	Modal
+	Alert
 } from "react-native"
 import { connect } from "react-redux"
 import { strings, errors } from "../../i18n"
@@ -114,13 +112,12 @@ export class AddPaymentChooseAmount extends React.Component {
 							keyboardType="number-pad"
 						/>
 					</View>
-					<TouchableHighlight
-						underlayColor="#ffffff00"
+					<TouchableOpacity
 						onPress={this.addPayment}
 						style={styles.floatButton}
 					>
 						<Text style={styles.buttonText}>{strings("done")}</Text>
-					</TouchableHighlight>
+					</TouchableOpacity>
 				</KeyboardAvoidingView>
 			</View>
 		)

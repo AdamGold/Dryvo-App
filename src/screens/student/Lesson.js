@@ -1,12 +1,10 @@
 import React from "react"
 import {
 	KeyboardAvoidingView,
-	Keyboard,
 	Platform,
 	Text,
 	StyleSheet,
 	View,
-	TouchableHighlight,
 	TouchableOpacity,
 	ScrollView,
 	Alert
@@ -315,17 +313,16 @@ export class Lesson extends React.Component {
 						<View style={styles.hours}>{this.renderHours()}</View>
 						{this.renderInputs()}
 					</ScrollView>
-					<TouchableHighlight
-						underlayColor="#ffffff00"
+					<TouchableOpacity
+						underlayColor="#fffff"
 						ref={touchable => (this._touchable = touchable)}
 						onPress={this.createLesson}
+						style={styles.submitButton}
 					>
-						<View testID="finishButton" style={styles.submitButton}>
-							<Text style={styles.doneText}>
-								{strings("student.new_lesson.done")}
-							</Text>
-						</View>
-					</TouchableHighlight>
+						<Text style={styles.doneText}>
+							{strings("student.new_lesson.done")}
+						</Text>
+					</TouchableOpacity>
 				</KeyboardAvoidingView>
 				<DateTimePicker
 					isVisible={this.state.datePickerVisible}

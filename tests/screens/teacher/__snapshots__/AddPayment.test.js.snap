@@ -310,6 +310,7 @@ exports[`AddPaymentChooseAmount view renders correctly 1`] = `
           "elevation": 8,
           "height": 56,
           "justifyContent": "center",
+          "opacity": 1,
           "position": "absolute",
           "shadowColor": "rgb(12,116,244)",
           "shadowOffset": Object {

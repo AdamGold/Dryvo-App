@@ -2,10 +2,9 @@ import React from "react"
 import {
 	View,
 	Text,
-	TouchableHighlight,
+	TouchableOpacity,
 	StyleSheet,
-	FlatList,
-	Platform
+	FlatList
 } from "react-native"
 import { connect } from "react-redux"
 import { strings, dates } from "../../i18n"
@@ -176,8 +175,7 @@ export class ChooseDate extends React.Component {
 						{this._renderLessons()}
 					</ShadowRect>
 				</View>
-				<TouchableHighlight
-					underlayColor="#ffffff00"
+				<TouchableOpacity
 					onPress={() => {
 						this.props.navigation.navigate("Lesson", {
 							date: this.state.selected
@@ -189,7 +187,7 @@ export class ChooseDate extends React.Component {
 					<Text style={styles.buttonText}>
 						{strings("teacher.new_lesson.continue")}
 					</Text>
-				</TouchableHighlight>
+				</TouchableOpacity>
 			</View>
 		)
 	}

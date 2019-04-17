@@ -315,15 +315,14 @@ export class WorkDays extends React.Component {
 						/>
 					</ScrollView>
 				</View>
-				<TouchableHighlight
-					underlayColor="#ffffff00"
+				<TouchableOpacity
 					onPress={this.save.bind(this)}
 					style={fullButton}
 				>
 					<Text style={styles.buttonText}>
 						{strings("teacher.work_days.save")}
 					</Text>
-				</TouchableHighlight>
+				</TouchableOpacity>
 			</Fragment>
 		)
 	}

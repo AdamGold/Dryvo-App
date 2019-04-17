@@ -234,18 +234,16 @@ export class Students extends React.Component {
 		let addButton
 		if (this.state.buttonVisible) {
 			addButton = (
-				<TouchableHighlight
-					underlayColor="#ffffff00"
+				<TouchableOpacity
 					onPress={() => {
 						this.props.navigation.navigate("NewStudent")
 					}}
+					style={fullButton}
 				>
-					<View testID="newStudentButton" style={fullButton}>
-						<Text style={styles.buttonText}>
-							{strings("teacher.students.add")}
-						</Text>
-					</View>
-				</TouchableHighlight>
+					<Text style={styles.buttonText}>
+						{strings("teacher.students.add")}
+					</Text>
+				</TouchableOpacity>
 			)
 		}
 		return (

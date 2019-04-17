@@ -339,6 +339,7 @@ export class Lesson extends React.Component {
 				})
 			})
 		)
+		if (!resp) return
 		if (!lessonId) lessonId = resp.json["data"]["id"]
 		let topicsResp = true
 		if (this.state.progress.length > 0 || this.state.finished.length > 0) {
@@ -354,7 +355,7 @@ export class Lesson extends React.Component {
 				})
 			)
 		}
-		if (resp && topicsResp) {
+		if (topicsResp) {
 			Analytics.trackEvent("Teacher lesson created", {
 				Category: "Lesson",
 				date: moment.utc(this.state.dateAndTime).toISOString(),
@@ -531,16 +532,14 @@ export class Lesson extends React.Component {
 						</View>
 						<View style={styles.rects}>{this.renderTopics()}</View>
 					</ScrollView>
-					<TouchableHighlight
-						underlayColor="#ffffff00"
+					<TouchableOpacity
 						onPress={this.submit}
+						style={styles.submitButton}
 					>
-						<View testID="finishButton" style={styles.submitButton}>
-							<Text style={styles.doneText}>
-								{strings("teacher.new_lesson.done")}
-							</Text>
-						</View>
-					</TouchableHighlight>
+						<Text style={styles.doneText}>
+							{strings("teacher.new_lesson.done")}
+						</Text>
+					</TouchableOpacity>
 				</KeyboardAvoidingView>
 				<DateTimePicker
 					isVisible={this.state.datePickerVisible}
@@ -624,7 +623,8 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
 	return {
 		fetchService: state.fetchService,
-		user: state.user
+		user: state.user,
+		errors: state.errors
 	}
 }
 export default connect(mapStateToProps)(Lesson)

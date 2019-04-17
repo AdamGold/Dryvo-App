@@ -17,7 +17,7 @@ test:
 codepush:
     stage: codepush
     before_script:
-        - npm install appcenter-cli
+        - npm install -g appcenter-cli
     script:
         - appcenter codepush release-react -a dryvo/dryvo -d Production --token $APPCENTER_TOKEN
     when: on_success

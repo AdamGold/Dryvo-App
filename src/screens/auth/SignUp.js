@@ -158,6 +158,7 @@ export class SignUp extends React.Component {
 	componentDidUpdate() {
 		const error = this.props.dispatch(popLatestError(API_ERROR))
 		if (error) {
+			Analytics.trackEvent("SignUp error", { error })
 			Alert.alert(strings("errors.title"), errors(error))
 		}
 	}

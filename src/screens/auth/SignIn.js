@@ -43,7 +43,6 @@ export class SignIn extends React.Component {
 	}
 
 	handleOpenURL = async event => {
-		console.log(deepLinked)
 		if (event.url && !deepLinked) {
 			deepLinked = true
 			let url = event.url.replace("#_=_", "")
@@ -75,6 +74,7 @@ export class SignIn extends React.Component {
 	componentDidUpdate() {
 		const error = this.props.dispatch(popLatestError(API_ERROR))
 		if (error) {
+			Analytics.trackEvent("SignIn error", { error })
 			Alert.alert(strings("errors.title"), errors(error))
 		}
 	}

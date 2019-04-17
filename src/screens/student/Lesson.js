@@ -259,7 +259,9 @@ export class Lesson extends React.Component {
 			date = moment(this.state.date).format(DISPLAY_SHORT_DATE_FORMAT)
 		}
 		const today = moment().toDate()
-		const fourMonthsAway = moment().add(4, "months")
+		const fourMonthsAway = moment()
+			.add(4, "months")
+			.toDate()
 		return (
 			<View style={{ flex: 1, marginTop: 20 }}>
 				<SuccessModal

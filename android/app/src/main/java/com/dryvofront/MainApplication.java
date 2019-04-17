@@ -3,6 +3,7 @@ package com.dryvofront;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.microsoft.codepush.react.CodePush;
 import com.dylanvann.fastimage.FastImageViewPackage;
 import fr.bamlab.rnimageresizer.ImageResizerPackage;
@@ -45,7 +46,8 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
-            new CodePush(getResources().getString(R.string.reactNativeCodePush_androidDeploymentKey), getApplicationContext(), BuildConfig.DEBUG),
+            new ReactNativeConfigPackage(),
+            new CodePush(BuildConfig.CODEPUSH_SECRET, getApplicationContext(), BuildConfig.DEBUG),
             new FastImageViewPackage(),
             new ImageResizerPackage(),
             new ImagePickerPackage(),

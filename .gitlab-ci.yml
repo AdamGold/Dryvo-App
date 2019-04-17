@@ -2,6 +2,7 @@ image: node:9.4.0
 
 stages:
     - test
+    - codepush
 
 test:
     stage: test
@@ -12,3 +13,13 @@ test:
     cache:
         paths:
             - node_modules/
+
+codepush:
+    stage: codepush
+    before_script:
+        - npm install appcenter-cli
+    script:
+        - appcenter codepush release-react -a dryvo/dryvo -d Production --token $APPCENTER_TOKEN
+    when: on_success
+    only:
+        - production

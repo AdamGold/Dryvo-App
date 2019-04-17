@@ -103,6 +103,6 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like to your microphone (for videos)</string>
 	<key>CodePushDeploymentKey</key>
-	<string>fx64DK6ZWN5px5LPbU2MIjclTUmDS185I7f5E</string>
+	<string>__RN_CONFIG_CODEPUSH_SECRET</string>
 </dict>
 </plist>

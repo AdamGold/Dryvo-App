@@ -1,9 +1,10 @@
 import { strings } from "./i18n"
+import Config from "react-native-config"
 
 export const TOKEN_KEY = "login_token"
 export const REFRESH_TOKEN_KEY = "refresh_token"
 export const NOTIFICATIONS_KEY = "notifications"
-export const ROOT_URL = "https://dryvo.herokuapp.com"
+export const ROOT_URL = Config.APP_URL
 export const API_DATE_FORMAT = "YYYY-MM-DDTHH:mm:ss.SSS"
 export const SHORT_API_DATE_FORMAT = "YYYY-MM-DD"
 export const DISPLAY_SHORT_DATE_FORMAT = "DD.MM.YYYY"

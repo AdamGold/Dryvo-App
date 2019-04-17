@@ -111,6 +111,8 @@ PODS:
   - Protobuf (3.7.0)
   - React (0.57.8):
     - React/Core (= 0.57.8)
+  - react-native-config (0.11.7):
+    - React
   - react-native-fast-image (5.2.0):
     - FLAnimatedImage
     - React
@@ -182,6 +184,7 @@ DEPENDENCIES:
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
   - GoogleAppMeasurement (= 5.3)
+  - react-native-config (from `../node_modules/react-native-config`)
   - react-native-fast-image (from `../node_modules/react-native-fast-image`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-image-resizer (from `../node_modules/react-native-image-resizer`)
@@ -232,6 +235,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
   React:
     :path: "../node_modules/react-native"
+  react-native-config:
+    :path: "../node_modules/react-native-config"
   react-native-fast-image:
     :path: "../node_modules/react-native-fast-image"
   react-native-image-picker:
@@ -267,6 +272,7 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   React: 1fe0eb13d90b625d94c3b117c274dcfd2e760e11
+  react-native-config: 8c2a92aa66a6cec1a23d9eda7ba6fcf31a63ace5
   react-native-fast-image: 4170ad074e9de6c428fc4580ecbaacabf74901a6
   react-native-image-picker: f42de90075c5b1af53417af927631d909a1a746e
   react-native-image-resizer: 04a3409e7d4ad646c4468671c69dec490def139c
@@ -275,6 +281,6 @@ SPEC CHECKSUMS:
   SSZipArchive: 41455d4b8d2b6ab93990820b50dc697c2554a322
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: ce7f31233aed6e2da71f3f888aa1f8dfd6d99842
+PODFILE CHECKSUM: 8290289e7ceb034443519fdf7ff2208a3588fc53
 
 COCOAPODS: 1.5.0

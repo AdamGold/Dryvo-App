@@ -67,6 +67,11 @@ const customTextProps = {
 setCustomText(customTextProps)
 
 class App extends Component {
+	codePushDownloadDidProgress(progress) {
+		console.log(
+			progress.receivedBytes + " of " + progress.totalBytes + " received."
+		)
+	}
 	render() {
 		return (
 			<Provider store={store}>

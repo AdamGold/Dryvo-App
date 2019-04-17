@@ -17,7 +17,12 @@ import Separator from "../../components/Separator"
 import { Icon } from "react-native-elements"
 import Hours from "../../components/Hours"
 import LessonPopup from "../../components/LessonPopup"
-import { MAIN_PADDING, colors, NAME_LENGTH } from "../../consts"
+import {
+	MAIN_PADDING,
+	colors,
+	NAME_LENGTH,
+	DEFAULT_DURATION
+} from "../../consts"
 import { getPayments } from "../../actions/lessons"
 import EmptyState from "../../components/EmptyState"
 import LessonsLoader from "../../components/LessonsLoader"
@@ -70,15 +75,16 @@ export class Home extends React.Component {
 
 	_getLessons = async () => {
 		const now = new Date().toISOString()
-		const endOfDay = moment
+		const duration = this.props.user.lesson_duration || DEFAULT_DURATION
+		const nowPlusLessonDuration = moment
 			.utc()
-			.endOf("day")
+			.add(duration, "minutes")
 			.toISOString()
 		const currentLessonResp = await this.props.fetchService.fetch(
 			"/lessons/?limit=1&is_approved=true&date=ge:" +
 				now +
 				"&date=le:" +
-				endOfDay,
+				nowPlusLessonDuration,
 			{ method: "GET" }
 		)
 		const nextLessonResp = await this.props.fetchService.fetch(

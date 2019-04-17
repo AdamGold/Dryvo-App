@@ -314,7 +314,6 @@ export class Lesson extends React.Component {
 						{this.renderInputs()}
 					</ScrollView>
 					<TouchableOpacity
-						underlayColor="#fffff"
 						ref={touchable => (this._touchable = touchable)}
 						onPress={this.createLesson}
 						style={styles.submitButton}

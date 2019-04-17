@@ -20,8 +20,8 @@ codepush:
         - npm install
         - npm install -g appcenter-cli
     script:
-        - appcenter codepush release-react -a dryvo/dryvo-1 -d Production --token $APPCENTER_TOKEN --noDuplicateReleaseError --reset-cache
-        - appcenter codepush release-react -a dryvo/dryvo -d Production --token $APPCENTER_TOKEN --noDuplicateReleaseError --reset-cache
+        - appcenter codepush release-react -a dryvo/dryvo-1 -d Production --token $APPCENTER_TOKEN --disable-duplicate-release-error
+        - appcenter codepush release-react -a dryvo/dryvo -d Production --token $APPCENTER_TOKEN --disable-duplicate-release-error
     when: on_success
     only:
         - production

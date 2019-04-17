@@ -21,6 +21,6 @@ else
    cp .env.staging .env
 fi
 
-sed -i '' 's/"CP"/"$CODEPUSH_SECRET"/' .env
-echo "\n.env created with contents:\n"
+sed -i '' "s/CP/$CODEPUSH_SECRET/" .env
+echo "env created with contents:"
 cat .env

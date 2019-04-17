@@ -17,9 +17,13 @@ test:
 codepush:
     stage: codepush
     before_script:
+        - npm install
         - npm install -g appcenter-cli
     script:
         - appcenter codepush release-react -a dryvo/dryvo -d Production --token $APPCENTER_TOKEN
     when: on_success
     only:
         - production
+    cache:
+        paths:
+            - node_modules/

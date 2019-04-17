@@ -218,6 +218,7 @@ export class Lesson extends React.Component {
 	}
 
 	createLesson = async () => {
+		console.log("hello")
 		const resp = await this.props.dispatch(
 			fetchOrError("/lessons/", {
 				method: "POST",
@@ -262,6 +263,7 @@ export class Lesson extends React.Component {
 		const fourMonthsAway = moment()
 			.add(4, "months")
 			.toDate()
+
 		return (
 			<View style={{ flex: 1, marginTop: 20 }}>
 				<SuccessModal

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native"
 import Modal from "react-native-modal"
 import { strings } from "../i18n"
@@ -69,12 +69,21 @@ export default class LessonPopup extends React.Component {
 				animationOut="fadeOut"
 			>
 				<View style={styles.popup} testID={this.props.testID}>
-					<TouchableOpacity onPress={this.navigateToProfile}>
-						{image}
+					<TouchableOpacity
+						style={styles.userRow}
+						onPress={this.navigateToProfile}
+					>
+						<Fragment>
+							<View style={styles.imageView}>{image}</View>
+							<View style={styles.userInfo}>
+								<Text style={styles.title}>{name}</Text>
+								<Text style={styles.lessonNumber}>
+									{number}
+								</Text>
+								{approved}
+							</View>
+						</Fragment>
 					</TouchableOpacity>
-					<Text style={styles.title}>{name}</Text>
-					<Text style={styles.lessonNumber}>{number}</Text>
-					{approved}
 					<View style={styles.row}>
 						<View style={styles.column}>
 							<Text style={styles.titles}>
@@ -140,26 +149,35 @@ const styles = StyleSheet.create({
 		alignContent: "center",
 		borderRadius: 4
 	},
+	userRow: {
+		flexDirection: "row",
+		alignSelf: "center",
+		width: 180
+	},
+	imageView: { flex: 1, width: 76, alignSelf: "flex-start" },
+	userInfo: {
+		flexDirection: "column",
+		flex: 1,
+		marginLeft: "auto"
+	},
 	image: {
-		marginTop: -80,
 		width: 76,
 		height: 76,
-		borderRadius: 38,
-		alignSelf: "center"
+		borderRadius: 38
 	},
 	title: {
 		fontWeight: "bold",
 		fontSize: 18,
-		alignSelf: "center",
+		alignSelf: "flex-start",
 		marginTop: 16,
 		maxHeight: 20
 	},
 	lessonNumber: {
 		marginTop: 4,
-		alignSelf: "center",
+		alignSelf: "flex-start",
 		color: "gray"
 	},
-	approved: { alignSelf: "center", marginTop: 4, color: "red" },
+	approved: { alignSelf: "flex-start", marginTop: 4, color: "red" },
 	row: {
 		flex: 1,
 		flexDirection: "row",

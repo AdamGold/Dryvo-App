@@ -50,8 +50,8 @@ export class Lesson extends React.Component {
 		this.createLesson = this.createLesson.bind(this)
 		this._handleDatePicked = this._handleDatePicked.bind(this)
 
-		this._initializeInputs()
 		this._initializeExistingLesson()
+		this._initializeInputs()
 	}
 
 	_initializeExistingLesson = async () => {
@@ -66,6 +66,7 @@ export class Lesson extends React.Component {
 			// init duration, studentName, meetup, dropoff, hour
 			this.state = {
 				...this.state,
+				lesson,
 				dateAndTime: moment.utc(lesson.date).format(API_DATE_FORMAT),
 				date: moment
 					.utc(lesson.date)
@@ -74,12 +75,13 @@ export class Lesson extends React.Component {
 				duration: lesson.duration.toString(),
 				meetup: (lesson.meetup_place || {}).name,
 				dropoff: (lesson.dropoff_place || {}).name,
+				hours: [[lesson.date, null]],
 				hour: moment
 					.utc(lesson.date)
 					.local()
 					.format("HH:mm")
 			}
-			await this._getAvailableHours()
+			await this._getAvailableHours(true)
 		}
 	}
 	_initializeInputs = (force = false) => {
@@ -107,7 +109,7 @@ export class Lesson extends React.Component {
 		}
 	}
 
-	_getAvailableHours = async () => {
+	_getAvailableHours = async (append = false) => {
 		const resp = await this.props.fetchService.fetch(
 			`/teacher/${this.props.user.my_teacher.teacher_id}/available_hours`,
 			{
@@ -117,8 +119,13 @@ export class Lesson extends React.Component {
 				})
 			}
 		)
+		let hours = resp.json.data
+		if (append) {
+			// we're appending available hours to the current hour of the edited lesson
+			hours = [...this.state.hours, ...resp.json.data]
+		}
 		this.setState({
-			hours: resp.json["data"]
+			hours: hours
 		})
 	}
 
@@ -216,9 +223,10 @@ export class Lesson extends React.Component {
 	}
 
 	createLesson = async () => {
-		console.log("hello")
+		let lessonId = ""
+		if (this.state.lesson) lessonId = this.state.lesson.id
 		const resp = await this.props.dispatch(
-			fetchOrError("/lessons/", {
+			fetchOrError("/lessons/" + lessonId, {
 				method: "POST",
 				body: JSON.stringify({
 					date: moment.utc(this.state.dateAndTime).toISOString(),

@@ -27,16 +27,10 @@ import { API_ERROR } from "../../reducers/consts"
 import { fetchOrError, popLatestError } from "../../actions/utils"
 
 const DEFAULT_HOURS = {
-	from_hour: 8,
+	from_hour: 5,
 	from_minutes: 0,
-	to_hour: 17,
+	to_hour: 14,
 	to_minutes: 0
-}
-const DEFAULT_UTC_HOURS = {
-	from_hour: DEFAULT_HOURS.from_hour - moment().utcOffset() / 60,
-	from_minutes: DEFAULT_HOURS.from_minutes,
-	to_hour: DEFAULT_HOURS.to_hour - moment().utcOffset() / 60,
-	to_minutes: DEFAULT_HOURS.to_minutes
 }
 export class WorkDays extends React.Component {
 	constructor(props) {
@@ -58,7 +52,6 @@ export class WorkDays extends React.Component {
 		this.changedDays = {} // keep track of only changed days
 
 		this.days.forEach(day => {
-			this.changedDays[day] = []
 			this.state.daysWithHours[day] = []
 		})
 
@@ -129,12 +122,10 @@ export class WorkDays extends React.Component {
 	_hideDateTimePicker = () => this.setState({ isTimePickerVisible: false })
 
 	_handleDatePicked = date => {
-		const hour = moment(date).format("HH")
-		const UTCHour = moment(date)
+		const hour = moment(date)
 			.utc()
 			.format("HH")
-		const minutes = moment(date).format("mm")
-		const UTCMinutes = moment(date)
+		const minutes = moment(date)
 			.utc()
 			.format("mm")
 		const { pickedDay, pickedIndex, pickedType } = this.state
@@ -151,11 +142,7 @@ export class WorkDays extends React.Component {
 			daysWithHours: newState
 		})
 
-		this.changedDays[pickedDay][pickedIndex][`${pickedType}_hour`] = UTCHour
-		this.changedDays[pickedDay][pickedIndex][
-			`${pickedType}_minutes`
-		] = UTCMinutes
-
+		this.changedDays[pickedDay] = newDay
 		this._hideDateTimePicker()
 	}
 
@@ -163,7 +150,11 @@ export class WorkDays extends React.Component {
 		let newHours = [...this.state.daysWithHours[day], DEFAULT_HOURS]
 		let newState = { ...this.state.daysWithHours }
 		newState[day] = newHours
-		this.changedDays[day].push(DEFAULT_UTC_HOURS)
+		if (this.changedDays.hasOwnProperty(day)) {
+			this.changedDays[day].push(DEFAULT_HOURS)
+		} else {
+			this.changedDays[day] = [DEFAULT_HOURS]
+		}
 		this.setState({
 			daysWithHours: newState
 		})
@@ -172,12 +163,16 @@ export class WorkDays extends React.Component {
 	_removeHours = (day, index) => {
 		let newState = { ...this.state.daysWithHours }
 		newState[day].splice(index, 1)
-		this.changedDays[day].splice(index, 1)
+		this.changedDays[day] = [...newState[day]]
 		this.setState({ daysWithHours: newState })
 	}
 
 	_renderHours = day => {
 		return this.state.daysWithHours[day].map((hour, index) => {
+			const localHours = {
+				fromHour: parseInt(hour.from_hour) + moment().utcOffset() / 60,
+				toHour: parseInt(hour.to_hour) + moment().utcOffset() / 60
+			}
 			return (
 				<View key={`hour${index}`} style={styles.hoursRow}>
 					<TouchableOpacity
@@ -187,7 +182,7 @@ export class WorkDays extends React.Component {
 						style={styles.hour}
 					>
 						<Text>
-							{hour.from_hour.toString().padStart(2, "0")}:
+							{localHours.fromHour.toString().padStart(2, "0")}:
 							{hour.from_minutes.toString().padStart(2, "0")}
 						</Text>
 					</TouchableOpacity>
@@ -198,7 +193,7 @@ export class WorkDays extends React.Component {
 						style={styles.hour}
 					>
 						<Text>
-							{hour.to_hour.toString().padStart(2, "0")}:
+							{localHours.toHour.toString().padStart(2, "0")}:
 							{hour.to_minutes.toString().padStart(2, "0")}
 						</Text>
 					</TouchableOpacity>

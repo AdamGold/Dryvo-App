@@ -98,7 +98,7 @@
 			"success_title": "השיעור עודכן בהצלחה!",
 			"success_desc_with_student": "נשלחה התראה לתלמיד %{student} עבור שיעור בתאריך %{date} בשעות %{hours}.",
 			"success_desc_without_student": "עודכן השיעור בתאריך %{date} בשעות %{hours}. כרגע אין תלמיד הרשום לשיעור זה.",
-			"success_button": "צור שיעור חדש",
+			"success_button": "חזור אחורה",
 			"empty_topics": "אין נושאים אפשריים",
 			"empty_students": "לא נמצאו תלמידים",
 			"enter_student_name": "תחילה, הכנס שם תלמיד"

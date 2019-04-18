@@ -11,6 +11,7 @@ describe("Notifications", () => {
 			.create(
 				<Notifications
 					navigation={{
+						addListener: jest.fn(),
 						getParam: param => {
 							return "lessons"
 						},

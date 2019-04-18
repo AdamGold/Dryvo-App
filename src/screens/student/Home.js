@@ -36,8 +36,19 @@ export class Home extends React.Component {
 			lessonPopupVisible: false,
 			loading: true
 		}
+	}
 
-		this._handleRequests()
+	componentDidMount() {
+		this.willFocusSubscription = this.props.navigation.addListener(
+			"willFocus",
+			payload => {
+				this._handleRequests()
+			}
+		)
+	}
+
+	componentWillUnmount() {
+		this.willFocusSubscription.remove()
 	}
 
 	_handleRequests = async () => {

@@ -39,12 +39,26 @@ export class Schedule extends React.Component {
 		super(props)
 		const date = new Date()
 		this.state = {
+			date,
 			selected: date.toJSON().slice(0, 10),
 			items: {},
 			visible: []
 		}
-		this._getItems(date)
+
 		this.onDayPress = this.onDayPress.bind(this)
+	}
+
+	componentDidMount() {
+		this.willFocusSubscription = this.props.navigation.addListener(
+			"willFocus",
+			payload => {
+				this._getItems(this.state.date)
+			}
+		)
+	}
+
+	componentWillUnmount() {
+		this.willFocusSubscription.remove()
 	}
 
 	_getItems = async date => {

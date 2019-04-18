@@ -15,7 +15,8 @@ describe("Notifications", () => {
 							return "lessons"
 						},
 						goBack: jest.fn(),
-						navigate: jest.fn()
+						navigate: jest.fn(),
+						addListener: jest.fn()
 					}}
 				/>
 			)

@@ -51,19 +51,31 @@ export class Notifications extends React.Component {
 				this.props.navigation.getParam("filter") ||
 				this.filterOptions[0]["value"],
 			loading: true,
+			refreshing: false,
 			visible: []
 		}
 
 		this._dropdownChange = this._dropdownChange.bind(this)
+	}
 
-		this._getItems()
+	componentDidMount() {
+		this.willFocusSubscription = this.props.navigation.addListener(
+			"willFocus",
+			payload => {
+				this.onRefresh()
+			}
+		)
+	}
+
+	componentWillUnmount() {
+		this.willFocusSubscription.remove()
 	}
 
 	_getItems = async (append = false) => {
 		const resp = await this.props.fetchService.fetch(
 			"/" +
 				this.state.filter +
-				"?limit=20&is_approved=false&order_by=created_at desc&page=" +
+				"?limit=10&is_approved=false&order_by=created_at desc&page=" +
 				this.state.page,
 			{
 				method: "GET"
@@ -76,7 +88,14 @@ export class Notifications extends React.Component {
 		this.setState({
 			items: newValue,
 			nextUrl: resp.nextUrl,
-			loading: false
+			loading: false,
+			refreshing: false
+		})
+	}
+
+	onRefresh = () => {
+		this.setState({ refreshing: true }, () => {
+			this._getItems()
 		})
 	}
 
@@ -227,6 +246,8 @@ export class Notifications extends React.Component {
 				keyExtractor={item => `${type}${item[key]}`}
 				ListEmptyComponent={this._renderEmpty}
 				extraData={this.state.visible}
+				onRefresh={() => this.onRefresh()}
+				refreshing={this.state.refreshing}
 			/>
 		)
 	}

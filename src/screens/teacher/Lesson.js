@@ -56,9 +56,9 @@ export class Lesson extends React.Component {
 		this._onStudentPress = this._onStudentPress.bind(this)
 		this.submit = this.submit.bind(this)
 
-		this._initializeInputs()
-		this._getAvailableHours()
+		this._getAvailableHours(true)
 		this._initializeExistingLesson()
+		this._initializeInputs()
 	}
 
 	_initializeExistingLesson = async () => {
@@ -84,6 +84,7 @@ export class Lesson extends React.Component {
 				duration: lesson.duration.toString(),
 				meetup: (lesson.meetup_place || {}).name,
 				dropoff: (lesson.dropoff_place || {}).name,
+				hours: [[lesson.date, null]],
 				hour: moment
 					.utc(lesson.date)
 					.local()
@@ -91,10 +92,11 @@ export class Lesson extends React.Component {
 			}
 		}
 		await this._getTopics()
+		console.log(this.state.allTopics)
 	}
 
 	_initializeInputs = () => {
-		let studentEditable = {}
+		let studentEditable = { below: this.renderStudents }
 		if (this.state.lesson) {
 			studentEditable = { editable: false, selectTextOnFocus: false }
 		}
@@ -112,7 +114,6 @@ export class Lesson extends React.Component {
 			},
 			studentName: {
 				iconName: "person-outline",
-				below: this.renderStudents,
 				onChangeText: (name, value) => {
 					this.onChangeText(name, value)
 					this._getStudents(value)
@@ -157,7 +158,7 @@ export class Lesson extends React.Component {
 		)
 	}
 
-	_getAvailableHours = async () => {
+	_getAvailableHours = async (append = false) => {
 		if (!this.state.date) return
 		const resp = await this.props.fetchService.fetch(
 			`/teacher/${this.props.user.teacher_id}/available_hours`,
@@ -170,8 +171,13 @@ export class Lesson extends React.Component {
 				})
 			}
 		)
+		let hours = resp.json.data
+		if (append) {
+			// we're appending available hours to the current hour of the edited lesson
+			hours = [...this.state.hours, ...resp.json.data]
+		}
 		this.setState({
-			hours: resp.json["data"]
+			hours: hours
 		})
 	}
 
@@ -480,7 +486,7 @@ export class Lesson extends React.Component {
 					desc={desc}
 					buttonPress={() => {
 						this.setState({ successVisible: false })
-						this.props.navigation.navigate("ChooseDate")
+						this.props.navigation.goBack()
 					}}
 					button={strings("teacher.new_lesson.success_button")}
 				/>

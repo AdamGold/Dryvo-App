@@ -4,7 +4,7 @@ import Modal from "react-native-modal"
 import { strings } from "../i18n"
 import Hours from "./Hours"
 import moment from "moment"
-import { fullButton, NAME_LENGTH } from "../consts"
+import { fullButton, NAME_LENGTH, DATE_FORMAT } from "../consts"
 import { getUserImage } from "../actions/utils"
 import FastImage from "react-native-fast-image"
 
@@ -84,7 +84,7 @@ export default class LessonPopup extends React.Component {
 								{moment
 									.utc(item.date)
 									.local()
-									.format("DD-MM-YYYY")}
+									.format(DATE_FORMAT)}
 							</Text>
 						</View>
 						<View style={{ ...styles.column, marginLeft: 2 }}>

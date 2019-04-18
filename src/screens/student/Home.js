@@ -4,7 +4,6 @@ import {
 	View,
 	Text,
 	StyleSheet,
-	TouchableHighlight,
 	TouchableOpacity
 } from "react-native"
 import { connect } from "react-redux"
@@ -94,6 +93,12 @@ export class Home extends React.Component {
 		)
 	}
 
+	navigateToNotifications = () => {
+		this.props.navigation.navigate("Notifications", {
+			filter: "lessons/payments"
+		})
+	}
+
 	render() {
 		return (
 			<ScrollView>
@@ -127,47 +132,53 @@ export class Home extends React.Component {
 						</Text>
 						{this.renderLesson()}
 					</ShadowRect>
-
-					<View style={styles.fullScheduleView}>
-						<TouchableHighlight
-							underlayColor="lightgray"
-							onPress={() => {
-								this.props.navigation.navigate("Schedule")
-							}}
-						>
+					<TouchableOpacity
+						underlayColor="lightgray"
+						onPress={() => {
+							this.props.navigation.navigate("Schedule")
+						}}
+						style={styles.fullScheduleView}
+					>
+						<Fragment>
 							<Text style={styles.fullSchedule}>
 								{strings("teacher.home.full_schedule")}
 							</Text>
-						</TouchableHighlight>
-						<Icon
-							size={20}
-							color="rgb(12, 116, 244)"
-							name="ios-arrow-dropleft-circle"
-							type="ionicon"
-						/>
-					</View>
+							<Icon
+								size={20}
+								color="rgb(12, 116, 244)"
+								name="ios-arrow-dropleft-circle"
+								type="ionicon"
+							/>
+						</Fragment>
+					</TouchableOpacity>
+
 					<ShadowRect>
-						<View style={{ flex: 1, flexDirection: "row" }}>
-							<Text
-								testID="monthlyAmount"
-								style={styles.rectTitle}
-							>
-								{strings("student.home.payments")}
-							</Text>
-							<View
-								style={{
-									flex: 1,
-									alignItems: "flex-end",
-									marginRight: "auto"
-								}}
-							>
-								<Icon
-									name="arrow-back"
-									type="material"
-									size={20}
-								/>
-							</View>
-						</View>
+						<TouchableOpacity
+							onPress={this.navigateToNotifications.bind(this)}
+							style={{ flex: 1, flexDirection: "row" }}
+						>
+							<Fragment>
+								<Text
+									testID="monthlyAmount"
+									style={styles.rectTitle}
+								>
+									{strings("student.home.payments")}
+								</Text>
+								<View
+									style={{
+										flex: 1,
+										alignItems: "flex-end",
+										marginRight: "auto"
+									}}
+								>
+									<Icon
+										name="arrow-back"
+										type="material"
+										size={20}
+									/>
+								</View>
+							</Fragment>
+						</TouchableOpacity>
 						<StudentPayments
 							sum={this.props.user.balance}
 							payments={this.state.payments.slice(0, 2)}
@@ -222,8 +233,9 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignSelf: "center",
 		alignItems: "center",
-		marginTop: 4,
-		marginBottom: 24
+		marginBottom: 12,
+		height: 40,
+		justifyContent: "center"
 	},
 	fullSchedule: {
 		color: "rgb(12, 116, 244)",

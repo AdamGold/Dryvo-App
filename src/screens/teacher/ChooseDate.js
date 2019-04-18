@@ -14,11 +14,17 @@ import Row from "../../components/Row"
 import UserWithPic from "../../components/UserWithPic"
 import Separator from "../../components/Separator"
 import { Icon } from "react-native-elements"
-import { MAIN_PADDING, calendarTheme, fullButton } from "../../consts"
+import {
+	MAIN_PADDING,
+	calendarTheme,
+	fullButton,
+	SHORT_API_DATE_FORMAT
+} from "../../consts"
 import Hours from "../../components/Hours"
 import { getDateAndString } from "../../actions/lessons"
 import EmptyState from "../../components/EmptyState"
 import LessonsLoader from "../../components/LessonsLoader"
+import moment from "moment"
 
 export class ChooseDate extends React.Component {
 	constructor(props) {
@@ -152,6 +158,9 @@ export class ChooseDate extends React.Component {
 					pagingEnabled={true}
 					// Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
 					minDate={Date()}
+					maxDate={moment()
+						.add(4, "months")
+						.format(SHORT_API_DATE_FORMAT)}
 					markedDates={{
 						[this.state.selected]: {
 							selected: true,

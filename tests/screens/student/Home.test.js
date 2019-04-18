@@ -6,6 +6,9 @@ import renderer from "react-test-renderer"
 import { Home } from "../../../src/screens/student/Home"
 
 const fetchService = new FetchService()
+const navigation = {
+	addListener: jest.fn()
+}
 jest.useFakeTimers()
 describe("Home", () => {
 	test("view renders correctly", () => {
@@ -26,7 +29,13 @@ describe("Home", () => {
 			JSON.stringify({ data: [{ amount: 100, student }] })
 		)
 		const tree = renderer
-			.create(<Home user={user} fetchService={fetchService} />)
+			.create(
+				<Home
+					navigation={navigation}
+					user={user}
+					fetchService={fetchService}
+				/>
+			)
 			.toJSON()
 		expect(tree).toMatchSnapshot()
 	})

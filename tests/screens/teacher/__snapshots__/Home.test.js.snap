@@ -567,41 +567,39 @@ exports[`Home view renders correctly 1`] = `
         </View>
       </View>
       <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Object {
             "alignItems": "center",
             "alignSelf": "center",
             "flex": 1,
             "flexDirection": "row",
-            "marginBottom": 24,
-            "marginTop": 4,
+            "height": 40,
+            "justifyContent": "center",
+            "marginBottom": 12,
+            "opacity": 1,
           }
         }
       >
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={null}
-        >
-          <Text
-            style={
-              Object {
-                "color": "rgb(12, 116, 244)",
-                "fontWeight": "bold",
-                "marginRight": 8,
-                "marginTop": -4,
-              }
+        <Text
+          style={
+            Object {
+              "color": "rgb(12, 116, 244)",
+              "fontWeight": "bold",
+              "marginRight": 8,
+              "marginTop": -4,
             }
-          >
-            לו״ז מלא
-          </Text>
-        </View>
+          }
+        >
+          לו״ז מלא
+        </Text>
         <View>
           <View
             style={
@@ -698,10 +696,19 @@ exports[`Home view renders correctly 1`] = `
         }
       >
         <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
           style={
             Object {
               "flex": 1,
               "flexDirection": "row",
+              "opacity": 1,
             }
           }
         >
@@ -719,20 +726,11 @@ exports[`Home view renders correctly 1`] = `
             פעילויות כספיות
           </Text>
           <View
-            accessible={true}
-            isTVSelectable={true}
-            onResponderGrant={[Function]}
-            onResponderMove={[Function]}
-            onResponderRelease={[Function]}
-            onResponderTerminate={[Function]}
-            onResponderTerminationRequest={[Function]}
-            onStartShouldSetResponder={[Function]}
             style={
               Object {
                 "alignItems": "flex-end",
                 "flex": 1,
                 "marginRight": "auto",
-                "opacity": 1,
               }
             }
           >

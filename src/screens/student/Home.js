@@ -133,7 +133,6 @@ export class Home extends React.Component {
 						{this.renderLesson()}
 					</ShadowRect>
 					<TouchableOpacity
-						underlayColor="lightgray"
 						onPress={() => {
 							this.props.navigation.navigate("Schedule")
 						}}

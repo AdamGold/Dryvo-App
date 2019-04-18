@@ -4,7 +4,6 @@ import {
 	View,
 	Text,
 	StyleSheet,
-	TouchableHighlight,
 	TouchableOpacity,
 	FlatList
 } from "react-native"
@@ -297,6 +296,19 @@ export class Home extends React.Component {
 		)
 	}
 
+	navigateToNotifications = () => {
+		this.props.navigation.navigate({
+			routeName: "Notifications",
+			params: {},
+			action: NavigationActions.navigate({
+				routeName: "Main",
+				params: {
+					filter: "lessons/payments"
+				}
+			})
+		})
+	}
+
 	render() {
 		return (
 			<ScrollView>
@@ -327,59 +339,46 @@ export class Home extends React.Component {
 					<ShadowRect style={styles.schedule}>
 						{this._renderLessons()}
 					</ShadowRect>
-
-					<View style={styles.fullScheduleView}>
-						<TouchableHighlight
-							underlayColor="lightgray"
-							onPress={() => {
-								this.props.navigation.navigate("Schedule")
-							}}
-						>
+					<TouchableOpacity
+						onPress={() => {
+							this.props.navigation.navigate("Schedule")
+						}}
+						style={styles.fullScheduleView}
+					>
+						<Fragment>
 							<Text style={styles.fullSchedule}>
 								{strings("teacher.home.full_schedule")}
 							</Text>
-						</TouchableHighlight>
-						<Icon
-							size={20}
-							color="rgb(12, 116, 244)"
-							name="ios-arrow-dropleft-circle"
-							type="ionicon"
-						/>
-					</View>
+							<Icon
+								size={20}
+								color="rgb(12, 116, 244)"
+								name="ios-arrow-dropleft-circle"
+								type="ionicon"
+							/>
+						</Fragment>
+					</TouchableOpacity>
+
 					<ShadowRect>
-						<View style={{ flex: 1, flexDirection: "row" }}>
-							<Text
-								testID="monthlyAmount"
-								style={styles.rectTitle}
-							>
-								{strings("teacher.home.monthly_amount")}
-							</Text>
-							<TouchableOpacity
-								style={{
-									flex: 1,
-									alignItems: "flex-end",
-									marginRight: "auto"
-								}}
-								onPress={() =>
-									this.props.navigation.navigate({
-										routeName: "Notifications",
-										params: {},
-										action: NavigationActions.navigate({
-											routeName: "Main",
-											params: {
-												filter: "lessons/payments"
-											}
-										})
-									})
-								}
-							>
-								<Icon
-									name="arrow-back"
-									type="material"
-									size={20}
-								/>
-							</TouchableOpacity>
-						</View>
+						<TouchableOpacity
+							onPress={this.navigateToNotifications.bind(this)}
+							style={{ flex: 1, flexDirection: "row" }}
+						>
+							<Fragment>
+								<Text
+									testID="monthlyAmount"
+									style={styles.rectTitle}
+								>
+									{strings("teacher.home.monthly_amount")}
+								</Text>
+								<View style={styles.paymentsButton}>
+									<Icon
+										name="arrow-back"
+										type="material"
+										size={20}
+									/>
+								</View>
+							</Fragment>
+						</TouchableOpacity>
 						{this._renderPayments()}
 					</ShadowRect>
 				</View>
@@ -431,8 +430,9 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignSelf: "center",
 		alignItems: "center",
-		marginTop: 4,
-		marginBottom: 24
+		marginBottom: 12,
+		height: 40,
+		justifyContent: "center"
 	},
 	fullSchedule: {
 		color: "rgb(12, 116, 244)",
@@ -473,6 +473,11 @@ const styles = StyleSheet.create({
 	noLesson: {
 		fontSize: 20,
 		alignSelf: "center"
+	},
+	paymentsButton: {
+		flex: 1,
+		alignItems: "flex-end",
+		marginRight: "auto"
 	}
 })
 

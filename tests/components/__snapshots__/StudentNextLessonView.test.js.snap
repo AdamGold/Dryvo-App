@@ -29,9 +29,27 @@ exports[`StudentNextLessonView view renders correctly 1`] = `
     <View
       style={Object {}}
     >
-      <Text>
+      <Text
+        style={
+          Object {
+            "alignSelf": "flex-start",
+          }
+        }
+      >
         איסוף
         : 
+        לא נקבע
+      </Text>
+      <Text
+        style={
+          Object {
+            "alignSelf": "flex-start",
+          }
+        }
+      >
+        הורדה
+        :
+         
         לא נקבע
       </Text>
     </View>
@@ -42,17 +60,36 @@ exports[`StudentNextLessonView view renders correctly 1`] = `
         }
       }
     >
-      <Text
+      <View
         style={
           Object {
-            "marginBottom": -8,
+            "marginTop": -8,
           }
         }
       >
-        Invalid date
-         - 
-        Invalid date
-      </Text>
+        <Text
+          style={
+            Object {
+              "fontFamily": "Assistant-Light",
+              "fontSize": 24,
+            }
+          }
+        >
+          14/03/2019
+        </Text>
+        <Text
+          style={
+            Object {
+              "alignSelf": "center",
+              "fontWeight": "bold",
+            }
+          }
+        >
+          00:00
+           - 
+          00:40
+        </Text>
+      </View>
     </View>
   </View>
 </View>

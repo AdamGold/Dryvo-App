@@ -3,6 +3,7 @@ import React from "react"
 import renderer from "react-test-renderer"
 
 import StudentNextLessonView from "../../src/components/StudentNextLessonView"
+import moment from "moment"
 
 describe("StudentNextLessonView", () => {
 	test("view renders correctly", () => {
@@ -13,7 +14,7 @@ describe("StudentNextLessonView", () => {
 					testID="test"
 					lesson={{
 						duration: 40,
-						date: new Date(Date.UTC("03-14-2019"))
+						date: new Date("03-14-2019")
 					}}
 				/>
 			)

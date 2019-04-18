@@ -19,6 +19,7 @@ import SimpleLoader from "./SimpleLoader"
 import { getUserImage } from "../actions/utils"
 import FastImage from "react-native-fast-image"
 import { NavigationActions } from "react-navigation"
+import LessonPopup from "../components/LessonPopup"
 
 export default class StudentProfile extends React.Component {
 	constructor(props) {
@@ -42,6 +43,7 @@ export default class StudentProfile extends React.Component {
 			nextLesson: "",
 			isTeacher,
 			loading: true,
+			lessonPopupVisible: false,
 			showBackButton
 		}
 
@@ -107,34 +109,39 @@ export default class StudentProfile extends React.Component {
 		}
 		return (
 			<Fragment>
-				<View style={{ flexDirection: "row" }}>
-					<Text testID="monthlyAmount" style={styles.rectTitle}>
-						{strings("teacher.new_lesson.topics", {
+				<TouchableOpacity
+					onPress={() =>
+						this.props.navigation.navigate("Topics", {
 							topics: this.state.allTopics
-						})}
-					</Text>
+						})
+					}
+					style={{ flexDirection: "row" }}
+				>
+					<Fragment>
+						<Text testID="monthlyAmount" style={styles.rectTitle}>
+							{strings("teacher.new_lesson.topics", {
+								topics: this.state.allTopics
+							})}
+						</Text>
 
-					<View
-						style={{
-							flex: 1,
-							marginLeft: "auto",
-							alignItems: "flex-end"
-						}}
-					>
-						<TouchableOpacity
-							onPress={() =>
-								this.props.navigation.navigate("Topics", {
-									topics: this.state.allTopics
-								})
-							}
+						<View
+							style={{
+								flex: 1,
+								marginLeft: "auto",
+								alignItems: "flex-end"
+							}}
 						>
 							<Icon name="arrow-back" type="material" size={20} />
-						</TouchableOpacity>
-					</View>
-				</View>
+						</View>
+					</Fragment>
+				</TouchableOpacity>
 				<TopicsList topics={this.state.combinedTopics} />
 			</Fragment>
 		)
+	}
+
+	lessonPress = () => {
+		this.setState({ lessonPopupVisible: !this.state.lessonPopupVisible })
 	}
 
 	render() {
@@ -162,9 +169,17 @@ export default class StudentProfile extends React.Component {
 							{strings("teacher.home.next_lesson")}
 						</Text>
 						<StudentNextLessonView
+							lessonPress={() => this.lessonPress()}
 							testID="lessonRowTouchable"
 							lesson={this.state.nextLesson}
 							loading={this.state.loading}
+						/>
+						<LessonPopup
+							visible={this.state.lessonPopupVisible}
+							item={this.state.nextLesson}
+							onPress={this.lessonPress}
+							testID="lessonPopup"
+							navigation={this.props.navigation}
 						/>
 					</ShadowRect>
 					<ShadowRect style={styles.rect}>

@@ -9,16 +9,23 @@ import Lesson from "./Lesson"
 import Schedule from "./Schedule"
 import Profile from "./Profile"
 import Settings from "../Settings"
+import StudentProfile from "../student/Profile"
 
 export default createBottomTabNavigator(
 	{
 		Home: createStackNavigator(
 			{
-				Home,
+				Main: createStackNavigator(
+					{ Home, StudentProfile, Lesson },
+					{
+						initialRouteKey: "Home",
+						headerMode: "none"
+					}
+				),
 				Settings
 			},
 			{
-				initialRouteName: "Home",
+				initialRouteName: "Main",
 				mode: "modal",
 				headerMode: "none",
 				navigationOptions: {
@@ -26,9 +33,21 @@ export default createBottomTabNavigator(
 				}
 			}
 		),
-		Notifications,
-		Lesson,
-		Schedule,
+		Notifications: createStackNavigator(
+			{ Main: Notifications, StudentProfile, Lesson },
+			{
+				initialRouteKey: "Main",
+				headerMode: "none"
+			}
+		),
+		AddLesson: Lesson,
+		Schedule: createStackNavigator(
+			{ Main: Schedule, StudentProfile, Lesson },
+			{
+				initialRouteKey: "Main",
+				headerMode: "none"
+			}
+		),
 		Profile
 	},
 	tabBarOptions

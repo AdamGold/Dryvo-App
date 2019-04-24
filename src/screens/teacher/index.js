@@ -68,9 +68,9 @@ export default createBottomTabNavigator(
 			}
 		},
 		Schedule: createStackNavigator(
-			{ Schedule, StudentProfile, Lesson, WorkDays },
+			{ Main: Schedule, StudentProfile, Lesson, WorkDays },
 			{
-				initialRouteKey: "Schedule",
+				initialRouteKey: "Main",
 				headerMode: "none"
 			}
 		),

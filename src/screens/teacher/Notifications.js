@@ -87,7 +87,7 @@ export class Notifications extends React.Component {
 		}
 		this.setState({
 			items: newValue,
-			nextUrl: resp.nextUrl,
+			nextUrl: resp.json["next_url"],
 			loading: false,
 			refreshing: false
 		})
@@ -110,7 +110,7 @@ export class Notifications extends React.Component {
 		this.setState({ visible: newVisible })
 	}
 
-	approve = async (type, item) => {
+	approve = async (type, item, index) => {
 		const id = item.id || item.student_id
 		const resp = await this.props.fetchService.fetch(
 			`/${type}/${id}/approve`,
@@ -118,18 +118,22 @@ export class Notifications extends React.Component {
 		)
 		if (resp) {
 			Alert.alert(strings(`teacher.notifications.${type}_approved`))
-			this._getItems()
+			let newItems = [...this.state.items]
+			newItems.splice(index, 1)
+			this.setState({ items: newItems })
 		}
 	}
 
-	delete = async (type, item) => {
+	delete = async (type, item, index) => {
 		const id = item.id || item.student_id
 		const resp = await this.props.fetchService.fetch(`/${type}/${id}`, {
 			method: "DELETE"
 		})
 		if (resp) {
 			Alert.alert(strings(`teacher.notifications.${type}_deleted`))
-			this._getItems()
+			let newItems = [...this.state.items]
+			newItems.splice(index, 1)
+			this.setState({ items: newItems })
 		}
 	}
 
@@ -164,13 +168,13 @@ export class Notifications extends React.Component {
 						}
 					>
 						<NotificationButtons
-							approve={() => this.approve("lessons", item)}
+							approve={() => this.approve("lessons", item, index)}
 							edit={() =>
 								this.props.navigation.navigate("Lesson", {
 									lesson: item
 								})
 							}
-							delete={() => this.delete("lessons", item)}
+							delete={() => this.delete("lessons", item, index)}
 						/>
 					</Notification>
 					<LessonPopup
@@ -195,8 +199,8 @@ export class Notifications extends React.Component {
 				type="new_student"
 			>
 				<NotificationButtons
-					approve={() => this.approve("student", item)}
-					delete={() => this.delete("student", item)}
+					approve={() => this.approve("student", item, index)}
+					delete={() => this.delete("student", item, index)}
 				/>
 			</Notification>
 		)
@@ -242,7 +246,7 @@ export class Notifications extends React.Component {
 			<FlatList
 				data={this.state.items}
 				renderItem={render}
-				onEndReached={this.endReached}
+				onEndReached={this.endReached.bind(this)}
 				keyExtractor={item => `${type}${item[key]}`}
 				ListEmptyComponent={this._renderEmpty}
 				extraData={this.state.visible}
@@ -256,7 +260,8 @@ export class Notifications extends React.Component {
 		if (!this.state.nextUrl) return
 		this.setState(
 			{
-				page: this.state.page + 1
+				page: this.state.page + 1,
+				nextUrl: ""
 			},
 			() => {
 				this._getItems(true)

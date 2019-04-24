@@ -22,6 +22,7 @@
 	"no_students": "לא נמצאו תלמידים",
 	"empty_topics": "עוד לא נלמדו נושאים",
 	"select_image": "בחר תמונה",
+	"delete_lesson": "ביטול השיעור",
 	"student_profile": {
 		"lessons": "שיעורים",
 		"my_teacher": "המורה שלי",

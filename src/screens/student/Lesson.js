@@ -30,6 +30,7 @@ import { fetchOrError } from "../../actions/utils"
 import { popLatestError } from "../../actions/utils"
 import SuccessModal from "../../components/SuccessModal"
 import Analytics from "appcenter-analytics"
+import { Icon } from "react-native-elements"
 
 export class Lesson extends React.Component {
 	constructor(props) {
@@ -178,6 +179,21 @@ export class Lesson extends React.Component {
 		})
 	}
 
+	delete = async () => {
+		const { lesson } = this.state
+		if (!lesson) return
+		const resp = await this.props.fetchService.fetch(
+			`/lessons/${lesson.id}`,
+			{
+				method: "DELETE"
+			}
+		)
+		if (resp) {
+			Alert.alert(strings("teacher.notifications.lessons_deleted"))
+			this.props.navigation.goBack()
+		}
+	}
+
 	renderHours = () => {
 		if (this.state.hours.length == 0) {
 			if (this.state.date) {
@@ -269,7 +285,29 @@ export class Lesson extends React.Component {
 		const fourMonthsAway = moment()
 			.add(4, "months")
 			.toDate()
-
+		let backButton, deleteButton
+		if (this.state.lesson) {
+			backButton = (
+				<TouchableOpacity
+					onPress={() => {
+						this.props.navigation.goBack()
+					}}
+					style={styles.backButton}
+				>
+					<Icon name="arrow-forward" type="material" />
+				</TouchableOpacity>
+			)
+			deleteButton = (
+				<TouchableOpacity
+					onPress={this.delete.bind(this)}
+					style={styles.deleteButton}
+				>
+					<Text style={{ color: "red" }}>
+						{strings("delete_lesson")}
+					</Text>
+				</TouchableOpacity>
+			)
+		}
 		return (
 			<View style={{ flex: 1, marginTop: 20 }}>
 				<SuccessModal
@@ -287,10 +325,12 @@ export class Lesson extends React.Component {
 					button={strings("student.new_lesson.success_button")}
 				/>
 				<View style={styles.headerRow}>
+					{backButton}
 					<PageTitle
 						style={styles.title}
 						title={strings("teacher.new_lesson.title")}
 					/>
+					{deleteButton}
 				</View>
 				<KeyboardAvoidingView
 					behavior={Platform.OS === "ios" ? "padding" : null}
@@ -385,6 +425,14 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		marginBottom: 8,
 		marginTop: 12
+	},
+	backButton: {
+		marginTop: 8
+	},
+	deleteButton: {
+		marginLeft: "auto",
+		marginTop: 6,
+		paddingRight: MAIN_PADDING
 	}
 })
 

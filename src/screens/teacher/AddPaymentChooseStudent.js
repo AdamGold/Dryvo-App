@@ -60,7 +60,8 @@ export class AddPaymentChooseStudent extends React.Component {
 		if (!this.state.nextUrl) return
 		this.setState(
 			{
-				page: this.state.page + 1
+				page: this.state.page + 1,
+				nextUrl: ""
 			},
 			() => {
 				this._getStudents()

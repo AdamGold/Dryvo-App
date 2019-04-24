@@ -168,7 +168,8 @@ export class Students extends React.Component {
 		if (!this.state.nextUrl) return
 		this.setState(
 			{
-				page: this.state.page + 1
+				page: this.state.page + 1,
+				nextUrl: ""
 			},
 			() => {
 				this._getStudents()
@@ -219,7 +220,7 @@ export class Students extends React.Component {
 			<FlatList
 				data={this.state.students}
 				renderItem={this.renderItem}
-				onEndReached={this.endReached}
+				onEndReached={this.endReached.bind(this)}
 				keyExtractor={item => `item${item.student_id}`}
 				ListEmptyComponent={this._renderEmpty}
 				keyboardShouldPersistTaps="handled"

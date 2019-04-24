@@ -92,7 +92,6 @@ export class Lesson extends React.Component {
 			}
 		}
 		await this._getTopics()
-		console.log(this.state.allTopics)
 	}
 
 	_initializeInputs = () => {
@@ -279,6 +278,21 @@ export class Lesson extends React.Component {
 		})
 	}
 
+	delete = async () => {
+		const { lesson } = this.state
+		if (!lesson) return
+		const resp = await this.props.fetchService.fetch(
+			`/lessons/${lesson.id}`,
+			{
+				method: "DELETE"
+			}
+		)
+		if (resp) {
+			Alert.alert(strings("teacher.notifications.lessons_deleted"))
+			this.props.navigation.goBack()
+		}
+	}
+
 	_onStudentPress = student => {
 		this.setState(
 			{
@@ -443,7 +457,9 @@ export class Lesson extends React.Component {
 		if (!url) return
 		const resp = await this.props.fetchService.fetch(url, { method: "GET" })
 		this.setState({
-			allTopics: resp.json["data"]
+			allTopics: resp.json["available"],
+			progress: resp.json["progress"],
+			finished: resp.json["finished"]
 		})
 	}
 
@@ -477,6 +493,20 @@ export class Lesson extends React.Component {
 			.add(4, "months")
 			.toDate()
 
+		let deleteButton
+		if (this.state.lesson) {
+			deleteButton = (
+				<TouchableOpacity
+					onPress={this.delete.bind(this)}
+					style={styles.deleteButton}
+				>
+					<Text style={{ color: "red" }}>
+						{strings("delete_lesson")}
+					</Text>
+				</TouchableOpacity>
+			)
+		}
+
 		return (
 			<View style={{ flex: 1, marginTop: 20 }}>
 				<SuccessModal
@@ -502,6 +532,7 @@ export class Lesson extends React.Component {
 						style={styles.title}
 						title={strings("teacher.new_lesson.title")}
 					/>
+					{deleteButton}
 				</View>
 				<KeyboardAvoidingView
 					behavior={Platform.OS === "ios" ? "padding" : null}
@@ -623,6 +654,11 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		marginBottom: 8,
 		marginTop: 12
+	},
+	deleteButton: {
+		marginLeft: "auto",
+		marginTop: 6,
+		paddingRight: MAIN_PADDING
 	}
 })
 

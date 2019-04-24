@@ -36,7 +36,8 @@ export class Schedule extends React.Component {
 			date,
 			selected: date.toJSON().slice(0, 10),
 			items: {},
-			visible: []
+			visible: [],
+			refreshing: false
 		}
 
 		this.onDayPress = this.onDayPress.bind(this)
@@ -55,6 +56,12 @@ export class Schedule extends React.Component {
 		this.willFocusSubscription.remove()
 	}
 
+	_onRefresh = () => {
+		this.setState({ refreshing: true }, () => {
+			this._getItems(this.state.date)
+		})
+	}
+
 	_getItems = async date => {
 		const dates = getDateAndString(date)
 		const resp = await this.props.fetchService.fetch(
@@ -69,7 +76,8 @@ export class Schedule extends React.Component {
 			items: {
 				...prevState.items,
 				[dates.dateString]: resp.json["data"]
-			}
+			},
+			refreshing: false
 		}))
 	}
 
@@ -188,6 +196,7 @@ export class Schedule extends React.Component {
 			}
 		)
 	}
+
 	render() {
 		return (
 			<View style={styles.container}>
@@ -241,6 +250,10 @@ export class Schedule extends React.Component {
 						}}
 						ItemSeparatorComponent={() => <Separator />}
 						extraData={this.state.visible}
+						// If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality. Make sure to also set the refreshing prop correctly.
+						onRefresh={this._onRefresh.bind(this)}
+						// Set this true while waiting for new data from a refresh
+						refreshing={this.state.refreshing}
 					/>
 				</View>
 			</View>

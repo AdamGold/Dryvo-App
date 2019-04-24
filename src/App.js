@@ -15,7 +15,6 @@ import SignUpNav from "./screens/auth/SignUpNav"
 import AuthLoading from "./screens/auth/AuthLoading"
 import configureStore from "./Store"
 import { setCustomText } from "react-native-global-props"
-import firebase from "react-native-firebase"
 import codePush from "react-native-code-push"
 
 const store = configureStore()

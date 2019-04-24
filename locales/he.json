@@ -216,7 +216,10 @@
 		"Lesson must have a student assigned": "על מנת להוסיף נושאים, יש להוסיף תלמיד לשיעור.",
 		"Topic does not exist": "נושא זה אינו קיים.",
 		"Network request failed": "נתקלנו בבעיה. אנא נסה שנית.",
-		"select_teacher": "אנא בחר מורה."
+		"select_teacher": "אנא בחר מורה.",
+		"There is another lesson at the same time": "בזמן זה מתקיים שיעור אחר. אנא ערוך את זמני השיעור.",
+		"Can't delete student": "לא ניתן למחוק תלמיד זה.",
+		"Not authorized": "הינך לא מורשה לבצע פעולה זו."
 	},
 	"notifications": {
 		"students": "בקשות הצטרפות",

@@ -20,6 +20,8 @@ import NotificationButtons from "./NotificationButtons"
 import Hours from "../../components/Hours"
 import moment from "moment"
 import LessonPopup from "../../components/LessonPopup"
+import { fetchOrError, popLatestError } from "../../actions/utils"
+import { API_ERROR } from "../../reducers/consts"
 
 export class Notifications extends React.Component {
 	static navigationOptions = () => {
@@ -71,6 +73,13 @@ export class Notifications extends React.Component {
 		this.willFocusSubscription.remove()
 	}
 
+	componentDidUpdate() {
+		const error = this.props.dispatch(popLatestError(API_ERROR))
+		if (error) {
+			Alert.alert(strings("errors.title"), errors(error))
+		}
+	}
+
 	_getItems = async (append = false) => {
 		const resp = await this.props.fetchService.fetch(
 			"/" +
@@ -112,9 +121,10 @@ export class Notifications extends React.Component {
 
 	approve = async (type, item, index) => {
 		const id = item.id || item.student_id
-		const resp = await this.props.fetchService.fetch(
-			`/${type}/${id}/approve`,
-			{ method: "GET" }
+		const resp = await this.props.dispatch(
+			fetchOrError(`/${type}/${id}/approve`, {
+				method: "GET"
+			})
 		)
 		if (resp) {
 			Alert.alert(strings(`teacher.notifications.${type}_approved`))
@@ -126,9 +136,11 @@ export class Notifications extends React.Component {
 
 	delete = async (type, item, index) => {
 		const id = item.id || item.student_id
-		const resp = await this.props.fetchService.fetch(`/${type}/${id}`, {
-			method: "DELETE"
-		})
+		const resp = await this.props.dispatch(
+			fetchOrError(`/${type}/${id}`, {
+				method: "DELETE"
+			})
+		)
 		if (resp) {
 			Alert.alert(strings(`teacher.notifications.${type}_deleted`))
 			let newItems = [...this.state.items]
@@ -359,7 +371,8 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
 	return {
-		fetchService: state.fetchService
+		fetchService: state.fetchService,
+		errors: state.errors
 	}
 }
 

@@ -94,7 +94,7 @@ export class AddPaymentChooseAmount extends React.Component {
 					/>
 				</View>
 				<KeyboardAvoidingView
-					behavior={Platform.OS === "ios" ? "height" : "height"}
+					behavior="height"
 					keyboardVerticalOffset={Platform.select({
 						ios: 40,
 						android: 24

@@ -78,7 +78,7 @@ export class Notifications extends React.Component {
 		const resp = await this.props.fetchService.fetch(
 			"/" +
 				this.state.filter +
-				"?limit=10&order_by=created_at desc&creator_id=" +
+				"?limit=10&order_by=created_at desc&is_approved=true&creator_id=" +
 				this.props.user.my_teacher.user.id +
 				"&page=" +
 				this.state.page,
@@ -92,7 +92,7 @@ export class Notifications extends React.Component {
 		}
 		this.setState({
 			items: newValue,
-			nextUrl: resp.nextUrl,
+			nextUrl: resp.json["next_url"],
 			loading: false,
 			refreshing: false
 		})
@@ -184,7 +184,7 @@ export class Notifications extends React.Component {
 			<FlatList
 				data={this.state.items}
 				renderItem={render}
-				onEndReached={this.endReached}
+				onEndReached={this.endReached.bind(this)}
 				keyExtractor={item => `${type}${item.id}`}
 				ListEmptyComponent={this._renderEmpty}
 				extraData={this.state.visible}
@@ -198,7 +198,8 @@ export class Notifications extends React.Component {
 		if (!this.state.nextUrl) return
 		this.setState(
 			{
-				page: this.state.page + 1
+				page: this.state.page + 1,
+				nextUrl: ""
 			},
 			() => {
 				this._getItems(true)

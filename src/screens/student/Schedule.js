@@ -42,7 +42,8 @@ export class Schedule extends React.Component {
 			date,
 			selected: date.toJSON().slice(0, 10),
 			items: {},
-			visible: []
+			visible: [],
+			refreshing: false
 		}
 
 		this.onDayPress = this.onDayPress.bind(this)
@@ -59,6 +60,12 @@ export class Schedule extends React.Component {
 
 	componentWillUnmount() {
 		this.willFocusSubscription.remove()
+	}
+
+	_onRefresh = () => {
+		this.setState({ refreshing: true }, () => {
+			this._getItems(this.state.date)
+		})
 	}
 
 	_getItems = async date => {
@@ -87,8 +94,9 @@ export class Schedule extends React.Component {
 				items[dateString] = [lesson]
 			}
 		})
-		this.setState({ items })
+		this.setState({ items, refreshing: false })
 	}
+
 	lessonPress = item => {
 		let newVisible
 		if (this.state.visible.includes(item.id)) {
@@ -221,6 +229,10 @@ export class Schedule extends React.Component {
 							textWeekDayFontSize: 16,
 							textWeekDayFontWeight: "600"
 						}}
+						// If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality. Make sure to also set the refreshing prop correctly.
+						onRefresh={this._onRefresh.bind(this)}
+						// Set this true while waiting for new data from a refresh
+						refreshing={this.state.refreshing}
 					/>
 				</View>
 			</View>

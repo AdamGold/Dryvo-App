@@ -11,17 +11,20 @@ class UserLoading extends React.Component {
 		let extra = {}
 		if (notificationData.fromNotification) {
 			navigateTo = "Notifications"
-			let params
+			let extraAction = {}
 			if (notificationData.data.hasOwnProperty("lesson")) {
-				navigateTo = "Lesson"
-				params = {
-					lesson_id: notificationData.data["lesson_id"]
-				}
+				navigateTo = "Home"
+				extraAction = NavigationActions.navigate({
+					routeName: "Lesson",
+					params: {
+						lesson_id: notificationData.data["lesson_id"]
+					}
+				})
 			}
 			extra = {
 				action: NavigationActions.navigate({
 					routeName: navigateTo,
-					params
+					action: extraAction
 				})
 			}
 		}

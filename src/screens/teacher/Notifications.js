@@ -272,6 +272,8 @@ export class Notifications extends React.Component {
 	_dropdownChange = (value, index, data) => {
 		this.setState(
 			{
+				items: [],
+				loading: true,
 				filter: value
 			},
 			() => {

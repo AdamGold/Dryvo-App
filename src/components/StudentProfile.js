@@ -4,12 +4,13 @@ import {
 	View,
 	StyleSheet,
 	Text,
-	TouchableOpacity
+	TouchableOpacity,
+	Linking
 } from "react-native"
 import { strings } from "../i18n"
 import UserWithPic from "./UserWithPic"
 import ShadowRect from "./ShadowRect"
-import { MAIN_PADDING } from "../consts"
+import { MAIN_PADDING, colors } from "../consts"
 import { Icon } from "react-native-elements"
 import TopicsList from "./TopicsList"
 import StudentPayments from "./StudentPayments"
@@ -46,8 +47,23 @@ export default class StudentProfile extends React.Component {
 			lessonPopupVisible: false,
 			showBackButton
 		}
+	}
 
-		this._handleRequests()
+	componentDidMount() {
+		this.willFocusSubscription = this.props.navigation.addListener(
+			"willFocus",
+			payload => {
+				this._handleRequests()
+			}
+		)
+	}
+
+	componentWillUnmount() {
+		this.willFocusSubscription.remove()
+	}
+
+	_callPhone = () => {
+		Linking.openURL(`tel:${this.state.student.user.phone}`)
 	}
 
 	_handleRequests = async () => {
@@ -84,6 +100,7 @@ export default class StudentProfile extends React.Component {
 			payments: payments.payments
 		})
 	}
+
 	_getTopics = async () => {
 		const resp = await this.props.fetchService.fetch(
 			`/student/${this.state.student.student_id}/topics`,
@@ -100,6 +117,32 @@ export default class StudentProfile extends React.Component {
 		this.setState({
 			allTopics: resp.json["data"],
 			combinedTopics: combinedTopics
+		})
+	}
+
+	_updateStudent = student => {
+		// called on go back from student edit
+		this.setState({ student })
+	}
+
+	_renderBadges = () => {
+		const { student } = this.state
+		const badges = {
+			eyes_check: "target",
+			doctor_check: "activity",
+			theory: "file-text",
+			green_form: "book"
+		}
+		return Object.keys(badges).map((key, index) => {
+			if (!student[key] || student[key] == "") return
+			return (
+				<View style={styles.badge} key={key}>
+					<Icon type="feather" name={`${badges[key]}`} size={24} />
+					<Text style={styles.badgeText}>
+						{strings("student_profile." + key)}
+					</Text>
+				</View>
+			)
 		})
 	}
 
@@ -203,22 +246,53 @@ export default class StudentProfile extends React.Component {
 						<UserWithPic
 							user={student.user || student}
 							extra={
-								<Text>
-									{student.new_lesson_number}{" "}
-									{strings("student_profile.lessons")}
-								</Text>
+								<View style={{ alignItems: "flex-start" }}>
+									<Text>
+										{student.new_lesson_number}{" "}
+										{strings("student_profile.lessons")}
+									</Text>
+									<TouchableOpacity
+										onPress={() =>
+											this.props.navigation.navigate(
+												"EditStudent",
+												{
+													student: this.state.student,
+													onGoBack: this
+														._updateStudent
+												}
+											)
+										}
+									>
+										<Text style={{ color: colors.blue }}>
+											{strings("student_profile.edit")}
+										</Text>
+									</TouchableOpacity>
+								</View>
 							}
 							width={54}
 							height={54}
 						/>
-						<View style={styles.badges}>
+						<View style={styles.myTeacher}>
+							<Text>{strings("student_profile.my_teacher")}</Text>
 							<FastImage
-								style={styles.badge}
+								style={styles.teacherImage}
 								source={{
 									uri: getUserImage(student.my_teacher.user)
 								}}
 							/>
 						</View>
+					</View>
+					<View style={styles.badges}>
+						{this._renderBadges()}
+						<TouchableOpacity
+							onPress={this._callPhone.bind(this)}
+							style={styles.badge}
+						>
+							<Icon type="feather" name="phone" size={24} />
+							<Text style={styles.badgeText}>
+								{strings("student_profile.contact")}
+							</Text>
+						</TouchableOpacity>
 					</View>
 					{teacherView}
 					<ShadowRect style={styles.rect}>
@@ -249,15 +323,29 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		color: "rgb(121, 121, 121)"
 	},
-	badge: {
+	teacherImage: {
 		height: 24,
 		width: 24,
 		borderRadius: 12,
 		marginLeft: 12,
 		marginTop: -2
 	},
-	badges: {
+	myTeacher: {
 		marginLeft: "auto",
-		marginTop: -6
+		marginTop: -6,
+		flexDirection: "row"
+	},
+	badges: {
+		marginTop: 24,
+		flexDirection: "row",
+		alignItems: "center",
+		justifyContent: "space-evenly"
+	},
+	badge: { padding: 12 },
+	badgeText: { marginTop: 8 },
+	greenForm: {
+		flex: 1,
+		width: "100%",
+		height: "100%"
 	}
 })

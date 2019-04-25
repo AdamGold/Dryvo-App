@@ -285,6 +285,8 @@ export class Notifications extends React.Component {
 		this.setState(
 			{
 				items: [],
+				page: 1,
+				nextUrl: "",
 				loading: true,
 				filter: value
 			},

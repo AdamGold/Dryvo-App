@@ -333,8 +333,7 @@ export class Lesson extends React.Component {
 					{deleteButton}
 				</View>
 				<KeyboardAvoidingView
-					behavior={Platform.OS === "ios" ? "position" : null}
-					keyboardVerticalOffset={62}
+					behavior={Platform.OS === "ios" ? "padding" : null}
 					style={styles.container}
 				>
 					<ScrollView

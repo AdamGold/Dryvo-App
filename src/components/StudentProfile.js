@@ -135,12 +135,27 @@ export default class StudentProfile extends React.Component {
 		}
 		return Object.keys(badges).map((key, index) => {
 			if (!student[key] || student[key] == "") return
-			return (
-				<View style={styles.badge} key={key}>
+			const content = (
+				<Fragment>
 					<Icon type="feather" name={`${badges[key]}`} size={24} />
 					<Text style={styles.badgeText}>
 						{strings("student_profile." + key)}
 					</Text>
+				</Fragment>
+			)
+			if (key == "green_form") {
+				return (
+					<TouchableOpacity
+						onPress={() => Linking.openURL(student.green_form)}
+						key={key}
+					>
+						{content}
+					</TouchableOpacity>
+				)
+			}
+			return (
+				<View style={styles.badge} key={key}>
+					{content}
 				</View>
 			)
 		})

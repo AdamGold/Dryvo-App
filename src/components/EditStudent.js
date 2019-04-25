@@ -10,7 +10,6 @@ import {
 } from "react-native"
 import { MAIN_PADDING, colors, floatButtonOnlyStyle } from "../consts"
 import { strings, errors } from "../i18n"
-import { connect } from "react-redux"
 import ShadowRect from "./ShadowRect"
 import { API_ERROR } from "../reducers/consts"
 import { fetchOrError, popLatestError, showImagePicker } from "../actions/utils"
@@ -19,7 +18,7 @@ import { Button, Icon } from "react-native-elements"
 import PageTitle from "./PageTitle"
 import { setUser } from "../actions/auth"
 
-export class EditProfile extends React.Component {
+export default class EditProfile extends React.Component {
 	constructor(props) {
 		super(props)
 		const student = this.props.navigation.getParam("student")
@@ -223,13 +222,3 @@ const styles = StyleSheet.create({
 		color: "#fff"
 	}
 })
-
-const mapStateToProps = state => {
-	return {
-		errors: state.errors,
-		fetchService: state.fetchService,
-		user: state.user
-	}
-}
-
-export default connect(mapStateToProps)(EditProfile)

@@ -28,12 +28,14 @@ export class Profile extends React.Component {
 function mapStateToProps(state) {
 	return {
 		user: state.user,
-		fetchService: state.fetchService
+		fetchService: state.fetchService,
+		errors: state.errors
 	}
 }
 const profileScreen = connect(mapStateToProps)(Profile)
+const editScreen = connect(mapStateToProps)(EditStudent)
 const profile = createStackNavigator(
-	{ Main: profileScreen, Topics, EditStudent },
+	{ Main: profileScreen, Topics, EditStudent: editScreen },
 	{
 		initialRouteName: "Main",
 		headerMode: "none",

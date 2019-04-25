@@ -2,6 +2,7 @@ import React from "react"
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
 import StudentProfile from "../../components/StudentProfile"
+import EditStudent from "../../components/EditStudent"
 import { createStackNavigator } from "react-navigation"
 import Topics from "../Topics"
 
@@ -27,14 +28,16 @@ export class Profile extends React.Component {
 function mapStateToProps(state) {
 	return {
 		user: state.user,
-		fetchService: state.fetchService
+		fetchService: state.fetchService,
+		errors: state.errors
 	}
 }
 const profileScreen = connect(mapStateToProps)(Profile)
+const editScreen = connect(mapStateToProps)(EditStudent)
 const profile = createStackNavigator(
-	{ Profile: profileScreen, Topics },
+	{ Main: profileScreen, Topics, EditStudent: editScreen },
 	{
-		initialRouteName: "Profile",
+		initialRouteName: "Main",
 		headerMode: "none",
 		navigationOptions: {
 			headerVisible: false

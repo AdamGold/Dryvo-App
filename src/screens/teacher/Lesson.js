@@ -536,7 +536,6 @@ export class Lesson extends React.Component {
 				</View>
 				<KeyboardAvoidingView
 					behavior={Platform.OS === "ios" ? "position" : null}
-					keyboardVerticalOffset={62}
 					style={styles.container}
 				>
 					<ScrollView

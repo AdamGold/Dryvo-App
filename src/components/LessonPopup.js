@@ -32,25 +32,6 @@ export default class LessonPopup extends React.Component {
 	render() {
 		const { item } = this.props
 		if (!item) return null
-		let name = strings("teacher.no_student_applied")
-		let number
-		let image
-		if (item.student) {
-			name = item.student.user.name.slice(0, NAME_LENGTH)
-			number = `${strings("teacher.home.lesson_number")} ${
-				item.lesson_number
-			}`
-			if (item.student.user.image) {
-				image = (
-					<FastImage
-						style={styles.image}
-						source={{
-							uri: getUserImage(item.student.user)
-						}}
-					/>
-				)
-			}
-		}
 		let meetup = strings("not_set")
 		if (item.meetup_place) meetup = item.meetup_place.name
 		let dropoff = strings("not_set")
@@ -61,6 +42,46 @@ export default class LessonPopup extends React.Component {
 				<Text style={styles.approved}>({strings("not_approved")})</Text>
 			)
 		}
+
+		let studentInfo
+		if (!item.student) {
+			studentInfo = (
+				<Text style={{ ...styles.title, alignSelf: "center" }}>
+					{strings("teacher.no_student_applied")}
+				</Text>
+			)
+		} else {
+			const name = item.student.user.name.slice(0, NAME_LENGTH)
+			const number = `${strings("teacher.home.lesson_number")} ${
+				item.lesson_number
+			}`
+			let image
+			if (item.student.user.image) {
+				image = (
+					<FastImage
+						style={styles.image}
+						source={{
+							uri: getUserImage(item.student.user)
+						}}
+					/>
+				)
+			}
+			studentInfo = (
+				<TouchableOpacity
+					style={styles.userRow}
+					onPress={this.navigateToProfile}
+				>
+					<Fragment>
+						<View style={styles.imageView}>{image}</View>
+						<View style={styles.userInfo}>
+							<Text style={styles.title}>{name}</Text>
+							<Text style={styles.lessonNumber}>{number}</Text>
+							{approved}
+						</View>
+					</Fragment>
+				</TouchableOpacity>
+			)
+		}
 		return (
 			<Modal
 				isVisible={this.props.visible}
@@ -69,21 +90,7 @@ export default class LessonPopup extends React.Component {
 				animationOut="fadeOut"
 			>
 				<View style={styles.popup} testID={this.props.testID}>
-					<TouchableOpacity
-						style={styles.userRow}
-						onPress={this.navigateToProfile}
-					>
-						<Fragment>
-							<View style={styles.imageView}>{image}</View>
-							<View style={styles.userInfo}>
-								<Text style={styles.title}>{name}</Text>
-								<Text style={styles.lessonNumber}>
-									{number}
-								</Text>
-								{approved}
-							</View>
-						</Fragment>
-					</TouchableOpacity>
+					{studentInfo}
 					<View style={styles.row}>
 						<View style={styles.column}>
 							<Text style={styles.titles}>

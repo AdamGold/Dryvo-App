@@ -25,10 +25,25 @@
 	"delete_lesson": "ביטול השיעור",
 	"student_profile": {
 		"lessons": "שיעורים",
-		"my_teacher": "המורה שלי",
+		"my_teacher": "המורה שלי:",
 		"in_progress_topics": "בתהליך",
 		"finished_topics": "סוימו",
-		"new_topics": "לא הותחלו"
+		"new_topics": "לא הותחלו",
+		"edit": "עריכת פרטים",
+		"contact": "צור קשר",
+		"title": "עריכת פרטי תלמיד",
+		"theory": "תיאוריה",
+		"doctor_check": "ב׳ רופא",
+		"eyes_check": "ב׳ עיניים",
+		"green_form": "טופס ירוק",
+		"edit_screen": {
+			"title": "עריכת פרטי תלמיד",
+			"theory": "תיאוריה",
+			"doctor_check": "בדיקת רופא",
+			"eyes_check": "בדיקת עיניים",
+			"number_of_old_lessons": "מספר שיעורים לפני כניסה למערכת",
+			"green_form": "טופס ירוק"
+		}
 	},
 	"signup": {
 		"name": "שם מלא",
@@ -46,7 +61,7 @@
 		"success_button": "עבור לעמוד הראשי",
 		"price": "מחיר",
 		"duration": "זמן שיעור",
-		"phone": "מספר פלאפון"
+		"phone": "מספר נייד"
 	},
 	"signin": {
 		"login_button": "התחברות",

@@ -164,7 +164,7 @@ export const getUserImage = user => {
 	}
 }
 
-export const showImagePicker = callback => {
+export const showImagePicker = (callback, sizes = {}) => {
 	const options = {
 		title: strings("select_image"),
 		storageOptions: {
@@ -173,11 +173,15 @@ export const showImagePicker = callback => {
 	}
 	ImagePicker.showImagePicker(options, response => {
 		//const source = "data:image/jpeg;base64," + response.data
+		sizes = {
+			width: sizes.width || DEFAULT_IMAGE_MAX_SIZE,
+			height: sizes.height || DEFAULT_IMAGE_MAX_SIZE
+		}
 		if (!response.didCancel && !response.error) {
 			ImageResizer.createResizedImage(
 				response.uri,
-				DEFAULT_IMAGE_MAX_SIZE,
-				DEFAULT_IMAGE_MAX_SIZE,
+				sizes.width,
+				sizes.height,
 				"JPEG",
 				100
 			)

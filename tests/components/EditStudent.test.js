@@ -2,48 +2,29 @@ import React from "react"
 
 import renderer from "react-test-renderer"
 import FetchService from "../../src/services/Fetch"
-import StudentProfile from "../../src/components/StudentProfile"
+import EditStudent from "../../src/components/EditStudent"
 
 const fetchService = new FetchService()
 const student = {
 	student_id: 1,
 	balance: 900,
 	user: { name: "test" },
-	my_teacher: { user: {} }
+	my_teacher: { user: {} },
+	number_of_old_lessons: 4,
+	eyes_check: true,
+	doctor_check: false
 }
 const navigation = {
 	navigate: jest.fn(),
-	getParam: jest.fn(),
+	getParam: param => student,
 	addListener: jest.fn()
 }
-const topics = {
-	new: [],
-	in_progress: [{ id: 1, title: "test1" }],
-	finished: [{ id: 2, title: "test2" }, { id: 3, title: "test3" }]
-}
-const payments = [{ id: 1, amount: 100 }]
-const nextLesson = [{ id: 1 }]
-fetch.mockResponseSuccess(
-	JSON.stringify({
-		data: topics
-	})
-)
 jest.useFakeTimers()
-describe("StudentProfile", () => {
+describe("EditStudent", () => {
 	test("view renders correctly -> teacher's view", () => {
-		fetch.mockResponseSuccess(
-			JSON.stringify({
-				data: nextLesson
-			})
-		)
-		fetch.mockResponseSuccess(
-			JSON.stringify({
-				data: payments
-			})
-		)
 		const tree = renderer
 			.create(
-				<StudentProfile
+				<EditStudent
 					user={{
 						...student,
 						teacher_id: 1
@@ -59,7 +40,7 @@ describe("StudentProfile", () => {
 	test("view renders correctly -> student's view", () => {
 		const tree = renderer
 			.create(
-				<StudentProfile
+				<EditStudent
 					user={student}
 					navigation={navigation}
 					fetchService={fetchService}

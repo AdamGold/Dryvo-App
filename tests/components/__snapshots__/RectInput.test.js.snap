@@ -151,3 +151,147 @@ exports[`RectInput view renders correctly 1`] = `
   </View>
 </View>
 `;
+
+exports[`RectInput view renders correctly with empty=true 1`] = `
+<View
+  accessible={true}
+  isTVSelectable={true}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "flex-start",
+      "borderBottomColor": "#f7f7f7",
+      "borderBottomWidth": 1,
+      "opacity": 1,
+      "paddingBottom": 6,
+      "paddingHorizontal": 20,
+      "paddingVertical": 12,
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "flex": 1,
+          "flexDirection": "column",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#adadad",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "marginTop": 6,
+          }
+        }
+      />
+      <View />
+    </View>
+    <View
+      style={
+        Object {
+          "marginBottom": 6,
+          "marginLeft": "auto",
+        }
+      }
+    >
+      <Text>
+        test
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`RectInput view renders correctly with switch=true 1`] = `
+<View
+  accessible={true}
+  isTVSelectable={true}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "alignItems": "flex-start",
+      "borderBottomColor": "#f7f7f7",
+      "borderBottomWidth": 1,
+      "opacity": 1,
+      "paddingBottom": 6,
+      "paddingHorizontal": 20,
+      "paddingVertical": 12,
+      "width": "100%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "flexDirection": "row",
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "flex": 1,
+          "flexDirection": "column",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#adadad",
+            "fontSize": 14,
+            "fontWeight": "bold",
+            "marginTop": 6,
+          }
+        }
+      />
+      <View />
+    </View>
+    <View
+      style={
+        Object {
+          "marginBottom": 6,
+          "marginLeft": "auto",
+        }
+      }
+    >
+      <RCTSwitch
+        accessibilityRole="button"
+        onChange={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "height": 31,
+            "width": 51,
+          }
+        }
+        value={false}
+      />
+    </View>
+  </View>
+</View>
+`;

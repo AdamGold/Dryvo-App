@@ -837,7 +837,7 @@ exports[`SignUp view renders correctly 1`] = `
                   onBlur={[Function]}
                   onChangeText={[Function]}
                   onFocus={[Function]}
-                  placeholder="מספר פלאפון"
+                  placeholder="מספר נייד"
                   secureTextEntry={false}
                   style={
                     Object {

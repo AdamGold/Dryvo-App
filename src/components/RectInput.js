@@ -4,7 +4,8 @@ import {
 	View,
 	StyleSheet,
 	TextInput,
-	Text
+	Text,
+	Switch
 } from "react-native"
 import { Icon } from "react-native-elements"
 import { colors } from "../consts"
@@ -18,7 +19,13 @@ export default class RectInput extends React.Component {
 		}
 	}
 	onPress = () => {
-		this.input.focus()
+		if (this.input) this.input.focus()
+		else if (this.props.hasOwnProperty("onPress")) {
+			this.props.onPress()
+		} else {
+			// this is a switch, toggle it
+			this.props.onChangeText(!this.props.value)
+		}
 	}
 	onFocus = () => {
 		this.setState({
@@ -35,6 +42,54 @@ export default class RectInput extends React.Component {
 	render() {
 		let iconType = "material"
 		if (this.props.iconType) iconType = this.props.iconType
+		let input,
+			leftSide,
+			iconStyle,
+			labelStyle = {}
+		if (this.props.empty) {
+			input = <View />
+			leftSide = this.props.leftSide
+			iconStyle = { marginBottom: 6 }
+			labelStyle = { marginTop: 6 }
+		} else if (!this.props.switch) {
+			input = (
+				<TextInput
+					value={this.props.value}
+					testID={this.props.testID}
+					style={{
+						...styles.input,
+						...this.props.style
+					}}
+					autoFocus={this.props.autoFocus || false}
+					ref={input => {
+						this.input = input
+					}}
+					onSubmitEditing={this.props.onSubmitEditing}
+					onFocus={this.onFocus.bind(this)}
+					onBlur={this.onBlur.bind(this)}
+					onChangeText={this.props.onChangeText}
+					secureTextEntry={this.props.secureTextEntry || false}
+				/>
+			)
+			leftSide = (
+				<Icon
+					type={iconType}
+					name={this.props.iconName}
+					color={this.state.color}
+				/>
+			)
+			iconStyle = { marginTop: 8 }
+		} else {
+			input = <View />
+			iconStyle = { marginBottom: 6 }
+			leftSide = (
+				<Switch
+					value={this.props.value}
+					onValueChange={this.props.onChangeText}
+				/>
+			)
+			labelStyle = { marginTop: 6 }
+		}
 		return (
 			<TouchableOpacity
 				style={styles.inputView}
@@ -46,38 +101,16 @@ export default class RectInput extends React.Component {
 						<Text
 							style={{
 								...styles.inputLabel,
+								...labelStyle,
 								color: this.state.color
 							}}
 						>
 							{this.props.label}
 						</Text>
-						<TextInput
-							style={styles.input}
-							value={this.props.value}
-							testID={this.props.testID}
-							style={{
-								...styles.input,
-								...this.props.style
-							}}
-							autoFocus={this.props.autoFocus || false}
-							ref={input => {
-								this.input = input
-							}}
-							onSubmitEditing={this.props.onSubmitEditing}
-							onFocus={this.onFocus.bind(this)}
-							onBlur={this.onBlur.bind(this)}
-							onChangeText={this.props.onChangeText}
-							secureTextEntry={
-								this.props.secureTextEntry || false
-							}
-						/>
+						{input}
 					</View>
-					<View style={styles.iconView}>
-						<Icon
-							type={iconType}
-							name={this.props.iconName}
-							color={this.state.color}
-						/>
+					<View style={{ ...styles.iconView, ...iconStyle }}>
+						{leftSide}
 					</View>
 				</View>
 			</TouchableOpacity>
@@ -110,8 +143,7 @@ const styles = StyleSheet.create({
 		textAlign: "right"
 	},
 	iconView: {
-		marginLeft: "auto",
-		marginTop: 8
+		marginLeft: "auto"
 	},
 	row: {
 		flexDirection: "row"

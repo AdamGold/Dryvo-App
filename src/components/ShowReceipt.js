@@ -4,7 +4,8 @@ import {
 	TouchableOpacity,
 	Text,
 	Linking,
-	Alert
+	Alert,
+	View
 } from "react-native"
 import { strings } from "../i18n"
 import { colors } from "../consts"
@@ -75,6 +76,7 @@ export default class ShowReceipt extends React.Component {
 				)
 			}
 		}
+		return <View />
 	}
 }
 

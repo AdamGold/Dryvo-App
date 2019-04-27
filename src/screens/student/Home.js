@@ -17,6 +17,7 @@ import StudentPayments from "../../components/StudentPayments"
 import StudentNextLessonView from "../../components/StudentNextLessonView"
 import { getUserImage, uploadUserImage } from "../../actions/utils"
 import UploadProfileImage from "../../components/UploadProfileImage"
+import { NavigationActions } from "react-navigation"
 
 export class Home extends React.Component {
 	static navigationOptions = () => {
@@ -105,8 +106,15 @@ export class Home extends React.Component {
 	}
 
 	navigateToNotifications = () => {
-		this.props.navigation.navigate("Notifications", {
-			filter: "lessons/payments"
+		this.props.navigation.navigate({
+			routeName: "Notifications",
+			params: {},
+			action: NavigationActions.navigate({
+				routeName: "Main",
+				params: {
+					filter: "lessons/payments"
+				}
+			})
 		})
 	}
 

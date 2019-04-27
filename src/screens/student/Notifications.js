@@ -70,7 +70,7 @@ export class Notifications extends React.Component {
 	}
 
 	onRefresh = () => {
-		this.setState({ refreshing: true }, () => {
+		this.setState({ page: 1, nextUrl: "", refreshing: true }, () => {
 			this._getItems()
 		})
 	}
@@ -117,6 +117,7 @@ export class Notifications extends React.Component {
 								item={item}
 								dispatch={this.props.dispatch}
 								user={this.props.user}
+								style={{ alignSelf: "flex-start" }}
 							/>
 						</Fragment>
 					}
@@ -222,6 +223,8 @@ export class Notifications extends React.Component {
 	_dropdownChange = (value, index, data) => {
 		this.setState(
 			{
+				page: 1,
+				nextUrl: "",
 				filter: value
 			},
 			() => {

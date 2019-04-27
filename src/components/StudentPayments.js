@@ -22,11 +22,7 @@ export default class StudentPayment extends React.Component {
 			<Row
 				style={{ ...styles.paymentRow, ...firstItemStyles }}
 				leftSide={
-					<Fragment>
-						<Text style={styles.amountOfStudent}>
-							{item.amount}₪
-						</Text>
-					</Fragment>
+					<Text style={styles.amountOfStudent}>{item.amount}₪</Text>
 				}
 				key={`payment${item.id}`}
 			>

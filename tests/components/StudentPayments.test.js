@@ -4,11 +4,13 @@ import renderer from "react-test-renderer"
 
 import StudentPayments from "../../src/components/StudentPayments"
 
+const user = { name: "test", teacher_id: 1 }
 describe("StudentPayments", () => {
 	test("view renders correctly", () => {
 		const tree = renderer
 			.create(
 				<StudentPayments
+					user={user}
 					sum={1000}
 					payments={[
 						{

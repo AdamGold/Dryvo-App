@@ -76,7 +76,13 @@ Array [
             test
           </Text>
           <View>
-            <Text>
+            <Text
+              style={
+                Object {
+                  "alignSelf": "flex-start",
+                }
+              }
+            >
               רוצה לקבוע שיעור
             </Text>
           </View>

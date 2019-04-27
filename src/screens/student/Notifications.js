@@ -18,6 +18,7 @@ import Notification from "../../components/Notification"
 import moment from "moment"
 import LessonPopup from "../../components/LessonPopup"
 import Hours from "../../components/Hours"
+import ShowReceipt from "../../components/ShowReceipt"
 
 export class Notifications extends React.Component {
 	static navigationOptions = () => {
@@ -69,7 +70,7 @@ export class Notifications extends React.Component {
 	}
 
 	onRefresh = () => {
-		this.setState({ refreshing: true }, () => {
+		this.setState({ page: 1, nextUrl: "", refreshing: true }, () => {
 			this._getItems()
 		})
 	}
@@ -108,7 +109,17 @@ export class Notifications extends React.Component {
 				style={styles.notification}
 				key={`payment${item.id}`}
 				leftSide={<Text style={styles.amount}>{item.amount}₪</Text>}
-				basic={<Text style={styles.basic}>{date}</Text>}
+				basic={
+					<Fragment>
+						<Text style={styles.basic}>{date}</Text>
+						<ShowReceipt
+							item={item}
+							dispatch={this.props.dispatch}
+							user={this.props.user}
+							style={{ alignSelf: "flex-start" }}
+						/>
+					</Fragment>
+				}
 			/>
 		)
 	}
@@ -210,6 +221,8 @@ export class Notifications extends React.Component {
 	_dropdownChange = (value, index, data) => {
 		this.setState(
 			{
+				page: 1,
+				nextUrl: "",
 				filter: value
 			},
 			() => {

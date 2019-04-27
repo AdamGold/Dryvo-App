@@ -21,7 +21,10 @@ const topics = {
 	in_progress: [{ id: 1, title: "test1" }],
 	finished: [{ id: 2, title: "test2" }, { id: 3, title: "test3" }]
 }
-const payments = [{ id: 1, amount: 100 }]
+const payments = [
+	{ id: 1, amount: 100, details: "test", pdf_link: "http://test.com" },
+	{ id: 1, amount: 100, details: "test" }
+]
 const nextLesson = [{ id: 1 }]
 fetch.mockResponseSuccess(
 	JSON.stringify({

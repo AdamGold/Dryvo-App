@@ -5,9 +5,10 @@ import {
 	StyleSheet,
 	Text,
 	TouchableOpacity,
-	Linking
+	Linking,
+	Alert
 } from "react-native"
-import { strings } from "../i18n"
+import { strings, errors } from "../i18n"
 import UserWithPic from "./UserWithPic"
 import ShadowRect from "./ShadowRect"
 import { MAIN_PADDING, colors } from "../consts"
@@ -17,10 +18,11 @@ import StudentPayments from "./StudentPayments"
 import { getPayments } from "../actions/lessons"
 import StudentNextLessonView from "./StudentNextLessonView"
 import SimpleLoader from "./SimpleLoader"
-import { getUserImage } from "../actions/utils"
+import { getUserImage, popLatestError } from "../actions/utils"
 import FastImage from "react-native-fast-image"
 import { NavigationActions } from "react-navigation"
 import LessonPopup from "../components/LessonPopup"
+import { API_ERROR } from "../reducers/consts"
 
 export default class StudentProfile extends React.Component {
 	constructor(props) {
@@ -60,6 +62,13 @@ export default class StudentProfile extends React.Component {
 
 	componentWillUnmount() {
 		this.willFocusSubscription.remove()
+	}
+
+	componentDidUpdate() {
+		const error = this.props.dispatch(popLatestError(API_ERROR))
+		if (error) {
+			Alert.alert(strings("errors.title"), errors(error))
+		}
 	}
 
 	_callPhone = () => {
@@ -248,6 +257,8 @@ export default class StudentProfile extends React.Component {
 							sum={this.state.student.balance}
 							payments={this.state.payments.slice(0, 2)}
 							loading={this.state.loading}
+							dispatch={this.props.dispatch}
+							user={this.props.user}
 						/>
 					</ShadowRect>
 				</Fragment>

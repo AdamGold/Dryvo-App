@@ -18,11 +18,14 @@ export default class Notification extends React.Component {
 					name={this.props.name}
 					user={this.props.user}
 					extra={
-						<Text>
-							{strings(
-								"teacher.notifications." + this.props.type
-							)}
-						</Text>
+						<Fragment>
+							<Text style={{ alignSelf: "flex-start" }}>
+								{strings(
+									"teacher.notifications." + this.props.type
+								)}
+							</Text>
+							{this.props.extra}
+						</Fragment>
 					}
 					width={54}
 					height={54}

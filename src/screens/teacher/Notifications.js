@@ -22,6 +22,7 @@ import moment from "moment"
 import LessonPopup from "../../components/LessonPopup"
 import { fetchOrError, popLatestError } from "../../actions/utils"
 import { API_ERROR } from "../../reducers/consts"
+import ShowReceipt from "../../components/ShowReceipt"
 
 export class Notifications extends React.Component {
 	static navigationOptions = () => {
@@ -103,7 +104,7 @@ export class Notifications extends React.Component {
 	}
 
 	onRefresh = () => {
-		this.setState({ refreshing: true }, () => {
+		this.setState({ page: 1, nextUrl: "", refreshing: true }, () => {
 			this._getItems()
 		})
 	}
@@ -234,6 +235,13 @@ export class Notifications extends React.Component {
 					name={`${item.student.user.name}`}
 					user={item.student.user}
 					type="new_payment"
+					extra={
+						<ShowReceipt
+							item={item}
+							dispatch={this.props.dispatch}
+							user={this.props.user}
+						/>
+					}
 				/>
 			</TouchableOpacity>
 		)
@@ -365,7 +373,7 @@ const styles = StyleSheet.create({
 		color: "rgb(12, 116, 244)"
 	},
 	amount: {
-		marginTop: 12,
+		marginTop: 16,
 		fontSize: 20,
 		fontWeight: "bold"
 	}
@@ -374,6 +382,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
 	return {
 		fetchService: state.fetchService,
+		user: state.user,
 		errors: state.errors
 	}
 }

@@ -18,6 +18,7 @@ import Notification from "../../components/Notification"
 import moment from "moment"
 import LessonPopup from "../../components/LessonPopup"
 import Hours from "../../components/Hours"
+import ShowReceipt from "../../components/ShowReceipt"
 
 export class Notifications extends React.Component {
 	static navigationOptions = () => {
@@ -104,12 +105,23 @@ export class Notifications extends React.Component {
 			.local()
 			.format("DD.MM.YY, HH:mm")
 		return (
-			<Notification
-				style={styles.notification}
-				key={`payment${item.id}`}
-				leftSide={<Text style={styles.amount}>{item.amount}₪</Text>}
-				basic={<Text style={styles.basic}>{date}</Text>}
-			/>
+			<Fragment>
+				<Notification
+					style={styles.notification}
+					key={`payment${item.id}`}
+					leftSide={<Text style={styles.amount}>{item.amount}₪</Text>}
+					basic={
+						<Fragment>
+							<Text style={styles.basic}>{date}</Text>
+							<ShowReceipt
+								item={item}
+								dispatch={this.props.dispatch}
+								user={this.props.user}
+							/>
+						</Fragment>
+					}
+				/>
+			</Fragment>
 		)
 	}
 

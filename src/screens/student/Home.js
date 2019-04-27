@@ -193,6 +193,8 @@ export class Home extends React.Component {
 							sum={this.props.user.balance}
 							payments={this.state.payments.slice(0, 2)}
 							loading={this.state.loading}
+							dispatch={this.props.dispatch}
+							user={this.props.user}
 						/>
 					</ShadowRect>
 				</View>

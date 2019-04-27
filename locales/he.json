@@ -23,6 +23,8 @@
 	"empty_topics": "עוד לא נלמדו נושאים",
 	"select_image": "בחר תמונה",
 	"delete_lesson": "ביטול השיעור",
+	"show_receipt": "צפה בחשבונית",
+	"show_receipt_later": "צפה לאחר מכן",
 	"student_profile": {
 		"lessons": "שיעורים",
 		"my_teacher": "המורה שלי:",
@@ -79,6 +81,9 @@
 	},
 	"teacher": {
 		"no_student_applied": "לא נרשם תלמיד",
+		"create_receipt": "צור חשבונית",
+		"receipt_created_title": "התהליך הושלם!",
+		"receipt_created_msg": "החשבונית נוצרה בהצלחה ונשלחה למייל של {{student}}.",
 		"home": {
 			"current_lesson": "שיעור נוכחי",
 			"next_lesson": "שיעור הבא",
@@ -140,7 +145,15 @@
 			"success_title": "הוספת תשלום בהצלחה!",
 			"success_desc": "תשלום של %{amount} נוסף לתלמיד %{student}.",
 			"success_button": "חזור לעמוד הראשי",
-			"join_date": "הצטרפות"
+			"join_date": "הצטרפות",
+			"cash": "מזומן",
+			"check": "צ׳ק",
+			"credit": "כרטיס אשראי",
+			"bank": "העברה בנקאית",
+			"other": "אחר",
+			"details_placeholder": "על מה התשלום? (ברירת מחדל: שיעורי נהיגה)",
+			"default_details": "שיעורי נהיגה",
+			"crn_placeholder": "ח.פ (השאר ריק אם אין)"
 		},
 		"work_days": {
 			"title_from_schedule": "שעות עבודה מיוחדות לשבוע",
@@ -234,7 +247,8 @@
 		"select_teacher": "אנא בחר מורה.",
 		"There is another lesson at the same time": "בזמן זה מתקיים שיעור אחר. אנא ערוך את זמני השיעור.",
 		"Can't delete student": "לא ניתן למחוק תלמיד זה.",
-		"Not authorized": "הינך לא מורשה לבצע פעולה זו."
+		"Not authorized": "הינך לא מורשה לבצע פעולה זו.",
+		"payment_empty_fields": "הסכום ופרטי התשלום הינם שדות חובה."
 	},
 	"notifications": {
 		"students": "בקשות הצטרפות",

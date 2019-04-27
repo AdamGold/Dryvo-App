@@ -7,6 +7,7 @@ import { DATE_FORMAT, colors } from "../consts"
 import EmptyState from "./EmptyState"
 import { strings } from "../i18n"
 import PaymentsLoader from "./PaymentsLoader"
+import ShowReceipt from "./ShowReceipt"
 
 export default class StudentPayment extends React.Component {
 	constructor(props) {
@@ -31,6 +32,12 @@ export default class StudentPayment extends React.Component {
 						.local()
 						.format(DATE_FORMAT)}
 				</Text>
+				<ShowReceipt
+					item={item}
+					dispatch={this.props.dispatch}
+					user={this.props.user}
+					style={{ marginRight: -16 }}
+				/>
 			</Row>
 		)
 	}

@@ -264,34 +264,1008 @@ exports[`AddPaymentChooseAmount view renders correctly 1`] = `
       }
     }
   >
-    <View
+    <RCTScrollView
+      keyboardDismissMode="interactive"
+      keyboardShouldPersistTaps="handled"
       style={
         Object {
-          "backgroundColor": "#f4f4f4",
-          "borderBottomWidth": 0,
-          "marginTop": 80,
-          "padding": 20,
+          "flex": 1,
         }
       }
     >
-      <TextInput
-        allowFontScaling={true}
-        autoFocus={true}
-        keyboardType="number-pad"
-        maxLength={5}
-        onChangeText={[Function]}
-        placeholder="000"
-        style={
-          Object {
-            "alignItems": "center",
-            "fontFamily": "Assistant-Light",
-            "fontSize": 80,
+      <View>
+        <View
+          style={
+            Object {
+              "backgroundColor": "#f4f4f4",
+              "borderBottomWidth": 0,
+              "padding": 20,
+            }
           }
-        }
-        underlineColorAndroid="transparent"
-        value=""
-      />
-    </View>
+        >
+          <TextInput
+            allowFontScaling={true}
+            autoFocus={true}
+            keyboardType="number-pad"
+            maxLength={5}
+            onChangeText={[Function]}
+            placeholder="000"
+            style={
+              Object {
+                "fontFamily": "Assistant-Light",
+                "fontSize": 48,
+                "textAlign": "right",
+              }
+            }
+            underlineColorAndroid="transparent"
+            value=""
+          />
+        </View>
+        <View
+          onLayout={[Function]}
+          style={
+            Object {
+              "alignSelf": "center",
+              "marginTop": 20,
+              "width": "90%",
+            }
+          }
+        >
+          <View
+            accessible={true}
+            hitSlop={
+              Object {
+                "bottom": 6,
+                "left": 4,
+                "right": 4,
+                "top": 6,
+              }
+            }
+            onResponderGrant={[Function]}
+            onResponderMove={[Function]}
+            onResponderRelease={[Function]}
+            onResponderTerminate={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            pointerEvents="box-only"
+          >
+            <View
+              onResponderRelease={[Function]}
+              onStartShouldSetResponder={[Function]}
+              pointerEvents="none"
+            >
+              <View
+                style={
+                  Object {
+                    "backgroundColor": "transparent",
+                    "borderBottomColor": "rgba(0, 0, 0, 0.38)",
+                    "borderBottomWidth": 0.5,
+                    "height": 31,
+                    "paddingBottom": 8,
+                    "paddingTop": -1,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "position": "absolute",
+                      "top": -17,
+                    }
+                  }
+                >
+                  <Text
+                    numberOfLines={1}
+                    style={
+                      Object {
+                        "color": "rgba(0, 0, 0, 0.38)",
+                        "fontSize": 12,
+                      }
+                    }
+                  >
+                    
+                  </Text>
+                </View>
+                <View
+                  style={
+                    Object {
+                      "flexDirection": "row",
+                    }
+                  }
+                >
+                  <TextInput
+                    absoluteRTLLayout={false}
+                    allowFontScaling={true}
+                    autoCapitalize="sentences"
+                    data={
+                      Array [
+                        Object {
+                          "label": "מזומן",
+                          "value": "cash",
+                        },
+                        Object {
+                          "label": "צ׳ק",
+                          "value": "check",
+                        },
+                        Object {
+                          "label": "כרטיס אשראי",
+                          "value": "credit",
+                        },
+                        Object {
+                          "label": "העברה בנקאית",
+                          "value": "bank",
+                        },
+                        Object {
+                          "label": "אחר",
+                          "value": "other",
+                        },
+                      ]
+                    }
+                    disableFullscreenUI={true}
+                    dropdownMargins={
+                      Object {
+                        "max": 40,
+                        "min": 20,
+                      }
+                    }
+                    dropdownOffset={
+                      Object {
+                        "left": 0,
+                        "top": 0,
+                      }
+                    }
+                    editable={false}
+                    itemColor="rgba(0, 0, 0, .54)"
+                    itemCount={4}
+                    itemPadding={8}
+                    labelExtractor={[Function]}
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onChangeText={[Function]}
+                    onContentSizeChange={[Function]}
+                    onFocus={[Function]}
+                    propsExtractor={[Function]}
+                    renderAccessory={[Function]}
+                    rippleDuration={400}
+                    selectionColor="rgb(0, 145, 234)"
+                    shadeOpacity={0.12}
+                    style={
+                      Array [
+                        Object {
+                          "flex": 1,
+                          "margin": 0,
+                          "padding": 0,
+                          "top": 2,
+                        },
+                        Object {
+                          "color": "rgba(0, 0, 0, .87)",
+                          "fontSize": 16,
+                          "height": 24,
+                          "textAlign": "left",
+                        },
+                        undefined,
+                      ]
+                    }
+                    underlineColorAndroid="transparent"
+                    useNativeDriver={false}
+                    value="מזומן"
+                    valueExtractor={[Function]}
+                  />
+                  <View
+                    style={
+                      Object {
+                        "alignSelf": "flex-start",
+                        "justifyContent": "center",
+                        "top": 2,
+                      }
+                    }
+                  >
+                    <View
+                      style={
+                        Object {
+                          "alignItems": "center",
+                          "height": 24,
+                          "justifyContent": "center",
+                          "width": 24,
+                        }
+                      }
+                    >
+                      <View
+                        style={
+                          Object {
+                            "alignItems": "center",
+                            "backgroundColor": "transparent",
+                            "height": 6,
+                            "overflow": "hidden",
+                            "width": 12,
+                          }
+                        }
+                      >
+                        <View
+                          style={
+                            Array [
+                              Object {
+                                "height": 8,
+                                "transform": Array [
+                                  Object {
+                                    "translateY": -4,
+                                  },
+                                  Object {
+                                    "rotate": "45deg",
+                                  },
+                                ],
+                                "width": 8,
+                              },
+                              Object {
+                                "backgroundColor": "rgba(0, 0, 0, .38)",
+                              },
+                            ]
+                          }
+                        />
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+              <View
+                style={
+                  Object {
+                    "flexDirection": "row",
+                    "height": 8,
+                  }
+                }
+              >
+                <View
+                  style={
+                    Object {
+                      "flex": 1,
+                    }
+                  }
+                >
+                  <View
+                    style={
+                      Object {
+                        "alignItems": "flex-start",
+                        "bottom": 0,
+                        "left": 0,
+                        "paddingVertical": 4,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
+                      }
+                    }
+                  >
+                    <Text
+                      numberOfLines={1}
+                      style={
+                        Object {
+                          "backgroundColor": "transparent",
+                          "color": "rgb(213, 0, 0)",
+                          "fontSize": 0,
+                          "opacity": 0,
+                        }
+                      }
+                    />
+                  </View>
+                  <View
+                    style={
+                      Object {
+                        "alignItems": "flex-start",
+                        "bottom": 0,
+                        "left": 0,
+                        "paddingVertical": 4,
+                        "position": "absolute",
+                        "right": 0,
+                        "top": 0,
+                      }
+                    }
+                  >
+                    <Text
+                      numberOfLines={1}
+                      style={
+                        Object {
+                          "backgroundColor": "transparent",
+                          "color": "rgba(0, 0, 0, .38)",
+                          "fontSize": 12,
+                          "opacity": 1,
+                        }
+                      }
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+            <View
+              accessible={true}
+              onLayout={[Function]}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onRippleAnimation={[Function]}
+              onStartShouldSetResponder={[Function]}
+              pointerEvents="box-only"
+              rippleCentered={false}
+              rippleColor="rgba(0, 0, 0, .38)"
+              rippleDuration={400}
+              rippleFades={true}
+              rippleOpacity={0.54}
+              rippleSequential={true}
+              rippleSize={0}
+              style={
+                Object {
+                  "height": 48,
+                  "left": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 16,
+                }
+              }
+            >
+              <View
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "transparent",
+                      "bottom": 0,
+                      "left": 0,
+                      "overflow": "hidden",
+                      "position": "absolute",
+                      "right": 0,
+                      "top": 0,
+                    },
+                    Object {
+                      "borderRadius": 0,
+                    },
+                  ]
+                }
+              />
+            </View>
+          </View>
+          <Modal
+            hardwareAccelerated={false}
+            onRequestClose={[Function]}
+            supportedOrientations={
+              Array [
+                "portrait",
+                "portrait-upside-down",
+                "landscape",
+                "landscape-left",
+                "landscape-right",
+              ]
+            }
+            transparent={true}
+            visible={false}
+          >
+            <View
+              onResponderRelease={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "bottom": 0,
+                  "left": 0,
+                  "opacity": 0,
+                  "position": "absolute",
+                  "right": 0,
+                  "top": 0,
+                }
+              }
+            >
+              <View
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Array [
+                    Object {
+                      "backgroundColor": "rgba(255, 255, 255, 1.0)",
+                      "borderRadius": 2,
+                      "position": "absolute",
+                      "shadowColor": "rgba(0, 0, 0, 1.0)",
+                      "shadowOffset": Object {
+                        "height": 2,
+                        "width": 0,
+                      },
+                      "shadowOpacity": 0.54,
+                      "shadowRadius": 2,
+                    },
+                    Object {
+                      "height": 176,
+                      "left": undefined,
+                      "top": undefined,
+                      "transform": Array [
+                        Object {
+                          "translateY": -48,
+                        },
+                      ],
+                      "width": undefined,
+                    },
+                    undefined,
+                  ]
+                }
+              >
+                <RCTScrollView
+                  contentContainerStyle={
+                    Object {
+                      "paddingVertical": 8,
+                    }
+                  }
+                  data={
+                    Array [
+                      Object {
+                        "label": "מזומן",
+                        "value": "cash",
+                      },
+                      Object {
+                        "label": "צ׳ק",
+                        "value": "check",
+                      },
+                      Object {
+                        "label": "כרטיס אשראי",
+                        "value": "credit",
+                      },
+                      Object {
+                        "label": "העברה בנקאית",
+                        "value": "bank",
+                      },
+                      Object {
+                        "label": "אחר",
+                        "value": "other",
+                      },
+                    ]
+                  }
+                  disableVirtualization={false}
+                  getItem={[Function]}
+                  getItemCount={[Function]}
+                  horizontal={false}
+                  initialNumToRender={10}
+                  keyExtractor={[Function]}
+                  maxToRenderPerBatch={10}
+                  numColumns={1}
+                  onContentSizeChange={[Function]}
+                  onEndReachedThreshold={2}
+                  onLayout={[Function]}
+                  onMomentumScrollEnd={[Function]}
+                  onScroll={[Function]}
+                  onScrollBeginDrag={[Function]}
+                  onScrollEndDrag={[Function]}
+                  renderItem={[Function]}
+                  scrollEnabled={true}
+                  scrollEventThrottle={50}
+                  stickyHeaderIndices={Array []}
+                  style={
+                    Object {
+                      "borderRadius": 2,
+                      "flex": 1,
+                    }
+                  }
+                  updateCellsBatchingPeriod={50}
+                  viewabilityConfigCallbackPairs={Array []}
+                  windowSize={21}
+                >
+                  <View>
+                    <View
+                      onLayout={[Function]}
+                      style={null}
+                    >
+                      <View
+                        accessible={true}
+                        focusAnimation={null}
+                        focusAnimationDuration={225}
+                        hitSlop={
+                          Object {
+                            "bottom": 6,
+                            "left": 4,
+                            "right": 4,
+                            "top": 6,
+                          }
+                        }
+                        onLayout={[Function]}
+                        onPress={[Function]}
+                        onPressIn={[Function]}
+                        onPressOut={[Function]}
+                        onResponderGrant={[Function]}
+                        onResponderMove={[Function]}
+                        onResponderRelease={[Function]}
+                        onResponderTerminate={[Function]}
+                        onResponderTerminationRequest={[Function]}
+                        onStartShouldSetResponder={[Function]}
+                        pointerEvents="box-only"
+                        rippleCentered={false}
+                        rippleColor="rgba(0, 0, 0, .38)"
+                        rippleDuration={400}
+                        rippleFades={true}
+                        rippleOpacity={0.54}
+                        rippleSequential={true}
+                        rippleSize={0}
+                        style={
+                          Object {
+                            "backgroundColor": "transparent",
+                            "borderRadius": 0,
+                            "height": 40,
+                            "justifyContent": "center",
+                            "paddingLeft": undefined,
+                            "paddingRight": undefined,
+                            "paddingVertical": 8,
+                          }
+                        }
+                      >
+                        <Text
+                          numberOfLines={1}
+                          style={
+                            Array [
+                              Object {
+                                "textAlign": "left",
+                              },
+                              undefined,
+                              Object {
+                                "color": "rgba(0, 0, 0, .87)",
+                                "fontSize": 16,
+                              },
+                            ]
+                          }
+                        >
+                          מזומן
+                        </Text>
+                        <View
+                          style={
+                            Object {
+                              "backgroundColor": "rgba(0, 0, 0, .38)",
+                              "borderRadius": 0,
+                              "bottom": 0,
+                              "left": 0,
+                              "opacity": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        />
+                        <View
+                          style={
+                            Array [
+                              Object {
+                                "backgroundColor": "transparent",
+                                "bottom": 0,
+                                "left": 0,
+                                "overflow": "hidden",
+                                "position": "absolute",
+                                "right": 0,
+                                "top": 0,
+                              },
+                              Object {
+                                "borderRadius": 0,
+                              },
+                            ]
+                          }
+                        />
+                      </View>
+                    </View>
+                    <View
+                      onLayout={[Function]}
+                      style={null}
+                    >
+                      <View
+                        accessible={true}
+                        focusAnimation={null}
+                        focusAnimationDuration={225}
+                        hitSlop={
+                          Object {
+                            "bottom": 6,
+                            "left": 4,
+                            "right": 4,
+                            "top": 6,
+                          }
+                        }
+                        onLayout={[Function]}
+                        onPress={[Function]}
+                        onPressIn={[Function]}
+                        onPressOut={[Function]}
+                        onResponderGrant={[Function]}
+                        onResponderMove={[Function]}
+                        onResponderRelease={[Function]}
+                        onResponderTerminate={[Function]}
+                        onResponderTerminationRequest={[Function]}
+                        onStartShouldSetResponder={[Function]}
+                        pointerEvents="box-only"
+                        rippleCentered={false}
+                        rippleColor="rgba(0, 0, 0, .38)"
+                        rippleDuration={400}
+                        rippleFades={true}
+                        rippleOpacity={0.54}
+                        rippleSequential={true}
+                        rippleSize={0}
+                        style={
+                          Object {
+                            "backgroundColor": "transparent",
+                            "borderRadius": 0,
+                            "height": 40,
+                            "justifyContent": "center",
+                            "paddingLeft": undefined,
+                            "paddingRight": undefined,
+                            "paddingVertical": 8,
+                          }
+                        }
+                      >
+                        <Text
+                          numberOfLines={1}
+                          style={
+                            Array [
+                              Object {
+                                "textAlign": "left",
+                              },
+                              undefined,
+                              Object {
+                                "color": "rgba(0, 0, 0, .87)",
+                                "fontSize": 16,
+                              },
+                            ]
+                          }
+                        >
+                          צ׳ק
+                        </Text>
+                        <View
+                          style={
+                            Object {
+                              "backgroundColor": "rgba(0, 0, 0, .38)",
+                              "borderRadius": 0,
+                              "bottom": 0,
+                              "left": 0,
+                              "opacity": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        />
+                        <View
+                          style={
+                            Array [
+                              Object {
+                                "backgroundColor": "transparent",
+                                "bottom": 0,
+                                "left": 0,
+                                "overflow": "hidden",
+                                "position": "absolute",
+                                "right": 0,
+                                "top": 0,
+                              },
+                              Object {
+                                "borderRadius": 0,
+                              },
+                            ]
+                          }
+                        />
+                      </View>
+                    </View>
+                    <View
+                      onLayout={[Function]}
+                      style={null}
+                    >
+                      <View
+                        accessible={true}
+                        focusAnimation={null}
+                        focusAnimationDuration={225}
+                        hitSlop={
+                          Object {
+                            "bottom": 6,
+                            "left": 4,
+                            "right": 4,
+                            "top": 6,
+                          }
+                        }
+                        onLayout={[Function]}
+                        onPress={[Function]}
+                        onPressIn={[Function]}
+                        onPressOut={[Function]}
+                        onResponderGrant={[Function]}
+                        onResponderMove={[Function]}
+                        onResponderRelease={[Function]}
+                        onResponderTerminate={[Function]}
+                        onResponderTerminationRequest={[Function]}
+                        onStartShouldSetResponder={[Function]}
+                        pointerEvents="box-only"
+                        rippleCentered={false}
+                        rippleColor="rgba(0, 0, 0, .38)"
+                        rippleDuration={400}
+                        rippleFades={true}
+                        rippleOpacity={0.54}
+                        rippleSequential={true}
+                        rippleSize={0}
+                        style={
+                          Object {
+                            "backgroundColor": "transparent",
+                            "borderRadius": 0,
+                            "height": 40,
+                            "justifyContent": "center",
+                            "paddingLeft": undefined,
+                            "paddingRight": undefined,
+                            "paddingVertical": 8,
+                          }
+                        }
+                      >
+                        <Text
+                          numberOfLines={1}
+                          style={
+                            Array [
+                              Object {
+                                "textAlign": "left",
+                              },
+                              undefined,
+                              Object {
+                                "color": "rgba(0, 0, 0, .87)",
+                                "fontSize": 16,
+                              },
+                            ]
+                          }
+                        >
+                          כרטיס אשראי
+                        </Text>
+                        <View
+                          style={
+                            Object {
+                              "backgroundColor": "rgba(0, 0, 0, .38)",
+                              "borderRadius": 0,
+                              "bottom": 0,
+                              "left": 0,
+                              "opacity": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        />
+                        <View
+                          style={
+                            Array [
+                              Object {
+                                "backgroundColor": "transparent",
+                                "bottom": 0,
+                                "left": 0,
+                                "overflow": "hidden",
+                                "position": "absolute",
+                                "right": 0,
+                                "top": 0,
+                              },
+                              Object {
+                                "borderRadius": 0,
+                              },
+                            ]
+                          }
+                        />
+                      </View>
+                    </View>
+                    <View
+                      onLayout={[Function]}
+                      style={null}
+                    >
+                      <View
+                        accessible={true}
+                        focusAnimation={null}
+                        focusAnimationDuration={225}
+                        hitSlop={
+                          Object {
+                            "bottom": 6,
+                            "left": 4,
+                            "right": 4,
+                            "top": 6,
+                          }
+                        }
+                        onLayout={[Function]}
+                        onPress={[Function]}
+                        onPressIn={[Function]}
+                        onPressOut={[Function]}
+                        onResponderGrant={[Function]}
+                        onResponderMove={[Function]}
+                        onResponderRelease={[Function]}
+                        onResponderTerminate={[Function]}
+                        onResponderTerminationRequest={[Function]}
+                        onStartShouldSetResponder={[Function]}
+                        pointerEvents="box-only"
+                        rippleCentered={false}
+                        rippleColor="rgba(0, 0, 0, .38)"
+                        rippleDuration={400}
+                        rippleFades={true}
+                        rippleOpacity={0.54}
+                        rippleSequential={true}
+                        rippleSize={0}
+                        style={
+                          Object {
+                            "backgroundColor": "transparent",
+                            "borderRadius": 0,
+                            "height": 40,
+                            "justifyContent": "center",
+                            "paddingLeft": undefined,
+                            "paddingRight": undefined,
+                            "paddingVertical": 8,
+                          }
+                        }
+                      >
+                        <Text
+                          numberOfLines={1}
+                          style={
+                            Array [
+                              Object {
+                                "textAlign": "left",
+                              },
+                              undefined,
+                              Object {
+                                "color": "rgba(0, 0, 0, .87)",
+                                "fontSize": 16,
+                              },
+                            ]
+                          }
+                        >
+                          העברה בנקאית
+                        </Text>
+                        <View
+                          style={
+                            Object {
+                              "backgroundColor": "rgba(0, 0, 0, .38)",
+                              "borderRadius": 0,
+                              "bottom": 0,
+                              "left": 0,
+                              "opacity": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        />
+                        <View
+                          style={
+                            Array [
+                              Object {
+                                "backgroundColor": "transparent",
+                                "bottom": 0,
+                                "left": 0,
+                                "overflow": "hidden",
+                                "position": "absolute",
+                                "right": 0,
+                                "top": 0,
+                              },
+                              Object {
+                                "borderRadius": 0,
+                              },
+                            ]
+                          }
+                        />
+                      </View>
+                    </View>
+                    <View
+                      onLayout={[Function]}
+                      style={null}
+                    >
+                      <View
+                        accessible={true}
+                        focusAnimation={null}
+                        focusAnimationDuration={225}
+                        hitSlop={
+                          Object {
+                            "bottom": 6,
+                            "left": 4,
+                            "right": 4,
+                            "top": 6,
+                          }
+                        }
+                        onLayout={[Function]}
+                        onPress={[Function]}
+                        onPressIn={[Function]}
+                        onPressOut={[Function]}
+                        onResponderGrant={[Function]}
+                        onResponderMove={[Function]}
+                        onResponderRelease={[Function]}
+                        onResponderTerminate={[Function]}
+                        onResponderTerminationRequest={[Function]}
+                        onStartShouldSetResponder={[Function]}
+                        pointerEvents="box-only"
+                        rippleCentered={false}
+                        rippleColor="rgba(0, 0, 0, .38)"
+                        rippleDuration={400}
+                        rippleFades={true}
+                        rippleOpacity={0.54}
+                        rippleSequential={true}
+                        rippleSize={0}
+                        style={
+                          Object {
+                            "backgroundColor": "transparent",
+                            "borderRadius": 0,
+                            "height": 40,
+                            "justifyContent": "center",
+                            "paddingLeft": undefined,
+                            "paddingRight": undefined,
+                            "paddingVertical": 8,
+                          }
+                        }
+                      >
+                        <Text
+                          numberOfLines={1}
+                          style={
+                            Array [
+                              Object {
+                                "textAlign": "left",
+                              },
+                              undefined,
+                              Object {
+                                "color": "rgba(0, 0, 0, .87)",
+                                "fontSize": 16,
+                              },
+                            ]
+                          }
+                        >
+                          אחר
+                        </Text>
+                        <View
+                          style={
+                            Object {
+                              "backgroundColor": "rgba(0, 0, 0, .38)",
+                              "borderRadius": 0,
+                              "bottom": 0,
+                              "left": 0,
+                              "opacity": 0,
+                              "position": "absolute",
+                              "right": 0,
+                              "top": 0,
+                            }
+                          }
+                        />
+                        <View
+                          style={
+                            Array [
+                              Object {
+                                "backgroundColor": "transparent",
+                                "bottom": 0,
+                                "left": 0,
+                                "overflow": "hidden",
+                                "position": "absolute",
+                                "right": 0,
+                                "top": 0,
+                              },
+                              Object {
+                                "borderRadius": 0,
+                              },
+                            ]
+                          }
+                        />
+                      </View>
+                    </View>
+                  </View>
+                </RCTScrollView>
+              </View>
+            </View>
+          </Modal>
+        </View>
+        <TextInput
+          allowFontScaling={true}
+          onChangeText={[Function]}
+          placeholder="על מה התשלום? (ברירת מחדל: שיעורי נהיגה)"
+          style={
+            Object {
+              "backgroundColor": "#f4f4f4",
+              "marginTop": 12,
+              "padding": 20,
+              "textAlign": "right",
+            }
+          }
+          underlineColorAndroid="transparent"
+          value=""
+        />
+        <TextInput
+          allowFontScaling={true}
+          onChangeText={[Function]}
+          placeholder="ח.פ (השאר ריק אם אין)"
+          style={
+            Object {
+              "backgroundColor": "#f4f4f4",
+              "marginTop": 12,
+              "padding": 20,
+              "textAlign": "right",
+            }
+          }
+          underlineColorAndroid="transparent"
+          value=""
+        />
+      </View>
+    </RCTScrollView>
     <View
       accessible={true}
       isTVSelectable={true}

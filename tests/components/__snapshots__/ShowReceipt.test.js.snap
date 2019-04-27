@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ShowReceipt view renders correctly for student 1`] = `
+<View
+  accessible={true}
+  isTVSelectable={true}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "color": "rgb(12,116,244)",
+        "fontWeight": "bold",
+      }
+    }
+  >
+    צפה בחשבונית
+  </Text>
+</View>
+`;
+
+exports[`ShowReceipt view renders correctly for student without actual pdf link (should be empty view) 1`] = `<View />`;
+
+exports[`ShowReceipt view renders correctly for teacher 1`] = `
+<View
+  accessible={true}
+  isTVSelectable={true}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Object {
+      "opacity": 1,
+    }
+  }
+>
+  <Text
+    style={
+      Object {
+        "color": "rgb(12,116,244)",
+        "fontWeight": "bold",
+      }
+    }
+  >
+    צור חשבונית
+  </Text>
+</View>
+`;

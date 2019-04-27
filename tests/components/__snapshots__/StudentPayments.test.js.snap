@@ -97,6 +97,33 @@ Array [
             >
               Invalid date
             </Text>
+            <View
+              accessible={true}
+              isTVSelectable={true}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "marginRight": -16,
+                  "opacity": 1,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "rgb(12,116,244)",
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                צור חשבונית
+              </Text>
+            </View>
           </View>
           <View
             style={
@@ -137,6 +164,33 @@ Array [
             >
               Invalid date
             </Text>
+            <View
+              accessible={true}
+              isTVSelectable={true}
+              onResponderGrant={[Function]}
+              onResponderMove={[Function]}
+              onResponderRelease={[Function]}
+              onResponderTerminate={[Function]}
+              onResponderTerminationRequest={[Function]}
+              onStartShouldSetResponder={[Function]}
+              style={
+                Object {
+                  "marginRight": -16,
+                  "opacity": 1,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "rgb(12,116,244)",
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                צור חשבונית
+              </Text>
+            </View>
           </View>
           <View
             style={

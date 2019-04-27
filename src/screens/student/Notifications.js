@@ -105,24 +105,22 @@ export class Notifications extends React.Component {
 			.local()
 			.format("DD.MM.YY, HH:mm")
 		return (
-			<Fragment>
-				<Notification
-					style={styles.notification}
-					key={`payment${item.id}`}
-					leftSide={<Text style={styles.amount}>{item.amount}₪</Text>}
-					basic={
-						<Fragment>
-							<Text style={styles.basic}>{date}</Text>
-							<ShowReceipt
-								item={item}
-								dispatch={this.props.dispatch}
-								user={this.props.user}
-								style={{ alignSelf: "flex-start" }}
-							/>
-						</Fragment>
-					}
-				/>
-			</Fragment>
+			<Notification
+				style={styles.notification}
+				key={`payment${item.id}`}
+				leftSide={<Text style={styles.amount}>{item.amount}₪</Text>}
+				basic={
+					<Fragment>
+						<Text style={styles.basic}>{date}</Text>
+						<ShowReceipt
+							item={item}
+							dispatch={this.props.dispatch}
+							user={this.props.user}
+							style={{ alignSelf: "flex-start" }}
+						/>
+					</Fragment>
+				}
+			/>
 		)
 	}
 

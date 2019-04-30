@@ -8,7 +8,8 @@ import {
 	TextInput,
 	KeyboardAvoidingView,
 	Platform,
-	Alert
+	Alert,
+	Switch
 } from "react-native"
 import { connect } from "react-redux"
 import { strings, errors } from "../../i18n"
@@ -38,7 +39,8 @@ export class AddPaymentChooseAmount extends React.Component {
 			crn: "",
 			details: "",
 			type: this.filterOptions[0]["value"],
-			successVisible: false
+			successVisible: false,
+			receipt: false
 		}
 
 		this.addPayment = this.addPayment.bind(this)
@@ -77,6 +79,15 @@ export class AddPaymentChooseAmount extends React.Component {
 			})
 		)
 		if (resp) {
+			if (this.state.receipt) {
+				const paymentID = resp.json["data"]["id"]
+				const respFromReceipt = await this.props.dispatch(
+					fetchOrError(`/teacher/payments/${paymentID}/receipt`, {
+						method: "GET"
+					})
+				)
+				if (!respFromReceipt) return
+			}
 			Analytics.trackEvent("Payment added", {
 				Category: "Payment",
 				state: JSON.stringify(this.state)
@@ -175,6 +186,18 @@ export class AddPaymentChooseAmount extends React.Component {
 							onChangeText={val => this.changeText("crn", val)}
 							style={styles.normalInput}
 						/>
+						<View style={styles.receipt}>
+							<Text style={styles.receiptText}>
+								{strings("teacher.add_payment.create_receipt")}
+							</Text>
+							<Switch
+								style={styles.receiptButton}
+								value={this.state.receipt}
+								onValueChange={val => {
+									this.setState({ receipt: val })
+								}}
+							/>
+						</View>
 					</ScrollView>
 					<TouchableOpacity
 						onPress={this.addPayment}
@@ -240,5 +263,14 @@ const styles = StyleSheet.create({
 	},
 	floatButton: {
 		...fullButton
-	}
+	},
+	receipt: {
+		padding: MAIN_PADDING,
+		flexDirection: "row"
+	},
+	receiptText: {
+		fontWeight: "bold",
+		marginTop: 4
+	},
+	receiptButton: { marginLeft: "auto" }
 })

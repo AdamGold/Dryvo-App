@@ -1264,6 +1264,43 @@ exports[`AddPaymentChooseAmount view renders correctly 1`] = `
           underlineColorAndroid="transparent"
           value=""
         />
+        <View
+          style={
+            Object {
+              "flexDirection": "row",
+              "padding": 26,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "fontWeight": "bold",
+                "marginTop": 4,
+              }
+            }
+          >
+            צור חשבונית כעת
+          </Text>
+          <RCTSwitch
+            accessibilityRole="button"
+            onChange={[Function]}
+            onResponderTerminationRequest={[Function]}
+            onStartShouldSetResponder={[Function]}
+            style={
+              Array [
+                Object {
+                  "height": 31,
+                  "width": 51,
+                },
+                Object {
+                  "marginLeft": "auto",
+                },
+              ]
+            }
+            value={false}
+          />
+        </View>
       </View>
     </RCTScrollView>
     <View

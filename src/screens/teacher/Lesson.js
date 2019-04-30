@@ -247,7 +247,12 @@ export class Lesson extends React.Component {
 				<Text>{strings("student.new_lesson.no_hours_available")}</Text>
 			)
 		}
+		let noDuplicates = []
 		return this.state.hours.map((hours, index) => {
+			if (noDuplicates.includes(hours[0])) {
+				return <View />
+			}
+			noDuplicates.push(hours[0])
 			let selected = false
 			let selectedTextStyle
 			if (

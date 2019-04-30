@@ -66,7 +66,9 @@ export class Notifications extends React.Component {
 				filter:
 					this.props.navigation.getParam("filter") ||
 					this.filterOptions[0]["value"],
-				loading: true
+				loading: true,
+				page: 1,
+				nextUrl: ""
 			},
 			() => {
 				this._getItems()

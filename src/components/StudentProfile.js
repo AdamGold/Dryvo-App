@@ -84,6 +84,20 @@ export default class StudentProfile extends React.Component {
 		this.setState({ loading: false })
 	}
 
+	_navigateToPayments = () => {
+		this.props.navigation.navigate({
+			routeName: "Notifications",
+			action: NavigationActions.navigate({
+				routeName: "Main",
+				params: {
+					filter: "lessons/payments",
+					extraFilter: "&student_id=" + this.state.student.student_id,
+					filterText: this.state.student.user.name
+				}
+			})
+		})
+	}
+
 	_getNextLesson = async () => {
 		const now = new Date().toISOString()
 		const resp = await this.props.fetchService.fetch(
@@ -213,7 +227,7 @@ export default class StudentProfile extends React.Component {
 
 	render() {
 		const { student } = this.state
-		let backButton
+		let backButton, contact
 		if (this.state.showBackButton) {
 			backButton = (
 				<TouchableOpacity
@@ -229,6 +243,17 @@ export default class StudentProfile extends React.Component {
 		let teacherView = <View style={{ marginTop: 20 }} />
 		if (this.state.isTeacher) {
 			// teacher is logged in, show next lesson and payments
+			contact = (
+				<TouchableOpacity
+					onPress={this._callPhone.bind(this)}
+					style={styles.badge}
+				>
+					<Icon type="feather" name="phone" size={24} />
+					<Text style={styles.badgeText}>
+						{strings("student_profile.contact")}
+					</Text>
+				</TouchableOpacity>
+			)
 			teacherView = (
 				<Fragment>
 					<ShadowRect style={{ ...styles.rect, marginTop: 20 }}>
@@ -250,9 +275,23 @@ export default class StudentProfile extends React.Component {
 						/>
 					</ShadowRect>
 					<ShadowRect style={styles.rect}>
-						<Text style={styles.rectTitle} testID="schedule">
-							{strings("teacher.students.balance")}
-						</Text>
+						<TouchableOpacity
+							onPress={this._navigateToPayments.bind(this)}
+							style={{ flex: 1, flexDirection: "row" }}
+						>
+							<Fragment>
+								<Text style={styles.rectTitle}>
+									{strings("teacher.students.balance")}
+								</Text>
+								<View style={styles.paymentsButton}>
+									<Icon
+										name="arrow-back"
+										type="material"
+										size={20}
+									/>
+								</View>
+							</Fragment>
+						</TouchableOpacity>
 						<StudentPayments
 							sum={this.state.student.balance}
 							payments={this.state.payments.slice(0, 2)}
@@ -310,15 +349,7 @@ export default class StudentProfile extends React.Component {
 					</View>
 					<View style={styles.badges}>
 						{this._renderBadges()}
-						<TouchableOpacity
-							onPress={this._callPhone.bind(this)}
-							style={styles.badge}
-						>
-							<Icon type="feather" name="phone" size={24} />
-							<Text style={styles.badgeText}>
-								{strings("student_profile.contact")}
-							</Text>
-						</TouchableOpacity>
+						{contact}
 					</View>
 					{teacherView}
 					<ShadowRect style={styles.rect}>
@@ -373,5 +404,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		width: "100%",
 		height: "100%"
-	}
+	},
+	paymentsButton: { flex: 1, alignItems: "flex-end", marginRight: "auto" }
 })

@@ -83,6 +83,7 @@ export default class ShowReceipt extends React.Component {
 const styles = StyleSheet.create({
 	receipt: {
 		color: colors.blue,
-		fontWeight: "bold"
+		fontWeight: "bold",
+		alignSelf: "flex-start"
 	}
 })

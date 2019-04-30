@@ -6,7 +6,8 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 	TouchableHighlight,
-	Alert
+	Alert,
+	Linking
 } from "react-native"
 import { connect } from "react-redux"
 import { strings, errors } from "../i18n"
@@ -144,19 +145,43 @@ export class Settings extends React.Component {
 		)
 	}
 
+	navigateToExpenses = async () => {
+		const resp = await this.props.dispatch(
+			fetchOrError("/teacher/ezcount?redirectTo=backoffice/expenses", {
+				method: "GET"
+			})
+		)
+		if (resp) {
+			Linking.openURL(resp.json["url"])
+		}
+	}
+
 	render() {
-		let workDays, extraForm
+		let extraSettings, extraForm
 		if (this.props.user.hasOwnProperty("teacher_id")) {
-			workDays = (
-				<TouchableHighlight
-					underlayColor="#f8f8f8"
-					onPress={() => this.props.navigation.navigate("WorkDays")}
-					style={styles.fullWidth}
-				>
-					<View style={styles.rectInsideView}>
-						<Text>{strings("settings.work_hours")}</Text>
-					</View>
-				</TouchableHighlight>
+			extraSettings = (
+				<Fragment>
+					<TouchableHighlight
+						underlayColor="#f8f8f8"
+						onPress={() =>
+							this.props.navigation.navigate("WorkDays")
+						}
+						style={styles.fullWidth}
+					>
+						<View style={styles.rectInsideView}>
+							<Text>{strings("settings.work_hours")}</Text>
+						</View>
+					</TouchableHighlight>
+					<TouchableHighlight
+						underlayColor="#f8f8f8"
+						onPress={this.navigateToExpenses.bind(this)}
+						style={styles.fullWidth}
+					>
+						<View style={styles.rectInsideView}>
+							<Text>{strings("settings.expenses")}</Text>
+						</View>
+					</TouchableHighlight>
+				</Fragment>
 			)
 			extraForm = (
 				<Fragment>
@@ -211,7 +236,7 @@ export class Settings extends React.Component {
 						{strings("settings.general")}
 					</Text>
 					<ShadowRect style={styles.rect}>
-						{workDays}
+						{extraSettings}
 						<TouchableHighlight
 							underlayColor="#f8f8f8"
 							onPress={this.toggleNotifications.bind(this)}

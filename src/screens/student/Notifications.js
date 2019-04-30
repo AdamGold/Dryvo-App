@@ -45,10 +45,7 @@ export class Notifications extends React.Component {
 			items: [],
 			page: 1,
 			nextUrl: "",
-			filter:
-				this.props.navigation.getParam("filter") ||
-				this.filterOptions[0]["value"],
-			loading: true,
+			filter: "",
 			refreshing: false,
 			visible: []
 		}
@@ -56,11 +53,25 @@ export class Notifications extends React.Component {
 		this._dropdownChange = this._dropdownChange.bind(this)
 	}
 
+	_onNavigationFocus = () => {
+		this.setState(
+			{
+				filter:
+					this.props.navigation.getParam("filter") ||
+					this.filterOptions[0]["value"],
+				loading: true
+			},
+			() => {
+				this._getItems()
+			}
+		)
+	}
+
 	componentDidMount() {
 		this.willFocusSubscription = this.props.navigation.addListener(
 			"willFocus",
 			payload => {
-				this.onRefresh()
+				this._onNavigationFocus()
 			}
 		)
 	}

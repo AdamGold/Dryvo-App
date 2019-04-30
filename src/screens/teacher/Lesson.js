@@ -56,9 +56,9 @@ export class Lesson extends React.Component {
 		this._onStudentPress = this._onStudentPress.bind(this)
 		this.submit = this.submit.bind(this)
 
-		this._getAvailableHours(true)
 		this._initializeExistingLesson()
 		this._initializeInputs()
+		this._getAvailableHours(true)
 	}
 
 	_initializeExistingLesson = async () => {
@@ -181,7 +181,7 @@ export class Lesson extends React.Component {
 	}
 
 	_getStudents = async (name = "") => {
-		if (name.length < 3) return
+		if (name.length < 1) return
 		const resp = await this.props.fetchService.fetch(
 			"/teacher/students?name=" + name,
 			{
@@ -536,6 +536,10 @@ export class Lesson extends React.Component {
 				</View>
 				<KeyboardAvoidingView
 					behavior={Platform.OS === "ios" ? "position" : null}
+					keyboardVerticalOffset={Platform.select({
+						ios: fullButton.height,
+						android: null
+					})}
 					style={styles.container}
 				>
 					<ScrollView

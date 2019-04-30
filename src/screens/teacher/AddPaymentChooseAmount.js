@@ -123,7 +123,7 @@ export class AddPaymentChooseAmount extends React.Component {
 					style={styles.container}
 					behavior="height"
 					keyboardVerticalOffset={Platform.select({
-						ios: 0,
+						ios: 40,
 						android: 24
 					})}
 				>

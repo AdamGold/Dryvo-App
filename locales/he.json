@@ -1,7 +1,7 @@
 {
 	"tabs": {
 		"home": "בית",
-		"notifications_title": "התראות",
+		"notifications_title": "פעילויות",
 		"add": "הוספת שיעור",
 		"students": "התלמידים שלי"
 	},
@@ -102,7 +102,9 @@
 			"lessons_approved": "השיעור אושר!",
 			"lessons_deleted": "השיעור בוטל.",
 			"student_approved": "הבקשה אושרה!",
-			"student_deleted": "הבקשה נדחתה."
+			"student_deleted": "הבקשה נדחתה.",
+			"extra_filter": "סינון:",
+			"delete_filter": "נקה סינון"
 		},
 		"new_lesson": {
 			"title": "פרטי שיעור",
@@ -153,7 +155,8 @@
 			"other": "אחר",
 			"details_placeholder": "על מה התשלום? (ברירת מחדל: שיעורי נהיגה)",
 			"default_details": "שיעורי נהיגה",
-			"crn_placeholder": "ח.פ (השאר ריק אם אין)"
+			"crn_placeholder": "ח.פ (השאר ריק אם אין)",
+			"create_receipt": "צור חשבונית כעת"
 		},
 		"work_days": {
 			"title_from_schedule": "שעות עבודה מיוחדות לשבוע",
@@ -190,7 +193,8 @@
 		"notifications_false": "כבוי",
 		"support": "תמיכה",
 		"success": "פרטים שונו בהצלחה!",
-		"teacher_info": "פרטי שיעור"
+		"teacher_info": "פרטי שיעור",
+		"expenses": "ניהול הוצאות"
 	},
 	"date": {
 		"formats": {

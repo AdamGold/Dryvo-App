@@ -56,9 +56,9 @@ export class Lesson extends React.Component {
 		this._onStudentPress = this._onStudentPress.bind(this)
 		this.submit = this.submit.bind(this)
 
-		this._getAvailableHours(true)
 		this._initializeExistingLesson()
 		this._initializeInputs()
+		this._getAvailableHours(true)
 	}
 
 	_initializeExistingLesson = async () => {
@@ -181,7 +181,7 @@ export class Lesson extends React.Component {
 	}
 
 	_getStudents = async (name = "") => {
-		if (name.length < 3) return
+		if (name.length < 2) return
 		const resp = await this.props.fetchService.fetch(
 			"/teacher/students?name=" + name,
 			{
@@ -464,11 +464,10 @@ export class Lesson extends React.Component {
 	}
 
 	buildTopicsUrl = () => {
-		if (!this.state.lesson || !this.state.student) return
 		let url = "/lessons"
 		if (this.state.lesson) {
 			return url + `/${this.state.lesson.id}/topics`
-		} else if (this.state.student) {
+		} else if (this.state.student && this.state.student.student_id) {
 			return url + `/0/topics?student_id=${this.state.student.student_id}`
 		}
 
@@ -520,22 +519,12 @@ export class Lesson extends React.Component {
 					}}
 					button={strings("teacher.new_lesson.success_button")}
 				/>
-				<View style={styles.headerRow}>
-					<Button
-						icon={<Icon name="arrow-forward" type="material" />}
-						onPress={() => {
-							this.props.navigation.goBack()
-						}}
-						type="clear"
-					/>
-					<PageTitle
-						style={styles.title}
-						title={strings("teacher.new_lesson.title")}
-					/>
-					{deleteButton}
-				</View>
 				<KeyboardAvoidingView
 					behavior={Platform.OS === "ios" ? "position" : null}
+					keyboardVerticalOffset={Platform.select({
+						ios: fullButton.height,
+						android: null
+					})}
 					style={styles.container}
 				>
 					<ScrollView
@@ -546,6 +535,25 @@ export class Lesson extends React.Component {
 						}
 						keyboardShouldPersistTaps="handled"
 					>
+						<View style={styles.headerRow}>
+							<Button
+								icon={
+									<Icon
+										name="arrow-forward"
+										type="material"
+									/>
+								}
+								onPress={() => {
+									this.props.navigation.goBack()
+								}}
+								type="clear"
+							/>
+							<PageTitle
+								style={styles.title}
+								title={strings("teacher.new_lesson.title")}
+							/>
+							{deleteButton}
+						</View>
 						<TouchableOpacity onPress={this._showDateTimePicker}>
 							<View style={styles.nonInputContainer}>
 								<Text style={styles.nonInputTitle}>

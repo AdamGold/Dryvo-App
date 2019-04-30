@@ -11,7 +11,7 @@ import {
 import { connect } from "react-redux"
 import { strings, errors } from "../../i18n"
 import PageTitle from "../../components/PageTitle"
-import { MAIN_PADDING } from "../../consts"
+import { MAIN_PADDING, colors } from "../../consts"
 import { Dropdown } from "react-native-material-dropdown"
 import EmptyState from "../../components/EmptyState"
 import StudentsLoader from "../../components/StudentsLoader"
@@ -50,22 +50,35 @@ export class Notifications extends React.Component {
 			items: [],
 			page: 1,
 			nextUrl: "",
-			filter:
-				this.props.navigation.getParam("filter") ||
-				this.filterOptions[0]["value"],
-			loading: true,
 			refreshing: false,
-			visible: []
+			visible: [],
+			filter: ""
 		}
 
 		this._dropdownChange = this._dropdownChange.bind(this)
+	}
+
+	_onNavigationFocus = () => {
+		this.setState(
+			{
+				extraFilter:
+					this.props.navigation.getParam("extraFilter") || "",
+				filter:
+					this.props.navigation.getParam("filter") ||
+					this.filterOptions[0]["value"],
+				loading: true
+			},
+			() => {
+				this._getItems()
+			}
+		)
 	}
 
 	componentDidMount() {
 		this.willFocusSubscription = this.props.navigation.addListener(
 			"willFocus",
 			payload => {
-				this.onRefresh()
+				this._onNavigationFocus()
 			}
 		)
 	}
@@ -86,7 +99,8 @@ export class Notifications extends React.Component {
 			"/" +
 				this.state.filter +
 				"?limit=10&is_approved=false&order_by=created_at desc&page=" +
-				this.state.page,
+				this.state.page +
+				this.state.extraFilter,
 			{
 				method: "GET"
 			}
@@ -296,7 +310,8 @@ export class Notifications extends React.Component {
 				page: 1,
 				nextUrl: "",
 				loading: true,
-				filter: value
+				filter: value,
+				extraFilter: ""
 			},
 			() => {
 				this._getItems()
@@ -312,7 +327,32 @@ export class Notifications extends React.Component {
 		/>
 	)
 
+	_removeExtraFilter = () => {
+		this.setState({ extraFilter: "" }, () => {
+			this._dropdownChange(this.state.filter)
+		})
+	}
+
 	render() {
+		let extraFilter
+		if (this.state.extraFilter != "") {
+			extraFilter = (
+				<View style={styles.extraFilter}>
+					<Text style={styles.filterText}>
+						{strings("teacher.notifications.extra_filter")}{" "}
+						{this.props.navigation.getParam("filterText")}{" "}
+					</Text>
+					<TouchableOpacity
+						onPress={this._removeExtraFilter.bind(this)}
+						style={styles.deleteFilter}
+					>
+						<Text style={styles.deleteFilterText}>
+							({strings("teacher.notifications.delete_filter")})
+						</Text>
+					</TouchableOpacity>
+				</View>
+			)
+		}
 		return (
 			<View style={styles.container}>
 				<View testID="NotificationsView" style={styles.notifications}>
@@ -333,6 +373,8 @@ export class Notifications extends React.Component {
 							</View>
 						}
 					/>
+					{extraFilter}
+
 					<View style={styles.items}>{this._renderItems()}</View>
 				</View>
 			</View>
@@ -376,6 +418,15 @@ const styles = StyleSheet.create({
 		marginTop: 16,
 		fontSize: 20,
 		fontWeight: "bold"
+	},
+	extraFilter: {
+		flexDirection: "row"
+	},
+	filterText: {
+		fontWeight: "bold"
+	},
+	deleteFilterText: {
+		color: colors.blue
 	}
 })
 

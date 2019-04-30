@@ -19,6 +19,7 @@ exports[`ShowReceipt view renders correctly for student 1`] = `
   <Text
     style={
       Object {
+        "alignSelf": "flex-start",
         "color": "rgb(12,116,244)",
         "fontWeight": "bold",
       }
@@ -50,6 +51,7 @@ exports[`ShowReceipt view renders correctly for teacher 1`] = `
   <Text
     style={
       Object {
+        "alignSelf": "flex-start",
         "color": "rgb(12,116,244)",
         "fontWeight": "bold",
       }

@@ -16,7 +16,7 @@ export default createBottomTabNavigator(
 		Home: createStackNavigator(
 			{
 				Main: createStackNavigator(
-					{ Home, StudentProfile, Lesson },
+					{ Home, Lesson },
 					{
 						initialRouteKey: "Home",
 						headerMode: "none"
@@ -34,7 +34,7 @@ export default createBottomTabNavigator(
 			}
 		),
 		Notifications: createStackNavigator(
-			{ Main: Notifications, StudentProfile, Lesson },
+			{ Main: Notifications, Lesson },
 			{
 				initialRouteKey: "Main",
 				headerMode: "none"
@@ -42,13 +42,13 @@ export default createBottomTabNavigator(
 		),
 		AddLesson: Lesson,
 		Schedule: createStackNavigator(
-			{ Main: Schedule, StudentProfile, Lesson },
+			{ Main: Schedule, Lesson },
 			{
 				initialRouteKey: "Main",
 				headerMode: "none"
 			}
 		),
-		Profile
+		StudentProfile: Profile
 	},
 	tabBarOptions
 )

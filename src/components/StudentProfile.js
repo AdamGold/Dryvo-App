@@ -85,16 +85,10 @@ export default class StudentProfile extends React.Component {
 	}
 
 	_navigateToPayments = () => {
-		this.props.navigation.navigate({
-			routeName: "Notifications",
-			action: NavigationActions.navigate({
-				routeName: "Main",
-				params: {
-					filter: "lessons/payments",
-					extraFilter: "&student_id=" + this.state.student.student_id,
-					filterText: this.state.student.user.name
-				}
-			})
+		this.props.navigation.navigate("Payments", {
+			filter: "lessons/payments",
+			extraFilter: "&student_id=" + this.state.student.student_id,
+			filterText: this.state.student.user.name
 		})
 	}
 

@@ -23,6 +23,8 @@ import LessonPopup from "../../components/LessonPopup"
 import { fetchOrError, popLatestError } from "../../actions/utils"
 import { API_ERROR } from "../../reducers/consts"
 import ShowReceipt from "../../components/ShowReceipt"
+import { Icon } from "react-native-elements"
+import mockStore from "../../../__mocks__/redux-mock-store"
 
 export class Notifications extends React.Component {
 	static navigationOptions = () => {
@@ -52,28 +54,33 @@ export class Notifications extends React.Component {
 			nextUrl: "",
 			refreshing: false,
 			visible: [],
-			filter: ""
+			filter: this.filterOptions[0]["value"],
+			loading: true,
+			extraFilter: ""
 		}
+
+		if (!this.props.navigation.getParam("filter")) this._getItems()
 
 		this._dropdownChange = this._dropdownChange.bind(this)
 	}
 
 	_onNavigationFocus = () => {
-		this.setState(
-			{
-				extraFilter:
-					this.props.navigation.getParam("extraFilter") || "",
-				filter:
-					this.props.navigation.getParam("filter") ||
-					this.filterOptions[0]["value"],
-				loading: true,
-				page: 1,
-				nextUrl: ""
-			},
-			() => {
-				this._getItems()
-			}
-		)
+		if (this.props.navigation.getParam("filter")) {
+			this.setState(
+				{
+					extraFilter:
+						this.props.navigation.getParam("extraFilter") || "",
+					filter: this.props.navigation.getParam("filter"),
+					loading: true,
+					page: 1,
+					nextUrl: ""
+				},
+				() => {
+					this._getItems()
+					this.props.navigation.state.params.filter = "" // reset
+				}
+			)
+		}
 	}
 
 	componentDidMount() {
@@ -336,46 +343,50 @@ export class Notifications extends React.Component {
 	}
 
 	render() {
-		let extraFilter
+		let headerLeft,
+			backButton,
+			headerStyle = {},
+			title,
+			titleStyle = {}
 		if (this.state.extraFilter != "") {
-			extraFilter = (
-				<View style={styles.extraFilter}>
-					<Text style={styles.filterText}>
-						{strings("teacher.notifications.extra_filter")}{" "}
-						{this.props.navigation.getParam("filterText")}{" "}
-					</Text>
-					<TouchableOpacity
-						onPress={this._removeExtraFilter.bind(this)}
-						style={styles.deleteFilter}
-					>
-						<Text style={styles.deleteFilterText}>
-							({strings("teacher.notifications.delete_filter")})
-						</Text>
-					</TouchableOpacity>
+			backButton = (
+				<TouchableOpacity
+					onPress={() => this.props.navigation.goBack()}
+				>
+					<Icon name="arrow-forward" type="material" />
+				</TouchableOpacity>
+			)
+			title = strings("student_profile.payments", {
+				text: this.props.navigation.getParam("filterText")
+			})
+			headerStyle = styles.headerRow
+			titleStyle = styles.title
+		} else {
+			headerLeft = (
+				<View>
+					<Dropdown
+						containerStyle={styles.dropdown}
+						value={this.state.filter}
+						data={this.filterOptions}
+						onChangeText={this._dropdownChange}
+						dropdownMargins={{ min: 0, max: 20 }}
+						dropdownOffset={{ top: 0, left: 0 }}
+						pickerStyle={{ marginTop: 60 }}
+					/>
 				</View>
 			)
 		}
 		return (
 			<View style={styles.container}>
 				<View testID="NotificationsView" style={styles.notifications}>
-					<PageTitle
-						style={styles.title}
-						title={strings("tabs.notifications_title")}
-						leftSide={
-							<View>
-								<Dropdown
-									containerStyle={styles.dropdown}
-									value={this.state.filter}
-									data={this.filterOptions}
-									onChangeText={this._dropdownChange}
-									dropdownMargins={{ min: 0, max: 20 }}
-									dropdownOffset={{ top: 0, left: 0 }}
-									pickerStyle={{ marginTop: 60 }}
-								/>
-							</View>
-						}
-					/>
-					{extraFilter}
+					<View style={headerStyle}>
+						{backButton}
+						<PageTitle
+							style={titleStyle}
+							title={title || strings("tabs.notifications_title")}
+							leftSide={headerLeft}
+						/>
+					</View>
 
 					<View style={styles.items}>{this._renderItems()}</View>
 				</View>
@@ -388,6 +399,10 @@ const styles = StyleSheet.create({
 	container: {
 		flex: 1
 	},
+	headerRow: {
+		flexDirection: "row",
+		justifyContent: "flex-start"
+	},
 	notifications: {
 		flex: 1,
 		paddingRight: MAIN_PADDING,
@@ -398,7 +413,6 @@ const styles = StyleSheet.create({
 		marginTop: 20
 	},
 	notification: {},
-	title: { marginBottom: 0 },
 	dropdown: {
 		alignSelf: "flex-end",
 		width: 160,
@@ -422,13 +436,18 @@ const styles = StyleSheet.create({
 		fontWeight: "bold"
 	},
 	extraFilter: {
-		flexDirection: "row"
+		flexDirection: "row",
+		marginTop: -8
 	},
 	filterText: {
 		fontWeight: "bold"
 	},
 	deleteFilterText: {
 		color: colors.blue
+	},
+	title: {
+		marginLeft: 8,
+		marginTop: -4
 	}
 })
 

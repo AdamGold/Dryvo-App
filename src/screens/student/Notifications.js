@@ -47,26 +47,31 @@ export class Notifications extends React.Component {
 			nextUrl: "",
 			filter: "",
 			refreshing: false,
+			filter: this.filterOptions[0]["value"],
+			loading: true,
 			visible: []
 		}
+
+		if (!this.props.navigation.getParam("filter")) this._getItems()
 
 		this._dropdownChange = this._dropdownChange.bind(this)
 	}
 
 	_onNavigationFocus = () => {
-		this.setState(
-			{
-				filter:
-					this.props.navigation.getParam("filter") ||
-					this.filterOptions[0]["value"],
-				loading: true,
-				page: 1,
-				nextUrl: ""
-			},
-			() => {
-				this._getItems()
-			}
-		)
+		if (this.props.navigation.getParam("filter")) {
+			this.setState(
+				{
+					filter: this.props.navigation.getParam("filter"),
+					loading: true,
+					page: 1,
+					nextUrl: ""
+				},
+				() => {
+					this._getItems()
+					this.props.navigation.state.params.filter = "" // reset
+				}
+			)
+		}
 	}
 
 	componentDidMount() {

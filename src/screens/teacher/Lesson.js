@@ -606,14 +606,13 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	title: {
-		marginLeft: 12,
+		marginLeft: 6,
 		marginTop: 5
 	},
 	headerRow: {
 		flexDirection: "row",
 		flex: 1,
-		maxHeight: 50,
-		paddingLeft: MAIN_PADDING
+		maxHeight: 50
 	},
 	selectedDateView: {
 		flex: 1,

@@ -45,7 +45,8 @@
 			"eyes_check": "בדיקת עיניים",
 			"number_of_old_lessons": "מספר שיעורים לפני כניסה למערכת",
 			"green_form": "טופס ירוק"
-		}
+		},
+		"payments": "תשלומים של {{text}}"
 	},
 	"signup": {
 		"name": "שם מלא",
@@ -87,7 +88,7 @@
 		"home": {
 			"current_lesson": "שיעור נוכחי",
 			"next_lesson": "שיעור הבא",
-			"monthly_amount": "פעילויות כספיות",
+			"monthly_amount": "פעילויות כספיות (חודשי)",
 			"welcome": "שלום, {{name}}",
 			"full_schedule": "לו״ז מלא",
 			"add_payment": "הוסף תשלום",

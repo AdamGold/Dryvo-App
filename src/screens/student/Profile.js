@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import { strings } from "../../i18n"
 import StudentProfile from "../../components/StudentProfile"
 import EditStudent from "../../components/EditStudent"
+import Notifications from "../teacher/Notifications"
 import { createStackNavigator } from "react-navigation"
 import Topics from "../Topics"
 
@@ -35,7 +36,12 @@ function mapStateToProps(state) {
 const profileScreen = connect(mapStateToProps)(Profile)
 const editScreen = connect(mapStateToProps)(EditStudent)
 const profile = createStackNavigator(
-	{ Main: profileScreen, Topics, EditStudent: editScreen },
+	{
+		Main: profileScreen,
+		Topics,
+		EditStudent: editScreen,
+		Payments: Notifications
+	},
 	{
 		initialRouteName: "Main",
 		headerMode: "none",

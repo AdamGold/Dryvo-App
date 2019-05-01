@@ -69,6 +69,7 @@ export class SignIn extends React.Component {
 
 	async componentWillUnmount() {
 		await deepLinkingRemoveListener(this.handleOpenURL)
+		deepLinked = false
 	}
 
 	componentDidUpdate() {

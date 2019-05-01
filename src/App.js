@@ -5,7 +5,7 @@ import {
 	createStackNavigator,
 	createAppContainer
 } from "react-navigation"
-import { SafeAreaView } from "react-native"
+import { SafeAreaView, Platform } from "react-native"
 import NormalUser from "./screens/normal_user"
 import Teacher from "./screens/teacher"
 import Student from "./screens/student"
@@ -16,6 +16,12 @@ import AuthLoading from "./screens/auth/AuthLoading"
 import configureStore from "./Store"
 import { setCustomText } from "react-native-global-props"
 import codePush from "react-native-code-push"
+import firebase from "react-native-firebase"
+import {
+	displayNotification,
+	handleNotification,
+	createFirebaseChannel
+} from "./actions/notifications"
 
 const store = configureStore()
 
@@ -31,10 +37,10 @@ const AppNav = createSwitchNavigator(
 	}
 )
 const AuthStack = createStackNavigator(
-	{ SignIn: SignIn, SignUp: SignUpNav },
+	{ First: SignIn, SignUp: SignUpNav },
 	{
 		mode: "modal",
-		initialRouteName: "SignIn",
+		initialRouteName: "First",
 		headerMode: "none",
 		navigationOptions: {
 			headerVisible: false
@@ -71,11 +77,56 @@ class App extends Component {
 			progress.receivedBytes + " of " + progress.totalBytes + " received."
 		)
 	}
+
+	async componentDidMount() {
+		this.createNotificationListeners()
+	}
+
+	componentWillUnmount() {
+		this.notificationListener()
+		this.notificationOpenedListener()
+	}
+
+	async createNotificationListeners() {
+		createFirebaseChannel()
+		/*
+		 * If your app is in background, you can listen for when a notification is clicked / tapped / opened as follows:
+		 * */
+		this.notificationListener = firebase
+			.notifications()
+			.onNotification(notification => {
+				console.log("notification", notification)
+				displayNotification(notification)
+			})
+
+		this.notificationOpenedListener = firebase
+			.notifications()
+			.onNotificationOpened(notification => {
+				console.log("background notification")
+				handleNotification(store, this.navigator, notification)
+			})
+
+		/*
+		 * If your app is closed, you can check if it was opened by a notification being clicked / tapped / opened as follows:
+		 * */
+		const notification = await firebase
+			.notifications()
+			.getInitialNotification()
+		if (notification) {
+			console.log("background2 notification")
+			handleNotification(store, this.navigator, notification, true)
+		}
+	}
+
 	render() {
 		return (
 			<Provider store={store}>
 				<SafeAreaView style={{ flex: 1, backgroundColor: "#fff" }}>
-					<Page />
+					<Page
+						ref={nav => {
+							this.navigator = nav
+						}}
+					/>
 				</SafeAreaView>
 			</Provider>
 		)

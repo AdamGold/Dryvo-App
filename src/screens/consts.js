@@ -33,7 +33,7 @@ export const tabBarOptions = {
 				iconName = "people"
 			} else if (routeName == "Schedule") {
 				iconName = "date-range"
-			} else if (routeName == "Profile") {
+			} else if (routeName == "StudentProfile") {
 				iconName = "person"
 			}
 

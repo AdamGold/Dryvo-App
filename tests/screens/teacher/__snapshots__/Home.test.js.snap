@@ -723,7 +723,7 @@ exports[`Home view renders correctly 1`] = `
             }
             testID="monthlyAmount"
           >
-            פעילויות כספיות
+            פעילויות כספיות (חודשי)
           </Text>
           <View
             style={

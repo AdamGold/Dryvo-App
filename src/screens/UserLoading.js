@@ -5,29 +5,7 @@ import { NavigationActions } from "react-navigation"
 
 class UserLoading extends React.Component {
 	componentWillMount() {
-		const notificationData =
-			this.props.navigation.getParam("notification") || {}
 		let routeName
-		let extra = {}
-		if (notificationData.fromNotification) {
-			navigateTo = "Notifications"
-			let extraAction = {}
-			if (notificationData.data.hasOwnProperty("lesson")) {
-				navigateTo = "Home"
-				extraAction = NavigationActions.navigate({
-					routeName: "Lesson",
-					params: {
-						lesson_id: notificationData.data["lesson_id"]
-					}
-				})
-			}
-			extra = {
-				action: NavigationActions.navigate({
-					routeName: navigateTo,
-					action: extraAction
-				})
-			}
-		}
 		if (
 			this.props.user.hasOwnProperty("teacher_id") &&
 			this.props.user.is_approved
@@ -44,9 +22,23 @@ class UserLoading extends React.Component {
 			this.props.navigation.navigate("NormalUser")
 			return
 		}
+		let action = {}
+		if (this.props.navigation.getParam("filter")) {
+			action = {
+				action: NavigationActions.navigate({
+					routeName: "Notifications",
+					action: NavigationActions.navigate({
+						routeName: "Main",
+						params: {
+							filter: this.props.navigation.getParam("filter")
+						}
+					})
+				})
+			}
+		}
 		this.props.navigation.navigate({
-			routeName: routeName,
-			...extra
+			routeName,
+			...action
 		})
 	}
 

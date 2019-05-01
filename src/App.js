@@ -17,7 +17,11 @@ import configureStore from "./Store"
 import { setCustomText } from "react-native-global-props"
 import codePush from "react-native-code-push"
 import firebase from "react-native-firebase"
-import { NavigationActions } from "react-navigation"
+import {
+	displayNotification,
+	handleNotification,
+	createFirebaseChannel
+} from "./actions/notifications"
 
 const store = configureStore()
 
@@ -83,93 +87,8 @@ class App extends Component {
 		this.notificationOpenedListener()
 	}
 
-	_displayNotification = notification => {
-		let params = {}
-		if (Platform.OS === "android") {
-			params = {
-				sound: "default",
-				show_in_foreground: true
-			}
-		}
-		let localNotification = new firebase.notifications.Notification(params)
-			.setNotificationId(notification.notificationId)
-			.setTitle(notification.title)
-			.setSubtitle(notification.subtitle)
-			.setBody(notification.body)
-			.setData(notification.data)
-
-		if (Platform.OS === "android") {
-			localNotification = localNotification.android
-				.setChannelId("dryvo-channel") // e.g. the id you chose above
-				.android.setPriority(
-					firebase.notifications.Android.Priority.High
-				)
-		} else if (Platform.OS === "ios") {
-			localNotification = localNotification.ios.setBadge(
-				notification.ios.badge
-			)
-		}
-
-		firebase
-			.notifications()
-			.displayNotification(localNotification)
-			.catch(err => console.log("notification error:", err))
-	}
-
-	_handleNotification = (notification, fromClosed = false) => {
-		const state = store.getState()
-		firebase
-			.notifications()
-			.removeDeliveredNotification(
-				notification.notification._notificationId
-			)
-		if (!this.navigator) return
-		let filter = "lessons/"
-		const title = notification.notification._title.toLowerCase()
-		if (title.includes("payment")) {
-			filter += "payments"
-		} else if (title.includes("request")) {
-			filter = "teacher/students"
-		}
-
-		if (fromClosed) {
-			// app was closed, we need to init AuthLoading and UserLoading
-			this.navigator.dispatch(
-				NavigationActions.navigate({
-					routeName: "AuthLoading",
-					params: { filter }
-				})
-			)
-			return
-		}
-		if (state.user && state.user.is_approved) {
-			// application was opened in foreground or background
-			this.navigator.dispatch(
-				NavigationActions.navigate({
-					routeName: "Notifications",
-					params: {},
-					action: NavigationActions.navigate({
-						routeName: "Main",
-						params: {
-							filter
-						}
-					})
-				})
-			)
-		}
-	}
-
 	async createNotificationListeners() {
-		// Build a channel
-		const channel = new firebase.notifications.Android.Channel(
-			"dryvo-channel",
-			"Dryvo Channel",
-			firebase.notifications.Android.Importance.Max
-		).setDescription("Dryvo channel")
-
-		// Create the channel
-		firebase.notifications().android.createChannel(channel)
-
+		createFirebaseChannel()
 		/*
 		 * If your app is in background, you can listen for when a notification is clicked / tapped / opened as follows:
 		 * */
@@ -177,14 +96,14 @@ class App extends Component {
 			.notifications()
 			.onNotification(notification => {
 				console.log("notification", notification)
-				this._displayNotification(notification)
+				displayNotification(notification)
 			})
 
 		this.notificationOpenedListener = firebase
 			.notifications()
 			.onNotificationOpened(notification => {
 				console.log("background notification")
-				this._handleNotification(notification)
+				handleNotification(store, this.navigator, notification)
 			})
 
 		/*
@@ -195,7 +114,7 @@ class App extends Component {
 			.getInitialNotification()
 		if (notification) {
 			console.log("background2 notification")
-			this._handleNotification(notification, true)
+			handleNotification(store, this.navigator, notification, true)
 		}
 	}
 

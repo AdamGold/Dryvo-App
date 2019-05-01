@@ -24,7 +24,6 @@ import { fetchOrError, popLatestError } from "../../actions/utils"
 import { API_ERROR } from "../../reducers/consts"
 import ShowReceipt from "../../components/ShowReceipt"
 import { Icon } from "react-native-elements"
-import mockStore from "../../../__mocks__/redux-mock-store"
 
 export class Notifications extends React.Component {
 	static navigationOptions = () => {

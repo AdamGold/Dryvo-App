@@ -247,7 +247,12 @@ export class Lesson extends React.Component {
 				<Text>{strings("student.new_lesson.no_hours_available")}</Text>
 			)
 		}
+		let noDuplicates = []
 		return this.state.hours.map((hours, index) => {
+			if (noDuplicates.includes(hours[0])) {
+				return <View />
+			}
+			noDuplicates.push(hours[0])
 			let selected = false
 			let selectedTextStyle
 			if (
@@ -601,14 +606,13 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	title: {
-		marginLeft: 12,
+		marginLeft: 6,
 		marginTop: 5
 	},
 	headerRow: {
 		flexDirection: "row",
 		flex: 1,
-		maxHeight: 50,
-		paddingLeft: MAIN_PADDING
+		maxHeight: 50
 	},
 	selectedDateView: {
 		flex: 1,

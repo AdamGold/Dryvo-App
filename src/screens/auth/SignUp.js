@@ -342,8 +342,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		paddingLeft: MAIN_PADDING,
 		paddingRight: MAIN_PADDING,
-		alignItems: "center",
-		paddingBottom: 20
+		alignItems: "center"
 	},
 	nonInputTitle: {
 		marginTop: 12,

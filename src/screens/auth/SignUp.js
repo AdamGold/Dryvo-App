@@ -60,8 +60,15 @@ export class SignUp extends React.Component {
 			}
 		}
 		this.inputs = {
-			email: {},
-			name: { iconName: "person", placeholder: strings("signup.name") },
+			email: {
+				onFocus: () => {
+					this.scrollView.scrollTo({ y: -200 })
+				}
+			},
+			name: {
+				iconName: "person",
+				placeholder: strings("signup.name")
+			},
 			area: {
 				iconName: "person-pin",
 				placeholder: strings("signup.area")
@@ -71,6 +78,9 @@ export class SignUp extends React.Component {
 				placeholder: strings("signup.phone"),
 				onChangeText: (name, value) => {
 					this.setState({ [name]: value.replace(/[^0-9]/g, "") })
+				},
+				onFocus: () => {
+					this.scrollView.scrollTo({ y: 50 })
 				}
 			},
 			...extraInputs,
@@ -237,6 +247,7 @@ export class SignUp extends React.Component {
 					onChangeText={
 						props.onChangeText || this._onChangeText.bind(this)
 					}
+					onFocus={props.onFocus}
 					value={this.state[name]}
 					testID={`r${name}Input`}
 					iconName={props.iconName || name}
@@ -348,7 +359,6 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	formContainer: {
-		flex: 1,
 		paddingLeft: MAIN_PADDING,
 		paddingRight: MAIN_PADDING,
 		alignItems: "center"

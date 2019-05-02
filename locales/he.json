@@ -64,7 +64,8 @@
 		"success_button": "עבור לעמוד הראשי",
 		"price": "מחיר",
 		"duration": "זמן שיעור",
-		"phone": "מספר נייד"
+		"phone": "מספר נייד",
+		"crn": "ח.פ"
 	},
 	"signin": {
 		"login_button": "התחברות",
@@ -253,7 +254,9 @@
 		"There is another lesson at the same time": "בזמן זה מתקיים שיעור אחר. אנא ערוך את זמני השיעור.",
 		"Can't delete student": "לא ניתן למחוק תלמיד זה.",
 		"Not authorized": "הינך לא מורשה לבצע פעולה זו.",
-		"payment_empty_fields": "הסכום ופרטי התשלום הינם שדות חובה."
+		"payment_empty_fields": "הסכום ופרטי התשלום הינם שדות חובה.",
+		"Teacher does not have an invoice account": "אין לך עדיין חשבון ב EZCount, אנא פנה למנהלים.",
+		"Empty fields": "אחד או יותר מהשדות נשארו ריקים."
 	},
 	"notifications": {
 		"students": "בקשות הצטרפות",

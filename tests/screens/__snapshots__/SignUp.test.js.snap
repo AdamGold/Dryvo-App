@@ -232,7 +232,6 @@ exports[`SignUp view renders correctly 1`] = `
             style={
               Object {
                 "alignItems": "center",
-                "flex": 1,
                 "paddingLeft": 26,
                 "paddingRight": 26,
               }

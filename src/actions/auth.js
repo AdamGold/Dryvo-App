@@ -64,7 +64,8 @@ export const register = (params, callback, role = "") => {
 							method: "POST",
 							body: JSON.stringify({
 								price: params.price,
-								lesson_duration: params.duration
+								lesson_duration: params.duration,
+								crn: params.crn
 							})
 						})
 					)

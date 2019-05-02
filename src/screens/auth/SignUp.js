@@ -52,6 +52,10 @@ export class SignUp extends React.Component {
 				price: {
 					iconName: "payment",
 					placeholder: strings("signup.price")
+				},
+				crn: {
+					iconName: "confirmation-number",
+					placeholder: strings("signup.crn")
 				}
 			}
 		}
@@ -195,11 +199,16 @@ export class SignUp extends React.Component {
 					phone: this.state.phone,
 					image: this.state.image,
 					price: parseInt(this.state.price),
+					crn: parseInt(this.state.crn),
 					duration: parseInt(this.state.duration),
 					teacher_id: this.state.teacher_id
 				},
 				async user => {
 					if (user) {
+						// we are not awaiting, let's try to do this fully in background
+						this.props.fetchService.fetch("/teacher/ezcount_user", {
+							method: "GET"
+						})
 						await this.props.dispatch(
 							checkFirebasePermission(true, true)
 						)

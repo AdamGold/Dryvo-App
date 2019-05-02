@@ -123,16 +123,15 @@ export const fetchUser = (callback = () => {}) => {
 }
 
 export const exchangeToken = (token, callback) => {
-	return async dispatch => {
+	return async (dispatch, getState) => {
+		const { fetchService } = getState()
 		try {
-			const resp = await dispatch(
-				fetchOrError("/login/exchange_token", {
-					method: "POST",
-					body: JSON.stringify({
-						exchange_token: token
-					})
+			const resp = await fetchService.fetch("/login/exchange_token", {
+				method: "POST",
+				body: JSON.stringify({
+					exchange_token: token
 				})
-			)
+			})
 			await setTokens(resp.json.auth_token, resp.json.refresh_token)
 			await dispatch(fetchUser(callback))
 		} catch (error) {

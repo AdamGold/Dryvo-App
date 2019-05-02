@@ -9,6 +9,7 @@ import { Linking } from "react-native"
 import Storage from "../services/Storage"
 import { LOGIN, LOGOUT, API_ERROR } from "../reducers/consts"
 import { fetchOrError } from "./utils"
+import Analytics from "appcenter-analytics"
 
 const loginOrRegister = async (endpoint, params, dispatch, callback) => {
 	const resp = await dispatch(fetchOrError(endpoint, params))
@@ -126,12 +127,15 @@ export const exchangeToken = (token, callback) => {
 	return async (dispatch, getState) => {
 		const { fetchService } = getState()
 		try {
-			const resp = await fetchService.fetch("/login/exchange_token", {
-				method: "POST",
-				body: JSON.stringify({
-					exchange_token: token
+			Analytics.trackEvent("exchangeToken")
+			const resp = await dispatch(
+				fetchOrError("/login/exchange_token", {
+					method: "POST",
+					body: JSON.stringify({
+						exchange_token: token
+					})
 				})
-			})
+			)
 			await setTokens(resp.json.auth_token, resp.json.refresh_token)
 			await dispatch(fetchUser(callback))
 		} catch (error) {

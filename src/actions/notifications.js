@@ -26,6 +26,7 @@ export function handleNotification(
 		.notifications()
 		.removeDeliveredNotification(notification.notification._notificationId)
 	let filter = "lessons/"
+	if (!notification.notification._title) return
 	const title = notification.notification._title.toLowerCase()
 	if (title.includes("payment")) {
 		filter += "payments"

@@ -25,7 +25,6 @@ import validate, { loginValidation } from "../../actions/validate"
 import { popLatestError, checkFirebasePermission } from "../../actions/utils"
 import Analytics from "appcenter-analytics"
 
-let deepLinked = false
 export class SignIn extends React.Component {
 	constructor(props) {
 		super(props)
@@ -43,9 +42,9 @@ export class SignIn extends React.Component {
 	}
 
 	handleOpenURL = async event => {
-		if (event.url && !deepLinked) {
-			deepLinked = true
+		if (event.url) {
 			let url = event.url.replace("#_=_", "")
+			event.url = "" // reset
 			console.log(`Launched from deeplink ${url}`)
 			Analytics.trackEvent("Deeplink launch", { from: url })
 			url = new URLSearchParams(url).toString()
@@ -53,23 +52,24 @@ export class SignIn extends React.Component {
 			const token = url.match(regex)[1]
 			console.log(`New exchange token`)
 			this.props.dispatch(
-				exchangeToken(token, user => {
-					this.props.navigation.navigate("App")
+				exchangeToken(token, async user => {
+					if (user) {
+						await this.props.dispatch(
+							checkFirebasePermission(false, true)
+						)
+						this.props.navigation.navigate("App")
+					}
 				})
 			)
 		}
 	}
 
 	async componentDidMount() {
-		/* dismiss all errors on focus
-		https://stackoverflow.com/questions/49458226/react-native-react-navigation-rerender-panel-on-goback
-		*/
 		deepLinkingListener(this.handleOpenURL)
 	}
 
 	async componentWillUnmount() {
 		await deepLinkingRemoveListener(this.handleOpenURL)
-		deepLinked = false
 	}
 
 	componentDidUpdate() {

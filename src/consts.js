@@ -18,6 +18,7 @@ export const DEFAULT_ERROR = strings("default_error")
 export const MAIN_PADDING = 26
 export const DEFAULT_DURATION = 40
 export const NAME_LENGTH = 16
+export const FCM_CHANNEL = "dryvo-channel"
 
 export const signUpRoles = {
 	student: "student",

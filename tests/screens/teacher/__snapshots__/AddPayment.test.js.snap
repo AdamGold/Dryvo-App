@@ -259,9 +259,14 @@ exports[`AddPaymentChooseAmount view renders correctly 1`] = `
   <View
     onLayout={[Function]}
     style={
-      Object {
-        "flex": 1,
-      }
+      Array [
+        Object {
+          "flex": 1,
+        },
+        Object {
+          "paddingBottom": 0,
+        },
+      ]
     }
   >
     <RCTScrollView

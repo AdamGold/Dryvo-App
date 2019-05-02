@@ -132,11 +132,7 @@ export class AddPaymentChooseAmount extends React.Component {
 				</View>
 				<KeyboardAvoidingView
 					style={styles.container}
-					behavior="height"
-					keyboardVerticalOffset={Platform.select({
-						ios: 40,
-						android: 24
-					})}
+					behavior={Platform.OS === "ios" ? "padding" : null}
 				>
 					<ScrollView
 						keyboardDismissMode={

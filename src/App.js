@@ -5,7 +5,7 @@ import {
 	createStackNavigator,
 	createAppContainer
 } from "react-navigation"
-import { SafeAreaView, Platform } from "react-native"
+import { SafeAreaView } from "react-native"
 import NormalUser from "./screens/normal_user"
 import Teacher from "./screens/teacher"
 import Student from "./screens/student"
@@ -22,6 +22,8 @@ import {
 	handleNotification,
 	createFirebaseChannel
 } from "./actions/notifications"
+import Analytics from "appcenter-analytics"
+import Config from "react-native-config"
 
 const store = configureStore()
 
@@ -133,6 +135,8 @@ class App extends Component {
 	}
 }
 
-const app = codePush(App)
+const options = { deploymentKey: Config.CODEPUSH_SECRET } // overide default key
+Analytics.trackEvent("codepush deploy", { key: Config.CODEPUSH_SECRET })
+const app = codePush(options)(App)
 
 export default app

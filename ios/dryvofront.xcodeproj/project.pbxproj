@@ -64,6 +64,7 @@
 		ADBDB9381DFEBF1600ED6528 /* libRCTBlob.a in Frameworks */ = {isa = PBXBuildFile; fileRef = ADBDB9271DFEBF0700ED6528 /* libRCTBlob.a */; };
 		C00CF8E8221C0B970002FE82 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C00CF8E5221C0B620002FE82 /* libRCTAnimation.a */; };
 		C02AA50E224A752000416B8E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C02AA50D224A752000416B8E /* GoogleService-Info.plist */; };
+		C096E56D2281932B0069C11C /* libSplashScreen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C096E56C228193190069C11C /* libSplashScreen.a */; };
 		C0B7573822674F9400906EEE /* libreact-native-config.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0B7573722674F9400906EEE /* libreact-native-config.a */; };
 		C0D3E86F224A86B10092365F /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0D3E86E224A86B00092365F /* UserNotifications.framework */; };
 		C0D3E870224A86B80092365F /* libRNFirebase.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C0D3E869224A868B0092365F /* libRNFirebase.a */; };
@@ -401,6 +402,13 @@
 			remoteGlobalIDString = C35AEC211EF91F9300931F0C;
 			remoteInfo = AppCenterReactNative;
 		};
+		C096E56B228193190069C11C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C096E53A228193190069C11C /* SplashScreen.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3D7682761D8E76B80014119E;
+			remoteInfo = SplashScreen;
+		};
 		C0D3E868224A868B0092365F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = C0D3E83C224A868B0092365F /* RNFirebase.xcodeproj */;
@@ -471,6 +479,7 @@
 		C0192BFC224A79C3000D0324 /* dryvofront.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = dryvofront.entitlements; path = dryvofront/dryvofront.entitlements; sourceTree = "<group>"; };
 		C02AA50D224A752000416B8E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "dryvofront/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C04B40F4220DB661006F67C3 /* he */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = he; path = he.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		C096E53A228193190069C11C /* SplashScreen.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SplashScreen.xcodeproj; path = "../node_modules/react-native-splash-screen/ios/SplashScreen.xcodeproj"; sourceTree = "<group>"; };
 		C0B7573722674F9400906EEE /* libreact-native-config.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libreact-native-config.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		C0D3E83C224A868B0092365F /* RNFirebase.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RNFirebase.xcodeproj; path = "../node_modules/react-native-firebase/ios/RNFirebase.xcodeproj"; sourceTree = "<group>"; };
 		C0D3E86E224A86B00092365F /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
@@ -508,6 +517,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C096E56D2281932B0069C11C /* libSplashScreen.a in Frameworks */,
 				C0B7573822674F9400906EEE /* libreact-native-config.a in Frameworks */,
 				C0D3E870224A86B80092365F /* libRNFirebase.a in Frameworks */,
 				C0D3E86F224A86B10092365F /* UserNotifications.framework in Frameworks */,
@@ -750,6 +760,7 @@
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				C096E53A228193190069C11C /* SplashScreen.xcodeproj */,
 				C0D3E83C224A868B0092365F /* RNFirebase.xcodeproj */,
 				C00CF8DF221C0B610002FE82 /* RCTAnimation.xcodeproj */,
 				146833FF1AC3E56700842450 /* React.xcodeproj */,
@@ -888,6 +899,14 @@
 			isa = PBXGroup;
 			children = (
 				C089E60022400A8E0037F6CC /* libAppCenterReactNative.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C096E53B228193190069C11C /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C096E56C228193190069C11C /* libSplashScreen.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1104,6 +1123,10 @@
 				{
 					ProductGroup = C08022472200CAF3007DF9C2 /* Products */;
 					ProjectRef = 248F4B4EC2554DDEAD873212 /* RNVectorIcons.xcodeproj */;
+				},
+				{
+					ProductGroup = C096E53B228193190069C11C /* Products */;
+					ProjectRef = C096E53A228193190069C11C /* SplashScreen.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -1423,6 +1446,13 @@
 			fileType = archive.ar;
 			path = libAppCenterReactNative.a;
 			remoteRef = C089E5FF22400A8E0037F6CC /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C096E56C228193190069C11C /* libSplashScreen.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libSplashScreen.a;
+			remoteRef = C096E56B228193190069C11C /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		C0D3E869224A868B0092365F /* libRNFirebase.a */ = {
@@ -1761,6 +1791,7 @@
 					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 				INFOPLIST_FILE = dryvofront/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1795,6 +1826,7 @@
 					"$(SRCROOT)/../node_modules/appcenter-analytics/ios/AppCenterReactNativeAnalytics",
 					"$(SRCROOT)/../node_modules/appcenter-crashes/ios/AppCenterReactNativeCrashes",
 					"$(SRCROOT)/../node_modules/react-native-firebase/ios/RNFirebase/**",
+					"$(SRCROOT)/../node_modules/react-native-splash-screen/ios",
 				);
 				INFOPLIST_FILE = dryvofront/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

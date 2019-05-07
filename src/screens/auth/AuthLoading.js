@@ -12,6 +12,7 @@ import { NOTIFICATIONS_KEY } from "../../consts"
 import { loadFetchService, checkFirebasePermission } from "../../actions/utils"
 import { fetchUser, logout } from "../../actions/auth"
 import { NavigationActions } from "react-navigation"
+import SplashScreen from "react-native-splash-screen"
 
 export class AuthLoading extends React.Component {
 	constructor(props) {
@@ -47,6 +48,7 @@ export class AuthLoading extends React.Component {
 						params: this.props.navigation.state.params
 					})
 				})
+				SplashScreen.hide()
 			})
 		)
 	}

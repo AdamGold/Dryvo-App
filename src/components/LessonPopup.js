@@ -39,7 +39,7 @@ export default class LessonPopup extends React.Component {
 		let approved
 		if (!item.is_approved) {
 			approved = (
-				<Text style={styles.approved}>({strings("not_approved")})</Text>
+				<Text style={styles.approved}>{strings("not_approved")}</Text>
 			)
 		}
 
@@ -76,7 +76,9 @@ export default class LessonPopup extends React.Component {
 						<View style={styles.userInfo}>
 							<Text style={styles.title}>{name}</Text>
 							<Text style={styles.lessonNumber}>{number}</Text>
-							{approved}
+							<Text style={styles.lessonNumber}>
+								{strings("lesson_price")}: {item.price}₪
+							</Text>
 						</View>
 					</Fragment>
 				</TouchableOpacity>
@@ -91,6 +93,7 @@ export default class LessonPopup extends React.Component {
 			>
 				<View style={styles.popup} testID={this.props.testID}>
 					{studentInfo}
+					{approved}
 					<View style={styles.row}>
 						<View style={styles.column}>
 							<Text style={styles.titles}>
@@ -148,7 +151,7 @@ export default class LessonPopup extends React.Component {
 const styles = StyleSheet.create({
 	popup: {
 		flex: 1,
-		maxHeight: 320,
+		maxHeight: 340,
 		backgroundColor: "#fff",
 		padding: 26,
 		alignSelf: "center",
@@ -165,7 +168,8 @@ const styles = StyleSheet.create({
 	userInfo: {
 		flexDirection: "column",
 		flex: 1,
-		marginLeft: "auto"
+		marginLeft: "auto",
+		marginTop: -16
 	},
 	image: {
 		width: 76,
@@ -184,7 +188,7 @@ const styles = StyleSheet.create({
 		alignSelf: "flex-start",
 		color: "gray"
 	},
-	approved: { alignSelf: "flex-start", marginTop: 4, color: "red" },
+	approved: { alignSelf: "center", marginTop: 8, color: "red" },
 	row: {
 		flex: 1,
 		flexDirection: "row",

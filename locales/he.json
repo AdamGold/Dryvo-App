@@ -12,29 +12,31 @@
 	"approve": "אישור",
 	"reject": "ביטול",
 	"not_set": "לא נקבע",
-	"edit_lesson": "עריכת שיעור",
+	"edit_lesson": "ערוך שיעור",
 	"done": "סיום",
 	"not_approved": "לא מאושר",
-	"empty_lessons": "אין לך שיעורים!",
-	"empty_payments": "אין לך תשלומים!",
+	"empty_lessons": "טרם נקבעו שיעורים",
+	"empty_payments": "טרם נשמרו תשלומים",
 	"empty_notifications": "אין לך התראות!",
-	"empty_students": "אין לך תלמידים!",
-	"no_students": "לא נמצאו תלמידים",
-	"empty_topics": "עוד לא נלמדו נושאים",
+	"empty_students": "לא נמצאו תלמידים",
+	"empty_topics": "טרם נלמדו נושאים",
 	"select_image": "בחר תמונה",
 	"delete_lesson": "ביטול השיעור",
 	"show_receipt": "צפה בחשבונית",
 	"show_receipt_later": "צפה לאחר מכן",
 	"lesson_price": "מחיר",
+	"morning": "בוקר טוב",
+	"afternoon": "צהריים טובים",
+	"evening": "ערב טוב",
 	"student_profile": {
 		"lessons": "שיעורים",
 		"my_teacher": "המורה שלי:",
 		"in_progress_topics": "בתהליך",
 		"finished_topics": "סוימו",
 		"new_topics": "לא הותחלו",
-		"edit": "עריכת פרטים",
+		"edit": "ערוך פרטים",
 		"contact": "צור קשר",
-		"title": "עריכת פרטי תלמיד",
+		"title": "ערוך פרטי תלמיד",
 		"theory": "תיאוריה",
 		"doctor_check": "ב׳ רופא",
 		"eyes_check": "ב׳ עיניים",
@@ -46,7 +48,7 @@
 			"eyes_check": "בדיקת עיניים",
 			"number_of_old_lessons": "מספר שיעורים לפני כניסה למערכת",
 			"green_form": "טופס ירוק",
-			"price": "מחיר עבור שיעור"
+			"price": "תמחור שיעור"
 		},
 		"payments": "תשלומים של {{text}}"
 	},
@@ -64,7 +66,7 @@
 		"student_success_desc": "ההרשמה עברה בהצלחה. כעת אנו ממתינים שהמורה אליו נרשמת יאשר אותך בתור תלמיד.",
 		"teacher_success_desc": "ההרשמה עברה בהצלחה. כעת יש להמתין שהמערכת תאשר אותך בתור מורה.",
 		"success_button": "עבור לעמוד הראשי",
-		"price": "מחיר",
+		"price": "תמחור שיעור",
 		"duration": "זמן שיעור",
 		"phone": "מספר נייד",
 		"crn": "ח.פ"
@@ -92,11 +94,11 @@
 			"current_lesson": "שיעור נוכחי",
 			"next_lesson": "שיעור הבא",
 			"monthly_amount": "פעילויות כספיות (חודשי)",
-			"welcome": "שלום, {{name}}",
+			"welcome": "{{greeting}}, {{name}}",
 			"full_schedule": "לו״ז מלא",
 			"add_payment": "הוסף תשלום",
 			"lesson_number": "שיעור",
-			"no_lesson": "אין שיעור"
+			"no_lesson": "אינך מלמד כעת. {{greeting}}"
 		},
 		"notifications": {
 			"new_lesson": "רוצה לקבוע שיעור",
@@ -112,20 +114,20 @@
 		},
 		"new_lesson": {
 			"title": "פרטי שיעור",
-			"continue": "המשיכו",
+			"continue": "צור שיעור חדש",
 			"date": "תאריך",
 			"hour": "שעה",
 			"studentName": "שם התלמיד/ה",
 			"duration": "אורך השיעור",
-			"price": "מחיר",
+			"price": "תמחור שיעור",
 			"meetup": "איסוף",
 			"dropoff": "הורדה",
 			"topics": "נושאים",
 			"done": "שליחה",
 			"default": "ברירת מחדל",
 			"success_title": "השיעור עודכן בהצלחה!",
-			"success_desc_with_student": "נשלחה התראה לתלמיד %{student} עבור שיעור בתאריך %{date} בשעות %{hours}.",
-			"success_desc_without_student": "עודכן השיעור בתאריך %{date} בשעות %{hours}. כרגע אין תלמיד הרשום לשיעור זה.",
+			"success_desc_with_student": "נשלחה התראה ל%{student} עבור שיעור בתאריך %{date} בשעה %{hours}.",
+			"success_desc_without_student": "עודכן השיעור בתאריך %{date} בשעה %{hours}. כרגע אין תלמיד הרשום לשיעור זה.",
 			"success_button": "חזור אחורה",
 			"empty_topics": "אין נושאים אפשריים",
 			"empty_students": "לא נמצאו תלמידים",
@@ -147,8 +149,9 @@
 		},
 		"add_payment": {
 			"title1": "הוספת תשלום - בחירת תלמיד",
-			"title2": "הוספת תשלום - כמות",
+			"title2": "הוספת תשלום - סכום",
 			"amount": "סכום",
+			"add": "הוסף",
 			"success_title": "הוספת תשלום בהצלחה!",
 			"success_desc": "תשלום של %{amount} נוסף לתלמיד %{student}.",
 			"success_button": "חזור לעמוד הראשי",
@@ -170,7 +173,10 @@
 			"save": "שמור",
 			"success": "ימי העבודה נשמרו",
 			"remove_hours": "הסר"
-		}
+		},
+		"nice_break": "הפסקה נעימה!",
+		"nice_day": "יום נפלא!",
+		"good_night": "לילה טוב!"
 	},
 	"student": {
 		"home": {
@@ -244,7 +250,7 @@
 		"Email is not valid": "האימייל אינו תקין",
 		"Email is already registered": "אימייל זה כבר בשימוש.",
 		"Student does not exist": "תלמיד זה אינו קיים.",
-		"Amount must be given": "הסכום אינו תקין.",
+		"Amount must be given": "יש להזין סכום.",
 		"User was not found": "משתמש לא תקין.",
 		"Please insert the date of the lesson": "אנא הכנס את תאריך השיעור.",
 		"Lesson does not exist": "שיעור זה אינו קיים.",
@@ -266,7 +272,9 @@
 		"lessons": "בקשות שיעורים",
 		"payments": "פעילויות כספיות",
 		"scheduled_lessons": "שיעורים שנקבעו",
-		"teacher_scheduled": "קבע שיעור"
+		"teacher_scheduled": "קבע שיעור חדש",
+		"teacher_approved": "אישר את השיעור",
+		"student_lesson": "{{teacher}} {{text}}"
 	},
 	"normal_user": {
 		"home": {

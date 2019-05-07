@@ -112,7 +112,7 @@ export class AddPaymentChooseStudent extends React.Component {
 	_renderEmpty = () => (
 		<EmptyState
 			image="students"
-			text={strings("no_students")}
+			text={strings("empty_students")}
 			style={styles.empty}
 		/>
 	)

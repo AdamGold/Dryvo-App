@@ -15,9 +15,14 @@ import { getPayments } from "../../actions/lessons"
 import { MAIN_PADDING, NAME_LENGTH } from "../../consts"
 import StudentPayments from "../../components/StudentPayments"
 import StudentNextLessonView from "../../components/StudentNextLessonView"
-import { getUserImage, uploadUserImage } from "../../actions/utils"
+import {
+	getUserImage,
+	uploadUserImage,
+	getGreetingTime
+} from "../../actions/utils"
 import UploadProfileImage from "../../components/UploadProfileImage"
 import { NavigationActions } from "react-navigation"
+import moment from "moment"
 
 export class Home extends React.Component {
 	static navigationOptions = () => {
@@ -119,6 +124,10 @@ export class Home extends React.Component {
 	}
 
 	render() {
+		let welcomeText = strings("teacher.home.welcome", {
+			name: this.props.user.name.slice(0, NAME_LENGTH),
+			greeting: getGreetingTime(moment())
+		})
 		return (
 			<ScrollView>
 				<View style={styles.container}>
@@ -139,11 +148,7 @@ export class Home extends React.Component {
 								)
 							}}
 						/>
-						<Text style={styles.welcomeText}>
-							{strings("teacher.home.welcome", {
-								name: this.props.user.name.slice(0, NAME_LENGTH)
-							})}
-						</Text>
+						<Text style={styles.welcomeText}>{welcomeText}</Text>
 					</View>
 					<ShadowRect style={styles.schedule}>
 						<Text style={styles.rectTitle} testID="schedule">

@@ -123,6 +123,8 @@ PODS:
     - React
   - react-native-image-resizer (1.0.1):
     - React
+  - react-native-splash-screen (3.2.0):
+    - React
   - React/Core (0.57.8):
     - yoga (= 0.57.8.React)
   - React/CxxBridge (0.57.8):
@@ -188,6 +190,7 @@ DEPENDENCIES:
   - react-native-fast-image (from `../node_modules/react-native-fast-image`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-image-resizer (from `../node_modules/react-native-image-resizer`)
+  - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - React/Core (from `../node_modules/react-native`)
   - React/CxxBridge (from `../node_modules/react-native`)
   - React/DevSupport (from `../node_modules/react-native`)
@@ -243,6 +246,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-picker"
   react-native-image-resizer:
     :path: "../node_modules/react-native-image-resizer"
+  react-native-splash-screen:
+    :path: "../node_modules/react-native-splash-screen"
   RNSVG:
     :path: "../node_modules/react-native-svg"
   yoga:
@@ -276,11 +281,12 @@ SPEC CHECKSUMS:
   react-native-fast-image: 4170ad074e9de6c428fc4580ecbaacabf74901a6
   react-native-image-picker: f42de90075c5b1af53417af927631d909a1a746e
   react-native-image-resizer: 04a3409e7d4ad646c4468671c69dec490def139c
+  react-native-splash-screen: a49be22f0f6648b8416f3bd28258645eeaa5b42b
   RNSVG: 4834be1d644eb77f0e3f6de851881b83758a3124
   SDWebImage: 3f3f0c02f09798048c47a5ed0a13f17b063572d8
   SSZipArchive: 41455d4b8d2b6ab93990820b50dc697c2554a322
   yoga: b1ce48b6cf950b98deae82838f5173ea7cf89e85
 
-PODFILE CHECKSUM: 8290289e7ceb034443519fdf7ff2208a3588fc53
+PODFILE CHECKSUM: ab1b862e3f898212c8f603e7c7fb2465b7da6d9c
 
 COCOAPODS: 1.5.0

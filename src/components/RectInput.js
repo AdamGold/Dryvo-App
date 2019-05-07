@@ -54,7 +54,7 @@ export default class RectInput extends React.Component {
 		} else if (!this.props.switch) {
 			input = (
 				<TextInput
-					value={this.props.value}
+					value={this.props.value.toString()}
 					testID={this.props.testID}
 					style={{
 						...styles.input,

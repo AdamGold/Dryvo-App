@@ -26,6 +26,7 @@ export default class EditProfile extends React.Component {
 			doctor_check: student.doctor_check,
 			eyes_check: student.eyes_check,
 			theory: student.theory,
+			price: student.price,
 			number_of_old_lessons: student.number_of_old_lessons.toString(),
 			green_form: student.green_form,
 			studentId: student.student_id,
@@ -97,6 +98,15 @@ export default class EditProfile extends React.Component {
 						value={this.state.number_of_old_lessons}
 						onChangeText={value =>
 							this.onChangeText("number_of_old_lessons", value)
+						}
+					/>
+					<RectInput
+						label={strings("student_profile.edit_screen.price")}
+						iconName="dollar-sign"
+						iconType="feather"
+						value={this.state.price}
+						onChangeText={value =>
+							this.onChangeText("price", value)
 						}
 					/>
 					<RectInput

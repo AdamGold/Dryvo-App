@@ -34,6 +34,7 @@
 		"react-native-material-dropdown": "^0.11.1",
 		"react-native-modal": "^9.0.0",
 		"react-native-modal-datetime-picker": "^6.0.0",
+		"react-native-splash-screen": "^3.2.0",
 		"react-native-svg": "^9.3.5",
 		"react-native-vector-icons": "^6.2.0",
 		"react-navigation": "^3.0.9",

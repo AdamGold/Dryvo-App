@@ -25,6 +25,7 @@
 	"delete_lesson": "ביטול השיעור",
 	"show_receipt": "צפה בחשבונית",
 	"show_receipt_later": "צפה לאחר מכן",
+	"lesson_price": "מחיר",
 	"student_profile": {
 		"lessons": "שיעורים",
 		"my_teacher": "המורה שלי:",
@@ -44,7 +45,8 @@
 			"doctor_check": "בדיקת רופא",
 			"eyes_check": "בדיקת עיניים",
 			"number_of_old_lessons": "מספר שיעורים לפני כניסה למערכת",
-			"green_form": "טופס ירוק"
+			"green_form": "טופס ירוק",
+			"price": "מחיר עבור שיעור"
 		},
 		"payments": "תשלומים של {{text}}"
 	},
@@ -115,6 +117,7 @@
 			"hour": "שעה",
 			"studentName": "שם התלמיד/ה",
 			"duration": "אורך השיעור",
+			"price": "מחיר",
 			"meetup": "איסוף",
 			"dropoff": "הורדה",
 			"topics": "נושאים",

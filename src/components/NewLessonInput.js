@@ -19,7 +19,7 @@ export default class NewLessonInput extends React.Component {
 						this.props.extraPlaceholder
 					}
 					onChangeText={value => this.props.onChangeText(name, value)}
-					value={this.props.state[name]}
+					value={this.props.state[name].toString()}
 					testID={`${name}Input`}
 					inputContainerStyle={{
 						...styles.inputContainer,

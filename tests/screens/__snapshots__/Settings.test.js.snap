@@ -1816,7 +1816,7 @@ exports[`Settings view renders correctly for teacher 1`] = `
                   }
                 }
               >
-                מחיר
+                תמחור שיעור
               </Text>
               <TextInput
                 allowFontScaling={true}

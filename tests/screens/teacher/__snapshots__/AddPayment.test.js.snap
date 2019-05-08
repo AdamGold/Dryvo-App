@@ -242,7 +242,7 @@ exports[`AddPaymentChooseAmount view renders correctly 1`] = `
           }
         }
       >
-        הוספת תשלום - כמות
+        הוספת תשלום - סכום
       </Text>
       <View
         style={
@@ -1348,7 +1348,7 @@ exports[`AddPaymentChooseAmount view renders correctly 1`] = `
           }
         }
       >
-        סיום
+        הוסף
       </Text>
     </View>
   </View>

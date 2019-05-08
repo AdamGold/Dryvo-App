@@ -126,7 +126,7 @@ export class Home extends React.Component {
 	render() {
 		let welcomeText = strings("teacher.home.welcome", {
 			name: this.props.user.name.slice(0, NAME_LENGTH),
-			greeting: getGreetingTime(moment())
+			greeting: strings(getGreetingTime(moment()))
 		})
 		return (
 			<ScrollView>

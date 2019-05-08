@@ -98,7 +98,10 @@
 			"full_schedule": "לו״ז מלא",
 			"add_payment": "הוסף תשלום",
 			"lesson_number": "שיעור",
-			"no_lesson": "אינך מלמד כעת. {{greeting}}"
+			"no_lesson": "אינך מלמד כעת. {{greeting}}",
+			"afternoon_break": "הפסקה נעימה!",
+			"morning_break": "יום נפלא!",
+			"evening_break": "לילה טוב!"
 		},
 		"notifications": {
 			"new_lesson": "רוצה לקבוע שיעור",
@@ -173,10 +176,7 @@
 			"save": "שמור",
 			"success": "ימי העבודה נשמרו",
 			"remove_hours": "הסר"
-		},
-		"nice_break": "הפסקה נעימה!",
-		"nice_day": "יום נפלא!",
-		"good_night": "לילה טוב!"
+		}
 	},
 	"student": {
 		"home": {

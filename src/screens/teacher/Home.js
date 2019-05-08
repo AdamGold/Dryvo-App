@@ -134,14 +134,9 @@ export class Home extends React.Component {
 
 	renderLesson = item => {
 		if (!item) {
-			var currentHour = parseFloat(moment().format("HH"))
-			console.log("CURRENT HOUR", currentHour)
-			let greeting = strings("teacher.nice_break")
-			if (currentHour <= 8) {
-				greeting = strings("teacher.nice_day")
-			} else if (currentHour >= 18) {
-				greeting = strings("teacher.good_night")
-			}
+			const greeting = strings(
+				"teacher.home." + getGreetingTime(moment(), 8, 18) + "_break"
+			)
 			return (
 				<Text
 					style={{
@@ -324,7 +319,7 @@ export class Home extends React.Component {
 	render() {
 		let welcomeText = strings("teacher.home.welcome", {
 			name: this.props.user.name.slice(0, NAME_LENGTH),
-			greeting: getGreetingTime(moment())
+			greeting: strings(getGreetingTime(moment()))
 		})
 		return (
 			<ScrollView>

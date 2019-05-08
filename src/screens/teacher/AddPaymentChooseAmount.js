@@ -199,7 +199,9 @@ export class AddPaymentChooseAmount extends React.Component {
 						onPress={this.addPayment}
 						style={styles.floatButton}
 					>
-						<Text style={styles.buttonText}>{strings("done")}</Text>
+						<Text style={styles.buttonText}>
+							{strings("teacher.add_payment.add")}
+						</Text>
 					</TouchableOpacity>
 				</KeyboardAvoidingView>
 			</View>

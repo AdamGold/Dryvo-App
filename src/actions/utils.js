@@ -261,3 +261,22 @@ export function requestFirebasePermission() {
 		}
 	}
 }
+
+export function getGreetingTime(m, afternoon = 12, evening = 17) {
+	var g = null
+
+	if (!m || !m.isValid()) {
+		return
+	} //if we can't find a valid or filled moment, we return.
+
+	var currentHour = parseFloat(m.format("HH"))
+	if (currentHour >= afternoon && currentHour < evening) {
+		g = "afternoon"
+	} else if (currentHour >= evening) {
+		g = "evening"
+	} else {
+		g = "morning"
+	}
+
+	return g
+}

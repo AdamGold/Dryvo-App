@@ -922,7 +922,7 @@ exports[`EditStudent view renders correctly -> teacher's view 1`] = `
                   }
                 }
               >
-                מחיר עבור שיעור
+                תמחור שיעור
               </Text>
               <TextInput
                 allowFontScaling={true}

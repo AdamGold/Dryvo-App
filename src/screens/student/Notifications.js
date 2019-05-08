@@ -155,6 +155,15 @@ export class Notifications extends React.Component {
 
 	renderLesson = ({ item, index }) => {
 		const visible = this.state.visible.includes(item.id) ? true : false
+		let teacherApprovedOrScheduled = strings(
+			"notifications.teacher_approved"
+		)
+		if (item.creator_id == this.props.user.my_teacher.user.id) {
+			// teacher created the lesson
+			teacherApprovedOrScheduled = strings(
+				"notifications.teacher_scheduled"
+			)
+		}
 		return (
 			<Fragment>
 				<TouchableOpacity onPress={() => this.lessonPress(item)}>
@@ -163,11 +172,13 @@ export class Notifications extends React.Component {
 						key={`lesson${item.id}`}
 						basic={
 							<Text style={styles.basic}>
-								{this.props.user.my_teacher.user.name.slice(
-									0,
-									NAME_LENGTH
-								)}{" "}
-								{strings("notifications.teacher_scheduled")}
+								{strings("notifications.student_lesson", {
+									text: teacherApprovedOrScheduled,
+									teacher: this.props.user.my_teacher.user.name.slice(
+										0,
+										NAME_LENGTH
+									)
+								})}
 							</Text>
 						}
 						leftSide={

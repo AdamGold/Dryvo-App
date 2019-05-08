@@ -123,7 +123,7 @@ exports[`StudentProfile view renders correctly -> student's view 1`] = `
                       }
                     }
                   >
-                    עריכת פרטים
+                    ערוך פרטים
                   </Text>
                 </View>
               </View>
@@ -435,7 +435,7 @@ exports[`StudentProfile view renders correctly -> teacher's view 1`] = `
                       }
                     }
                   >
-                    עריכת פרטים
+                    ערוך פרטים
                   </Text>
                 </View>
               </View>

@@ -27,7 +27,11 @@ import EmptyState from "../../components/EmptyState"
 import LessonsLoader from "../../components/LessonsLoader"
 import PaymentsLoader from "../../components/PaymentsLoader"
 import { NavigationActions } from "react-navigation"
-import { getUserImage, uploadUserImage } from "../../actions/utils"
+import {
+	getUserImage,
+	uploadUserImage,
+	getGreetingTime
+} from "../../actions/utils"
 import UploadProfileImage from "../../components/UploadProfileImage"
 import moment from "moment"
 
@@ -130,6 +134,9 @@ export class Home extends React.Component {
 
 	renderLesson = item => {
 		if (!item) {
+			const greeting = strings(
+				"teacher.home." + getGreetingTime(moment(), 8, 18) + "_break"
+			)
 			return (
 				<Text
 					style={{
@@ -137,7 +144,7 @@ export class Home extends React.Component {
 						...styles.noLesson
 					}}
 				>
-					{strings("teacher.home.no_lesson")}
+					{strings("teacher.home.no_lesson", { greeting })}
 				</Text>
 			)
 		}
@@ -310,6 +317,10 @@ export class Home extends React.Component {
 	}
 
 	render() {
+		let welcomeText = strings("teacher.home.welcome", {
+			name: this.props.user.name.slice(0, NAME_LENGTH),
+			greeting: strings(getGreetingTime(moment()))
+		})
 		return (
 			<ScrollView>
 				<View style={styles.container}>
@@ -330,11 +341,7 @@ export class Home extends React.Component {
 								)
 							}}
 						/>
-						<Text style={styles.welcomeText}>
-							{strings("teacher.home.welcome", {
-								name: this.props.user.name.slice(0, NAME_LENGTH)
-							})}
-						</Text>
+						<Text style={styles.welcomeText}>{welcomeText}</Text>
 					</View>
 					<ShadowRect style={styles.schedule}>
 						{this._renderLessons()}

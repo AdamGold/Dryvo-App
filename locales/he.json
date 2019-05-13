@@ -28,6 +28,8 @@
 	"morning": "בוקר טוב",
 	"afternoon": "צהריים טובים",
 	"evening": "ערב טוב",
+	"welcome_from_facebook_title": "ברוך הבא!",
+	"welcome_from_facebook_desc": "בזמן ההמתנה לאישור, אולי ננצל את הזמן ונמלא את הפרטים הבאים?",
 	"student_profile": {
 		"lessons": "שיעורים",
 		"my_teacher": "המורה שלי:",
@@ -53,7 +55,7 @@
 		"payments": "תשלומים של {{text}}"
 	},
 	"signup": {
-		"name": "שם מלא",
+		"name": "שם מלא בעברית",
 		"area": "איזור",
 		"signup_button": "הרשמה",
 		"sign_as": "הירשם בתור",

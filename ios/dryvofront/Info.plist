@@ -49,7 +49,9 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string>$(PRODUCT_NAME) would like to use your location for lesson scheduling</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like to use your location for lesson scheduling</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>

@@ -46,11 +46,10 @@ export class SignIn extends React.Component {
 			let url = event.url.replace("#_=_", "")
 			event.url = "" // reset
 			console.log(`Launched from deeplink ${url}`)
-			Analytics.trackEvent("Deeplink launch", { from: url })
 			url = new URLSearchParams(url).toString()
+			Analytics.trackEvent("Deeplink launch", { from: url })
 			let regex = /token=(.*)/
 			const token = url.match(regex)[1]
-			console.log(`New exchange token`)
 			this.props.dispatch(
 				exchangeToken(token, async user => {
 					if (user) {

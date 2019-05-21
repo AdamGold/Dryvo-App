@@ -20,6 +20,7 @@ describe("RectInput", () => {
 					iconType="material"
 					onSubmitEditing={func}
 					style={{ marginTop: 20 }}
+					value="value"
 				/>
 			)
 			.toJSON()

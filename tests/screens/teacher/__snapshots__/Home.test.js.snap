@@ -179,7 +179,7 @@ exports[`Home view renders correctly 1`] = `
             }
           }
         >
-          שלום, test
+          צהריים טובים, test
         </Text>
       </View>
       <View

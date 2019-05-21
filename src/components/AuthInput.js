@@ -17,6 +17,10 @@ export default class AuthInput extends React.Component {
 		this.setState({
 			selectedColor: colors.blue
 		})
+
+		if (this.props.onFocus) {
+			this.props.onFocus()
+		}
 	}
 
 	onBlur = () => {

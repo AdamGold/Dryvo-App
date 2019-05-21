@@ -48,7 +48,8 @@ export class Lesson extends React.Component {
 			progress: [],
 			finished: [],
 			successVisible: false,
-			datePickerVisible: false
+			datePickerVisible: false,
+			price: this.props.user.price
 		}
 		this._initializeInputs = this._initializeInputs.bind(this)
 		this.onChangeText = this.onChangeText.bind(this)
@@ -75,6 +76,7 @@ export class Lesson extends React.Component {
 				...this.state,
 				lesson,
 				student: lesson.student,
+				price: lesson.price,
 				date: moment
 					.utc(lesson.date)
 					.local()
@@ -100,6 +102,14 @@ export class Lesson extends React.Component {
 			studentEditable = { editable: false, selectTextOnFocus: false }
 		}
 		this.inputs = {
+			studentName: {
+				iconName: "person-outline",
+				onChangeText: (name, value) => {
+					this.onChangeText(name, value)
+					this._getStudents(value)
+				},
+				...studentEditable
+			},
 			duration: {
 				iconName: "swap-horiz",
 				extraPlaceholder: ` (${strings(
@@ -111,13 +121,9 @@ export class Lesson extends React.Component {
 				},
 				style: { marginTop: 0 }
 			},
-			studentName: {
-				iconName: "person-outline",
-				onChangeText: (name, value) => {
-					this.onChangeText(name, value)
-					this._getStudents(value)
-				},
-				...studentEditable
+			price: {
+				iconName: "dollar-sign",
+				iconType: "feather"
 			},
 			meetup: {
 				iconName: "navigation",
@@ -203,8 +209,8 @@ export class Lesson extends React.Component {
 
 	onChangeText = (name, value) => this.setState({ [name]: value })
 
-	renderInputs = () => {
-		const keys = Object.keys(this.inputs)
+	renderInputs = (start = 0, end = 5) => {
+		const keys = Object.keys(this.inputs).slice(start, end)
 		return keys.map((name, index) => {
 			const props = this.inputs[name]
 			return (
@@ -302,6 +308,7 @@ export class Lesson extends React.Component {
 		this.setState(
 			{
 				student,
+				price: student.price,
 				studentName: student.user.name
 			},
 			() => {
@@ -358,6 +365,7 @@ export class Lesson extends React.Component {
 				method: "POST",
 				body: JSON.stringify({
 					date: moment.utc(this.state.dateAndTime).toISOString(),
+					price: this.state.price,
 					meetup_place: this.state.meetup,
 					dropoff_place: this.state.dropoff,
 					...student
@@ -567,13 +575,14 @@ export class Lesson extends React.Component {
 								<Text>{date}</Text>
 							</View>
 						</TouchableOpacity>
+						{this.renderInputs(0, 2)}
 						<View style={styles.nonInputContainer}>
 							<Text style={styles.nonInputTitle}>
 								{strings("teacher.new_lesson.hour")}
 							</Text>
 						</View>
 						<View style={styles.rects}>{this.renderHours()}</View>
-						{this.renderInputs()}
+						{this.renderInputs(2, 5)}
 						<View style={styles.nonInputContainer}>
 							<Text style={styles.nonInputTitle}>
 								{strings("teacher.new_lesson.topics")}

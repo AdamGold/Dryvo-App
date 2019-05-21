@@ -470,7 +470,7 @@ exports[`Topics view renders correctly 1`] = `
               }
             }
           >
-            עוד לא נלמדו נושאים
+            טרם נלמדו נושאים
           </Text>
         </View>
       </View>

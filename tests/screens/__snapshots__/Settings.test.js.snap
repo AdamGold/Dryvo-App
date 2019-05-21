@@ -335,7 +335,7 @@ exports[`Settings view renders correctly for student 1`] = `
                   }
                 }
               >
-                שם מלא
+                שם מלא בעברית
               </Text>
               <TextInput
                 allowFontScaling={true}
@@ -351,6 +351,7 @@ exports[`Settings view renders correctly for student 1`] = `
                   }
                 }
                 underlineColorAndroid="transparent"
+                value="test"
               />
             </View>
             <View
@@ -500,6 +501,7 @@ exports[`Settings view renders correctly for student 1`] = `
                   }
                 }
                 underlineColorAndroid="transparent"
+                value="test"
               />
             </View>
             <View
@@ -649,6 +651,7 @@ exports[`Settings view renders correctly for student 1`] = `
                   }
                 }
                 underlineColorAndroid="transparent"
+                value="05501111"
               />
             </View>
             <View
@@ -1363,7 +1366,7 @@ exports[`Settings view renders correctly for teacher 1`] = `
                   }
                 }
               >
-                שם מלא
+                שם מלא בעברית
               </Text>
               <TextInput
                 allowFontScaling={true}
@@ -1379,6 +1382,7 @@ exports[`Settings view renders correctly for teacher 1`] = `
                   }
                 }
                 underlineColorAndroid="transparent"
+                value="test"
               />
             </View>
             <View
@@ -1528,6 +1532,7 @@ exports[`Settings view renders correctly for teacher 1`] = `
                   }
                 }
                 underlineColorAndroid="transparent"
+                value="test"
               />
             </View>
             <View
@@ -1677,6 +1682,7 @@ exports[`Settings view renders correctly for teacher 1`] = `
                   }
                 }
                 underlineColorAndroid="transparent"
+                value="05501111"
               />
             </View>
             <View
@@ -1810,7 +1816,7 @@ exports[`Settings view renders correctly for teacher 1`] = `
                   }
                 }
               >
-                מחיר
+                תמחור שיעור
               </Text>
               <TextInput
                 allowFontScaling={true}
@@ -1826,7 +1832,7 @@ exports[`Settings view renders correctly for teacher 1`] = `
                   }
                 }
                 underlineColorAndroid="transparent"
-                value="100"
+                value="1000"
               />
             </View>
             <View

@@ -27,6 +27,7 @@ describe("NewLessonInput", () => {
 					extraPlaceholder={"kiwi"}
 					style={{ marginTop: 20 }}
 					below={func}
+					state={{ test: "value" }}
 				/>
 			)
 			.toJSON()

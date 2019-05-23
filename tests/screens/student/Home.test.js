@@ -12,6 +12,8 @@ const navigation = {
 jest.useFakeTimers()
 describe("Home", () => {
 	test("view renders correctly", () => {
+		const utils = require("../../../src/actions/utils")
+		utils.getGreetingTime = jest.fn(() => "afternoon")
 		const user = { name: "test" }
 		const student = { user }
 		fetch.mockResponseSuccess(

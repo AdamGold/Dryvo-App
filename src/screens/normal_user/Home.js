@@ -13,7 +13,6 @@ import {
 import ShadowRect from "../../components/ShadowRect"
 import RectInput from "../../components/RectInput"
 import validate, { registerValidation } from "../../actions/validate"
-import { Icon } from "react-native-elements"
 import { API_ERROR } from "../../reducers/consts"
 import {
 	getUserImage,

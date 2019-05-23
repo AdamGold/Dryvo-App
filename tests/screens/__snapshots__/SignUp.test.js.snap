@@ -410,6 +410,7 @@ exports[`SignUp view renders correctly 1`] = `
                   onChangeText={[Function]}
                   onFocus={[Function]}
                   placeholder="אימייל"
+                  rejectResponderTermination={true}
                   secureTextEntry={false}
                   style={
                     Object {
@@ -552,6 +553,7 @@ exports[`SignUp view renders correctly 1`] = `
                   onChangeText={[Function]}
                   onFocus={[Function]}
                   placeholder="שם מלא בעברית"
+                  rejectResponderTermination={true}
                   secureTextEntry={false}
                   style={
                     Object {
@@ -694,6 +696,7 @@ exports[`SignUp view renders correctly 1`] = `
                   onChangeText={[Function]}
                   onFocus={[Function]}
                   placeholder="איזור"
+                  rejectResponderTermination={true}
                   secureTextEntry={false}
                   style={
                     Object {
@@ -836,6 +839,7 @@ exports[`SignUp view renders correctly 1`] = `
                   onChangeText={[Function]}
                   onFocus={[Function]}
                   placeholder="מספר נייד"
+                  rejectResponderTermination={true}
                   secureTextEntry={false}
                   style={
                     Object {
@@ -978,6 +982,7 @@ exports[`SignUp view renders correctly 1`] = `
                   onChangeText={[Function]}
                   onFocus={[Function]}
                   placeholder="סיסמה"
+                  rejectResponderTermination={true}
                   secureTextEntry={true}
                   style={
                     Object {

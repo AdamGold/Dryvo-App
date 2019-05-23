@@ -780,6 +780,7 @@ exports[`EditStudent view renders correctly -> teacher's view 1`] = `
                 onBlur={[Function]}
                 onChangeText={[Function]}
                 onFocus={[Function]}
+                rejectResponderTermination={true}
                 secureTextEntry={false}
                 style={
                   Object {
@@ -930,6 +931,7 @@ exports[`EditStudent view renders correctly -> teacher's view 1`] = `
                 onBlur={[Function]}
                 onChangeText={[Function]}
                 onFocus={[Function]}
+                rejectResponderTermination={true}
                 secureTextEntry={false}
                 style={
                   Object {

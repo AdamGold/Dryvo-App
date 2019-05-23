@@ -92,7 +92,7 @@ export class Settings extends React.Component {
 			password: this.state.password,
 			phone: this.state.phone
 		})
-		let resp2 = true
+		let resp2 = false
 		if (this.props.user.hasOwnProperty("teacher_id")) {
 			resp2 = await this.submitTeacherInfo()
 		}

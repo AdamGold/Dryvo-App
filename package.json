@@ -86,7 +86,7 @@
 		"configurations": {
 			"ios.sim.debug": {
 				"binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/dryvofront.app",
-				"build": "RN_SRC_EXT=e2e.js xcodebuild -project ios/dryvofront.xcodeproj -scheme dryvofront -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+				"build": "RN_SRC_EXT=e2e.js xcodebuild -workspace ios/dryvofront.xcworkspace -scheme dryvofront -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
 				"type": "ios.simulator",
 				"name": "iPhone X"
 			}

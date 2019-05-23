@@ -25,6 +25,8 @@ import validate, { loginValidation } from "../../actions/validate"
 import { popLatestError, checkFirebasePermission } from "../../actions/utils"
 import Analytics from "appcenter-analytics"
 
+// https://stackoverflow.com/a/53080379/695377
+var dummyDeepLinkedUrl
 export class SignIn extends React.Component {
 	constructor(props) {
 		super(props)
@@ -42,11 +44,10 @@ export class SignIn extends React.Component {
 	}
 
 	handleOpenURL = async event => {
-		if (event.url) {
+		if (event.url && event.url != dummyDeepLinkedUrl) {
+			dummyDeepLinkedUrl = event.url
 			let url = event.url.replace("#_=_", "")
-			event.url = "" // reset
 			console.log(`Launched from deeplink ${url}`)
-			url = new URLSearchParams(url).toString()
 			Analytics.trackEvent("Deeplink launch", { from: url })
 			let regex = /token=(.*)/
 			const token = url.match(regex)[1]

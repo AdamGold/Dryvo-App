@@ -19,6 +19,7 @@ export const MAIN_PADDING = 26
 export const DEFAULT_DURATION = 40
 export const NAME_LENGTH = 16
 export const FCM_CHANNEL = "dryvo-channel"
+export const REPORT_TYPES = ["students", "lessons"]
 
 export const signUpRoles = {
 	student: "student",

@@ -207,7 +207,16 @@
 		"support": "תמיכה",
 		"success": "פרטים שונו בהצלחה!",
 		"teacher_info": "פרטי שיעור",
-		"expenses": "ניהול הוצאות"
+		"expenses": "ניהול הוצאות",
+		"reports": "הפקת דוחות",
+		"report_types": {
+			"payments": "תקבולים ותשלומים",
+			"incomes": "הכנסות",
+			"export": "ייצוא קובץ אחיד למס הכנסה",
+			"revenue": "רווח והפסד",
+			"students": "ספר תלמידים",
+			"lessons": "יומן הזמנות"
+		}
 	},
 	"date": {
 		"formats": {

@@ -107,15 +107,57 @@ export class Reports extends React.Component {
 		}
 	}
 
-	render() {
+	_renderDatePickers() {
+		return this.dates.map((name, index) => {
+			return (
+				<DateTimePicker
+					isVisible={this.state[name + "Visible"]}
+					onConfirm={date => {
+						this._handleDatePicked(name, date)
+					}}
+					onCancel={() => {
+						this._hideDateTimePicker(name)
+					}}
+					key={`picker-${name}${index}`}
+				/>
+			)
+		})
+	}
+
+	_renderVisibleDates() {
 		let displayDates = {}
-		this.dates.forEach(name => {
+		return this.dates.map((name, index) => {
+			let style = {}
+			if (index % 2 == 0) {
+				style = styles.leftSide
+			}
 			if (this.state[name]) {
 				displayDates[name] = moment(this.state[name]).format(
 					DISPLAY_SHORT_DATE_FORMAT
 				)
 			}
+			return (
+				<TouchableOpacity
+					onPress={() => {
+						this._showDateTimePicker(name)
+					}}
+					style={style}
+					key={`date-${name}${index}`}
+				>
+					<View style={styles.dateContainer}>
+						<Text style={styles.dateTitle}>
+							{strings("settings." + name + "_date")}
+						</Text>
+						<Text style={styles.dateText}>
+							{displayDates[name]}
+						</Text>
+					</View>
+				</TouchableOpacity>
+			)
 		})
+	}
+
+	render() {
 		return (
 			<ScrollView
 				keyboardDismissMode="on-drag"
@@ -162,35 +204,7 @@ export class Reports extends React.Component {
 					</Text>
 					<ShadowRect style={styles.rect}>
 						<View style={styles.row}>
-							<TouchableOpacity
-								onPress={() => {
-									this._showDateTimePicker(this.dates[0])
-								}}
-							>
-								<View style={styles.dateContainer}>
-									<Text style={styles.dateTitle}>
-										{strings("settings.since_date")}
-									</Text>
-									<Text style={styles.dateText}>
-										{displayDates.since}
-									</Text>
-								</View>
-							</TouchableOpacity>
-							<TouchableOpacity
-								onPress={() => {
-									this._showDateTimePicker(this.dates[1])
-								}}
-								style={styles.leftSide}
-							>
-								<View style={styles.dateContainer}>
-									<Text style={styles.dateTitle}>
-										{strings("settings.until_date")}
-									</Text>
-									<Text style={styles.dateText}>
-										{displayDates.until}
-									</Text>
-								</View>
-							</TouchableOpacity>
+							{this._renderVisibleDates()}
 						</View>
 						<TouchableOpacity
 							style={styles.button}
@@ -206,24 +220,7 @@ export class Reports extends React.Component {
 						</TouchableOpacity>
 					</ShadowRect>
 				</View>
-				<DateTimePicker
-					isVisible={this.state.sinceVisible}
-					onConfirm={date => {
-						this._handleDatePicked(this.dates[0], date)
-					}}
-					onCancel={() => {
-						this._hideDateTimePicker(this.dates[0])
-					}}
-				/>
-				<DateTimePicker
-					isVisible={this.state.untilVisible}
-					onConfirm={date => {
-						this._handleDatePicked(this.dates[1], date)
-					}}
-					onCancel={() => {
-						this._hideDateTimePicker(this.dates[1])
-					}}
-				/>
+				{this._renderDatePickers()}
 			</ScrollView>
 		)
 	}

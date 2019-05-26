@@ -17,6 +17,7 @@ import AddPayment from "./AddPayment"
 import StudentProfile from "../student/Profile"
 import Settings from "../Settings"
 import WorkDays from "./WorkDays"
+import Reports from "./Reports"
 
 export default createBottomTabNavigator(
 	{
@@ -31,7 +32,8 @@ export default createBottomTabNavigator(
 				),
 				AddPayment,
 				Settings,
-				WorkDays
+				WorkDays,
+				Reports
 			},
 			{
 				initialRouteName: "Main",

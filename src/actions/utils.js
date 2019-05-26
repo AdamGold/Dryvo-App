@@ -280,3 +280,16 @@ export function getGreetingTime(m, afternoon = 12, evening = 17) {
 
 	return g
 }
+
+export function navigateToEZCount(endpoint) {
+	return async dispatch => {
+		const resp = await dispatch(
+			fetchOrError("/teacher/ezcount?redirect=" + endpoint, {
+				method: "GET"
+			})
+		)
+		if (resp) {
+			Linking.openURL(resp.json["url"])
+		}
+	}
+}

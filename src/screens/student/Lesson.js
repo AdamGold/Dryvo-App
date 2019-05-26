@@ -179,6 +179,21 @@ export class Lesson extends React.Component {
 		})
 	}
 
+	deleteConfirm() {
+		Alert.alert(strings("are_you_sure"), strings("are_you_sure_delete"), [
+			{
+				text: strings("cancel"),
+				style: "cancel"
+			},
+			{
+				text: strings("ok"),
+				onPress: () => {
+					this.delete()
+				}
+			}
+		])
+	}
+
 	delete = async () => {
 		const { lesson } = this.state
 		if (!lesson) return
@@ -304,7 +319,7 @@ export class Lesson extends React.Component {
 			)
 			deleteButton = (
 				<TouchableOpacity
-					onPress={this.delete.bind(this)}
+					onPress={this.deleteConfirm.bind(this)}
 					style={styles.deleteButton}
 				>
 					<Text style={{ color: "red" }}>

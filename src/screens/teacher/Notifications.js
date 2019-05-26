@@ -157,6 +157,22 @@ export class Notifications extends React.Component {
 		}
 	}
 
+	deleteConfirm(type, item, index) {
+		// are you sure stage
+		Alert.alert(strings("are_you_sure"), strings("are_you_sure_general"), [
+			{
+				text: strings("cancel"),
+				style: "cancel"
+			},
+			{
+				text: strings("ok"),
+				onPress: () => {
+					this.delete(type, item, index)
+				}
+			}
+		])
+	}
+
 	delete = async (type, item, index) => {
 		const id = item.id || item.student_id
 		const resp = await this.props.dispatch(
@@ -209,7 +225,9 @@ export class Notifications extends React.Component {
 									lesson: item
 								})
 							}
-							delete={() => this.delete("lessons", item, index)}
+							delete={() =>
+								this.deleteConfirm("lessons", item, index)
+							}
 						/>
 					</Notification>
 					<LessonPopup
@@ -235,7 +253,7 @@ export class Notifications extends React.Component {
 			>
 				<NotificationButtons
 					approve={() => this.approve("student", item, index)}
-					delete={() => this.delete("student", item, index)}
+					delete={() => this.deleteConfirm("student", item, index)}
 				/>
 			</Notification>
 		)

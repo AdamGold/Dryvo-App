@@ -36,8 +36,12 @@ export class Reports extends React.Component {
 		super(props)
 		this.dates = ["since", "until"]
 		this.state = {
-			since: moment().startOf("month"),
-			until: moment().endOf("month"),
+			since: moment()
+				.startOf("month")
+				.format(SHORT_API_DATE_FORMAT),
+			until: moment()
+				.endOf("month")
+				.format(SHORT_API_DATE_FORMAT),
 			sinceVisible: false,
 			untilVisible: false
 		}

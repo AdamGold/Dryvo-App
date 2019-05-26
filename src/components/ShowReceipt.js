@@ -21,7 +21,25 @@ export default class ShowReceipt extends React.Component {
 		Linking.openURL(this.props.item.pdf_link || this.state.pdf_link)
 	}
 
-	_createReceipt = async () => {
+	_clickToCreateReceipt() {
+		// are you sure stage
+		Alert.alert(
+			strings("are_you_sure"),
+			strings("teacher.are_you_sure_invoice"),
+			[
+				{
+					text: strings("cancel"),
+					style: "cancel"
+				},
+				{
+					text: strings("ok"),
+					onPress: this._createReceipt.bind(this)
+				}
+			]
+		)
+	}
+
+	async _createReceipt() {
 		const resp = await this.props.dispatch(
 			fetchOrError(`/teacher/payments/${this.props.item.id}/receipt`, {
 				method: "GET"
@@ -66,7 +84,7 @@ export default class ShowReceipt extends React.Component {
 			if (this.props.user.hasOwnProperty("teacher_id")) {
 				return (
 					<TouchableOpacity
-						onPress={this._createReceipt.bind(this)}
+						onPress={this._clickToCreateReceipt.bind(this)}
 						style={this.props.style}
 					>
 						<Text style={styles.receipt}>

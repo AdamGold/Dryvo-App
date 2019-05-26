@@ -30,6 +30,11 @@
 	"evening": "ערב טוב",
 	"welcome_from_facebook_title": "ברוך הבא!",
 	"welcome_from_facebook_desc": "בזמן ההמתנה לאישור, אולי ננצל את הזמן ונמלא את הפרטים הבאים?",
+	"are_you_sure": "אישור פעולה",
+	"ok": "אישור",
+	"cancel": "לא כרגע",
+	"are_you_sure_general": "האם להמשיך בפעולה?",
+	"are_you_sure_delete": "האם לבטל את השיעור?",
 	"student_profile": {
 		"lessons": "שיעורים",
 		"my_teacher": "המורה שלי:",
@@ -92,6 +97,7 @@
 		"create_receipt": "צור חשבונית",
 		"receipt_created_title": "התהליך הושלם!",
 		"receipt_created_msg": "החשבונית נוצרה בהצלחה ונשלחה למייל של {{student}}.",
+		"are_you_sure_invoice": "האם להפיק חשבונית?",
 		"home": {
 			"current_lesson": "שיעור נוכחי",
 			"next_lesson": "שיעור הבא",

@@ -467,6 +467,7 @@ exports[`Topics view renders correctly 1`] = `
                 "fontSize": 28,
                 "fontWeight": "bold",
                 "marginTop": 20,
+                "textAlign": "center",
               }
             }
           >

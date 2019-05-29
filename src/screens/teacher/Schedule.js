@@ -242,7 +242,6 @@ export class Schedule extends React.Component {
 
 	renderHours = (hoursDict, firstItemInDay) => {
 		// hoursDict is actually an object containing hours, each with a list of lessons
-		console.log(hoursDict)
 		if (Object.entries(hoursDict).length === 0) {
 			return this._renderEmpty()
 		}

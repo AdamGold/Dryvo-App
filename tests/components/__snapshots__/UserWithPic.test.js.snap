@@ -10,7 +10,13 @@ exports[`UserWithPic view renders correctly 1`] = `
     }
   }
 >
-  <View>
+  <View
+    style={
+      Object {
+        "marginTop": 6,
+      }
+    }
+  >
     <View
       style={
         Array [
@@ -20,6 +26,7 @@ exports[`UserWithPic view renders correctly 1`] = `
           Object {
             "borderRadius": 50,
             "height": 100,
+            "marginTop": 12,
             "width": 100,
           },
         ]
@@ -29,7 +36,7 @@ exports[`UserWithPic view renders correctly 1`] = `
         resizeMode="cover"
         source={
           Object {
-            "uri": "https://res.cloudinary.com/hsmkon3br/image/upload/c_thumb,g_face,h_80,w_80/v1554188012/678099-profile-filled-256.png",
+            "uri": "http://example.com",
           }
         }
         style={

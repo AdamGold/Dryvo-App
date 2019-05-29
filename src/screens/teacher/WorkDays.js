@@ -169,9 +169,10 @@ export class WorkDays extends React.Component {
 
 	_renderHours = day => {
 		return this.state.daysWithHours[day].map((hour, index) => {
+			const offset = moment().utcOffset() / 60
 			const localHours = {
-				fromHour: parseInt(hour.from_hour) + moment().utcOffset() / 60,
-				toHour: parseInt(hour.to_hour) + moment().utcOffset() / 60
+				fromHour: parseInt(hour.from_hour) + offset,
+				toHour: parseInt(hour.to_hour) + offset
 			}
 			return (
 				<View key={`hour${index}`} style={styles.hoursRow}>

@@ -12,7 +12,13 @@ import { Agenda } from "react-native-calendars"
 import Row from "../../components/Row"
 import { Icon } from "react-native-elements"
 import Separator from "../../components/Separator"
-import { calendarTheme, MAIN_PADDING, colors, NAME_LENGTH } from "../../consts"
+import {
+	calendarTheme,
+	MAIN_PADDING,
+	colors,
+	NAME_LENGTH,
+	SHORT_API_DATE_FORMAT
+} from "../../consts"
 import Hours from "../../components/Hours"
 import { getDateAndString } from "../../actions/lessons"
 import LessonPopup from "../../components/LessonPopup"
@@ -63,13 +69,54 @@ export class Schedule extends React.Component {
 		})
 	}
 
-	_createDayTimeline(lessons) {
+	_getWorkDayHours(data) {
+		let hours = []
+		const offset = moment().utcOffset() / 60
+		data.forEach(day => {
+			hours.push(day.from_hour + offset)
+			hours.push(day.to_hour + offset)
+		})
+
+		return hours
+	}
+
+	async _getDayHours() {
+		// first try to get the work hours on this specific day
+		let resp = await this.props.fetchService.fetch(
+			"/teacher/work_days?on_date=" +
+				moment(this.state.date).format(SHORT_API_DATE_FORMAT),
+			{
+				method: "GET"
+			}
+		)
+
+		if (resp) {
+			if (resp.json.data.length == 0) {
+				// if no data, try to get global work hours for this day
+				const weekDay = moment(this.state.date).day()
+				resp = await this.props.fetchService.fetch(
+					"/teacher/work_days?day=" + weekDay,
+					{
+						method: "GET"
+					}
+				)
+			}
+		}
+		if (!resp) return []
+		return this._getWorkDayHours(resp.json.data)
+	}
+
+	async _createDayTimeline(lessons) {
 		// create a dictionary consisting of:
 		// HOUR: [lessons]
 		// for every hour of the day, starting from first working hour to last
-		// TODO get working hours for that day
 		let day = {}
-		for (let hour = 6; hour <= 22; hour++) {
+		const workDaysHours = await this._getDayHours()
+		for (
+			let hour = Math.min(...workDaysHours);
+			hour <= Math.max(...workDaysHours);
+			hour++
+		) {
 			day[hour] = []
 		}
 
@@ -101,10 +148,11 @@ export class Schedule extends React.Component {
 			{ method: "GET" }
 		)
 		if (!resp.json["data"]) return
+		const timeline = await this._createDayTimeline(resp.json["data"])
 		this.setState(prevState => ({
 			items: {
 				...prevState.items,
-				[dates.dateString]: [this._createDayTimeline(resp.json["data"])]
+				[dates.dateString]: [timeline]
 			},
 			refreshing: false
 		}))
@@ -194,6 +242,10 @@ export class Schedule extends React.Component {
 
 	renderHours = (hoursDict, firstItemInDay) => {
 		// hoursDict is actually an object containing hours, each with a list of lessons
+		console.log(hoursDict)
+		if (Object.entries(hoursDict).length === 0) {
+			return this._renderEmpty()
+		}
 		return Object.keys(hoursDict).map((hour, index) => {
 			const lessons = hoursDict[hour]
 			let firstStyle = {}
@@ -241,7 +293,7 @@ export class Schedule extends React.Component {
 		return (
 			<EmptyState
 				image="lessons"
-				text={strings("empty_lessons")}
+				text={strings("empty_work_hours")}
 				style={styles.empty}
 			/>
 		)
@@ -250,6 +302,7 @@ export class Schedule extends React.Component {
 	onDayPress = day => {
 		this.setState(
 			{
+				date: new Date(day.timestamp),
 				selected: day.dateString
 			},
 			() => {
@@ -386,6 +439,9 @@ const styles = StyleSheet.create({
 	},
 	emptyHour: {
 		alignSelf: "flex-start"
+	},
+	empty: {
+		marginTop: 100
 	}
 })
 

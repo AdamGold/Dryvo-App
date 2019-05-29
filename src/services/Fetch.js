@@ -57,7 +57,7 @@ export default class Fetch {
 		})
 		const respJSON = await resp.json()
 		this._throwError(resp.status, respJSON)
-		console.log("response from refresh token " + JSON.stringify(respJSON))
+		// console.log("response from refresh token " + JSON.stringify(respJSON))
 		await Storage.setItem(TOKEN_KEY, respJSON["auth_token"], true)
 		return { symbol: this._RESEND }
 	}
@@ -83,19 +83,19 @@ export default class Fetch {
 			...fetchParams[1]["headers"],
 			Authorization: "Bearer " + token
 		}
-		console.log(
+		/*console.log(
 			"request to " +
 				fetchParams[0] +
 				" with data " +
 				JSON.stringify(fetchParams[1]) +
 				" with requests sent: " +
 				this.sentRequests
-		)
+		)*/
 		const resp = await fetch(ROOT_URL + fetchParams[0], fetchParams[1])
 		let respJSON = await resp.json()
-		console.log(
+		/*console.log(
 			"response from " + fetchParams[0] + ": " + JSON.stringify(respJSON)
-		)
+		)*/
 		respJSON = await this._handleExceptions(respJSON)
 		if (
 			respJSON.hasOwnProperty("symbol") &&

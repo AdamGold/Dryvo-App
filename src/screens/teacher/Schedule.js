@@ -112,12 +112,14 @@ export class Schedule extends React.Component {
 		// for every hour of the day, starting from first working hour to last
 		let day = {}
 		const workDaysHours = await this._getDayHours()
-		for (
-			let hour = Math.min(...workDaysHours);
-			hour <= Math.max(...workDaysHours);
-			hour++
-		) {
-			day[hour] = []
+		if (workDaysHours.length > 0) {
+			for (
+				let hour = Math.min(...workDaysHours);
+				hour <= Math.max(...workDaysHours);
+				hour++
+			) {
+				day[hour] = []
+			}
 		}
 
 		lessons.forEach(lesson => {
@@ -126,6 +128,8 @@ export class Schedule extends React.Component {
 				.add(lesson.duration, "minutes")
 				.hours()
 			for (let i = hour + 1; i <= endingHour; i++) {
+				// if the lesson ends in X hours, delete all these hours from our object
+				// if later there are lessons with these hours, we re-add them
 				delete day[i]
 			}
 			if (day.hasOwnProperty(hour)) {
@@ -256,9 +260,7 @@ export class Schedule extends React.Component {
 					style={{ ...styles.hourView, ...firstStyle }}
 					key={`${hour}-${index}`}
 				>
-					<Text style={styles.hourTitle}>
-						{moment.utc(hour * 3600 * 1000).format("HH:mm")}
-					</Text>
+					<Text style={styles.hourTitle}>{hour}:00</Text>
 					<View style={styles.hourLessons}>
 						{this._renderLessons(lessons, firstItemInDay)}
 					</View>

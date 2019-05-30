@@ -14,7 +14,6 @@ import Storage from "../services/Storage"
 import ImagePicker from "react-native-image-picker"
 import ImageResizer from "react-native-image-resizer"
 import firebase from "react-native-firebase"
-import Analytics from "appcenter-analytics"
 
 export const fetchOrError = (endpoint, params, dispatchError = true) => {
 	return async (dispatch, getState) => {
@@ -139,7 +138,6 @@ const _registerDeviceToken = fcmToken => {
 					}
 				)
 				if (resp.status == 200) {
-					Analytics.trackEvent("Register device token")
 					console.log("registered token")
 					let date = new Date()
 					const expiry = date.setDate(date.getDate() + 7) // 7 days from now

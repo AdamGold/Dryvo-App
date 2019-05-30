@@ -354,6 +354,10 @@ export class Lesson extends React.Component {
 				</View>
 				<KeyboardAvoidingView
 					behavior={Platform.OS === "ios" ? "padding" : null}
+					keyboardVerticalOffset={Platform.select({
+						ios: fullButton.height + 10,
+						android: null
+					})}
 					style={styles.container}
 				>
 					<ScrollView
@@ -421,7 +425,7 @@ const styles = StyleSheet.create({
 		alignSelf: "center",
 		marginBottom: 70
 	},
-	submitButton: fullButton,
+	submitButton: { ...fullButton, position: "relative" },
 	doneText: {
 		color: "#fff",
 		fontWeight: "bold",

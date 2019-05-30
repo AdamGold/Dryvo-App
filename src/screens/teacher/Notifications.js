@@ -24,6 +24,7 @@ import { fetchOrError, popLatestError } from "../../actions/utils"
 import { API_ERROR } from "../../reducers/consts"
 import ShowReceipt from "../../components/ShowReceipt"
 import { Icon } from "react-native-elements"
+import Analytics from "appcenter-analytics"
 
 export class Notifications extends React.Component {
 	static navigationOptions = () => {
@@ -144,6 +145,9 @@ export class Notifications extends React.Component {
 
 	approve = async (type, item, index) => {
 		const id = item.id || item.student_id
+		Analytics.trackEvent("Teacher approved", {
+			Category: "Lesson"
+		})
 		const resp = await this.props.dispatch(
 			fetchOrError(`/${type}/${id}/approve`, {
 				method: "GET"
@@ -220,14 +224,20 @@ export class Notifications extends React.Component {
 					>
 						<NotificationButtons
 							approve={() => this.approve("lessons", item, index)}
-							edit={() =>
+							edit={() => {
+								Analytics.trackEvent("Teacher edit lesson", {
+									Category: "Lesson"
+								})
 								this.props.navigation.navigate("Lesson", {
 									lesson: item
 								})
-							}
-							delete={() =>
+							}}
+							delete={() => {
+								Analytics.trackEvent("Teacher deleted lesson", {
+									Category: "Lesson"
+								})
 								this.deleteConfirm("lessons", item, index)
-							}
+							}}
 						/>
 					</Notification>
 					<LessonPopup

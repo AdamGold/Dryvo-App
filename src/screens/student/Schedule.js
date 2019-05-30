@@ -227,7 +227,10 @@ export class Schedule extends React.Component {
 							backgroundColor: "transparent",
 							agendaKnobColor: "gray",
 							textWeekDayFontSize: 16,
-							textWeekDayFontWeight: "600"
+							textWeekDayFontWeight: "600",
+							"stylesheet.calendar.header": {
+								monthText: { marginTop: 20 }
+							}
 						}}
 						// If provided, a standard RefreshControl will be added for "Pull to Refresh" functionality. Make sure to also set the refreshing prop correctly.
 						onRefresh={this._onRefresh.bind(this)}

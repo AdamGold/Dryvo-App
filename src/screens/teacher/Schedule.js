@@ -361,7 +361,10 @@ export class Schedule extends React.Component {
 							backgroundColor: "transparent",
 							agendaKnobColor: "gray",
 							textWeekDayFontSize: 16,
-							textWeekDayFontWeight: "600"
+							textWeekDayFontWeight: "600",
+							"stylesheet.calendar.header": {
+								monthText: { marginTop: 20 }
+							}
 						}}
 						ItemSeparatorComponent={() => <Separator />}
 						extraData={this.state.visible}
@@ -431,7 +434,7 @@ const styles = StyleSheet.create({
 		flex: 1
 	},
 	hourLessons: {
-		flex: 4,
+		flex: 5,
 		marginLeft: 12
 	},
 	name: {

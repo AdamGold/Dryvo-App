@@ -122,6 +122,7 @@ Array [
         onSubmitEditing={[Function]}
         placeholder="[missing \\"he.teacher.new_lesson.test\\" translation]kiwi"
         placeholderTextColor="lightgray"
+        rejectResponderTermination={true}
         selectTextOnFocus={false}
         style={
           Object {

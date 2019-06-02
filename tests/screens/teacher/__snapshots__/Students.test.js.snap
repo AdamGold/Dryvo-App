@@ -258,6 +258,7 @@ exports[`Students view renders correctly 1`] = `
                       onContentSizeChange={[Function]}
                       onFocus={[Function]}
                       propsExtractor={[Function]}
+                      rejectResponderTermination={true}
                       renderAccessory={[Function]}
                       rippleDuration={400}
                       selectionColor="rgb(0, 145, 234)"
@@ -551,6 +552,7 @@ exports[`Students view renders correctly 1`] = `
                     onScroll={[Function]}
                     onScrollBeginDrag={[Function]}
                     onScrollEndDrag={[Function]}
+                    removeClippedSubviews={false}
                     renderItem={[Function]}
                     scrollEnabled={false}
                     scrollEventThrottle={50}
@@ -906,6 +908,7 @@ exports[`Students view renders correctly 1`] = `
             placeholder="חיפוש תלמיד"
             placeholderTextColor="#7d7d7d"
             platform="ios"
+            rejectResponderTermination={true}
             style={
               Object {
                 "alignItems": "flex-start",

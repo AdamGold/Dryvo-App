@@ -6,6 +6,7 @@ import renderer from "react-test-renderer"
 import { AddPaymentChooseAmount } from "../../../src/screens/teacher/AddPaymentChooseAmount"
 import { AddPaymentChooseStudent } from "../../../src/screens/teacher/AddPaymentChooseStudent"
 
+jest.useFakeTimers()
 const navigation = {
 	getParam: param => {
 		if (param == "student") return { student_id: 1, user: { name: "test" } }

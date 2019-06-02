@@ -159,6 +159,7 @@ exports[`Home view renders correctly for student 1`] = `
             onBlur={[Function]}
             onChangeText={[Function]}
             onFocus={[Function]}
+            rejectResponderTermination={true}
             secureTextEntry={false}
             style={
               Object {
@@ -309,6 +310,7 @@ exports[`Home view renders correctly for student 1`] = `
             onBlur={[Function]}
             onChangeText={[Function]}
             onFocus={[Function]}
+            rejectResponderTermination={true}
             secureTextEntry={false}
             style={
               Object {
@@ -459,6 +461,7 @@ exports[`Home view renders correctly for student 1`] = `
             onBlur={[Function]}
             onChangeText={[Function]}
             onFocus={[Function]}
+            rejectResponderTermination={true}
             secureTextEntry={false}
             style={
               Object {
@@ -760,6 +763,7 @@ exports[`Home view renders correctly for teacher 1`] = `
             onBlur={[Function]}
             onChangeText={[Function]}
             onFocus={[Function]}
+            rejectResponderTermination={true}
             secureTextEntry={false}
             style={
               Object {
@@ -910,6 +914,7 @@ exports[`Home view renders correctly for teacher 1`] = `
             onBlur={[Function]}
             onChangeText={[Function]}
             onFocus={[Function]}
+            rejectResponderTermination={true}
             secureTextEntry={false}
             style={
               Object {
@@ -1060,6 +1065,7 @@ exports[`Home view renders correctly for teacher 1`] = `
             onBlur={[Function]}
             onChangeText={[Function]}
             onFocus={[Function]}
+            rejectResponderTermination={true}
             secureTextEntry={false}
             style={
               Object {

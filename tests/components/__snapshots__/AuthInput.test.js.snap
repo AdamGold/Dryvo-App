@@ -125,6 +125,7 @@ exports[`AuthInput view renders correctly 1`] = `
       onChangeText={[Function]}
       onFocus={[Function]}
       placeholder="test"
+      rejectResponderTermination={true}
       secureTextEntry={true}
       style={
         Object {

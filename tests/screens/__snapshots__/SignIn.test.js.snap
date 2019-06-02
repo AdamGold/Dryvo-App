@@ -200,6 +200,7 @@ exports[`SignIn view renders correctly 1`] = `
                 onChangeText={[Function]}
                 onFocus={[Function]}
                 placeholder="אימייל"
+                rejectResponderTermination={true}
                 secureTextEntry={false}
                 style={
                   Object {
@@ -342,6 +343,7 @@ exports[`SignIn view renders correctly 1`] = `
                 onChangeText={[Function]}
                 onFocus={[Function]}
                 placeholder="סיסמה"
+                rejectResponderTermination={true}
                 secureTextEntry={true}
                 style={
                   Object {

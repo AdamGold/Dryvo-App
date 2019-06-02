@@ -3,6 +3,7 @@ package com.dryvofront;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.reactnativecommunity.asyncstorage.AsyncStoragePackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 import com.lugg.ReactNativeConfig.ReactNativeConfigPackage;
 import com.microsoft.codepush.react.CodePush;
@@ -47,6 +48,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new AsyncStoragePackage(),
             new SplashScreenReactPackage(),
             new ReactNativeConfigPackage(),
             new CodePush(BuildConfig.CODEPUSH_SECRET, getApplicationContext(), BuildConfig.DEBUG),

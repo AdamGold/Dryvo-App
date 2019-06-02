@@ -1,5 +1,5 @@
 import RNSecureStorage, { ACCESSIBLE } from "rn-secure-storage"
-import { AsyncStorage } from "react-native"
+import AsyncStorage from "@react-native-community/async-storage"
 import { STORAGE_PREFIX as PREFIX } from "../consts"
 
 export default class Storage {

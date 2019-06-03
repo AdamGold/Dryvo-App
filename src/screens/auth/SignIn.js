@@ -47,7 +47,6 @@ export class SignIn extends React.Component {
 			dummyDeepLinkedUrl = event.url
 			let url = event.url.replace("#_=_", "")
 			console.log(`Launched from deeplink ${url}`)
-			Analytics.trackEvent("Deeplink launch", { from: url })
 			let regex = /token=(.*)/
 			const token = url.match(regex)[1]
 			this.props.dispatch(

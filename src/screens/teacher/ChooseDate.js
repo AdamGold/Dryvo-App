@@ -92,12 +92,12 @@ export class ChooseDate extends React.Component {
 		)
 	}
 	_getItems = async date => {
-		const dates = getDateAndString(date)
+		const dateObject = getDateAndString(date)
 		const resp = await this.props.fetchService.fetch(
 			"/lessons/?is_approved=true&date=ge:" +
-				dates.date.startOf("day").toISOString() +
+				dateObject.date.startOf("day").toISOString() +
 				"&date=le:" +
-				dates.date.endOf("day").toISOString(),
+				dateObject.date.endOf("day").toISOString(),
 			{ method: "GET" }
 		)
 		this.setState({

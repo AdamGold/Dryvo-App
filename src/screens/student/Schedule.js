@@ -69,19 +69,19 @@ export class Schedule extends React.Component {
 	}
 
 	_getItems = async date => {
-		const dates = getDateAndString(date)
+		const dateObject = getDateAndString(date)
 		const resp = await this.props.fetchService.fetch(
 			"/lessons/?date=ge:" +
-				dates.date.startOf("day").toISOString() +
+				dateObject.date.startOf("day").toISOString() +
 				"&date=le:" +
-				dates.date.endOf("week").toISOString(),
+				dateObject.date.endOf("week").toISOString(),
 			{ method: "GET" }
 		)
 		// get lessons until end of week and divide to array with date as key
-		let items = { [dates.dateString]: [] }
+		let items = { [dateObject.dateString]: [] }
 		if (resp.json["data"].length == 0) {
 			// no lessons at all this week. let's show empty
-			items[dates.dateString] = [EMPTY_LESSON]
+			items[dateObject.dateString] = [EMPTY_LESSON]
 			this.setState({ items })
 		}
 		resp.json["data"].forEach(lesson => {

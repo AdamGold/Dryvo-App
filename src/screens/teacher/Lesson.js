@@ -289,6 +289,21 @@ export class Lesson extends React.Component {
 		})
 	}
 
+	deleteConfirm() {
+		Alert.alert(strings("are_you_sure"), strings("are_you_sure_delete"), [
+			{
+				text: strings("cancel"),
+				style: "cancel"
+			},
+			{
+				text: strings("ok"),
+				onPress: () => {
+					this.delete()
+				}
+			}
+		])
+	}
+
 	delete = async () => {
 		const { lesson } = this.state
 		if (!lesson) return
@@ -509,7 +524,7 @@ export class Lesson extends React.Component {
 		if (this.state.lesson) {
 			deleteButton = (
 				<TouchableOpacity
-					onPress={this.delete.bind(this)}
+					onPress={this.deleteConfirm.bind(this)}
 					style={styles.deleteButton}
 				>
 					<Text style={{ color: "red" }}>
@@ -532,6 +547,51 @@ export class Lesson extends React.Component {
 					}}
 					button={strings("teacher.new_lesson.success_button")}
 				/>
+				<ScrollView
+					ref={ref => (this._scrollView = ref)}
+					style={styles.formContainer}
+					keyboardDismissMode={
+						Platform.OS === "ios" ? "interactive" : "on-drag"
+					}
+					keyboardShouldPersistTaps="handled"
+				>
+					<View style={styles.headerRow}>
+						<Button
+							icon={<Icon name="arrow-forward" type="material" />}
+							onPress={() => {
+								this.props.navigation.goBack()
+							}}
+							type="clear"
+						/>
+						<PageTitle
+							style={styles.title}
+							title={strings("teacher.new_lesson.title")}
+						/>
+						{deleteButton}
+					</View>
+					<TouchableOpacity onPress={this._showDateTimePicker}>
+						<View style={styles.nonInputContainer}>
+							<Text style={styles.nonInputTitle}>
+								{strings("teacher.new_lesson.date")}
+							</Text>
+							<Text>{date}</Text>
+						</View>
+					</TouchableOpacity>
+					{this.renderInputs(0, 2)}
+					<View style={styles.nonInputContainer}>
+						<Text style={styles.nonInputTitle}>
+							{strings("teacher.new_lesson.hour")}
+						</Text>
+					</View>
+					<View style={styles.rects}>{this.renderHours()}</View>
+					{this.renderInputs(2, 5)}
+					<View style={styles.nonInputContainer}>
+						<Text style={styles.nonInputTitle}>
+							{strings("teacher.new_lesson.topics")}
+						</Text>
+					</View>
+					<View style={styles.rects}>{this.renderTopics()}</View>
+				</ScrollView>
 				<KeyboardAvoidingView
 					behavior={Platform.OS === "ios" ? "position" : null}
 					keyboardVerticalOffset={Platform.select({
@@ -540,56 +600,6 @@ export class Lesson extends React.Component {
 					})}
 					style={styles.container}
 				>
-					<ScrollView
-						ref={ref => (this._scrollView = ref)}
-						style={styles.formContainer}
-						keyboardDismissMode={
-							Platform.OS === "ios" ? "interactive" : "on-drag"
-						}
-						keyboardShouldPersistTaps="handled"
-					>
-						<View style={styles.headerRow}>
-							<Button
-								icon={
-									<Icon
-										name="arrow-forward"
-										type="material"
-									/>
-								}
-								onPress={() => {
-									this.props.navigation.goBack()
-								}}
-								type="clear"
-							/>
-							<PageTitle
-								style={styles.title}
-								title={strings("teacher.new_lesson.title")}
-							/>
-							{deleteButton}
-						</View>
-						<TouchableOpacity onPress={this._showDateTimePicker}>
-							<View style={styles.nonInputContainer}>
-								<Text style={styles.nonInputTitle}>
-									{strings("teacher.new_lesson.date")}
-								</Text>
-								<Text>{date}</Text>
-							</View>
-						</TouchableOpacity>
-						{this.renderInputs(0, 2)}
-						<View style={styles.nonInputContainer}>
-							<Text style={styles.nonInputTitle}>
-								{strings("teacher.new_lesson.hour")}
-							</Text>
-						</View>
-						<View style={styles.rects}>{this.renderHours()}</View>
-						{this.renderInputs(2, 5)}
-						<View style={styles.nonInputContainer}>
-							<Text style={styles.nonInputTitle}>
-								{strings("teacher.new_lesson.topics")}
-							</Text>
-						</View>
-						<View style={styles.rects}>{this.renderTopics()}</View>
-					</ScrollView>
 					<TouchableOpacity
 						onPress={this.submit}
 						style={styles.submitButton}
@@ -638,7 +648,6 @@ const styles = StyleSheet.create({
 	},
 	formContainer: {
 		width: 340,
-		marginBottom: 70,
 		alignSelf: "center"
 	},
 	submitButton: fullButton,

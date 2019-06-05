@@ -1,29 +1,19 @@
 import React from "react"
-import { View, Text, Image, StyleSheet } from "react-native"
-import { getUserImage } from "../actions/utils"
-import FastImage from "react-native-fast-image"
+import { View, Text, StyleSheet } from "react-native"
+import UserPic from "./UserPic"
 import { NAME_LENGTH } from "../consts"
 
 export default class UserWithPic extends React.Component {
 	render() {
-		const width = this.props.width || 34
-		const img = getUserImage(this.props.user)
 		const name = this.props.name || this.props.user.name
 		return (
 			<View style={{ ...styles.container, ...this.props.style }}>
 				<View style={this.props.imageContainerStyle}>
-					<FastImage
-						style={{
-							...this.props.imageStyle,
-							...{
-								borderRadius: width / 2,
-								width: width,
-								height: this.props.height || 34
-							}
-						}}
-						source={{
-							uri: img
-						}}
+					<UserPic
+						width={this.props.width}
+						height={this.props.height}
+						user={this.props.user}
+						style={this.props.imageStyle}
 					/>
 				</View>
 				<View style={styles.column}>

@@ -312,6 +312,7 @@ exports[`Students view renders correctly 1`] = `
             placeholder="חיפוש תלמיד"
             placeholderTextColor="#7d7d7d"
             platform="ios"
+            rejectResponderTermination={true}
             style={
               Object {
                 "alignItems": "flex-start",
@@ -434,6 +435,7 @@ exports[`Students view renders correctly 1`] = `
       onScroll={[Function]}
       onScrollBeginDrag={[Function]}
       onScrollEndDrag={[Function]}
+      removeClippedSubviews={false}
       renderItem={[Function]}
       scrollEventThrottle={50}
       stickyHeaderIndices={Array []}

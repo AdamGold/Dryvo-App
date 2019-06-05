@@ -1,5 +1,5 @@
 import RNSecureStorage, { ACCESSIBLE } from "rn-secure-storage"
-import { AsyncStorage } from "react-native"
+import AsyncStorage from "@react-native-community/async-storage"
 import { STORAGE_PREFIX as PREFIX } from "../consts"
 
 export default class Storage {
@@ -38,7 +38,7 @@ export default class Storage {
 
 	static async _setNormal(key, val) {
 		await AsyncStorage.setItem(`${PREFIX}${key}`, val)
-		console.debug(`saved ${key}=${val}`)
+		// console.debug(`saved ${key}=${val}`)
 	}
 
 	static async _setSecure(key, val) {
@@ -46,7 +46,7 @@ export default class Storage {
 		await RNSecureStorage.set(`${PREFIX}${key}`, val, {
 			accessible: ACCESSIBLE.WHEN_UNLOCKED
 		})
-		console.debug(`saved ${key}=${val}`)
+		// console.debug(`saved ${key}=${val}`)
 	}
 
 	static async removeItem(key, secure = false) {

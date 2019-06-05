@@ -6,7 +6,7 @@ import Hours from "./Hours"
 import moment from "moment"
 import { fullButton, NAME_LENGTH, DATE_FORMAT } from "../consts"
 import { getUserImage } from "../actions/utils"
-import FastImage from "react-native-fast-image"
+import UserPic from "./UserPic"
 
 export default class LessonPopup extends React.Component {
 	constructor(props) {
@@ -55,24 +55,19 @@ export default class LessonPopup extends React.Component {
 			const number = `${strings("teacher.home.lesson_number")} ${
 				item.lesson_number
 			}`
-			let image
-			if (item.student.user.image) {
-				image = (
-					<FastImage
-						style={styles.image}
-						source={{
-							uri: getUserImage(item.student.user)
-						}}
-					/>
-				)
-			}
 			studentInfo = (
 				<TouchableOpacity
 					style={styles.userRow}
 					onPress={this.navigateToProfile}
 				>
 					<Fragment>
-						<View style={styles.imageView}>{image}</View>
+						<View style={styles.imageView}>
+							<UserPic
+								user={item.student.user}
+								width={styles.image.width}
+								height={styles.image.height}
+							/>
+						</View>
 						<View style={styles.userInfo}>
 							<Text style={styles.title}>{name}</Text>
 							<Text style={styles.lessonNumber}>{number}</Text>
@@ -155,26 +150,31 @@ const styles = StyleSheet.create({
 		backgroundColor: "#fff",
 		padding: 26,
 		alignSelf: "center",
-		width: 280,
+		width: 320,
 		alignContent: "center",
 		borderRadius: 4
 	},
 	userRow: {
 		flexDirection: "row",
 		alignSelf: "center",
+		alignItems: "center",
 		width: 180
 	},
-	imageView: { flex: 1, width: 76, alignSelf: "flex-start" },
+	imageView: {
+		flex: 1,
+		width: 48,
+		alignSelf: "flex-start",
+		justifyContent: "flex-start",
+		marginTop: 24
+	},
+	image: { width: 48, height: 48 },
 	userInfo: {
 		flexDirection: "column",
-		flex: 1,
+		flex: 2,
 		marginLeft: "auto",
-		marginTop: -16
-	},
-	image: {
-		width: 76,
-		height: 76,
-		borderRadius: 38
+		justifyContent: "flex-start",
+		marginTop: -6,
+		marginRight: -24
 	},
 	title: {
 		fontWeight: "bold",
@@ -192,14 +192,14 @@ const styles = StyleSheet.create({
 	row: {
 		flex: 1,
 		flexDirection: "row",
-		alignItems: "flex-start",
+		alignItems: "center",
 		marginTop: 12,
 		maxHeight: 60
 	},
 	column: {
 		flexDirection: "column",
 		justifyContent: "flex-start",
-		width: 140
+		width: 160
 	},
 	titles: {
 		fontWeight: "bold",
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
 		alignSelf: "flex-start"
 	},
 	texts: { fontSize: 18, marginTop: 6, alignSelf: "flex-start" },
-	button: { ...fullButton, width: 280 },
+	button: { ...fullButton, width: 320 },
 	buttonText: {
 		fontWeight: "bold",
 		color: "#fff",

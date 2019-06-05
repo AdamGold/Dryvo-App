@@ -23,7 +23,6 @@ import AuthInput from "../../components/AuthInput"
 import LoadingButton from "../../components/LoadingButton"
 import validate, { loginValidation } from "../../actions/validate"
 import { popLatestError, checkFirebasePermission } from "../../actions/utils"
-import Analytics from "appcenter-analytics"
 
 // https://stackoverflow.com/a/53080379/695377
 var dummyDeepLinkedUrl
@@ -48,7 +47,6 @@ export class SignIn extends React.Component {
 			dummyDeepLinkedUrl = event.url
 			let url = event.url.replace("#_=_", "")
 			console.log(`Launched from deeplink ${url}`)
-			Analytics.trackEvent("Deeplink launch", { from: url })
 			let regex = /token=(.*)/
 			const token = url.match(regex)[1]
 			this.props.dispatch(
@@ -75,7 +73,6 @@ export class SignIn extends React.Component {
 	componentDidUpdate() {
 		const error = this.props.dispatch(popLatestError(API_ERROR))
 		if (error) {
-			Analytics.trackEvent("SignIn error", { error })
 			Alert.alert(strings("errors.title"), errors(error))
 		}
 	}

@@ -20,6 +20,7 @@
 	"empty_notifications": "אין לך התראות!",
 	"empty_students": "לא נמצאו תלמידים",
 	"empty_topics": "טרם נלמדו נושאים",
+	"empty_work_hours": "לא הגדרת שעות עבודה!",
 	"select_image": "בחר תמונה",
 	"delete_lesson": "ביטול השיעור",
 	"show_receipt": "צפה בחשבונית",
@@ -30,6 +31,11 @@
 	"evening": "ערב טוב",
 	"welcome_from_facebook_title": "ברוך הבא!",
 	"welcome_from_facebook_desc": "בזמן ההמתנה לאישור, אולי ננצל את הזמן ונמלא את הפרטים הבאים?",
+	"are_you_sure": "אישור פעולה",
+	"ok": "אישור",
+	"cancel": "לא כרגע",
+	"are_you_sure_general": "האם להמשיך בפעולה?",
+	"are_you_sure_delete": "האם לבטל את השיעור?",
 	"student_profile": {
 		"lessons": "שיעורים",
 		"my_teacher": "המורה שלי:",
@@ -92,6 +98,7 @@
 		"create_receipt": "צור חשבונית",
 		"receipt_created_title": "התהליך הושלם!",
 		"receipt_created_msg": "החשבונית נוצרה בהצלחה ונשלחה למייל של {{student}}.",
+		"are_you_sure_invoice": "האם להפיק חשבונית?",
 		"home": {
 			"current_lesson": "שיעור נוכחי",
 			"next_lesson": "שיעור הבא",
@@ -139,7 +146,9 @@
 			"enter_student_name": "תחילה, הכנס שם תלמיד"
 		},
 		"schedule": {
-			"change_work_days": "שינוי שעות עבודה בשבוע זה"
+			"change_work_days": "שינוי שעות עבודה בשבוע זה",
+			"lesson_number": "(שיעור %{num})",
+			"no_lessons_in_hour": "אין שיעורים"
 		},
 		"students": {
 			"search": "חיפוש תלמיד",
@@ -207,7 +216,20 @@
 		"support": "תמיכה",
 		"success": "פרטים שונו בהצלחה!",
 		"teacher_info": "פרטי שיעור",
-		"expenses": "ניהול הוצאות"
+		"expenses": "ניהול הוצאות",
+		"reports": "הפקת דוחות",
+		"report_types": {
+			"payments": "תקבולים ותשלומים",
+			"incomes": "הכנסות",
+			"export": "ייצוא קובץ אחיד למס הכנסה",
+			"revenue": "רווח והפסד",
+			"students": "ספר תלמידים",
+			"lessons": "יומן הזמנות"
+		},
+		"export_lessons_report": "הפקת יומן הזמנות",
+		"product": "הפק",
+		"since_date": "תאריך התחלה",
+		"until_date": "תאריך סיום"
 	},
 	"date": {
 		"formats": {

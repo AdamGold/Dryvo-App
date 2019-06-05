@@ -295,6 +295,7 @@ exports[`AddPaymentChooseAmount view renders correctly 1`] = `
             maxLength={5}
             onChangeText={[Function]}
             placeholder="000"
+            rejectResponderTermination={true}
             style={
               Object {
                 "fontFamily": "Assistant-Light",
@@ -430,6 +431,7 @@ exports[`AddPaymentChooseAmount view renders correctly 1`] = `
                     onContentSizeChange={[Function]}
                     onFocus={[Function]}
                     propsExtractor={[Function]}
+                    rejectResponderTermination={true}
                     renderAccessory={[Function]}
                     rippleDuration={400}
                     selectionColor="rgb(0, 145, 234)"
@@ -733,6 +735,7 @@ exports[`AddPaymentChooseAmount view renders correctly 1`] = `
                   onScroll={[Function]}
                   onScrollBeginDrag={[Function]}
                   onScrollEndDrag={[Function]}
+                  removeClippedSubviews={false}
                   renderItem={[Function]}
                   scrollEnabled={true}
                   scrollEventThrottle={50}
@@ -1243,6 +1246,7 @@ exports[`AddPaymentChooseAmount view renders correctly 1`] = `
           allowFontScaling={true}
           onChangeText={[Function]}
           placeholder="על מה התשלום? (ברירת מחדל: שיעורי נהיגה)"
+          rejectResponderTermination={true}
           style={
             Object {
               "backgroundColor": "#f4f4f4",
@@ -1258,6 +1262,7 @@ exports[`AddPaymentChooseAmount view renders correctly 1`] = `
           allowFontScaling={true}
           onChangeText={[Function]}
           placeholder="ח.פ (השאר ריק אם אין)"
+          rejectResponderTermination={true}
           style={
             Object {
               "backgroundColor": "#f4f4f4",
@@ -1650,6 +1655,7 @@ exports[`AddPaymentChooseStudent view renders correctly 1`] = `
               placeholder="חיפוש תלמיד"
               placeholderTextColor="#7d7d7d"
               platform="ios"
+              rejectResponderTermination={true}
               style={
                 Object {
                   "alignItems": "flex-start",

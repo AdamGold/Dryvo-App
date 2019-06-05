@@ -179,6 +179,21 @@ export class Lesson extends React.Component {
 		})
 	}
 
+	deleteConfirm() {
+		Alert.alert(strings("are_you_sure"), strings("are_you_sure_delete"), [
+			{
+				text: strings("cancel"),
+				style: "cancel"
+			},
+			{
+				text: strings("ok"),
+				onPress: () => {
+					this.delete()
+				}
+			}
+		])
+	}
+
 	delete = async () => {
 		const { lesson } = this.state
 		if (!lesson) return
@@ -304,7 +319,7 @@ export class Lesson extends React.Component {
 			)
 			deleteButton = (
 				<TouchableOpacity
-					onPress={this.delete.bind(this)}
+					onPress={this.deleteConfirm.bind(this)}
 					style={styles.deleteButton}
 				>
 					<Text style={{ color: "red" }}>
@@ -337,34 +352,37 @@ export class Lesson extends React.Component {
 					/>
 					{deleteButton}
 				</View>
-				<KeyboardAvoidingView
-					behavior={Platform.OS === "ios" ? "padding" : null}
-					style={styles.container}
+				<ScrollView
+					ref={ref => (this._scrollView = ref)}
+					style={styles.formContainer}
+					keyboardDismissMode={
+						Platform.OS === "ios" ? "interactive" : "on-drag"
+					}
+					keyboardShouldPersistTaps="handled"
 				>
-					<ScrollView
-						ref={ref => (this._scrollView = ref)}
-						style={styles.formContainer}
-						keyboardDismissMode={
-							Platform.OS === "ios" ? "interactive" : "on-drag"
-						}
-						keyboardShouldPersistTaps="handled"
-					>
-						<TouchableOpacity onPress={this._showDateTimePicker}>
-							<View style={styles.nonInputContainer}>
-								<Text style={styles.nonInputTitle}>
-									{strings("teacher.new_lesson.date")}
-								</Text>
-								<Text>{date}</Text>
-							</View>
-						</TouchableOpacity>
+					<TouchableOpacity onPress={this._showDateTimePicker}>
 						<View style={styles.nonInputContainer}>
 							<Text style={styles.nonInputTitle}>
-								{strings("teacher.new_lesson.hour")}
+								{strings("teacher.new_lesson.date")}
 							</Text>
+							<Text>{date}</Text>
 						</View>
-						<View style={styles.hours}>{this.renderHours()}</View>
-						{this.renderInputs()}
-					</ScrollView>
+					</TouchableOpacity>
+					<View style={styles.nonInputContainer}>
+						<Text style={styles.nonInputTitle}>
+							{strings("teacher.new_lesson.hour")}
+						</Text>
+					</View>
+					<View style={styles.hours}>{this.renderHours()}</View>
+					{this.renderInputs()}
+				</ScrollView>
+				<KeyboardAvoidingView
+					behavior={Platform.OS === "ios" ? "position" : null}
+					keyboardVerticalOffset={Platform.select({
+						ios: fullButton.height + 10,
+						android: null
+					})}
+				>
 					<TouchableOpacity
 						ref={touchable => (this._touchable = touchable)}
 						onPress={this.createLesson}
@@ -406,7 +424,7 @@ const styles = StyleSheet.create({
 		alignSelf: "center",
 		marginBottom: 70
 	},
-	submitButton: fullButton,
+	submitButton: { ...fullButton, position: "relative" },
 	doneText: {
 		color: "#fff",
 		fontWeight: "bold",

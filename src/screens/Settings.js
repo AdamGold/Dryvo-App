@@ -6,8 +6,7 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 	TouchableHighlight,
-	Alert,
-	Linking
+	Alert
 } from "react-native"
 import { connect } from "react-redux"
 import { strings, errors } from "../i18n"
@@ -27,7 +26,8 @@ import Storage from "../services/Storage"
 import {
 	fetchOrError,
 	popLatestError,
-	deleteDeviceToken
+	deleteDeviceToken,
+	navigateToEZCount
 } from "../actions/utils"
 import validate, { registerValidation } from "../actions/validate"
 
@@ -92,7 +92,7 @@ export class Settings extends React.Component {
 			password: this.state.password,
 			phone: this.state.phone
 		})
-		let resp2 = true
+		let resp2 = false
 		if (this.props.user.hasOwnProperty("teacher_id")) {
 			resp2 = await this.submitTeacherInfo()
 		}
@@ -145,17 +145,6 @@ export class Settings extends React.Component {
 		)
 	}
 
-	navigateToExpenses = async () => {
-		const resp = await this.props.dispatch(
-			fetchOrError("/teacher/ezcount?redirectTo=backoffice/expenses", {
-				method: "GET"
-			})
-		)
-		if (resp) {
-			Linking.openURL(resp.json["url"])
-		}
-	}
-
 	render() {
 		let extraSettings, extraForm
 		if (this.props.user.hasOwnProperty("teacher_id")) {
@@ -174,11 +163,26 @@ export class Settings extends React.Component {
 					</TouchableHighlight>
 					<TouchableHighlight
 						underlayColor="#f8f8f8"
-						onPress={this.navigateToExpenses.bind(this)}
+						onPress={() => {
+							this.props.dispatch(
+								navigateToEZCount("backoffice/expenses")
+							)
+						}}
 						style={styles.fullWidth}
 					>
 						<View style={styles.rectInsideView}>
 							<Text>{strings("settings.expenses")}</Text>
+						</View>
+					</TouchableHighlight>
+					<TouchableHighlight
+						underlayColor="#f8f8f8"
+						onPress={() => {
+							this.props.navigation.navigate("Reports")
+						}}
+						style={styles.fullWidth}
+					>
+						<View style={styles.rectInsideView}>
+							<Text>{strings("settings.reports")}</Text>
 						</View>
 					</TouchableHighlight>
 				</Fragment>
@@ -362,7 +366,8 @@ const styles = StyleSheet.create({
 		color: "red",
 		marginBottom: MAIN_PADDING
 	},
-	leftSide: { flex: 1, marginLeft: "auto" },
+	rightside: { flex: 1, alignSelf: "flex-start" },
+	leftSide: { flex: 1, marginLeft: "auto", alignSelf: "flex-end" },
 	fullWidth: {
 		flex: 1,
 		width: "100%"

@@ -229,6 +229,7 @@ exports[`Settings view renders correctly for student 1`] = `
             <Text
               style={
                 Object {
+                  "alignSelf": "flex-end",
                   "flex": 1,
                   "marginLeft": "auto",
                 }
@@ -343,6 +344,7 @@ exports[`Settings view renders correctly for student 1`] = `
                 onBlur={[Function]}
                 onChangeText={[Function]}
                 onFocus={[Function]}
+                rejectResponderTermination={true}
                 secureTextEntry={false}
                 style={
                   Object {
@@ -493,6 +495,7 @@ exports[`Settings view renders correctly for student 1`] = `
                 onBlur={[Function]}
                 onChangeText={[Function]}
                 onFocus={[Function]}
+                rejectResponderTermination={true}
                 secureTextEntry={false}
                 style={
                   Object {
@@ -643,6 +646,7 @@ exports[`Settings view renders correctly for student 1`] = `
                 onBlur={[Function]}
                 onChangeText={[Function]}
                 onFocus={[Function]}
+                rejectResponderTermination={true}
                 secureTextEntry={false}
                 style={
                   Object {
@@ -793,6 +797,7 @@ exports[`Settings view renders correctly for student 1`] = `
                 onBlur={[Function]}
                 onChangeText={[Function]}
                 onFocus={[Function]}
+                rejectResponderTermination={true}
                 secureTextEntry={true}
                 style={
                   Object {
@@ -1255,11 +1260,45 @@ exports[`Settings view renders correctly for teacher 1`] = `
             }
           >
             <Text>
+              הפקת דוחות
+            </Text>
+          </View>
+        </View>
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "flex": 1,
+              "width": "100%",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "borderBottomColor": "#f7f7f7",
+                "borderBottomWidth": 1,
+                "flexDirection": "row",
+                "paddingHorizontal": 20,
+                "paddingVertical": 12,
+                "width": "100%",
+              }
+            }
+          >
+            <Text>
               התראות
             </Text>
             <Text
               style={
                 Object {
+                  "alignSelf": "flex-end",
                   "flex": 1,
                   "marginLeft": "auto",
                 }
@@ -1374,6 +1413,7 @@ exports[`Settings view renders correctly for teacher 1`] = `
                 onBlur={[Function]}
                 onChangeText={[Function]}
                 onFocus={[Function]}
+                rejectResponderTermination={true}
                 secureTextEntry={false}
                 style={
                   Object {
@@ -1524,6 +1564,7 @@ exports[`Settings view renders correctly for teacher 1`] = `
                 onBlur={[Function]}
                 onChangeText={[Function]}
                 onFocus={[Function]}
+                rejectResponderTermination={true}
                 secureTextEntry={false}
                 style={
                   Object {
@@ -1674,6 +1715,7 @@ exports[`Settings view renders correctly for teacher 1`] = `
                 onBlur={[Function]}
                 onChangeText={[Function]}
                 onFocus={[Function]}
+                rejectResponderTermination={true}
                 secureTextEntry={false}
                 style={
                   Object {
@@ -1824,6 +1866,7 @@ exports[`Settings view renders correctly for teacher 1`] = `
                 onBlur={[Function]}
                 onChangeText={[Function]}
                 onFocus={[Function]}
+                rejectResponderTermination={true}
                 secureTextEntry={false}
                 style={
                   Object {
@@ -1974,6 +2017,7 @@ exports[`Settings view renders correctly for teacher 1`] = `
                 onBlur={[Function]}
                 onChangeText={[Function]}
                 onFocus={[Function]}
+                rejectResponderTermination={true}
                 secureTextEntry={false}
                 style={
                   Object {
@@ -2124,6 +2168,7 @@ exports[`Settings view renders correctly for teacher 1`] = `
                 onBlur={[Function]}
                 onChangeText={[Function]}
                 onFocus={[Function]}
+                rejectResponderTermination={true}
                 secureTextEntry={true}
                 style={
                   Object {

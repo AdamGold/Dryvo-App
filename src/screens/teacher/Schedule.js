@@ -10,15 +10,22 @@ import { connect } from "react-redux"
 import { strings, dates } from "../../i18n"
 import { Agenda } from "react-native-calendars"
 import Row from "../../components/Row"
-import UserWithPic from "../../components/UserWithPic"
 import { Icon } from "react-native-elements"
 import Separator from "../../components/Separator"
-import { calendarTheme, MAIN_PADDING, colors } from "../../consts"
+import {
+	calendarTheme,
+	MAIN_PADDING,
+	colors,
+	NAME_LENGTH,
+	SHORT_API_DATE_FORMAT
+} from "../../consts"
 import Hours from "../../components/Hours"
 import { getDateAndString } from "../../actions/lessons"
 import LessonPopup from "../../components/LessonPopup"
 import EmptyState from "../../components/EmptyState"
 import LessonsLoader from "../../components/LessonsLoader"
+import moment from "moment"
+import UserPic from "../../components/UserPic"
 
 export class Schedule extends React.Component {
 	static navigationOptions = () => {
@@ -62,20 +69,94 @@ export class Schedule extends React.Component {
 		})
 	}
 
+	_getWorkDayHours(data) {
+		let hours = []
+		const offset = moment().utcOffset() / 60
+		data.forEach(day => {
+			hours.push(day.from_hour + offset)
+			hours.push(day.to_hour + offset)
+		})
+
+		return hours
+	}
+
+	async _getDayHours() {
+		// first try to get the work hours on this specific day
+		let resp = await this.props.fetchService.fetch(
+			"/teacher/work_days?on_date=" +
+				moment(this.state.date).format(SHORT_API_DATE_FORMAT),
+			{
+				method: "GET"
+			}
+		)
+
+		if (resp) {
+			if (resp.json.data.length == 0) {
+				// if no data, try to get global work hours for this day
+				const weekDay = moment(this.state.date).day()
+				resp = await this.props.fetchService.fetch(
+					"/teacher/work_days?day=" + weekDay,
+					{
+						method: "GET"
+					}
+				)
+			}
+		}
+		if (!resp) return []
+		return this._getWorkDayHours(resp.json.data)
+	}
+
+	async _createDayTimeline(lessons) {
+		// create a dictionary consisting of:
+		// HOUR: [lessons]
+		// for every hour of the day, starting from first working hour to last
+		let day = {}
+		const workDaysHours = await this._getDayHours()
+		if (workDaysHours.length > 0) {
+			for (
+				let hour = Math.min(...workDaysHours);
+				hour <= Math.max(...workDaysHours);
+				hour++
+			) {
+				day[hour] = []
+			}
+		}
+
+		lessons.forEach(lesson => {
+			const hour = moment(lesson.date).hours()
+			const endingHour = moment(lesson.date)
+				.add(lesson.duration, "minutes")
+				.hours()
+			for (let i = hour + 1; i <= endingHour; i++) {
+				// if the lesson ends in X hours, delete all these hours from our object
+				// if later there are lessons with these hours, we re-add them
+				delete day[i]
+			}
+			if (day.hasOwnProperty(hour)) {
+				day[hour].push(lesson)
+			} else {
+				day[hour] = [lesson]
+			}
+		})
+
+		return day
+	}
+
 	_getItems = async date => {
-		const dates = getDateAndString(date)
+		const dateObject = getDateAndString(date)
 		const resp = await this.props.fetchService.fetch(
 			"/lessons/?is_approved=true&date=ge:" +
-				dates.date.startOf("day").toISOString() +
+				dateObject.date.startOf("day").toISOString() +
 				"&date=le:" +
-				dates.date.endOf("day").toISOString(),
+				dateObject.date.endOf("day").toISOString(),
 			{ method: "GET" }
 		)
 		if (!resp.json["data"]) return
+		const timeline = await this._createDayTimeline(resp.json["data"])
 		this.setState(prevState => ({
 			items: {
 				...prevState.items,
-				[dates.dateString]: resp.json["data"]
+				[dateObject.dateString]: [timeline]
 			},
 			refreshing: false
 		}))
@@ -92,16 +173,17 @@ export class Schedule extends React.Component {
 		this.setState({ visible: newVisible })
 	}
 
-	renderItem = (item, firstItemInDay) => {
+	_renderLesson(item) {
 		let student = strings("teacher.no_student_applied")
 		let user = null
 		if (item.student) {
-			student = `${item.student.user.name}(${item.lesson_number})`
+			student =
+				item.student.user.name.slice(0, NAME_LENGTH) +
+				" " +
+				strings("teacher.schedule.lesson_number", {
+					num: item.lesson_number
+				})
 			user = item.student.user
-		}
-		let style = {}
-		if (firstItemInDay) {
-			style = { marginTop: 20 }
 		}
 		const date = item.date
 		let meetup = strings("not_set")
@@ -110,39 +192,33 @@ export class Schedule extends React.Component {
 		if (item.dropoff_place) dropoff = item.dropoff_place.name
 		const visible = this.state.visible.includes(item.id) ? true : false
 		return (
-			<Fragment>
+			<Fragment key={item.id}>
 				<TouchableOpacity onPress={() => this.lessonPress(item)}>
 					<Row
-						style={{ ...styles.row, ...style }}
+						style={styles.row}
 						leftSide={
-							<Hours
-								style={styles.hours}
-								duration={item.duration}
-								date={date}
+							<UserPic
+								user={user}
+								style={styles.imageStyle}
+								width={44}
+								height={44}
 							/>
 						}
 					>
-						<UserWithPic
-							name={student}
-							user={user}
-							imageContainerStyle={styles.imageContainerStyle}
-							extra={
-								<Fragment>
-									<Text style={styles.places}>
-										{strings("teacher.new_lesson.meetup")}:{" "}
-										{meetup.slice(0, 20)}
-									</Text>
-									<Text style={styles.places}>
-										{strings("teacher.new_lesson.dropoff")}:{" "}
-										{dropoff.slice(0, 20)}
-									</Text>
-								</Fragment>
-							}
-							nameStyle={styles.nameStyle}
-							width={44}
-							height={44}
-							style={styles.userWithPic}
+						<Hours
+							style={styles.hours}
+							duration={item.duration}
+							date={date}
 						/>
+						<Text style={styles.name}>{student}</Text>
+						<Text style={styles.places}>
+							{strings("teacher.new_lesson.meetup")}:{" "}
+							{meetup.slice(0, 20)}
+						</Text>
+						<Text style={styles.places}>
+							{strings("teacher.new_lesson.dropoff")}:{" "}
+							{dropoff.slice(0, 20)}
+						</Text>
 					</Row>
 				</TouchableOpacity>
 				<LessonPopup
@@ -153,6 +229,44 @@ export class Schedule extends React.Component {
 				/>
 			</Fragment>
 		)
+	}
+
+	_renderLessons(lessons) {
+		if (lessons.length == 0) {
+			return (
+				<Text style={styles.emptyHour}>
+					{strings("teacher.schedule.no_lessons_in_hour")}
+				</Text>
+			)
+		}
+		return lessons.map((item, index) => {
+			return this._renderLesson(item)
+		})
+	}
+
+	renderHours = (hoursDict, firstItemInDay) => {
+		// hoursDict is actually an object containing hours, each with a list of lessons
+		if (Object.entries(hoursDict).length === 0) {
+			return this._renderEmpty()
+		}
+		return Object.keys(hoursDict).map((hour, index) => {
+			const lessons = hoursDict[hour]
+			let firstStyle = {}
+			if (index == 0) {
+				firstStyle = { borderTopWidth: 0 }
+			}
+			return (
+				<View
+					style={{ ...styles.hourView, ...firstStyle }}
+					key={`${hour}-${index}`}
+				>
+					<Text style={styles.hourTitle}>{hour}:00</Text>
+					<View style={styles.hourLessons}>
+						{this._renderLessons(lessons, firstItemInDay)}
+					</View>
+				</View>
+			)
+		})
 	}
 
 	renderKnob = () => {
@@ -180,7 +294,7 @@ export class Schedule extends React.Component {
 		return (
 			<EmptyState
 				image="lessons"
-				text={strings("empty_lessons")}
+				text={strings("empty_work_hours")}
 				style={styles.empty}
 			/>
 		)
@@ -189,6 +303,7 @@ export class Schedule extends React.Component {
 	onDayPress = day => {
 		this.setState(
 			{
+				date: new Date(day.timestamp),
 				selected: day.dateString
 			},
 			() => {
@@ -223,7 +338,7 @@ export class Schedule extends React.Component {
 						// Max amount of months allowed to scroll to the future. Default = 50
 						futureScrollRange={4}
 						// specify how each item should be rendered in agenda
-						renderItem={this.renderItem}
+						renderItem={this.renderHours}
 						// specify how each date should be rendered. day can be undefined if the item is not first in that day.
 						renderDay={(day, item) => undefined}
 						renderEmptyDate={this._renderEmpty}
@@ -246,7 +361,10 @@ export class Schedule extends React.Component {
 							backgroundColor: "transparent",
 							agendaKnobColor: "gray",
 							textWeekDayFontSize: 16,
-							textWeekDayFontWeight: "600"
+							textWeekDayFontWeight: "600",
+							"stylesheet.calendar.header": {
+								monthText: { marginTop: 20 }
+							}
 						}}
 						ItemSeparatorComponent={() => <Separator />}
 						extraData={this.state.visible}
@@ -288,22 +406,44 @@ const styles = StyleSheet.create({
 		paddingLeft: MAIN_PADDING,
 		marginTop: 20
 	},
-	row: {},
-	imageContainerStyle: { marginTop: 10 },
+	row: {
+		marginTop: 12,
+		backgroundColor: "#f4f4f4",
+		padding: 8
+	},
+	imageStyle: { marginTop: 20, marginRight: 6 },
 	places: {
 		fontSize: 14,
 		color: "gray",
 		marginTop: 4,
 		alignSelf: "flex-start"
 	},
-	nameStyle: {
-		marginTop: -4
+	hours: { fontWeight: "bold", alignSelf: "flex-start" },
+	hourView: {
+		flexDirection: "row",
+		flex: 1,
+		borderTopColor: "rgb(212, 212, 212)",
+		borderTopWidth: 1,
+		paddingBottom: 16,
+		paddingTop: 16
 	},
-	hours: {
-		marginTop: 8,
-		fontSize: 20
+	hourTitle: {
+		alignSelf: "flex-start",
+		fontWeight: "bold",
+		fontSize: 18,
+		flex: 1
 	},
-	userWithPic: { marginLeft: 10 },
+	hourLessons: {
+		flex: 5,
+		marginLeft: 12
+	},
+	name: {
+		alignSelf: "flex-start",
+		flex: 1
+	},
+	emptyHour: {
+		alignSelf: "flex-start"
+	},
 	empty: {
 		marginTop: 100
 	}

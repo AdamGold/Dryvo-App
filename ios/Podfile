@@ -9,9 +9,9 @@ target 'dryvofront' do
   # use_frameworks!
 
   # Pods for dryvofront
-  pod 'GoogleAppMeasurement', '5.3'
-  pod 'Firebase/Core', '~> 5.11.0'
-  pod 'Firebase/Messaging', '~> 5.11.0'
+  pod 'GoogleAppMeasurement', '5.8.1'
+  pod 'Firebase/Core', '~> 5.20.0'
+  pod 'Firebase/Messaging', '~> 5.20.1'
   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
   pod 'React', :path => '../node_modules/react-native', :subspecs => [
     'Core',

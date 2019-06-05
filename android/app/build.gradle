@@ -159,8 +159,8 @@ dependencies {
     implementation "com.android.support:appcompat-v7:${rootProject.ext.supportLibVersion}"
     implementation "com.facebook.react:react-native:+"  // From node_modules
     implementation project(':react-native-linear-gradient')
-    implementation 'com.google.firebase:firebase-core:16.0.4'
-    implementation "com.google.firebase:firebase-messaging:17.3.4"
+    implementation 'com.google.firebase:firebase-core:16.0.9'
+    implementation "com.google.firebase:firebase-messaging:18.0.0"
     implementation project(':react-native-firebase')
 }
 

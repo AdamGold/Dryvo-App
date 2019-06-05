@@ -123,11 +123,19 @@ export class Lesson extends React.Component {
 			},
 			price: {
 				iconName: "dollar-sign",
-				iconType: "feather"
+				iconType: "feather",
+				onFocus: input => {
+					this.onFocus(input)
+					this._scrollView.scrollToEnd()
+				}
 			},
 			meetup: {
 				iconName: "navigation",
-				iconType: "feather"
+				iconType: "feather",
+				onFocus: input => {
+					this.onFocus(input)
+					this._scrollView.scrollToEnd()
+				}
 			},
 			dropoff: {
 				iconName: "map-pin",
@@ -220,7 +228,7 @@ export class Lesson extends React.Component {
 					editable={props.editable}
 					selectTextOnFocus={props.selectTextOnFocus}
 					autoFocus={props.autoFocus}
-					onFocus={this.onFocus}
+					onFocus={props.onFocus || this.onFocus}
 					onBlur={props.onBlur || this.onBlur}
 					onChangeText={props.onChangeText || this.onChangeText}
 					iconName={props.iconName}
@@ -547,59 +555,64 @@ export class Lesson extends React.Component {
 					}}
 					button={strings("teacher.new_lesson.success_button")}
 				/>
-				<ScrollView
-					ref={ref => (this._scrollView = ref)}
-					style={styles.formContainer}
-					keyboardDismissMode={
-						Platform.OS === "ios" ? "interactive" : "on-drag"
-					}
-					keyboardShouldPersistTaps="handled"
-				>
-					<View style={styles.headerRow}>
-						<Button
-							icon={<Icon name="arrow-forward" type="material" />}
-							onPress={() => {
-								this.props.navigation.goBack()
-							}}
-							type="clear"
-						/>
-						<PageTitle
-							style={styles.title}
-							title={strings("teacher.new_lesson.title")}
-						/>
-						{deleteButton}
-					</View>
-					<TouchableOpacity onPress={this._showDateTimePicker}>
-						<View style={styles.nonInputContainer}>
-							<Text style={styles.nonInputTitle}>
-								{strings("teacher.new_lesson.date")}
-							</Text>
-							<Text>{date}</Text>
-						</View>
-					</TouchableOpacity>
-					{this.renderInputs(0, 2)}
-					<View style={styles.nonInputContainer}>
-						<Text style={styles.nonInputTitle}>
-							{strings("teacher.new_lesson.hour")}
-						</Text>
-					</View>
-					<View style={styles.rects}>{this.renderHours()}</View>
-					{this.renderInputs(2, 5)}
-					<View style={styles.nonInputContainer}>
-						<Text style={styles.nonInputTitle}>
-							{strings("teacher.new_lesson.topics")}
-						</Text>
-					</View>
-					<View style={styles.rects}>{this.renderTopics()}</View>
-				</ScrollView>
 				<KeyboardAvoidingView
-					behavior={Platform.OS === "ios" ? "position" : null}
+					behavior={Platform.OS === "ios" ? "padding" : null}
 					keyboardVerticalOffset={Platform.select({
 						ios: fullButton.height,
 						android: null
 					})}
 					style={styles.container}
 				>
+					<ScrollView
+						ref={ref => (this._scrollView = ref)}
+						style={styles.formContainer}
+						keyboardDismissMode={
+							Platform.OS === "ios" ? "interactive" : "on-drag"
+						}
+						keyboardShouldPersistTaps="handled"
+					>
+						<View style={styles.headerRow}>
+							<Button
+								icon={
+									<Icon
+										name="arrow-forward"
+										type="material"
+									/>
+								}
+								onPress={() => {
+									this.props.navigation.goBack()
+								}}
+								type="clear"
+							/>
+							<PageTitle
+								style={styles.title}
+								title={strings("teacher.new_lesson.title")}
+							/>
+							{deleteButton}
+						</View>
+						<TouchableOpacity onPress={this._showDateTimePicker}>
+							<View style={styles.nonInputContainer}>
+								<Text style={styles.nonInputTitle}>
+									{strings("teacher.new_lesson.date")}
+								</Text>
+								<Text>{date}</Text>
+							</View>
+						</TouchableOpacity>
+						{this.renderInputs(0, 2)}
+						<View style={styles.nonInputContainer}>
+							<Text style={styles.nonInputTitle}>
+								{strings("teacher.new_lesson.hour")}
+							</Text>
+						</View>
+						<View style={styles.rects}>{this.renderHours()}</View>
+						{this.renderInputs(2, 5)}
+						<View style={styles.nonInputContainer}>
+							<Text style={styles.nonInputTitle}>
+								{strings("teacher.new_lesson.topics")}
+							</Text>
+						</View>
+						<View style={styles.rects}>{this.renderTopics()}</View>
+					</ScrollView>
 					<TouchableOpacity
 						onPress={this.submit}
 						style={styles.submitButton}
@@ -648,9 +661,10 @@ const styles = StyleSheet.create({
 	},
 	formContainer: {
 		width: 340,
-		alignSelf: "center"
+		alignSelf: "center",
+		marginBottom: 10
 	},
-	submitButton: fullButton,
+	submitButton: { ...fullButton, position: "relative" },
 	doneText: {
 		color: "#fff",
 		fontWeight: "bold",

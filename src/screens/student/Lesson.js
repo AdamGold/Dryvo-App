@@ -352,38 +352,37 @@ export class Lesson extends React.Component {
 					/>
 					{deleteButton}
 				</View>
+				<ScrollView
+					ref={ref => (this._scrollView = ref)}
+					style={styles.formContainer}
+					keyboardDismissMode={
+						Platform.OS === "ios" ? "interactive" : "on-drag"
+					}
+					keyboardShouldPersistTaps="handled"
+				>
+					<TouchableOpacity onPress={this._showDateTimePicker}>
+						<View style={styles.nonInputContainer}>
+							<Text style={styles.nonInputTitle}>
+								{strings("teacher.new_lesson.date")}
+							</Text>
+							<Text>{date}</Text>
+						</View>
+					</TouchableOpacity>
+					<View style={styles.nonInputContainer}>
+						<Text style={styles.nonInputTitle}>
+							{strings("teacher.new_lesson.hour")}
+						</Text>
+					</View>
+					<View style={styles.hours}>{this.renderHours()}</View>
+					{this.renderInputs()}
+				</ScrollView>
 				<KeyboardAvoidingView
-					behavior={Platform.OS === "ios" ? "padding" : null}
+					behavior={Platform.OS === "ios" ? "position" : null}
 					keyboardVerticalOffset={Platform.select({
 						ios: fullButton.height + 10,
 						android: null
 					})}
-					style={styles.container}
 				>
-					<ScrollView
-						ref={ref => (this._scrollView = ref)}
-						style={styles.formContainer}
-						keyboardDismissMode={
-							Platform.OS === "ios" ? "interactive" : "on-drag"
-						}
-						keyboardShouldPersistTaps="handled"
-					>
-						<TouchableOpacity onPress={this._showDateTimePicker}>
-							<View style={styles.nonInputContainer}>
-								<Text style={styles.nonInputTitle}>
-									{strings("teacher.new_lesson.date")}
-								</Text>
-								<Text>{date}</Text>
-							</View>
-						</TouchableOpacity>
-						<View style={styles.nonInputContainer}>
-							<Text style={styles.nonInputTitle}>
-								{strings("teacher.new_lesson.hour")}
-							</Text>
-						</View>
-						<View style={styles.hours}>{this.renderHours()}</View>
-						{this.renderInputs()}
-					</ScrollView>
 					<TouchableOpacity
 						ref={touchable => (this._touchable = touchable)}
 						onPress={this.createLesson}

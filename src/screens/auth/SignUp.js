@@ -7,7 +7,6 @@ import {
 	KeyboardAvoidingView,
 	TouchableOpacity,
 	Platform,
-	Keyboard,
 	Alert
 } from "react-native"
 import { connect } from "react-redux"
@@ -91,28 +90,6 @@ export class SignUp extends React.Component {
 		})
 	}
 
-	componentDidMount() {
-		if (Platform.OS === "android") {
-			this.keyboardEventListeners = [
-				Keyboard.addListener(
-					"keyboardDidShow",
-					this._handleKeyboardShow
-				),
-				Keyboard.addListener(
-					"keyboardDidHide",
-					this._handleKeyboardHide
-				)
-			]
-		}
-	}
-
-	componentWillUnmount() {
-		this.keyboardEventListeners &&
-			this.keyboardEventListeners.forEach(eventListener =>
-				eventListener.remove()
-			)
-	}
-
 	_getTeachers = async () => {
 		const resp = await this.props.fetchService.fetch("/teacher/", {
 			method: "GET"
@@ -159,14 +136,6 @@ export class SignUp extends React.Component {
 				</InputSelectionButton>
 			)
 		})
-	}
-
-	_handleKeyboardHide = () => {
-		this.scrollView.scrollTo({ y: 0 })
-	}
-
-	_handleKeyboardShow = () => {
-		this.scrollView.scrollToEnd()
 	}
 
 	componentDidUpdate() {
@@ -292,38 +261,43 @@ export class SignUp extends React.Component {
 				>
 					<Icon name="arrow-forward" type="material" />
 				</TouchableOpacity>
-				<KeyboardAvoidingView
-					behavior={Platform.OS === "ios" ? "position" : null}
+				<ScrollView
+					keyboardDismissMode={
+						Platform.OS === "ios" ? "interactive" : "on-drag"
+					}
+					keyboardShouldPersistTaps="handled"
+					ref={r => (this.scrollView = r)}
 				>
-					<ScrollView
-						keyboardDismissMode={
-							Platform.OS === "ios" ? "interactive" : "on-drag"
-						}
-						keyboardShouldPersistTaps="handled"
-						ref={r => (this.scrollView = r)}
-					>
-						<View style={styles.formContainer}>
-							<UploadProfileImage
-								style={styles.profilePic}
-								image={this.state.image.uri || DEFAULT_IMAGE}
-								upload={async source => {
-									this.setState({
-										image: source
-									})
-								}}
-							/>
-							{this.renderInputs()}
+					<View style={styles.formContainer}>
+						<UploadProfileImage
+							style={styles.profilePic}
+							image={this.state.image.uri || DEFAULT_IMAGE}
+							upload={async source => {
+								this.setState({
+									image: source
+								})
+							}}
+						/>
+						{this.renderInputs()}
 
-							{selectTeacher}
-							<LoadingButton
-								title={strings("signup.signup_button")}
-								onPress={this.register}
-								ref={c => (this.button = c)}
-								style={styles.button}
-								indicatorColor="#fff"
-							/>
-						</View>
-					</ScrollView>
+						{selectTeacher}
+					</View>
+				</ScrollView>
+				<KeyboardAvoidingView
+					behavior={Platform.OS === "ios" ? "padding" : null}
+					keyboardVerticalOffset={Platform.select({
+						ios: styles.button.height,
+						android: null
+					})}
+					style={styles.formContainer}
+				>
+					<LoadingButton
+						title={strings("signup.signup_button")}
+						onPress={this.register}
+						ref={c => (this.button = c)}
+						style={styles.button}
+						indicatorColor="#fff"
+					/>
 				</KeyboardAvoidingView>
 			</View>
 		)
@@ -346,7 +320,8 @@ const styles = StyleSheet.create({
 		marginTop: MAIN_PADDING
 	},
 	button: {
-		marginTop: 20
+		marginTop: 20,
+		height: 64
 	},
 	profilePic: {
 		width: 80,

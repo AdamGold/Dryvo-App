@@ -74,8 +74,8 @@ export class Lesson extends React.Component {
 					.local()
 					.format(SHORT_API_DATE_FORMAT),
 				duration: lesson.duration.toString(),
-				meetup: (lesson.meetup_place || {}).name,
-				dropoff: (lesson.dropoff_place || {}).name,
+				meetup: lesson.meetup_place,
+				dropoff: lesson.dropoff_place,
 				hours: [[lesson.date, null]],
 				hour: moment
 					.utc(lesson.date)

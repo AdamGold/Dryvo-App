@@ -2,22 +2,25 @@ import React from "react"
 import {
 	View,
 	StyleSheet,
-	FlatList,
-	TouchableHighlight,
-	Alert
+	Alert,
+	ScrollView,
+	KeyboardAvoidingView,
+	Platform,
+	TouchableOpacity,
+	Text
 } from "react-native"
 import { connect } from "react-redux"
 import { strings, errors } from "../../i18n"
 import { Button, Icon } from "react-native-elements"
 import PageTitle from "../../components/PageTitle"
-import { MAIN_PADDING } from "../../consts"
 import { API_ERROR } from "../../reducers/consts"
 import { fetchOrError } from "../../actions/utils"
 import AuthInput from "../../components/AuthInput"
-import { MAIN_PADDING, DEFAULT_IMAGE, signUpRoles } from "../../consts"
-import { popLatestError, checkFirebasePermission } from "../../actions/utils"
+import { MAIN_PADDING, DEFAULT_IMAGE, fullButton } from "../../consts"
+import { popLatestError } from "../../actions/utils"
 import UploadProfileImage from "../../components/UploadProfileImage"
 import SuccessModal from "../../components/SuccessModal"
+import validate, { registerValidation } from "../../actions/validate"
 
 export class NewStudent extends React.Component {
 	constructor(props) {
@@ -27,11 +30,7 @@ export class NewStudent extends React.Component {
 			image: ""
 		}
 		this.inputs = {
-			email: {
-				onFocus: () => {
-					this.scrollView.scrollTo({ y: -200 })
-				}
-			},
+			email: {},
 			name: {
 				iconName: "person",
 				placeholder: strings("signup.name")
@@ -41,10 +40,11 @@ export class NewStudent extends React.Component {
 				placeholder: strings("signup.phone"),
 				onChangeText: (name, value) => {
 					this.setState({ [name]: value.replace(/[^0-9]/g, "") })
-				},
-				onFocus: () => {
-					this.scrollView.scrollTo({ y: 50 })
 				}
+			},
+			price: {
+				iconName: "payment",
+				placeholder: strings("signup.price")
 			}
 		}
 		Object.keys(this.inputs).forEach(input => {
@@ -85,9 +85,62 @@ export class NewStudent extends React.Component {
 		})
 	}
 
+	submit = async () => {
+		let error,
+			flag = true
+		for (let input of Object.keys(this.inputs)) {
+			error = validate(input, this.state[input], registerValidation)
+			if (error) {
+				flag = false
+				break
+			}
+		}
+
+		if (!flag) {
+			Alert.alert(error)
+			return
+		}
+		var data = new FormData()
+		const params = {
+			email: this.state.email,
+			name: this.state.name,
+			phone: this.state.phone,
+			image: this.state.image,
+			price: parseInt(this.state.price)
+		}
+		Object.keys(params).forEach(key => data.append(key, params[key]))
+		const requestParams = {
+			method: "POST",
+			headers: {
+				"Content-Type": "multipart/form-data"
+			},
+			body: data
+		}
+		const resp = await this.props.dispatch(
+			fetchOrError("/teacher/create_student", requestParams)
+		)
+
+		if (resp) {
+			this.setState({ successVisible: true })
+		}
+	}
+
 	render() {
 		return (
 			<View style={styles.container}>
+				<SuccessModal
+					visible={this.state.successVisible}
+					image="signup"
+					title={strings("teacher.students.create_student_title")}
+					desc={strings("teacher.students.create_student_desc", {
+						name: this.state.name
+					})}
+					buttonPress={() => {
+						this.setState({ successVisible: false })
+						this.props.navigation.goBack()
+					}}
+					button={strings("teacher.students.success_button")}
+				/>
 				<View style={styles.headerRow}>
 					<PageTitle
 						style={styles.title}
@@ -109,12 +162,43 @@ export class NewStudent extends React.Component {
 						}
 					/>
 				</View>
-				<View
-					style={styles.studentsSearchView}
-					testID="StudentsSearchView"
+				<KeyboardAvoidingView
+					behavior={Platform.OS === "ios" ? "padding" : null}
+					keyboardVerticalOffset={Platform.select({
+						ios: fullButton.height,
+						android: null
+					})}
+					style={styles.container}
 				>
-					{this.renderInputs()}
-				</View>
+					<ScrollView
+						keyboardDismissMode={
+							Platform.OS === "ios" ? "interactive" : "on-drag"
+						}
+						keyboardShouldPersistTaps="handled"
+						ref={r => (this.scrollView = r)}
+						style={{ flex: 1 }}
+						testID="StudentsSearchView"
+					>
+						<UploadProfileImage
+							style={styles.profilePic}
+							image={this.state.image.uri || DEFAULT_IMAGE}
+							upload={async source => {
+								this.setState({
+									image: source
+								})
+							}}
+						/>
+						{this.renderInputs()}
+					</ScrollView>
+					<TouchableOpacity
+						onPress={this.submit}
+						style={styles.submitButton}
+					>
+						<Text style={styles.doneText}>
+							{strings("teacher.new_lesson.done")}
+						</Text>
+					</TouchableOpacity>
+				</KeyboardAvoidingView>
 			</View>
 		)
 	}
@@ -132,6 +216,18 @@ const styles = StyleSheet.create({
 		paddingLeft: MAIN_PADDING,
 		paddingRight: MAIN_PADDING,
 		maxHeight: 50
+	},
+	submitButton: { ...fullButton, position: "relative" },
+	doneText: {
+		color: "#fff",
+		fontWeight: "bold",
+		fontSize: 20
+	},
+	profilePic: {
+		width: 80,
+		height: 80,
+		borderRadius: 40,
+		alignSelf: "center"
 	}
 })
 

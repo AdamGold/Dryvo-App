@@ -32,6 +32,7 @@ import { getLessonById } from "../../actions/lessons"
 import SuccessModal from "../../components/SuccessModal"
 import DateTimePicker from "react-native-modal-datetime-picker"
 import Analytics from "appcenter-analytics"
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
 
 export class Lesson extends React.Component {
 	constructor(props) {
@@ -606,6 +607,50 @@ export class Lesson extends React.Component {
 						</View>
 						<View style={styles.rects}>{this.renderHours()}</View>
 						{this.renderInputs(2, 5)}
+						<GooglePlacesAutocomplete
+							query={{
+								// available options: https://developers.google.com/places/web-service/autocomplete
+								key: "AIzaSyCjQszW7r4s56d0Q50zN_b9dljpe8pjfGg",
+								language: "he", // language of the results
+								components: "country:il"
+							}}
+							placeholder="Enter Location"
+							minLength={2}
+							autoFocus={false}
+							returnKeyType={"default"}
+							fetchDetails={false}
+							currentLocation={false}
+							currentLocationLabel="Current location"
+							nearbyPlacesAPI="GooglePlacesSearch"
+							styles={{
+								row: {
+									alignItems: "flex-end"
+								},
+								description: {
+									alignSelf: "flex-end",
+									textAlign: "right"
+								},
+								textInputContainer: {
+									borderBottomColor: "rgb(200,200,200)",
+									backgroundColor: "rgba(0,0,0,0)",
+									borderBottomWidth: 1,
+									paddingBottom: 8,
+									marginTop: 24
+								},
+								textInput: {
+									paddingLeft: 12,
+									fontFamily: "Assistant",
+									textAlign: "right"
+								}
+							}}
+							onPress={(data, details = null) => {
+								// 'details' is provided when fetchDetails = true
+								const mainText =
+									data.structured_formatting.main_text
+								const placeID = data.place_id
+								console.log(data)
+							}}
+						/>
 						<View style={styles.nonInputContainer}>
 							<Text style={styles.nonInputTitle}>
 								{strings("teacher.new_lesson.topics")}

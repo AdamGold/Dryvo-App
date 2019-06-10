@@ -201,7 +201,7 @@
 			"done": "בקשת שיעור",
 			"success_title": "בקשת השיעור נשלחה!",
 			"success_desc": "נשלחה בקשה לתאריך %{date}, בשעות %{hours}. אנא המתן שהבקשה תאושר.",
-			"success_button": "עבור ללוח הזמנים",
+			"success_button": "חזרה אחורה",
 			"no_hours_available": "אין שעות פנויות",
 			"pick_date": "בחר תאריך",
 			"pick_date_before_hours": "בחר תאריך על מנת לצפות בשעות"

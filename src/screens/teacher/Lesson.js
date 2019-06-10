@@ -20,7 +20,9 @@ import {
 	API_DATE_FORMAT,
 	DEFAULT_DURATION,
 	SHORT_API_DATE_FORMAT,
-	DISPLAY_SHORT_DATE_FORMAT
+	DISPLAY_SHORT_DATE_FORMAT,
+	GOOGLE_MAPS_QUERY,
+	autoCompletePlacesStyle
 } from "../../consts"
 import NewLessonInput from "../../components/NewLessonInput"
 import Hours from "../../components/Hours"
@@ -51,7 +53,10 @@ export class Lesson extends React.Component {
 			successVisible: false,
 			datePickerVisible: false,
 			price: this.props.user.price,
-			listViewDisplayed: "auto"
+			meetup: {},
+			dropoff: {},
+			meetupListViewDisplayed: false,
+			dropoffListViewDisplayed: false
 		}
 		this._initializeInputs = this._initializeInputs.bind(this)
 		this.onChangeText = this.onChangeText.bind(this)
@@ -503,47 +508,23 @@ export class Lesson extends React.Component {
 	handlePlaceSelection = (name, data) => {
 		const mainText = data.structured_formatting.main_text
 		const placeID = data.place_id
-		this.setState(
-			{
-				listViewDisplayed: false,
-				[name]: {
-					description: mainText,
-					google_id: placeID
-				}
-			},
-			() => {
-				console.log(this.state)
+		this.setState({
+			[name + "ListViewDisplayed"]: false,
+			[name]: {
+				description: mainText,
+				google_id: placeID
 			}
-		)
+		})
 	}
 
 	renderPlaces = () => {
-		const places = {
-			meetup: {
-				iconName: "navigation",
-				iconType: "feather",
-				onFocus: input => {
-					this.onFocus(input)
-					this._scrollView.scrollToEnd()
-				}
-			},
-			dropoff: {
-				iconName: "map-pin",
-				iconType: "feather"
-			}
-		}
+		const places = ["meetup", "dropoff"]
 
-		return Object.keys(places).map((name, index) => {
+		return places.map((name, index) => {
 			return (
 				<GooglePlacesAutocomplete
 					key={`autocomplete-${name}`}
-					query={{
-						// available options: https://developers.google.com/places/web-service/autocomplete
-						key: "AIzaSyCjQszW7r4s56d0Q50zN_b9dljpe8pjfGg",
-						language: "he", // language of the results
-						components: "country:il",
-						region: "il"
-					}}
+					query={GOOGLE_MAPS_QUERY}
 					placeholder={strings("teacher.new_lesson." + name)}
 					minLength={2}
 					autoFocus={false}
@@ -552,12 +533,13 @@ export class Lesson extends React.Component {
 					currentLocation={false}
 					currentLocationLabel={strings("current_location")}
 					nearbyPlacesAPI="GooglePlacesSearch"
-					listViewDisplayed={this.state.listViewDisplayed}
-					styles={autoCompletePlaces}
+					listViewDisplayed={this.state[name + "ListViewDisplayed"]}
+					styles={autoCompletePlacesStyle}
 					onPress={(data, details = null) => {
 						// 'details' is provided when fetchDetails = true
 						this.handlePlaceSelection(name, data)
 					}}
+					getDefaultValue={() => this.state[name].description || ""}
 				/>
 			)
 		})
@@ -687,28 +669,6 @@ export class Lesson extends React.Component {
 	}
 }
 
-const autoCompletePlaces = {
-	row: {
-		flexDirection: null
-	},
-	description: {
-		alignSelf: "flex-start"
-	},
-	textInputContainer: {
-		borderBottomColor: "rgb(200,200,200)",
-		backgroundColor: "rgba(0,0,0,0)",
-		borderBottomWidth: 1,
-		borderTopWidth: 0,
-		paddingBottom: 8,
-		marginTop: 24
-	},
-	textInput: {
-		paddingLeft: 12,
-		fontFamily: "Assistant",
-		fontSize: 16,
-		textAlign: "right"
-	}
-}
 const styles = StyleSheet.create({
 	container: {
 		flex: 1

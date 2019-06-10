@@ -155,8 +155,7 @@ export class Home extends React.Component {
 			user = item.student.user
 		}
 		const date = item.date
-		let meetup = strings("not_set")
-		if (item.meetup_place) meetup = item.meetup_place.name
+		const meetup = item.meetup_place || strings("not_set")
 		const visible = this.state.visible.includes(item.id) ? true : false
 		return (
 			<Fragment>

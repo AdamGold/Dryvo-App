@@ -50,7 +50,8 @@ export class Lesson extends React.Component {
 			finished: [],
 			successVisible: false,
 			datePickerVisible: false,
-			price: this.props.user.price
+			price: this.props.user.price,
+			listViewDisplayed: "auto"
 		}
 		this._initializeInputs = this._initializeInputs.bind(this)
 		this.onChangeText = this.onChangeText.bind(this)
@@ -85,8 +86,8 @@ export class Lesson extends React.Component {
 				dateAndTime: moment.utc(lesson.date).format(API_DATE_FORMAT),
 				studentName: lesson.student.user.name,
 				duration: lesson.duration.toString(),
-				meetup: lesson.meetup_place,
-				dropoff: lesson.dropoff_place,
+				meetup: { description: lesson.meetup_place },
+				dropoff: { description: lesson.dropoff_place },
 				hours: [[lesson.date, null]],
 				hour: moment
 					.utc(lesson.date)
@@ -129,18 +130,6 @@ export class Lesson extends React.Component {
 					this.onFocus(input)
 					this._scrollView.scrollToEnd()
 				}
-			},
-			meetup: {
-				iconName: "navigation",
-				iconType: "feather",
-				onFocus: input => {
-					this.onFocus(input)
-					this._scrollView.scrollToEnd()
-				}
-			},
-			dropoff: {
-				iconName: "map-pin",
-				iconType: "feather"
 			}
 		}
 
@@ -511,6 +500,69 @@ export class Lesson extends React.Component {
 		return null
 	}
 
+	handlePlaceSelection = (name, data) => {
+		const mainText = data.structured_formatting.main_text
+		const placeID = data.place_id
+		this.setState(
+			{
+				listViewDisplayed: false,
+				[name]: {
+					description: mainText,
+					google_id: placeID
+				}
+			},
+			() => {
+				console.log(this.state)
+			}
+		)
+	}
+
+	renderPlaces = () => {
+		const places = {
+			meetup: {
+				iconName: "navigation",
+				iconType: "feather",
+				onFocus: input => {
+					this.onFocus(input)
+					this._scrollView.scrollToEnd()
+				}
+			},
+			dropoff: {
+				iconName: "map-pin",
+				iconType: "feather"
+			}
+		}
+
+		return Object.keys(places).map((name, index) => {
+			return (
+				<GooglePlacesAutocomplete
+					key={`autocomplete-${name}`}
+					query={{
+						// available options: https://developers.google.com/places/web-service/autocomplete
+						key: "AIzaSyCjQszW7r4s56d0Q50zN_b9dljpe8pjfGg",
+						language: "he", // language of the results
+						components: "country:il",
+						region: "il"
+					}}
+					placeholder={strings("teacher.new_lesson." + name)}
+					minLength={2}
+					autoFocus={false}
+					returnKeyType={"default"}
+					fetchDetails={false}
+					currentLocation={false}
+					currentLocationLabel={strings("current_location")}
+					nearbyPlacesAPI="GooglePlacesSearch"
+					listViewDisplayed={this.state.listViewDisplayed}
+					styles={autoCompletePlaces}
+					onPress={(data, details = null) => {
+						// 'details' is provided when fetchDetails = true
+						this.handlePlaceSelection(name, data)
+					}}
+				/>
+			)
+		})
+	}
+
 	render() {
 		let date = moment(this.state.date).format(DISPLAY_SHORT_DATE_FORMAT)
 		let desc = strings("teacher.new_lesson.success_desc_with_student", {
@@ -607,50 +659,7 @@ export class Lesson extends React.Component {
 						</View>
 						<View style={styles.rects}>{this.renderHours()}</View>
 						{this.renderInputs(2, 5)}
-						<GooglePlacesAutocomplete
-							query={{
-								// available options: https://developers.google.com/places/web-service/autocomplete
-								key: "AIzaSyCjQszW7r4s56d0Q50zN_b9dljpe8pjfGg",
-								language: "he", // language of the results
-								components: "country:il"
-							}}
-							placeholder="Enter Location"
-							minLength={2}
-							autoFocus={false}
-							returnKeyType={"default"}
-							fetchDetails={false}
-							currentLocation={false}
-							currentLocationLabel="Current location"
-							nearbyPlacesAPI="GooglePlacesSearch"
-							styles={{
-								row: {
-									alignItems: "flex-end"
-								},
-								description: {
-									alignSelf: "flex-end",
-									textAlign: "right"
-								},
-								textInputContainer: {
-									borderBottomColor: "rgb(200,200,200)",
-									backgroundColor: "rgba(0,0,0,0)",
-									borderBottomWidth: 1,
-									paddingBottom: 8,
-									marginTop: 24
-								},
-								textInput: {
-									paddingLeft: 12,
-									fontFamily: "Assistant",
-									textAlign: "right"
-								}
-							}}
-							onPress={(data, details = null) => {
-								// 'details' is provided when fetchDetails = true
-								const mainText =
-									data.structured_formatting.main_text
-								const placeID = data.place_id
-								console.log(data)
-							}}
-						/>
+						{this.renderPlaces()}
 						<View style={styles.nonInputContainer}>
 							<Text style={styles.nonInputTitle}>
 								{strings("teacher.new_lesson.topics")}
@@ -678,6 +687,28 @@ export class Lesson extends React.Component {
 	}
 }
 
+const autoCompletePlaces = {
+	row: {
+		flexDirection: null
+	},
+	description: {
+		alignSelf: "flex-start"
+	},
+	textInputContainer: {
+		borderBottomColor: "rgb(200,200,200)",
+		backgroundColor: "rgba(0,0,0,0)",
+		borderBottomWidth: 1,
+		borderTopWidth: 0,
+		paddingBottom: 8,
+		marginTop: 24
+	},
+	textInput: {
+		paddingLeft: 12,
+		fontFamily: "Assistant",
+		fontSize: 16,
+		textAlign: "right"
+	}
+}
 const styles = StyleSheet.create({
 	container: {
 		flex: 1

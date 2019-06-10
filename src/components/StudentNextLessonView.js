@@ -14,8 +14,8 @@ export default class StudentNextLessonView extends React.Component {
 			return <SimpleLoader />
 		}
 		const { lesson } = this.props
-		const meetup = item.meetup_place || strings("not_set")
-		const dropoff = item.dropoff_place || strings("not_set")
+		const meetup = lesson.meetup_place || strings("not_set")
+		const dropoff = lesson.dropoff_place || strings("not_set")
 		if (lesson) {
 			return (
 				<TouchableOpacity

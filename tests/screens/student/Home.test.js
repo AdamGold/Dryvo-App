@@ -21,8 +21,8 @@ describe("Home", () => {
 				data: [
 					{
 						student,
-						dropoff_place: { name: "t" },
-						meetup_place: { name: "a" }
+						dropoff_place: "t",
+						meetup_place: "a"
 					}
 				]
 			})

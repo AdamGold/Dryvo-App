@@ -20,7 +20,9 @@ import {
 	API_DATE_FORMAT,
 	DEFAULT_DURATION,
 	SHORT_API_DATE_FORMAT,
-	DISPLAY_SHORT_DATE_FORMAT
+	DISPLAY_SHORT_DATE_FORMAT,
+	GOOGLE_MAPS_QUERY,
+	autoCompletePlacesStyle
 } from "../../consts"
 import NewLessonInput from "../../components/NewLessonInput"
 import Hours from "../../components/Hours"
@@ -32,6 +34,7 @@ import { getLessonById } from "../../actions/lessons"
 import SuccessModal from "../../components/SuccessModal"
 import DateTimePicker from "react-native-modal-datetime-picker"
 import Analytics from "appcenter-analytics"
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
 
 export class Lesson extends React.Component {
 	constructor(props) {
@@ -49,7 +52,11 @@ export class Lesson extends React.Component {
 			finished: [],
 			successVisible: false,
 			datePickerVisible: false,
-			price: this.props.user.price
+			price: this.props.user.price,
+			meetup: {},
+			dropoff: {},
+			meetupListViewDisplayed: false,
+			dropoffListViewDisplayed: false
 		}
 		this._initializeInputs = this._initializeInputs.bind(this)
 		this.onChangeText = this.onChangeText.bind(this)
@@ -84,8 +91,8 @@ export class Lesson extends React.Component {
 				dateAndTime: moment.utc(lesson.date).format(API_DATE_FORMAT),
 				studentName: lesson.student.user.name,
 				duration: lesson.duration.toString(),
-				meetup: (lesson.meetup_place || {}).name,
-				dropoff: (lesson.dropoff_place || {}).name,
+				meetup: { description: lesson.meetup_place },
+				dropoff: { description: lesson.dropoff_place },
 				hours: [[lesson.date, null]],
 				hour: moment
 					.utc(lesson.date)
@@ -128,18 +135,6 @@ export class Lesson extends React.Component {
 					this.onFocus(input)
 					this._scrollView.scrollToEnd()
 				}
-			},
-			meetup: {
-				iconName: "navigation",
-				iconType: "feather",
-				onFocus: input => {
-					this.onFocus(input)
-					this._scrollView.scrollToEnd()
-				}
-			},
-			dropoff: {
-				iconName: "map-pin",
-				iconType: "feather"
 			}
 		}
 
@@ -510,6 +505,46 @@ export class Lesson extends React.Component {
 		return null
 	}
 
+	handlePlaceSelection = (name, data) => {
+		const mainText = data.structured_formatting.main_text
+		const placeID = data.place_id
+		this.setState({
+			[name + "ListViewDisplayed"]: false,
+			[name]: {
+				description: mainText,
+				google_id: placeID
+			}
+		})
+	}
+
+	renderPlaces = () => {
+		const places = ["meetup", "dropoff"]
+
+		return places.map((name, index) => {
+			return (
+				<GooglePlacesAutocomplete
+					key={`autocomplete-${name}`}
+					query={GOOGLE_MAPS_QUERY}
+					placeholder={strings("teacher.new_lesson." + name)}
+					minLength={2}
+					autoFocus={false}
+					returnKeyType={"default"}
+					fetchDetails={false}
+					currentLocation={false}
+					currentLocationLabel={strings("current_location")}
+					nearbyPlacesAPI="GooglePlacesSearch"
+					listViewDisplayed={this.state[name + "ListViewDisplayed"]}
+					styles={autoCompletePlacesStyle}
+					onPress={(data, details = null) => {
+						// 'details' is provided when fetchDetails = true
+						this.handlePlaceSelection(name, data)
+					}}
+					getDefaultValue={() => this.state[name].description || ""}
+				/>
+			)
+		})
+	}
+
 	render() {
 		let date = moment(this.state.date).format(DISPLAY_SHORT_DATE_FORMAT)
 		let desc = strings("teacher.new_lesson.success_desc_with_student", {
@@ -606,6 +641,7 @@ export class Lesson extends React.Component {
 						</View>
 						<View style={styles.rects}>{this.renderHours()}</View>
 						{this.renderInputs(2, 5)}
+						{this.renderPlaces()}
 						<View style={styles.nonInputContainer}>
 							<Text style={styles.nonInputTitle}>
 								{strings("teacher.new_lesson.topics")}

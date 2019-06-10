@@ -32,10 +32,8 @@ export default class LessonPopup extends React.Component {
 	render() {
 		const { item } = this.props
 		if (!item) return null
-		let meetup = strings("not_set")
-		if (item.meetup_place) meetup = item.meetup_place.name
-		let dropoff = strings("not_set")
-		if (item.dropoff_place) dropoff = item.dropoff_place.name
+		const meetup = item.meetup_place || strings("not_set")
+		const dropoff = item.dropoff_place || strings("not_set")
 		let approved
 		if (!item.is_approved) {
 			approved = (

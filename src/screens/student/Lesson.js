@@ -332,14 +332,6 @@ export class Lesson extends React.Component {
 					}}
 					button={strings("student.new_lesson.success_button")}
 				/>
-				<View style={styles.headerRow}>
-					{backButton}
-					<PageTitle
-						style={styles.title}
-						title={strings("teacher.new_lesson.title")}
-					/>
-					{deleteButton}
-				</View>
 				<ScrollView
 					ref={ref => (this._scrollView = ref)}
 					style={styles.formContainer}
@@ -348,6 +340,14 @@ export class Lesson extends React.Component {
 					}
 					keyboardShouldPersistTaps="handled"
 				>
+					<View style={styles.headerRow}>
+						{backButton}
+						<PageTitle
+							style={styles.title}
+							title={strings("teacher.new_lesson.title")}
+						/>
+						{deleteButton}
+					</View>
 					<TouchableOpacity onPress={this._showDateTimePicker}>
 						<View style={styles.nonInputContainer}>
 							<Text style={styles.nonInputTitle}>

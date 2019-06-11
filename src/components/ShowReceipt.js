@@ -50,7 +50,7 @@ export default class ShowReceipt extends React.Component {
 				Alert.alert(
 					strings("teacher.receipt_created_title"),
 					strings("teacher.receipt_created_msg", {
-						student: this.props.item.student.user.name
+						student: this.props.item.student.name
 					}),
 					[
 						{

@@ -200,10 +200,8 @@ export class Notifications extends React.Component {
 					<Notification
 						style={styles.notification}
 						key={`lesson${item.id}`}
-						user={item.student.user}
-						name={`${item.student.user.name}(${
-							item.lesson_number
-						})`}
+						user={item.student}
+						name={`${item.student.name}(${item.lesson_number})`}
 						type="new_lesson"
 						leftSide={
 							<View>
@@ -282,8 +280,8 @@ export class Notifications extends React.Component {
 					style={styles.notification}
 					key={`payment${item.id}`}
 					leftSide={<Text style={styles.amount}>{item.amount}₪</Text>}
-					name={`${item.student.user.name}`}
-					user={item.student.user}
+					name={`${item.student.name}`}
+					user={item.student}
 					type="new_payment"
 					extra={
 						<ShowReceipt

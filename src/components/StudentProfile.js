@@ -86,7 +86,7 @@ export default class StudentProfile extends React.Component {
 		this.props.navigation.navigate("Payments", {
 			filter: "lessons/payments",
 			extraFilter: "&student_id=" + this.state.student.student_id,
-			filterText: this.state.student.user.name
+			filterText: this.state.student.name
 		})
 	}
 
@@ -305,7 +305,7 @@ export default class StudentProfile extends React.Component {
 			<ScrollView style={{ flex: 1 }}>
 				<View style={styles.container}>
 					<ContactPopup
-						phone={this.state.student.user.phone}
+						phone={this.state.student.phone}
 						visible={this.state.contactVisible}
 						onPress={this.contactPress.bind(this)}
 					/>

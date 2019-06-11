@@ -14,7 +14,8 @@ import ShadowRect from "../components/ShadowRect"
 import {
 	MAIN_PADDING,
 	floatButtonOnlyStyle,
-	NOTIFICATIONS_KEY
+	NOTIFICATIONS_KEY,
+	SUPPORT_PHONE
 } from "../consts"
 import PageTitle from "../components/PageTitle"
 import { NavigationActions } from "react-navigation"
@@ -30,6 +31,7 @@ import {
 	navigateToEZCount
 } from "../actions/utils"
 import validate, { registerValidation } from "../actions/validate"
+import ContactPopup from "../components/ContactPopup"
 
 export class Settings extends React.Component {
 	constructor(props) {
@@ -42,7 +44,8 @@ export class Settings extends React.Component {
 			password: "",
 			price: this.props.user.price,
 			duration: this.props.user.lesson_duration,
-			notifications: "true"
+			notifications: "true",
+			contactVisible: false
 		}
 		this._initNotifications()
 	}
@@ -145,6 +148,10 @@ export class Settings extends React.Component {
 		)
 	}
 
+	contactPress = () => {
+		this.setState({ contactVisible: !this.state.contactVisible })
+	}
+
 	render() {
 		let extraSettings, extraForm
 		if (this.props.user.hasOwnProperty("teacher_id")) {
@@ -213,6 +220,11 @@ export class Settings extends React.Component {
 				keyboardDismissMode="on-drag"
 				keyboardShouldPersistTaps="always"
 			>
+				<ContactPopup
+					phone={SUPPORT_PHONE}
+					visible={this.state.contactVisible}
+					onPress={this.contactPress.bind(this)}
+				/>
 				<View style={styles.container}>
 					<PageTitle
 						style={styles.title}
@@ -258,9 +270,15 @@ export class Settings extends React.Component {
 								</Text>
 							</View>
 						</TouchableHighlight>
-						<View style={styles.rectInsideView}>
-							<Text>{strings("settings.support")}</Text>
-						</View>
+						<TouchableHighlight
+							underlayColor="#f8f8f8"
+							onPress={this.contactPress.bind(this)}
+							style={styles.fullWidth}
+						>
+							<View style={styles.rectInsideView}>
+								<Text>{strings("settings.support")}</Text>
+							</View>
+						</TouchableHighlight>
 					</ShadowRect>
 					<Text style={styles.rectTitle}>
 						{strings("settings.personal_info")}

@@ -22,6 +22,7 @@ import { getUserImage, popLatestError } from "../actions/utils"
 import FastImage from "react-native-fast-image"
 import { NavigationActions } from "react-navigation"
 import LessonPopup from "../components/LessonPopup"
+import ContactPopup from "../components/ContactPopup"
 import { API_ERROR } from "../reducers/consts"
 
 export default class StudentProfile extends React.Component {
@@ -47,7 +48,8 @@ export default class StudentProfile extends React.Component {
 			isTeacher,
 			loading: true,
 			lessonPopupVisible: false,
-			showBackButton
+			showBackButton,
+			contactVisible: false
 		}
 	}
 
@@ -69,10 +71,6 @@ export default class StudentProfile extends React.Component {
 		if (error) {
 			Alert.alert(strings("errors.title"), errors(error))
 		}
-	}
-
-	_callPhone = () => {
-		Linking.openURL(`tel:${this.state.student.user.phone}`)
 	}
 
 	_handleRequests = async () => {
@@ -219,6 +217,12 @@ export default class StudentProfile extends React.Component {
 		this.setState({ lessonPopupVisible: !this.state.lessonPopupVisible })
 	}
 
+	contactPress = () => {
+		this.setState({
+			contactVisible: !this.state.contactVisible
+		})
+	}
+
 	render() {
 		const { student } = this.state
 		let backButton, contact
@@ -239,7 +243,7 @@ export default class StudentProfile extends React.Component {
 			// teacher is logged in, show next lesson and payments
 			contact = (
 				<TouchableOpacity
-					onPress={this._callPhone.bind(this)}
+					onPress={this.contactPress.bind(this)}
 					style={styles.badge}
 				>
 					<Icon type="feather" name="phone" size={24} />
@@ -300,6 +304,11 @@ export default class StudentProfile extends React.Component {
 		return (
 			<ScrollView style={{ flex: 1 }}>
 				<View style={styles.container}>
+					<ContactPopup
+						phone={this.state.student.user.phone}
+						visible={this.state.contactVisible}
+						onPress={this.contactPress.bind(this)}
+					/>
 					<View style={styles.header}>
 						{backButton}
 						<UserWithPic
@@ -307,7 +316,7 @@ export default class StudentProfile extends React.Component {
 							extra={
 								<View style={{ alignItems: "flex-start" }}>
 									<Text>
-										{student.new_lesson_number}{" "}
+										{student.lessons_done}{" "}
 										{strings("student_profile.lessons")}
 									</Text>
 									<TouchableOpacity

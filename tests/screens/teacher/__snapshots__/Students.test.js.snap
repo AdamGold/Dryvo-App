@@ -230,7 +230,7 @@ exports[`Students view renders correctly 1`] = `
                           },
                           Object {
                             "label": "מספר שיעור",
-                            "value": "new_lesson_number",
+                            "value": "lessons_done",
                           },
                         ]
                       }
@@ -533,7 +533,7 @@ exports[`Students view renders correctly 1`] = `
                         },
                         Object {
                           "label": "מספר שיעור",
-                          "value": "new_lesson_number",
+                          "value": "lessons_done",
                         },
                       ]
                     }

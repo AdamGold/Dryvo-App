@@ -43,7 +43,7 @@ export class Students extends React.Component {
 		this.sortOptions = [
 			{ value: "balance", label: strings("teacher.students.balance") },
 			{
-				value: "new_lesson_number",
+				value: "lessons_done",
 				label: strings("teacher.students.lesson_number")
 			}
 		]
@@ -142,7 +142,7 @@ export class Students extends React.Component {
 							<View style={{ alignItems: "flex-start" }}>
 								<Text>
 									{strings("teacher.students.lesson_num")}:{" "}
-									{item.new_lesson_number}
+									{item.lessons_done}
 								</Text>
 								<Text style={balanceStyle}>
 									{strings("teacher.students.balance")}:{" "}

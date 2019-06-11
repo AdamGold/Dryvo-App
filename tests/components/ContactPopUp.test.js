@@ -2,7 +2,7 @@ import React from "react"
 
 import renderer from "react-test-renderer"
 
-import ContactPopup from "../../src/components/ContactPopUp"
+import ContactPopup from "../../src/components/ContactPopup"
 
 jest.useFakeTimers()
 describe("ContactPopup", () => {

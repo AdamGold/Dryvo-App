@@ -22,7 +22,7 @@ import { getUserImage, popLatestError } from "../actions/utils"
 import FastImage from "react-native-fast-image"
 import { NavigationActions } from "react-navigation"
 import LessonPopup from "../components/LessonPopup"
-import ContactPopUp from "../components/ContactPopUp"
+import ContactPopup from "../components/ContactPopup"
 import { API_ERROR } from "../reducers/consts"
 
 export default class StudentProfile extends React.Component {
@@ -304,7 +304,7 @@ export default class StudentProfile extends React.Component {
 		return (
 			<ScrollView style={{ flex: 1 }}>
 				<View style={styles.container}>
-					<ContactPopUp
+					<ContactPopup
 						phone={this.state.student.user.phone}
 						visible={this.state.contactVisible}
 						onPress={this.contactPress.bind(this)}

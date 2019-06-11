@@ -31,7 +31,7 @@ import {
 	navigateToEZCount
 } from "../actions/utils"
 import validate, { registerValidation } from "../actions/validate"
-import ContactPopUp from "../components/ContactPopUp"
+import ContactPopup from "../components/ContactPopup"
 
 export class Settings extends React.Component {
 	constructor(props) {
@@ -220,7 +220,7 @@ export class Settings extends React.Component {
 				keyboardDismissMode="on-drag"
 				keyboardShouldPersistTaps="always"
 			>
-				<ContactPopUp
+				<ContactPopup
 					phone={SUPPORT_PHONE}
 					visible={this.state.contactVisible}
 					onPress={this.contactPress.bind(this)}

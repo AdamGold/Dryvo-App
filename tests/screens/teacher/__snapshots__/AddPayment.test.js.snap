@@ -77,7 +77,7 @@ exports[`AddPaymentChooseAmount view renders correctly 1`] = `
           }
         }
       >
-        תשלום של  נוסף לתלמיד test.
+        תשלום של  נוסף לתלמיד [missing %{student} value].
       </Text>
       <View
         accessible={true}

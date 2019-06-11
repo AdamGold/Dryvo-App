@@ -49,7 +49,7 @@ export default class LessonPopup extends React.Component {
 				</Text>
 			)
 		} else {
-			const name = item.student.user.name.slice(0, NAME_LENGTH)
+			const name = item.student.name.slice(0, NAME_LENGTH)
 			const number = `${strings("teacher.home.lesson_number")} ${
 				item.lesson_number
 			}`
@@ -61,7 +61,7 @@ export default class LessonPopup extends React.Component {
 					<Fragment>
 						<View style={styles.imageView}>
 							<UserPic
-								user={item.student.user}
+								user={item.student}
 								width={styles.image.width}
 								height={styles.image.height}
 							/>

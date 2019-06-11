@@ -109,7 +109,7 @@ export class AddPaymentChooseAmount extends React.Component {
 					title={strings("teacher.add_payment.success_title")}
 					desc={strings("teacher.add_payment.success_desc", {
 						amount: this.state.amount,
-						student: this.state.student.user.name
+						student: this.state.student.name
 					})}
 					buttonPress={() => {
 						this.setState({ successVisible: false })

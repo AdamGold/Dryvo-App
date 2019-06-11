@@ -175,15 +175,13 @@ export class Schedule extends React.Component {
 
 	_renderLesson(item) {
 		let student = strings("teacher.no_student_applied")
-		let user = null
 		if (item.student) {
 			student =
-				item.student.user.name.slice(0, NAME_LENGTH) +
+				item.student.name.slice(0, NAME_LENGTH) +
 				" " +
 				strings("teacher.schedule.lesson_number", {
 					num: item.lesson_number
 				})
-			user = item.student.user
 		}
 		const date = item.date
 		const meetup = item.meetup_place || strings("not_set")
@@ -196,7 +194,7 @@ export class Schedule extends React.Component {
 						style={styles.row}
 						leftSide={
 							<UserPic
-								user={user}
+								user={item.student}
 								style={styles.imageStyle}
 								width={44}
 								height={44}

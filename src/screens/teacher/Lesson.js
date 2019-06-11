@@ -89,7 +89,7 @@ export class Lesson extends React.Component {
 					.local()
 					.format(SHORT_API_DATE_FORMAT),
 				dateAndTime: moment.utc(lesson.date).format(API_DATE_FORMAT),
-				studentName: lesson.student.user.name,
+				studentName: lesson.student.name,
 				duration: lesson.duration.toString(),
 				meetup: { description: lesson.meetup_place },
 				dropoff: { description: lesson.dropoff_place },
@@ -327,7 +327,7 @@ export class Lesson extends React.Component {
 			{
 				student,
 				price: student.price,
-				studentName: student.user.name
+				studentName: student.name
 			},
 			() => {
 				this._getTopics()
@@ -365,7 +365,7 @@ export class Lesson extends React.Component {
 							...selectedTextStyle
 						}}
 					>
-						{student.user.name}
+						{student.name}
 					</Text>
 				</InputSelectionButton>
 			)

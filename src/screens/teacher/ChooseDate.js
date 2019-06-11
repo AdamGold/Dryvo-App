@@ -64,10 +64,8 @@ export class ChooseDate extends React.Component {
 	)
 	renderItem = ({ item, index }) => {
 		let student = strings("teacher.no_student_applied")
-		let user = null
 		if (item.student) {
-			student = item.student.user.name
-			user = item.student.user
+			student = item.student.name
 		}
 		return (
 			<Row
@@ -83,7 +81,7 @@ export class ChooseDate extends React.Component {
 			>
 				<UserWithPic
 					name={student}
-					user={user}
+					user={item.student}
 					nameStyle={styles.nameStyle}
 					width={42}
 					height={42}

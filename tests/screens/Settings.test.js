@@ -12,6 +12,7 @@ const student = {
 	my_teacher: { user: {} }
 }
 const teacher = { ...user, teacher_id: 5, lesson_duration: 40 }
+jest.useFakeTimers()
 describe("Settings", () => {
 	test("view renders correctly for student", () => {
 		const tree = renderer

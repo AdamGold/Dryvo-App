@@ -4,6 +4,7 @@ import renderer from "react-test-renderer"
 
 import ContactPopup from "../../src/components/ContactPopUp"
 
+jest.useFakeTimers()
 describe("ContactPopup", () => {
 	test("view renders correctly", () => {
 		const phone = "0542224441"

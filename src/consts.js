@@ -101,3 +101,5 @@ export const fullButton = {
 	width: "100%",
 	borderRadius: 0
 }
+
+export const SUPPORT_PHONE = "0544440047"

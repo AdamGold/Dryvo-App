@@ -255,8 +255,8 @@ export class Notifications extends React.Component {
 			<Notification
 				style={styles.notification}
 				key={`student${item.student_id}`}
-				name={`${item.user.name}`}
-				user={item.user}
+				name={`${item.name}`}
+				user={item}
 				type="new_student"
 			>
 				<NotificationButtons

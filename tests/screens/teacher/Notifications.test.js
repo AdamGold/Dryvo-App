@@ -1,26 +1,38 @@
 import "react-native"
 import React from "react"
 
-import renderer from "react-test-renderer"
-
 import { Notifications } from "../../../src/screens/teacher/Notifications"
 
 describe("Notifications", () => {
-	test("view renders correctly", () => {
-		const tree = renderer
-			.create(
-				<Notifications
-					navigation={{
-						getParam: param => {
-							return "lessons"
-						},
-						goBack: jest.fn(),
-						navigate: jest.fn(),
-						addListener: jest.fn()
-					}}
-				/>
-			)
-			.toJSON()
-		expect(tree).toMatchSnapshot()
+	test("view renders correctly", done => {
+		const student = { name: "test", student_id: 1 }
+		fetch.mockResponseSuccess(
+			JSON.stringify({
+				data: [
+					{
+						duration: 40,
+						student
+					},
+					{
+						duration: 100,
+						student
+					}
+				]
+			})
+		)
+		const wrapper = shallow(
+			<Notifications
+				navigation={{
+					...navigation,
+					getParam: param => {
+						return null
+					},
+					state: { params: { filter: "lessons" } }
+				}}
+				dispatch={dispatch}
+				fetchService={fetchService}
+			/>
+		)
+		testAsyncComponent(wrapper, done)
 	})
 })

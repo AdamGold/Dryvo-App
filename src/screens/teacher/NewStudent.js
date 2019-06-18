@@ -13,16 +13,15 @@ import { connect } from "react-redux"
 import { strings, errors } from "../../i18n"
 import { Button, Icon } from "react-native-elements"
 import PageTitle from "../../components/PageTitle"
-import { API_ERROR } from "../../reducers/consts"
 import { fetchOrError } from "../../actions/utils"
 import AuthInput from "../../components/AuthInput"
 import { MAIN_PADDING, DEFAULT_IMAGE, fullButton } from "../../consts"
-import { popLatestError } from "../../actions/utils"
 import UploadProfileImage from "../../components/UploadProfileImage"
 import SuccessModal from "../../components/SuccessModal"
 import validate, { registerValidation } from "../../actions/validate"
+import AlertError from "../../components/AlertError"
 
-export class NewStudent extends React.Component {
+export class NewStudent extends AlertError {
 	constructor(props) {
 		super(props)
 		this.state = {
@@ -50,13 +49,6 @@ export class NewStudent extends React.Component {
 		Object.keys(this.inputs).forEach(input => {
 			this.state[input] = ""
 		})
-	}
-
-	componentDidUpdate() {
-		const error = this.props.dispatch(popLatestError(API_ERROR))
-		if (error) {
-			Alert.alert(strings("errors.title"), errors(error))
-		}
 	}
 
 	_onChangeText = (name, input) => {
@@ -233,7 +225,7 @@ const styles = StyleSheet.create({
 
 function mapStateToProps(state) {
 	return {
-		errors: state.errors,
+		error: state.error,
 		fetchService: state.fetchService
 	}
 }

@@ -37,49 +37,23 @@ describe("user reducer", () => {
 	})
 })
 
-describe("errors reducer", () => {
+describe("error reducer", () => {
 	it("should return the initial state - return dict of empty arrays with the correct keys", () => {
 		expect(errors(undefined, {})).toMatchSnapshot()
 	})
-	const initialState = {
-		[consts.API_ERROR]: [],
-		other: []
-	}
-	it("should handle API ERROR - insert `test error` to array", () => {
+	it("should handle ERROR", () => {
 		expect(
-			errors(initialState, {
-				type: consts.API_ERROR,
+			errors(undefined, {
+				type: consts.ERROR,
 				error: "test error"
 			})
 		).toMatchSnapshot()
 	})
 
-	it("should handle API ERROR - insert default message if empty is given", () => {
-		expect(
-			errors(initialState, {
-				type: consts.API_ERROR,
-				error: ""
-			})
-		).toMatchSnapshot()
-	})
-
-	it("should handle APP ERROR - insert `test inside app error` to array", () => {
+	it("should handle ERROR - insert default message if nothing is given", () => {
 		expect(
 			errors(undefined, {
-				type: consts.APP_ERROR,
-				error: "test inside app error"
-			})
-		).toMatchSnapshot()
-	})
-
-	const filledWithErrors = Object.assign({}, initialState, {
-		[consts.API_ERROR]: ["test 1", "test 2"]
-	})
-	it("should handle POP ERROR and pop from array - return only `test 1` in array", () => {
-		expect(
-			errors(filledWithErrors, {
-				type: consts.POP_ERROR,
-				errorType: consts.API_ERROR
+				type: consts.ERROR
 			})
 		).toMatchSnapshot()
 	})

@@ -4,7 +4,7 @@ exports[`auth.js directLogin tests should dispatch default error 1`] = `
 Array [
   Object {
     "error": "",
-    "type": "API_ERROR",
+    "type": "ERROR",
   },
 ]
 `;
@@ -24,8 +24,7 @@ Array [
 exports[`auth.js exchangeToken tests should dispatch error 1`] = `
 Array [
   Object {
-    "error": "קרתה תקלה, אנא נסו שנית.",
-    "type": "API_ERROR",
+    "type": "ERROR",
   },
 ]
 `;
@@ -60,7 +59,7 @@ exports[`auth.js register tests should dispatch default error 1`] = `
 Array [
   Object {
     "error": "",
-    "type": "API_ERROR",
+    "type": "ERROR",
   },
 ]
 `;
@@ -77,24 +76,6 @@ Array [
 ]
 `;
 
-exports[`utils.js should dispatch API ERROR 1`] = `
-Array [
-  Object {
-    "error": "",
-    "type": "API_ERROR",
-  },
-]
-`;
-
-exports[`utils.js should dispatch API ERROR when trying to upload image 1`] = `
-Array [
-  Object {
-    "error": "קרתה תקלה, אנא נסו שנית.",
-    "type": "API_ERROR",
-  },
-]
-`;
-
 exports[`utils.js should dispatch CHANGE_USER_IMAGE 1`] = `
 Array [
   Object {
@@ -104,16 +85,32 @@ Array [
 ]
 `;
 
-exports[`utils.js should dispatch pop error 1`] = `
+exports[`utils.js should dispatch ERROR 1`] = `
 Array [
   Object {
-    "errorType": "API_ERROR",
-    "type": "POP_ERROR",
+    "error": "",
+    "type": "ERROR",
   },
 ]
 `;
 
-exports[`utils.js should not dispatch API ERROR 1`] = `Array []`;
+exports[`utils.js should dispatch ERROR when trying to upload image 1`] = `
+Array [
+  Object {
+    "type": "ERROR",
+  },
+]
+`;
+
+exports[`utils.js should dispatch truncate error 1`] = `
+Array [
+  Object {
+    "type": "TRUNCATE_ERROR",
+  },
+]
+`;
+
+exports[`utils.js should not dispatch ERROR 1`] = `Array []`;
 
 exports[`utils.js should return load fetch service 1`] = `
 Object {

@@ -25,16 +25,15 @@ import Hours from "../../components/Hours"
 import InputSelectionButton from "../../components/InputSelectionButton"
 import moment from "moment"
 import { getHoursDiff } from "../../actions/utils"
-import { API_ERROR } from "../../reducers/consts"
 import DateTimePicker from "react-native-modal-datetime-picker"
 import { fetchOrError } from "../../actions/utils"
-import { popLatestError } from "../../actions/utils"
 import SuccessModal from "../../components/SuccessModal"
 import Analytics from "appcenter-analytics"
 import { Icon } from "react-native-elements"
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
+import AlertError from "../../components/AlertError"
 
-export class Lesson extends React.Component {
+export class Lesson extends AlertError {
 	constructor(props) {
 		super(props)
 		this.initState = {
@@ -127,13 +126,6 @@ export class Lesson extends React.Component {
 				/>
 			)
 		})
-	}
-
-	componentDidUpdate() {
-		const error = this.props.dispatch(popLatestError(API_ERROR))
-		if (error) {
-			Alert.alert(strings("errors.title"), errors(error))
-		}
 	}
 
 	_getAvailableHours = async (append = false) => {
@@ -365,9 +357,9 @@ export class Lesson extends React.Component {
 					{this.renderPlaces()}
 				</ScrollView>
 				<KeyboardAvoidingView
-					behavior={Platform.OS === "ios" ? "position" : null}
+					behavior={Platform.OS === "ios" ? "padding" : null}
 					keyboardVerticalOffset={Platform.select({
-						ios: fullButton.height + 10,
+						ios: fullButton.height,
 						android: null
 					})}
 				>
@@ -409,8 +401,7 @@ const styles = StyleSheet.create({
 	},
 	formContainer: {
 		width: 340,
-		alignSelf: "center",
-		marginBottom: 70
+		alignSelf: "center"
 	},
 	submitButton: { ...fullButton, position: "relative" },
 	doneText: {
@@ -450,7 +441,7 @@ function mapStateToProps(state) {
 	return {
 		fetchService: state.fetchService,
 		user: state.user,
-		errors: state.errors
+		error: state.error
 	}
 }
 export default connect(mapStateToProps)(Lesson)

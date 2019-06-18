@@ -30,7 +30,7 @@ function mapStateToProps(state) {
 	return {
 		user: state.user,
 		fetchService: state.fetchService,
-		errors: state.errors
+		error: state.error
 	}
 }
 const profileScreen = connect(mapStateToProps)(Profile)

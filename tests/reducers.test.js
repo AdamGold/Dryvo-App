@@ -37,7 +37,7 @@ describe("user reducer", () => {
 	})
 })
 
-describe("errors reducer", () => {
+describe("error reducer", () => {
 	it("should return the initial state - return dict of empty arrays with the correct keys", () => {
 		expect(errors(undefined, {})).toMatchSnapshot()
 	})

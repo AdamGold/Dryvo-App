@@ -78,10 +78,14 @@ export default class Fetch {
 			throw new APIError(DEFAULT_ERROR)
 		}
 		const token = await Storage.getItem(TOKEN_KEY, true)
+		auth = {}
+		if (token) {
+			auth = { Authorization: "Bearer " + token }
+		}
 		fetchParams[1]["headers"] = {
 			...this.defaultHeaders,
 			...fetchParams[1]["headers"],
-			Authorization: "Bearer " + token
+			...auth
 		}
 		/*console.log(
 			"request to " +

@@ -1,205 +1,173 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Home view renders correctly 1`] = `
-<RCTScrollView>
-  <View>
+<ScrollViewMock>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "marginTop": 20,
+        "paddingLeft": 26,
+        "paddingRight": 26,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "position": "absolute",
+          "right": 26,
+        }
+      }
+    >
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
+      >
+        <Themed.Icon
+          name="settings"
+          size={24}
+          type="material"
+        />
+      </TouchableOpacity>
+    </View>
     <View
       style={
         Object {
           "alignItems": "center",
+          "alignSelf": "center",
+          "marginBottom": 20,
+        }
+      }
+      testID="welcomeHeader"
+    >
+      <UploadProfileImage
+        image="https://res.cloudinary.com/hsmkon3br/image/upload/c_thumb,g_face,h_80,w_80/v1554188012/678099-profile-filled-256.png"
+        style={
+          Object {
+            "borderRadius": 22,
+            "height": 44,
+            "marginBottom": 16,
+            "width": 44,
+          }
+        }
+        upload={[Function]}
+      />
+      <Text
+        style={
+          Object {
+            "fontFamily": "Assistant-Light",
+            "fontSize": 24,
+          }
+        }
+      >
+        צהריים טובים, student
+      </Text>
+    </View>
+    <ShadowRect>
+      <Text
+        style={
+          Object {
+            "alignSelf": "flex-start",
+            "color": "rgb(121, 121, 121)",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          }
+        }
+        testID="schedule"
+      >
+        שיעור הבא
+      </Text>
+      <StudentNextLessonView
+        lesson={
+          Object {
+            "dropoff_place": "t",
+            "meetup_place": "a",
+            "student": Object {
+              "name": "test",
+            },
+          }
+        }
+        lessonPress={[Function]}
+        loading={false}
+        testID="lessonRowTouchable"
+      />
+      <LessonPopup
+        item={
+          Object {
+            "dropoff_place": "t",
+            "meetup_place": "a",
+            "student": Object {
+              "name": "test",
+            },
+          }
+        }
+        navigation={
+          Object {
+            "addListener": [MockFunction] {
+              "calls": Array [
+                Array [
+                  "willFocus",
+                  [Function],
+                ],
+              ],
+              "results": Array [
+                Object {
+                  "type": "return",
+                  "value": undefined,
+                },
+              ],
+            },
+          }
+        }
+        onPress={[Function]}
+        testID="lessonPopup"
+        visible={false}
+      />
+    </ShadowRect>
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "alignSelf": "center",
           "flex": 1,
-          "marginTop": 20,
-          "paddingLeft": 26,
-          "paddingRight": 26,
+          "flexDirection": "row",
+          "height": 40,
+          "justifyContent": "center",
+          "marginBottom": 12,
         }
       }
     >
-      <View
+      <Text
         style={
           Object {
-            "position": "absolute",
-            "right": 26,
+            "color": "rgb(12, 116, 244)",
+            "fontWeight": "bold",
+            "marginRight": 8,
+            "marginTop": -4,
           }
         }
       >
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-        >
-          <View>
-            <View
-              style={
-                Object {
-                  "alignItems": "center",
-                  "backgroundColor": "transparent",
-                  "justifyContent": "center",
-                }
-              }
-              theme={
-                Object {
-                  "colors": Object {
-                    "disabled": "hsl(208, 8%, 90%)",
-                    "divider": "#bcbbc1",
-                    "error": "#ff190c",
-                    "grey0": "#393e42",
-                    "grey1": "#43484d",
-                    "grey2": "#5e6977",
-                    "grey3": "#86939e",
-                    "grey4": "#bdc6cf",
-                    "grey5": "#e1e8ee",
-                    "greyOutline": "#bbb",
-                    "platform": Object {
-                      "android": Object {
-                        "error": "#f44336",
-                        "primary": "#2196f3",
-                        "secondary": "#9C27B0",
-                        "success": "#4caf50",
-                        "warning": "#ffeb3b",
-                      },
-                      "ios": Object {
-                        "error": "#ff3b30",
-                        "primary": "#007aff",
-                        "secondary": "#5856d6",
-                        "success": "#4cd964",
-                        "warning": "#ffcc00",
-                      },
-                    },
-                    "primary": "#2089dc",
-                    "searchBg": "#303337",
-                    "secondary": "#8F0CE8",
-                    "success": "#52c41a",
-                    "warning": "#faad14",
-                  },
-                }
-              }
-              underlayColor="white"
-            >
-              <Text
-                allowFontScaling={false}
-                style={
-                  Array [
-                    Object {
-                      "color": "black",
-                      "fontSize": 24,
-                    },
-                    Object {
-                      "backgroundColor": "transparent",
-                    },
-                    Object {
-                      "fontFamily": "Material Icons",
-                      "fontStyle": "normal",
-                      "fontWeight": "normal",
-                    },
-                    Object {},
-                  ]
-                }
-                testID="iconIcon"
-              >
-                
-              </Text>
-            </View>
-          </View>
-        </View>
-      </View>
-      <View
+        לו״ז מלא
+      </Text>
+      <Themed.Icon
+        color="rgb(12, 116, 244)"
+        name="ios-arrow-dropleft-circle"
+        size={20}
+        type="ionicon"
+      />
+    </TouchableOpacity>
+    <ShadowRect>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
         style={
           Object {
-            "alignItems": "center",
-            "alignSelf": "center",
-            "marginBottom": 20,
-          }
-        }
-        testID="welcomeHeader"
-      >
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "opacity": 1,
-            }
-          }
-        >
-          <View
-            style={
-              Array [
-                Object {
-                  "overflow": "hidden",
-                },
-                Object {
-                  "borderRadius": 22,
-                  "height": 44,
-                  "marginBottom": 16,
-                  "width": 44,
-                },
-              ]
-            }
-          >
-            <FastImageView
-              resizeMode="cover"
-              source={
-                Object {
-                  "uri": "https://res.cloudinary.com/hsmkon3br/image/upload/c_thumb,g_face,h_80,w_80/v1554188012/678099-profile-filled-256.png",
-                }
-              }
-              style={
-                Object {
-                  "bottom": 0,
-                  "left": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                }
-              }
-            />
-          </View>
-        </View>
-        <Text
-          style={
-            Object {
-              "fontFamily": "Assistant-Light",
-              "fontSize": 24,
-            }
-          }
-        >
-          צהריים טובים, test
-        </Text>
-      </View>
-      <View
-        style={
-          Object {
-            "alignItems": "flex-start",
-            "backgroundColor": "#fff",
-            "borderRadius": 4,
-            "elevation": 6,
-            "marginBottom": 20,
-            "paddingHorizontal": 20,
-            "paddingVertical": 12,
-            "shadowColor": "#000",
-            "shadowOffset": Object {
-              "height": 6,
-              "width": 0,
-            },
-            "shadowOpacity": 0.09,
-            "shadowRadius": 20,
-            "width": "100%",
+            "flex": 1,
+            "flexDirection": "row",
           }
         }
       >
@@ -212,698 +180,46 @@ exports[`Home view renders correctly 1`] = `
               "fontWeight": "bold",
             }
           }
-          testID="schedule"
+          testID="monthlyAmount"
         >
-          שיעור הבא
+          תשלומים
         </Text>
-        <View>
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            height="6.4"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="4"
-            ry="4"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="80"
-            x={220}
-            y="32"
-          />
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            height="6.4"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="4"
-            ry="4"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="40.44"
-            x="16"
-            y="32"
-          />
-        </View>
-      </View>
-      <View
-        accessible={true}
-        isTVSelectable={true}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "alignItems": "center",
-            "alignSelf": "center",
-            "flex": 1,
-            "flexDirection": "row",
-            "height": 40,
-            "justifyContent": "center",
-            "marginBottom": 12,
-            "opacity": 1,
-          }
-        }
-      >
-        <Text
-          style={
-            Object {
-              "color": "rgb(12, 116, 244)",
-              "fontWeight": "bold",
-              "marginRight": 8,
-              "marginTop": -4,
-            }
-          }
-        >
-          לו״ז מלא
-        </Text>
-        <View>
-          <View
-            style={
-              Object {
-                "alignItems": "center",
-                "backgroundColor": "transparent",
-                "justifyContent": "center",
-              }
-            }
-            theme={
-              Object {
-                "colors": Object {
-                  "disabled": "hsl(208, 8%, 90%)",
-                  "divider": "#bcbbc1",
-                  "error": "#ff190c",
-                  "grey0": "#393e42",
-                  "grey1": "#43484d",
-                  "grey2": "#5e6977",
-                  "grey3": "#86939e",
-                  "grey4": "#bdc6cf",
-                  "grey5": "#e1e8ee",
-                  "greyOutline": "#bbb",
-                  "platform": Object {
-                    "android": Object {
-                      "error": "#f44336",
-                      "primary": "#2196f3",
-                      "secondary": "#9C27B0",
-                      "success": "#4caf50",
-                      "warning": "#ffeb3b",
-                    },
-                    "ios": Object {
-                      "error": "#ff3b30",
-                      "primary": "#007aff",
-                      "secondary": "#5856d6",
-                      "success": "#4cd964",
-                      "warning": "#ffcc00",
-                    },
-                  },
-                  "primary": "#2089dc",
-                  "searchBg": "#303337",
-                  "secondary": "#8F0CE8",
-                  "success": "#52c41a",
-                  "warning": "#faad14",
-                },
-              }
-            }
-            underlayColor="white"
-          >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
-                  Object {
-                    "color": "rgb(12, 116, 244)",
-                    "fontSize": 20,
-                  },
-                  Object {
-                    "backgroundColor": "transparent",
-                  },
-                  Object {
-                    "fontFamily": "Ionicons",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
-                ]
-              }
-              testID="iconIcon"
-            >
-              
-            </Text>
-          </View>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "alignItems": "flex-start",
-            "backgroundColor": "#fff",
-            "borderRadius": 4,
-            "elevation": 6,
-            "marginBottom": 20,
-            "paddingHorizontal": 20,
-            "paddingVertical": 12,
-            "shadowColor": "#000",
-            "shadowOffset": Object {
-              "height": 6,
-              "width": 0,
-            },
-            "shadowOpacity": 0.09,
-            "shadowRadius": 20,
-            "width": "100%",
-          }
-        }
-      >
         <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
             Object {
+              "alignItems": "flex-end",
               "flex": 1,
-              "flexDirection": "row",
-              "opacity": 1,
+              "marginRight": "auto",
             }
           }
         >
-          <Text
-            style={
-              Object {
-                "alignSelf": "flex-start",
-                "color": "rgb(121, 121, 121)",
-                "fontSize": 16,
-                "fontWeight": "bold",
-              }
-            }
-            testID="monthlyAmount"
-          >
-            תשלומים
-          </Text>
-          <View
-            style={
-              Object {
-                "alignItems": "flex-end",
-                "flex": 1,
-                "marginRight": "auto",
-              }
-            }
-          >
-            <View>
-              <View
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "backgroundColor": "transparent",
-                    "justifyContent": "center",
-                  }
-                }
-                theme={
-                  Object {
-                    "colors": Object {
-                      "disabled": "hsl(208, 8%, 90%)",
-                      "divider": "#bcbbc1",
-                      "error": "#ff190c",
-                      "grey0": "#393e42",
-                      "grey1": "#43484d",
-                      "grey2": "#5e6977",
-                      "grey3": "#86939e",
-                      "grey4": "#bdc6cf",
-                      "grey5": "#e1e8ee",
-                      "greyOutline": "#bbb",
-                      "platform": Object {
-                        "android": Object {
-                          "error": "#f44336",
-                          "primary": "#2196f3",
-                          "secondary": "#9C27B0",
-                          "success": "#4caf50",
-                          "warning": "#ffeb3b",
-                        },
-                        "ios": Object {
-                          "error": "#ff3b30",
-                          "primary": "#007aff",
-                          "secondary": "#5856d6",
-                          "success": "#4cd964",
-                          "warning": "#ffcc00",
-                        },
-                      },
-                      "primary": "#2089dc",
-                      "searchBg": "#303337",
-                      "secondary": "#8F0CE8",
-                      "success": "#52c41a",
-                      "warning": "#faad14",
-                    },
-                  }
-                }
-                underlayColor="white"
-              >
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    Array [
-                      Object {
-                        "color": "black",
-                        "fontSize": 20,
-                      },
-                      Object {
-                        "backgroundColor": "transparent",
-                      },
-                      Object {
-                        "fontFamily": "Material Icons",
-                        "fontStyle": "normal",
-                        "fontWeight": "normal",
-                      },
-                      Object {},
-                    ]
-                  }
-                  testID="iconIcon"
-                >
-                  
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View>
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            height="49"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="0"
-            ry="0"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="120"
-            x="90"
-            y="16"
-          />
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            height="10"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="0"
-            ry="0"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="70"
-            x="115"
-            y="76"
-          />
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            height="6.4"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="3"
-            ry="3"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="40"
-            x="17"
-            y="110"
-          />
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            height="6.4"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="4"
-            ry="4"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="74.88"
-            x="180.77"
-            y="110"
-          />
-          <RNSVGCircle
-            cx="280"
-            cy="113.5"
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            r="13"
-            rotation={0}
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            x={0}
-            y={0}
-          />
-          <RNSVGCircle
-            cx="280"
-            cy="175.6"
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            r="13"
-            rotation={0}
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            x={0}
-            y={0}
-          />
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            height="6.4"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="4"
-            ry="4"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="74.88"
-            x="180.77"
-            y="172"
-          />
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            height="6.4"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="3"
-            ry="3"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="40"
-            x="17"
-            y="172"
+          <Themed.Icon
+            name="arrow-back"
+            size={20}
+            type="material"
           />
         </View>
-      </View>
-    </View>
+      </TouchableOpacity>
+      <StudentPayment
+        dispatch={[MockFunction]}
+        loading={false}
+        payments={
+          Array [
+            Object {
+              "amount": 100,
+              "student": Object {
+                "name": "test",
+              },
+            },
+          ]
+        }
+        user={
+          Object {
+            "name": "student",
+          }
+        }
+      />
+    </ShadowRect>
   </View>
-</RCTScrollView>
+</ScrollViewMock>
 `;

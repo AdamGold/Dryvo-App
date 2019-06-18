@@ -1,20 +1,602 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`WorkDays view renders correctly 1`] = `
-<View
-  style={
-    Object {
-      "alignItems": "center",
-      "flex": 1,
-      "justifyContent": "center",
+<Fragment>
+  <View
+    style={
+      Object {
+        "flex": 1,
+        "marginLeft": 26,
+        "marginRight": 26,
+        "marginTop": 20,
+      }
     }
-  }
->
-  <ActivityIndicator
-    animating={true}
-    color="#999999"
-    hidesWhenStopped={true}
-    size="small"
-  />
-</View>
+  >
+    <PageTitle
+      leftSide={
+        <TouchableOpacity
+          activeOpacity={0.2}
+          onPress={[Function]}
+          style={
+            Object {
+              "marginTop": -6,
+            }
+          }
+        >
+          <Themed.Icon
+            name="ios-close"
+            size={36}
+            type="ionicon"
+          />
+        </TouchableOpacity>
+      }
+      style={
+        Object {
+          "marginTop": 4,
+        }
+      }
+      title="שעות עבודה קבועות"
+    />
+    <ScrollViewMock
+      style={
+        Object {
+          "marginBottom": 68,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "flex": 1,
+          }
+        }
+      >
+        <View
+          key="day0"
+          style={
+            Object {
+              "marginTop": 0,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "alignSelf": "center",
+                "fontWeight": "bold",
+                "marginLeft": 8,
+              }
+            }
+          >
+            ראשון
+             
+          </Text>
+          <View
+            key="hour0"
+            style={
+              Object {
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "marginTop": 12,
+              }
+            }
+          >
+            <TouchableOpacity
+              activeOpacity={0.2}
+              onPress={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#f8f8f8",
+                  "marginRight": 12,
+                  "paddingVertical": 8,
+                  "width": 100,
+                }
+              }
+            >
+              <Text>
+                16
+                :
+                00
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.2}
+              onPress={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#f8f8f8",
+                  "marginRight": 12,
+                  "paddingVertical": 8,
+                  "width": 100,
+                }
+              }
+            >
+              <Text>
+                20
+                :
+                00
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.2}
+              onPress={[Function]}
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "rgb(12,116,244)",
+                    "marginTop": 6,
+                  }
+                }
+              >
+                הסר
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <View
+            key="hour1"
+            style={
+              Object {
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "marginTop": 12,
+              }
+            }
+          >
+            <TouchableOpacity
+              activeOpacity={0.2}
+              onPress={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#f8f8f8",
+                  "marginRight": 12,
+                  "paddingVertical": 8,
+                  "width": 100,
+                }
+              }
+            >
+              <Text>
+                08
+                :
+                00
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.2}
+              onPress={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#f8f8f8",
+                  "marginRight": 12,
+                  "paddingVertical": 8,
+                  "width": 100,
+                }
+              }
+            >
+              <Text>
+                14
+                :
+                00
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.2}
+              onPress={[Function]}
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "rgb(12,116,244)",
+                    "marginTop": 6,
+                  }
+                }
+              >
+                הסר
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity
+            activeOpacity={0.2}
+            onPress={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "marginTop": 8,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "rgb(12,116,244)",
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              הוסף שעות
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          key="day1"
+          style={
+            Object {
+              "marginTop": 20,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "alignSelf": "center",
+                "fontWeight": "bold",
+                "marginLeft": 8,
+              }
+            }
+          >
+            שני
+             
+          </Text>
+          <View
+            key="hour0"
+            style={
+              Object {
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "marginTop": 12,
+              }
+            }
+          >
+            <TouchableOpacity
+              activeOpacity={0.2}
+              onPress={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#f8f8f8",
+                  "marginRight": 12,
+                  "paddingVertical": 8,
+                  "width": 100,
+                }
+              }
+            >
+              <Text>
+                08
+                :
+                00
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.2}
+              onPress={[Function]}
+              style={
+                Object {
+                  "alignItems": "center",
+                  "backgroundColor": "#f8f8f8",
+                  "marginRight": 12,
+                  "paddingVertical": 8,
+                  "width": 100,
+                }
+              }
+            >
+              <Text>
+                14
+                :
+                00
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              activeOpacity={0.2}
+              onPress={[Function]}
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "rgb(12,116,244)",
+                    "marginTop": 6,
+                  }
+                }
+              >
+                הסר
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity
+            activeOpacity={0.2}
+            onPress={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "marginTop": 8,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "rgb(12,116,244)",
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              הוסף שעות
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          key="day2"
+          style={
+            Object {
+              "marginTop": 20,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "alignSelf": "center",
+                "fontWeight": "bold",
+                "marginLeft": 8,
+              }
+            }
+          >
+            שלישי
+             
+          </Text>
+          <TouchableOpacity
+            activeOpacity={0.2}
+            onPress={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "marginTop": 8,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "rgb(12,116,244)",
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              הוסף שעות
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          key="day3"
+          style={
+            Object {
+              "marginTop": 20,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "alignSelf": "center",
+                "fontWeight": "bold",
+                "marginLeft": 8,
+              }
+            }
+          >
+            רביעי
+             
+          </Text>
+          <TouchableOpacity
+            activeOpacity={0.2}
+            onPress={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "marginTop": 8,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "rgb(12,116,244)",
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              הוסף שעות
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          key="day4"
+          style={
+            Object {
+              "marginTop": 20,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "alignSelf": "center",
+                "fontWeight": "bold",
+                "marginLeft": 8,
+              }
+            }
+          >
+            חמישי
+             
+          </Text>
+          <TouchableOpacity
+            activeOpacity={0.2}
+            onPress={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "marginTop": 8,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "rgb(12,116,244)",
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              הוסף שעות
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          key="day5"
+          style={
+            Object {
+              "marginTop": 20,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "alignSelf": "center",
+                "fontWeight": "bold",
+                "marginLeft": 8,
+              }
+            }
+          >
+            שישי
+             
+          </Text>
+          <TouchableOpacity
+            activeOpacity={0.2}
+            onPress={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "marginTop": 8,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "rgb(12,116,244)",
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              הוסף שעות
+            </Text>
+          </TouchableOpacity>
+        </View>
+        <View
+          key="day6"
+          style={
+            Object {
+              "marginTop": 20,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "alignSelf": "center",
+                "fontWeight": "bold",
+                "marginLeft": 8,
+              }
+            }
+          >
+            שבת
+             
+          </Text>
+          <TouchableOpacity
+            activeOpacity={0.2}
+            onPress={[Function]}
+            style={
+              Object {
+                "alignItems": "center",
+                "alignSelf": "center",
+                "marginTop": 8,
+              }
+            }
+          >
+            <Text
+              style={
+                Object {
+                  "color": "rgb(12,116,244)",
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              הוסף שעות
+            </Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <CustomDatePickerIOS
+        cancelTextIOS="Cancel"
+        confirmTextIOS="Confirm"
+        date={2019-06-18T09:00:00.195Z}
+        hideTitleContainerIOS={false}
+        is24Hour={true}
+        isVisible={false}
+        mode="time"
+        neverDisableConfirmIOS={false}
+        onCancel={[Function]}
+        onConfirm={[Function]}
+        onDateChange={[Function]}
+        onHideAfterConfirm={[Function]}
+        reactNativeModalPropsIOS={Object {}}
+        titleIOS="Pick a date"
+      />
+    </ScrollViewMock>
+  </View>
+  <TouchableOpacity
+    activeOpacity={0.2}
+    onPress={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgb(12,116,244)",
+        "borderRadius": 0,
+        "bottom": 0,
+        "elevation": 8,
+        "height": 56,
+        "justifyContent": "center",
+        "position": "absolute",
+        "shadowColor": "rgb(12,116,244)",
+        "shadowOffset": Object {
+          "height": 8,
+          "width": 0,
+        },
+        "shadowOpacity": 0.5,
+        "shadowRadius": 16,
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#fff",
+          "fontWeight": "bold",
+        }
+      }
+    >
+      שמור
+    </Text>
+  </TouchableOpacity>
+</Fragment>
 `;

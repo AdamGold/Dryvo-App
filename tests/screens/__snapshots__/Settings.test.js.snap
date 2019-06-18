@@ -1,574 +1,586 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Settings view renders correctly for student 1`] = `
-<ScrollViewMock
-  keyboardDismissMode="on-drag"
-  keyboardShouldPersistTaps="always"
+<KeyboardAvoidingView
+  behavior="padding"
+  enabled={true}
+  keyboardVerticalOffset={0}
 >
-  <ContactPopup
-    onPress={[Function]}
-    phone="0544440047"
-    visible={false}
-  />
-  <View
-    style={
-      Object {
-        "alignItems": "center",
-        "flex": 1,
-        "marginTop": 20,
-        "paddingLeft": 26,
-        "paddingRight": 26,
-      }
-    }
+  <ScrollViewMock
+    keyboardDismissMode="on-drag"
+    keyboardShouldPersistTaps="always"
   >
-    <PageTitle
-      leftSide={
-        <ForwardRef(Themed.Button)
-          icon={
-            <Themed.Icon
-              name="ios-close"
-              size={36}
-              type="ionicon"
-            />
-          }
-          onPress={[Function]}
-          style={
-            Object {
-              "marginTop": -6,
-            }
-          }
-          type="clear"
-        />
-      }
-      title="הגדרות"
-    />
-    <Text
-      style={
-        Object {
-          "alignSelf": "flex-start",
-          "color": "#5c5959",
-          "fontWeight": "bold",
-        }
-      }
-    >
-      כללי
-    </Text>
-    <ShadowRect
-      style={
-        Object {
-          "marginBottom": 24,
-          "marginTop": 12,
-          "paddingHorizontal": 0,
-          "paddingVertical": 0,
-        }
-      }
-    >
-      <TouchableHighlight
-        activeOpacity={0.85}
-        delayPressOut={100}
-        onPress={[Function]}
-        style={
-          Object {
-            "flex": 1,
-            "width": "100%",
-          }
-        }
-        underlayColor="#f8f8f8"
-      >
-        <View
-          style={
-            Object {
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "flexDirection": "row",
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
-              "width": "100%",
-            }
-          }
-        >
-          <Text>
-            התראות
-          </Text>
-          <Text
-            style={
-              Object {
-                "alignSelf": "flex-end",
-                "flex": 1,
-                "marginLeft": "auto",
-              }
-            }
-          >
-            [missing "he.settings.notifications_null" translation]
-          </Text>
-        </View>
-      </TouchableHighlight>
-      <TouchableHighlight
-        activeOpacity={0.85}
-        delayPressOut={100}
-        onPress={[Function]}
-        style={
-          Object {
-            "flex": 1,
-            "width": "100%",
-          }
-        }
-        underlayColor="#f8f8f8"
-      >
-        <View
-          style={
-            Object {
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "flexDirection": "row",
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
-              "width": "100%",
-            }
-          }
-        >
-          <Text>
-            תמיכה
-          </Text>
-        </View>
-      </TouchableHighlight>
-    </ShadowRect>
-    <Text
-      style={
-        Object {
-          "alignSelf": "flex-start",
-          "color": "#5c5959",
-          "fontWeight": "bold",
-        }
-      }
-    >
-      פרטים אישיים (מלא רק שדות שברצונך לשנות)
-    </Text>
-    <ShadowRect
-      style={
-        Object {
-          "marginBottom": 24,
-          "marginTop": 12,
-          "paddingHorizontal": 0,
-          "paddingVertical": 0,
-        }
-      }
-    >
-      <RectInput
-        iconName="person"
-        label="שם מלא בעברית"
-        onChangeText={[Function]}
-        value="test"
-      />
-      <RectInput
-        iconName="person-pin"
-        label="איזור"
-        onChangeText={[Function]}
-        value="test"
-      />
-      <RectInput
-        iconName="phone"
-        label="מספר נייד"
-        onChangeText={[Function]}
-        value="05501111"
-      />
-      <RectInput
-        iconName="security"
-        label="סיסמה"
-        onChangeText={[Function]}
-        secureTextEntry={true}
-        value=""
-      />
-      <TouchableOpacity
-        activeOpacity={0.2}
-        onPress={[Function]}
-        style={
-          Object {
-            "alignItems": "center",
-            "backgroundColor": "rgb(12,116,244)",
-            "borderRadius": 0,
-            "elevation": 8,
-            "height": 56,
-            "justifyContent": "center",
-            "shadowColor": "rgb(12,116,244)",
-            "shadowOffset": Object {
-              "height": 8,
-              "width": 0,
-            },
-            "shadowOpacity": 0.5,
-            "shadowRadius": 16,
-            "width": "100%",
-          }
-        }
-      >
-        <View>
-          <Text
-            style={
-              Object {
-                "color": "#fff",
-                "fontSize": 20,
-                "fontWeight": "bold",
-              }
-            }
-          >
-            שמור
-          </Text>
-        </View>
-      </TouchableOpacity>
-    </ShadowRect>
-    <TouchableOpacity
-      activeOpacity={0.2}
+    <ContactPopup
       onPress={[Function]}
+      phone="0544440047"
+      visible={false}
+    />
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "marginTop": 20,
+          "paddingLeft": 26,
+          "paddingRight": 26,
+        }
+      }
     >
+      <PageTitle
+        leftSide={
+          <ForwardRef(Themed.Button)
+            icon={
+              <Themed.Icon
+                name="ios-close"
+                size={36}
+                type="ionicon"
+              />
+            }
+            onPress={[Function]}
+            style={
+              Object {
+                "marginTop": -6,
+              }
+            }
+            type="clear"
+          />
+        }
+        title="הגדרות"
+      />
       <Text
         style={
           Object {
-            "alignSelf": "center",
-            "color": "red",
+            "alignSelf": "flex-start",
+            "color": "#5c5959",
             "fontWeight": "bold",
-            "marginBottom": 26,
           }
         }
       >
-        התנתק
+        כללי
       </Text>
-    </TouchableOpacity>
-  </View>
-</ScrollViewMock>
+      <ShadowRect
+        style={
+          Object {
+            "marginBottom": 24,
+            "marginTop": 12,
+            "paddingHorizontal": 0,
+            "paddingVertical": 0,
+          }
+        }
+      >
+        <TouchableHighlight
+          activeOpacity={0.85}
+          delayPressOut={100}
+          onPress={[Function]}
+          style={
+            Object {
+              "flex": 1,
+              "width": "100%",
+            }
+          }
+          underlayColor="#f8f8f8"
+        >
+          <View
+            style={
+              Object {
+                "borderBottomColor": "#f7f7f7",
+                "borderBottomWidth": 1,
+                "flexDirection": "row",
+                "paddingHorizontal": 20,
+                "paddingVertical": 12,
+                "width": "100%",
+              }
+            }
+          >
+            <Text>
+              התראות
+            </Text>
+            <Text
+              style={
+                Object {
+                  "alignSelf": "flex-end",
+                  "flex": 1,
+                  "marginLeft": "auto",
+                }
+              }
+            >
+              [missing "he.settings.notifications_null" translation]
+            </Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight
+          activeOpacity={0.85}
+          delayPressOut={100}
+          onPress={[Function]}
+          style={
+            Object {
+              "flex": 1,
+              "width": "100%",
+            }
+          }
+          underlayColor="#f8f8f8"
+        >
+          <View
+            style={
+              Object {
+                "borderBottomColor": "#f7f7f7",
+                "borderBottomWidth": 1,
+                "flexDirection": "row",
+                "paddingHorizontal": 20,
+                "paddingVertical": 12,
+                "width": "100%",
+              }
+            }
+          >
+            <Text>
+              תמיכה
+            </Text>
+          </View>
+        </TouchableHighlight>
+      </ShadowRect>
+      <Text
+        style={
+          Object {
+            "alignSelf": "flex-start",
+            "color": "#5c5959",
+            "fontWeight": "bold",
+          }
+        }
+      >
+        פרטים אישיים (מלא רק שדות שברצונך לשנות)
+      </Text>
+      <ShadowRect
+        style={
+          Object {
+            "marginBottom": 24,
+            "marginTop": 12,
+            "paddingHorizontal": 0,
+            "paddingVertical": 0,
+          }
+        }
+      >
+        <RectInput
+          iconName="person"
+          label="שם מלא בעברית"
+          onChangeText={[Function]}
+          value="test"
+        />
+        <RectInput
+          iconName="person-pin"
+          label="איזור"
+          onChangeText={[Function]}
+          value="test"
+        />
+        <RectInput
+          iconName="phone"
+          label="מספר נייד"
+          onChangeText={[Function]}
+          value="05501111"
+        />
+        <RectInput
+          iconName="security"
+          label="סיסמה"
+          onChangeText={[Function]}
+          secureTextEntry={true}
+          value=""
+        />
+        <TouchableOpacity
+          activeOpacity={0.2}
+          onPress={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "rgb(12,116,244)",
+              "borderRadius": 0,
+              "elevation": 8,
+              "height": 56,
+              "justifyContent": "center",
+              "shadowColor": "rgb(12,116,244)",
+              "shadowOffset": Object {
+                "height": 8,
+                "width": 0,
+              },
+              "shadowOpacity": 0.5,
+              "shadowRadius": 16,
+              "width": "100%",
+            }
+          }
+        >
+          <View>
+            <Text
+              style={
+                Object {
+                  "color": "#fff",
+                  "fontSize": 20,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              שמור
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </ShadowRect>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
+      >
+        <Text
+          style={
+            Object {
+              "alignSelf": "center",
+              "color": "red",
+              "fontWeight": "bold",
+              "marginBottom": 26,
+            }
+          }
+        >
+          התנתק
+        </Text>
+      </TouchableOpacity>
+    </View>
+  </ScrollViewMock>
+</KeyboardAvoidingView>
 `;
 
 exports[`Settings view renders correctly for teacher 1`] = `
-<ScrollViewMock
-  keyboardDismissMode="on-drag"
-  keyboardShouldPersistTaps="always"
+<KeyboardAvoidingView
+  behavior="padding"
+  enabled={true}
+  keyboardVerticalOffset={0}
 >
-  <ContactPopup
-    onPress={[Function]}
-    phone="0544440047"
-    visible={false}
-  />
-  <View
-    style={
-      Object {
-        "alignItems": "center",
-        "flex": 1,
-        "marginTop": 20,
-        "paddingLeft": 26,
-        "paddingRight": 26,
-      }
-    }
+  <ScrollViewMock
+    keyboardDismissMode="on-drag"
+    keyboardShouldPersistTaps="always"
   >
-    <PageTitle
-      leftSide={
-        <ForwardRef(Themed.Button)
-          icon={
-            <Themed.Icon
-              name="ios-close"
-              size={36}
-              type="ionicon"
-            />
-          }
-          onPress={[Function]}
-          style={
-            Object {
-              "marginTop": -6,
-            }
-          }
-          type="clear"
-        />
-      }
-      title="הגדרות"
-    />
-    <Text
-      style={
-        Object {
-          "alignSelf": "flex-start",
-          "color": "#5c5959",
-          "fontWeight": "bold",
-        }
-      }
-    >
-      כללי
-    </Text>
-    <ShadowRect
-      style={
-        Object {
-          "marginBottom": 24,
-          "marginTop": 12,
-          "paddingHorizontal": 0,
-          "paddingVertical": 0,
-        }
-      }
-    >
-      <TouchableHighlight
-        activeOpacity={0.85}
-        delayPressOut={100}
-        onPress={[Function]}
-        style={
-          Object {
-            "flex": 1,
-            "width": "100%",
-          }
-        }
-        underlayColor="#f8f8f8"
-      >
-        <View
-          style={
-            Object {
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "flexDirection": "row",
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
-              "width": "100%",
-            }
-          }
-        >
-          <Text>
-            שעות עבודה
-          </Text>
-        </View>
-      </TouchableHighlight>
-      <TouchableHighlight
-        activeOpacity={0.85}
-        delayPressOut={100}
-        onPress={[Function]}
-        style={
-          Object {
-            "flex": 1,
-            "width": "100%",
-          }
-        }
-        underlayColor="#f8f8f8"
-      >
-        <View
-          style={
-            Object {
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "flexDirection": "row",
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
-              "width": "100%",
-            }
-          }
-        >
-          <Text>
-            ניהול הוצאות
-          </Text>
-        </View>
-      </TouchableHighlight>
-      <TouchableHighlight
-        activeOpacity={0.85}
-        delayPressOut={100}
-        onPress={[Function]}
-        style={
-          Object {
-            "flex": 1,
-            "width": "100%",
-          }
-        }
-        underlayColor="#f8f8f8"
-      >
-        <View
-          style={
-            Object {
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "flexDirection": "row",
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
-              "width": "100%",
-            }
-          }
-        >
-          <Text>
-            הפקת דוחות
-          </Text>
-        </View>
-      </TouchableHighlight>
-      <TouchableHighlight
-        activeOpacity={0.85}
-        delayPressOut={100}
-        onPress={[Function]}
-        style={
-          Object {
-            "flex": 1,
-            "width": "100%",
-          }
-        }
-        underlayColor="#f8f8f8"
-      >
-        <View
-          style={
-            Object {
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "flexDirection": "row",
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
-              "width": "100%",
-            }
-          }
-        >
-          <Text>
-            התראות
-          </Text>
-          <Text
-            style={
-              Object {
-                "alignSelf": "flex-end",
-                "flex": 1,
-                "marginLeft": "auto",
-              }
-            }
-          >
-            [missing "he.settings.notifications_null" translation]
-          </Text>
-        </View>
-      </TouchableHighlight>
-      <TouchableHighlight
-        activeOpacity={0.85}
-        delayPressOut={100}
-        onPress={[Function]}
-        style={
-          Object {
-            "flex": 1,
-            "width": "100%",
-          }
-        }
-        underlayColor="#f8f8f8"
-      >
-        <View
-          style={
-            Object {
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "flexDirection": "row",
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
-              "width": "100%",
-            }
-          }
-        >
-          <Text>
-            תמיכה
-          </Text>
-        </View>
-      </TouchableHighlight>
-    </ShadowRect>
-    <Text
-      style={
-        Object {
-          "alignSelf": "flex-start",
-          "color": "#5c5959",
-          "fontWeight": "bold",
-        }
-      }
-    >
-      פרטים אישיים (מלא רק שדות שברצונך לשנות)
-    </Text>
-    <ShadowRect
-      style={
-        Object {
-          "marginBottom": 24,
-          "marginTop": 12,
-          "paddingHorizontal": 0,
-          "paddingVertical": 0,
-        }
-      }
-    >
-      <RectInput
-        iconName="person"
-        label="שם מלא בעברית"
-        onChangeText={[Function]}
-        value="test"
-      />
-      <RectInput
-        iconName="person-pin"
-        label="איזור"
-        onChangeText={[Function]}
-        value="test"
-      />
-      <RectInput
-        iconName="phone"
-        label="מספר נייד"
-        onChangeText={[Function]}
-        value="05501111"
-      />
-      <RectInput
-        iconName="payment"
-        label="תמחור שיעור"
-        onChangeText={[Function]}
-        value="1000"
-      />
-      <RectInput
-        iconName="access-time"
-        label="זמן שיעור"
-        onChangeText={[Function]}
-        value="40"
-      />
-      <RectInput
-        iconName="security"
-        label="סיסמה"
-        onChangeText={[Function]}
-        secureTextEntry={true}
-        value=""
-      />
-      <TouchableOpacity
-        activeOpacity={0.2}
-        onPress={[Function]}
-        style={
-          Object {
-            "alignItems": "center",
-            "backgroundColor": "rgb(12,116,244)",
-            "borderRadius": 0,
-            "elevation": 8,
-            "height": 56,
-            "justifyContent": "center",
-            "shadowColor": "rgb(12,116,244)",
-            "shadowOffset": Object {
-              "height": 8,
-              "width": 0,
-            },
-            "shadowOpacity": 0.5,
-            "shadowRadius": 16,
-            "width": "100%",
-          }
-        }
-      >
-        <View>
-          <Text
-            style={
-              Object {
-                "color": "#fff",
-                "fontSize": 20,
-                "fontWeight": "bold",
-              }
-            }
-          >
-            שמור
-          </Text>
-        </View>
-      </TouchableOpacity>
-    </ShadowRect>
-    <TouchableOpacity
-      activeOpacity={0.2}
+    <ContactPopup
       onPress={[Function]}
+      phone="0544440047"
+      visible={false}
+    />
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "marginTop": 20,
+          "paddingLeft": 26,
+          "paddingRight": 26,
+        }
+      }
     >
+      <PageTitle
+        leftSide={
+          <ForwardRef(Themed.Button)
+            icon={
+              <Themed.Icon
+                name="ios-close"
+                size={36}
+                type="ionicon"
+              />
+            }
+            onPress={[Function]}
+            style={
+              Object {
+                "marginTop": -6,
+              }
+            }
+            type="clear"
+          />
+        }
+        title="הגדרות"
+      />
       <Text
         style={
           Object {
-            "alignSelf": "center",
-            "color": "red",
+            "alignSelf": "flex-start",
+            "color": "#5c5959",
             "fontWeight": "bold",
-            "marginBottom": 26,
           }
         }
       >
-        התנתק
+        כללי
       </Text>
-    </TouchableOpacity>
-  </View>
-</ScrollViewMock>
+      <ShadowRect
+        style={
+          Object {
+            "marginBottom": 24,
+            "marginTop": 12,
+            "paddingHorizontal": 0,
+            "paddingVertical": 0,
+          }
+        }
+      >
+        <TouchableHighlight
+          activeOpacity={0.85}
+          delayPressOut={100}
+          onPress={[Function]}
+          style={
+            Object {
+              "flex": 1,
+              "width": "100%",
+            }
+          }
+          underlayColor="#f8f8f8"
+        >
+          <View
+            style={
+              Object {
+                "borderBottomColor": "#f7f7f7",
+                "borderBottomWidth": 1,
+                "flexDirection": "row",
+                "paddingHorizontal": 20,
+                "paddingVertical": 12,
+                "width": "100%",
+              }
+            }
+          >
+            <Text>
+              שעות עבודה
+            </Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight
+          activeOpacity={0.85}
+          delayPressOut={100}
+          onPress={[Function]}
+          style={
+            Object {
+              "flex": 1,
+              "width": "100%",
+            }
+          }
+          underlayColor="#f8f8f8"
+        >
+          <View
+            style={
+              Object {
+                "borderBottomColor": "#f7f7f7",
+                "borderBottomWidth": 1,
+                "flexDirection": "row",
+                "paddingHorizontal": 20,
+                "paddingVertical": 12,
+                "width": "100%",
+              }
+            }
+          >
+            <Text>
+              ניהול הוצאות
+            </Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight
+          activeOpacity={0.85}
+          delayPressOut={100}
+          onPress={[Function]}
+          style={
+            Object {
+              "flex": 1,
+              "width": "100%",
+            }
+          }
+          underlayColor="#f8f8f8"
+        >
+          <View
+            style={
+              Object {
+                "borderBottomColor": "#f7f7f7",
+                "borderBottomWidth": 1,
+                "flexDirection": "row",
+                "paddingHorizontal": 20,
+                "paddingVertical": 12,
+                "width": "100%",
+              }
+            }
+          >
+            <Text>
+              הפקת דוחות
+            </Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight
+          activeOpacity={0.85}
+          delayPressOut={100}
+          onPress={[Function]}
+          style={
+            Object {
+              "flex": 1,
+              "width": "100%",
+            }
+          }
+          underlayColor="#f8f8f8"
+        >
+          <View
+            style={
+              Object {
+                "borderBottomColor": "#f7f7f7",
+                "borderBottomWidth": 1,
+                "flexDirection": "row",
+                "paddingHorizontal": 20,
+                "paddingVertical": 12,
+                "width": "100%",
+              }
+            }
+          >
+            <Text>
+              התראות
+            </Text>
+            <Text
+              style={
+                Object {
+                  "alignSelf": "flex-end",
+                  "flex": 1,
+                  "marginLeft": "auto",
+                }
+              }
+            >
+              [missing "he.settings.notifications_null" translation]
+            </Text>
+          </View>
+        </TouchableHighlight>
+        <TouchableHighlight
+          activeOpacity={0.85}
+          delayPressOut={100}
+          onPress={[Function]}
+          style={
+            Object {
+              "flex": 1,
+              "width": "100%",
+            }
+          }
+          underlayColor="#f8f8f8"
+        >
+          <View
+            style={
+              Object {
+                "borderBottomColor": "#f7f7f7",
+                "borderBottomWidth": 1,
+                "flexDirection": "row",
+                "paddingHorizontal": 20,
+                "paddingVertical": 12,
+                "width": "100%",
+              }
+            }
+          >
+            <Text>
+              תמיכה
+            </Text>
+          </View>
+        </TouchableHighlight>
+      </ShadowRect>
+      <Text
+        style={
+          Object {
+            "alignSelf": "flex-start",
+            "color": "#5c5959",
+            "fontWeight": "bold",
+          }
+        }
+      >
+        פרטים אישיים (מלא רק שדות שברצונך לשנות)
+      </Text>
+      <ShadowRect
+        style={
+          Object {
+            "marginBottom": 24,
+            "marginTop": 12,
+            "paddingHorizontal": 0,
+            "paddingVertical": 0,
+          }
+        }
+      >
+        <RectInput
+          iconName="person"
+          label="שם מלא בעברית"
+          onChangeText={[Function]}
+          value="test"
+        />
+        <RectInput
+          iconName="person-pin"
+          label="איזור"
+          onChangeText={[Function]}
+          value="test"
+        />
+        <RectInput
+          iconName="phone"
+          label="מספר נייד"
+          onChangeText={[Function]}
+          value="05501111"
+        />
+        <RectInput
+          iconName="payment"
+          label="תמחור שיעור"
+          onChangeText={[Function]}
+          value="1000"
+        />
+        <RectInput
+          iconName="access-time"
+          label="זמן שיעור"
+          onChangeText={[Function]}
+          value="40"
+        />
+        <RectInput
+          iconName="security"
+          label="סיסמה"
+          onChangeText={[Function]}
+          secureTextEntry={true}
+          value=""
+        />
+        <TouchableOpacity
+          activeOpacity={0.2}
+          onPress={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "rgb(12,116,244)",
+              "borderRadius": 0,
+              "elevation": 8,
+              "height": 56,
+              "justifyContent": "center",
+              "shadowColor": "rgb(12,116,244)",
+              "shadowOffset": Object {
+                "height": 8,
+                "width": 0,
+              },
+              "shadowOpacity": 0.5,
+              "shadowRadius": 16,
+              "width": "100%",
+            }
+          }
+        >
+          <View>
+            <Text
+              style={
+                Object {
+                  "color": "#fff",
+                  "fontSize": 20,
+                  "fontWeight": "bold",
+                }
+              }
+            >
+              שמור
+            </Text>
+          </View>
+        </TouchableOpacity>
+      </ShadowRect>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
+      >
+        <Text
+          style={
+            Object {
+              "alignSelf": "center",
+              "color": "red",
+              "fontWeight": "bold",
+              "marginBottom": 26,
+            }
+          }
+        >
+          התנתק
+        </Text>
+      </TouchableOpacity>
+    </View>
+  </ScrollViewMock>
+</KeyboardAvoidingView>
 `;

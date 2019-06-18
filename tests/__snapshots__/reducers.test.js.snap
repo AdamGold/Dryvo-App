@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`errors reducer should handle ERROR - insert default message if nothing is given 1`] = `"קרתה תקלה, אנא נסו שנית."`;
+exports[`error reducer should handle ERROR - insert default message if nothing is given 1`] = `"קרתה תקלה, אנא נסו שנית."`;
 
-exports[`errors reducer should handle ERROR 1`] = `"test error"`;
+exports[`error reducer should handle ERROR 1`] = `"test error"`;
 
-exports[`errors reducer should return the initial state - return dict of empty arrays with the correct keys 1`] = `""`;
+exports[`error reducer should return the initial state - return dict of empty arrays with the correct keys 1`] = `""`;
 
 exports[`fetch reducer should handle LOAD FETCH SERVICE - return \`Fetch\` object 1`] = `
 Fetch {

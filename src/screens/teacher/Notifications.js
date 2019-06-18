@@ -2,7 +2,6 @@ import React, { Fragment } from "react"
 import {
 	View,
 	Text,
-	TouchableHighlight,
 	StyleSheet,
 	FlatList,
 	TouchableOpacity,
@@ -20,13 +19,13 @@ import NotificationButtons from "./NotificationButtons"
 import Hours from "../../components/Hours"
 import moment from "moment"
 import LessonPopup from "../../components/LessonPopup"
-import { fetchOrError, popLatestError } from "../../actions/utils"
-import { API_ERROR } from "../../reducers/consts"
+import { fetchOrError } from "../../actions/utils"
 import ShowReceipt from "../../components/ShowReceipt"
 import { Icon } from "react-native-elements"
 import Analytics from "appcenter-analytics"
+import AlertError from "../../components/AlertError"
 
-export class Notifications extends React.Component {
+export class Notifications extends AlertError {
 	static navigationOptions = () => {
 		return {
 			title: "notifications",
@@ -94,13 +93,6 @@ export class Notifications extends React.Component {
 
 	componentWillUnmount() {
 		this.willFocusSubscription.remove()
-	}
-
-	componentDidUpdate() {
-		const error = this.props.dispatch(popLatestError(API_ERROR))
-		if (error) {
-			Alert.alert(strings("errors.title"), errors(error))
-		}
 	}
 
 	_getItems = async (append = false) => {
@@ -480,7 +472,7 @@ function mapStateToProps(state) {
 	return {
 		fetchService: state.fetchService,
 		user: state.user,
-		errors: state.errors
+		error: state.error
 	}
 }
 

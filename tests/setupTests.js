@@ -2,7 +2,6 @@
 import Enzyme, { configure, shallow, render, mount } from "enzyme"
 import Adapter from "enzyme-adapter-react-16"
 import Fetch from "../src/services/Fetch"
-import { initialErrors } from "../src/reducers/errors"
 configure({ adapter: new Adapter() })
 
 // Make Enzyme functions available in all test files without importing
@@ -25,9 +24,11 @@ global.testAsyncComponent = (wrapper, done, callback = _ => {}) => {
 	})
 }
 global.dispatch = jest.fn(func => {
-	return func(dispatch, () => {
-		return { fetchService: new Fetch(), errors: initialErrors } // getState()
-	})
+	if (typeof func == "function") {
+		return func(dispatch, () => {
+			return { fetchService: new Fetch(), error: "" } // getState()
+		})
+	}
 })
 
 global.navigation = {

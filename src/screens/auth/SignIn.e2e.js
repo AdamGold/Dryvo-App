@@ -172,7 +172,7 @@ export class SignIn extends React.Component {
 
 const mapStateToProps = state => {
 	return {
-		errors: state.errors
+		error: state.error
 	}
 }
 

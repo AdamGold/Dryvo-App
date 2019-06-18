@@ -5,23 +5,15 @@ import { connect } from "react-redux"
 import { strings, errors } from "../../i18n"
 import SuccessModal from "../../components/SuccessModal"
 import { signUpRoles, floatButtonOnlyStyle, MAIN_PADDING } from "../../consts"
-import {
-	deleteDeviceToken,
-	popLatestError,
-	fetchOrError
-} from "../../actions/utils"
+import { deleteDeviceToken, fetchOrError } from "../../actions/utils"
 import ShadowRect from "../../components/ShadowRect"
 import RectInput from "../../components/RectInput"
 import validate, { registerValidation } from "../../actions/validate"
-import { API_ERROR } from "../../reducers/consts"
-import {
-	getUserImage,
-	uploadUserImage,
-	getGreetingTime
-} from "../../actions/utils"
+import { getUserImage, uploadUserImage } from "../../actions/utils"
 import UploadProfileImage from "../../components/UploadProfileImage"
+import AlertError from "../../components/AlertError"
 
-export class Home extends React.Component {
+export class Home extends AlertError {
 	static navigationOptions = () => {
 		return {
 			tabBarVisible: false
@@ -48,13 +40,6 @@ export class Home extends React.Component {
 		} else if (this.props.user.hasOwnProperty("my_teacher")) {
 			// it's a student
 			this.role = signUpRoles.student
-		}
-	}
-
-	componentDidUpdate() {
-		const error = this.props.dispatch(popLatestError(API_ERROR))
-		if (error) {
-			Alert.alert(strings("errors.title"), errors(error))
 		}
 	}
 
@@ -223,7 +208,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
 	return {
 		user: state.user,
-		errors: state.errors
+		error: state.error
 	}
 }
 

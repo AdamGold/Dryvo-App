@@ -357,9 +357,9 @@ export class Lesson extends AlertError {
 					{this.renderPlaces()}
 				</ScrollView>
 				<KeyboardAvoidingView
-					behavior={Platform.OS === "ios" ? "position" : null}
+					behavior={Platform.OS === "ios" ? "padding" : null}
 					keyboardVerticalOffset={Platform.select({
-						ios: fullButton.height + 10,
+						ios: fullButton.height,
 						android: null
 					})}
 				>
@@ -401,8 +401,7 @@ const styles = StyleSheet.create({
 	},
 	formContainer: {
 		width: 340,
-		alignSelf: "center",
-		marginBottom: 70
+		alignSelf: "center"
 	},
 	submitButton: { ...fullButton, position: "relative" },
 	doneText: {

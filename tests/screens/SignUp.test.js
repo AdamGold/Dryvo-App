@@ -5,11 +5,14 @@ import renderer from "react-test-renderer"
 
 import { SignUp } from "../../src/screens/auth/SignUp"
 
-const navigation = { navigate: jest.fn(), getParam: param => "student" }
 describe("SignUp", () => {
 	test("view renders correctly", () => {
 		const tree = renderer
-			.create(<SignUp navigation={navigation} />)
+			.create(
+				<SignUp
+					navigation={{ ...navigation, getParam: param => "student" }}
+				/>
+			)
 			.toJSON()
 		expect(tree).toMatchSnapshot()
 	})

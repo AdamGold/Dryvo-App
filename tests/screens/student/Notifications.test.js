@@ -6,21 +6,38 @@ import renderer from "react-test-renderer"
 import { Notifications } from "../../../src/screens/student/Notifications"
 
 describe("Notifications", () => {
-	test("view renders correctly", () => {
-		const tree = renderer
-			.create(
-				<Notifications
-					navigation={{
-						addListener: jest.fn(),
-						getParam: param => {
-							return "lessons"
-						},
-						goBack: jest.fn(),
-						navigate: jest.fn()
-					}}
-				/>
-			)
-			.toJSON()
-		expect(tree).toMatchSnapshot()
+	test("view renders correctly", done => {
+		const student = { name: "test", student_id: 1 }
+		fetch.mockResponseSuccess(
+			JSON.stringify({
+				data: [
+					{
+						duration: 40,
+						student
+					},
+					{
+						duration: 100,
+						student
+					}
+				]
+			})
+		)
+		const wrapper = shallow(
+			<Notifications
+				navigation={{
+					...navigation,
+					getParam: param => {
+						return null
+					}
+				}}
+				dispatch={dispatch}
+				fetchService={fetchService}
+				user={{
+					my_teacher: { user: { id: 2 }, name: "teacher" },
+					name: "student"
+				}}
+			/>
+		)
+		testAsyncComponent(wrapper, done)
 	})
 })

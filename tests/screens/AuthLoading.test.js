@@ -6,10 +6,13 @@ import renderer from "react-test-renderer"
 import { AuthLoading } from "../../src/screens/auth/AuthLoading"
 
 describe("AuthLoading", () => {
-	test("view renders correctly", () => {
-		const tree = renderer
-			.create(<AuthLoading dispatch={jest.fn()} />)
-			.toJSON()
-		expect(tree).toMatchSnapshot()
+	test("view renders correctly", done => {
+		fetch.mockResponseSuccess(
+			JSON.stringify({
+				user: { name: "test" }
+			})
+		)
+		const wrapper = shallow(<AuthLoading dispatch={dispatch} />)
+		testAsyncComponent(wrapper, done)
 	})
 })

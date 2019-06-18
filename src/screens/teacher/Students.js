@@ -51,7 +51,7 @@ export class Students extends React.Component {
 		this._dropdownChange = this._dropdownChange.bind(this)
 		this.navigateToProfile = this.navigateToProfile.bind(this)
 
-		this._getStudents(false)
+		// this._getStudents(false)
 	}
 
 	componentDidMount() {

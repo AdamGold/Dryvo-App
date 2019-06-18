@@ -8,12 +8,15 @@ const topics = {
 	in_progress: [{ id: 1, title: "test1" }],
 	finished: [{ id: 2, title: "test2" }, { id: 3, title: "test3" }]
 }
-const navigation = { navigate: jest.fn(), getParam: param => topics }
 
 describe("Topics", () => {
 	test("view renders correctly", () => {
 		const tree = renderer
-			.create(<Topics navigation={navigation} />)
+			.create(
+				<Topics
+					navigation={{ ...navigation, getParam: param => topics }}
+				/>
+			)
 			.toJSON()
 		expect(tree).toMatchSnapshot()
 	})

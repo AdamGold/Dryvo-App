@@ -11,14 +11,14 @@ import {
 import { MAIN_PADDING, colors, floatButtonOnlyStyle } from "../consts"
 import { strings, errors } from "../i18n"
 import ShadowRect from "./ShadowRect"
-import { API_ERROR } from "../reducers/consts"
-import { fetchOrError, popLatestError, showImagePicker } from "../actions/utils"
+import { fetchOrError, showImagePicker } from "../actions/utils"
 import RectInput from "./RectInput"
 import { Button, Icon } from "react-native-elements"
 import PageTitle from "./PageTitle"
 import { setUser } from "../actions/auth"
+import AlertError from "./AlertError"
 
-export default class EditProfile extends React.Component {
+export default class EditProfile extends AlertError {
 	constructor(props) {
 		super(props)
 		const student = this.props.navigation.getParam("student")
@@ -31,13 +31,6 @@ export default class EditProfile extends React.Component {
 			green_form: student.green_form,
 			studentId: student.student_id,
 			loadingImage: false
-		}
-	}
-
-	componentDidUpdate() {
-		const error = this.props.dispatch(popLatestError(API_ERROR))
-		if (error) {
-			Alert.alert(strings("errors.title"), errors(error))
 		}
 	}
 

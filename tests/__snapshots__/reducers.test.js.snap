@@ -1,49 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`errors reducer should handle API ERROR - insert \`test error\` to array 1`] = `
-Object {
-  "API_ERROR": Array [
-    "test error",
-  ],
-  "other": Array [],
-}
-`;
+exports[`errors reducer should handle ERROR - insert default message if nothing is given 1`] = `"קרתה תקלה, אנא נסו שנית."`;
 
-exports[`errors reducer should handle API ERROR - insert default message if empty is given 1`] = `
-Object {
-  "API_ERROR": Array [
-    "קרתה תקלה, אנא נסו שנית.",
-  ],
-  "other": Array [],
-}
-`;
+exports[`errors reducer should handle ERROR 1`] = `"test error"`;
 
-exports[`errors reducer should handle APP ERROR - insert \`test inside app error\` to array 1`] = `
-Object {
-  "API_ERROR": Array [],
-  "APP_ERROR": Array [
-    "test inside app error",
-  ],
-  "other": Array [],
-}
-`;
-
-exports[`errors reducer should handle POP ERROR and pop from array - return only \`test 1\` in array 1`] = `
-Object {
-  "API_ERROR": Array [
-    "test 1",
-  ],
-  "other": Array [],
-}
-`;
-
-exports[`errors reducer should return the initial state - return dict of empty arrays with the correct keys 1`] = `
-Object {
-  "API_ERROR": Array [],
-  "APP_ERROR": Array [],
-  "other": Array [],
-}
-`;
+exports[`errors reducer should return the initial state - return dict of empty arrays with the correct keys 1`] = `""`;
 
 exports[`fetch reducer should handle LOAD FETCH SERVICE - return \`Fetch\` object 1`] = `
 Fetch {

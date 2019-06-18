@@ -18,14 +18,14 @@ import StudentPayments from "./StudentPayments"
 import { getPayments } from "../actions/lessons"
 import StudentNextLessonView from "./StudentNextLessonView"
 import SimpleLoader from "./SimpleLoader"
-import { getUserImage, popLatestError } from "../actions/utils"
+import { getUserImage } from "../actions/utils"
 import FastImage from "react-native-fast-image"
 import { NavigationActions } from "react-navigation"
 import LessonPopup from "../components/LessonPopup"
 import ContactPopup from "../components/ContactPopup"
-import { API_ERROR } from "../reducers/consts"
+import AlertError from "./AlertError"
 
-export default class StudentProfile extends React.Component {
+export default class StudentProfile extends AlertError {
 	constructor(props) {
 		super(props)
 		let student = this.props.user
@@ -64,13 +64,6 @@ export default class StudentProfile extends React.Component {
 
 	componentWillUnmount() {
 		this.willFocusSubscription.remove()
-	}
-
-	componentDidUpdate() {
-		const error = this.props.dispatch(popLatestError(API_ERROR))
-		if (error) {
-			Alert.alert(strings("errors.title"), errors(error))
-		}
 	}
 
 	_handleRequests = async () => {

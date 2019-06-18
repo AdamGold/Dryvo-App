@@ -22,18 +22,17 @@ import { NavigationActions } from "react-navigation"
 import { Button, Icon } from "react-native-elements"
 import RectInput from "../components/RectInput"
 import { logout, setUser } from "../actions/auth"
-import { API_ERROR } from "../reducers/consts"
 import Storage from "../services/Storage"
 import {
 	fetchOrError,
-	popLatestError,
 	deleteDeviceToken,
 	navigateToEZCount
 } from "../actions/utils"
 import validate, { registerValidation } from "../actions/validate"
 import ContactPopup from "../components/ContactPopup"
+import AlertError from "../components/AlertError"
 
-export class Settings extends React.Component {
+export class Settings extends AlertError {
 	constructor(props) {
 		// only here for the test suite to work
 		super(props)
@@ -57,13 +56,6 @@ export class Settings extends React.Component {
 				this.props.navigation.navigate("Auth")
 			})
 		)
-	}
-
-	componentDidUpdate() {
-		const error = this.props.dispatch(popLatestError(API_ERROR))
-		if (error) {
-			Alert.alert(strings("errors.title"), errors(error))
-		}
 	}
 
 	submitTeacherInfo = async () => {
@@ -395,7 +387,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
 	return {
 		user: state.user,
-		errors: state.errors
+		error: state.error
 	}
 }
 

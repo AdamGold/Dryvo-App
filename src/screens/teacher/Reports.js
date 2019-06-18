@@ -6,7 +6,6 @@ import {
 	TouchableOpacity,
 	Platform,
 	ScrollView,
-	Alert,
 	TouchableHighlight,
 	Linking
 } from "react-native"
@@ -21,17 +20,13 @@ import {
 	DISPLAY_SHORT_DATE_FORMAT
 } from "../../consts"
 import { Icon } from "react-native-elements"
-import { API_ERROR } from "../../reducers/consts"
-import {
-	fetchOrError,
-	popLatestError,
-	navigateToEZCount
-} from "../../actions/utils"
+import { fetchOrError, navigateToEZCount } from "../../actions/utils"
 import ShadowRect from "../../components/ShadowRect"
 import DateTimePicker from "react-native-modal-datetime-picker"
 import moment from "moment"
+import AlertError from "../../components/AlertError"
 
-export class Reports extends React.Component {
+export class Reports extends AlertError {
 	constructor(props) {
 		super(props)
 		this.dates = ["since", "until"]
@@ -44,13 +39,6 @@ export class Reports extends React.Component {
 				.format(SHORT_API_DATE_FORMAT),
 			sinceVisible: false,
 			untilVisible: false
-		}
-	}
-
-	componentDidUpdate() {
-		const error = this.props.dispatch(popLatestError(API_ERROR))
-		if (error) {
-			Alert.alert(strings("errors.title"), errors(error))
 		}
 	}
 
@@ -298,7 +286,7 @@ const styles = StyleSheet.create({
 })
 function mapStateToProps(state) {
 	return {
-		errors: state.errors,
+		error: state.error,
 		fetchService: state.fetchService
 	}
 }

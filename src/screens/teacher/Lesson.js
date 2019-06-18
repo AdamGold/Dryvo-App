@@ -4,7 +4,6 @@ import {
 	Text,
 	StyleSheet,
 	View,
-	TouchableHighlight,
 	TouchableOpacity,
 	ScrollView,
 	Platform,
@@ -28,15 +27,15 @@ import NewLessonInput from "../../components/NewLessonInput"
 import Hours from "../../components/Hours"
 import InputSelectionButton from "../../components/InputSelectionButton"
 import moment from "moment"
-import { API_ERROR } from "../../reducers/consts"
-import { getHoursDiff, fetchOrError, popLatestError } from "../../actions/utils"
+import { getHoursDiff, fetchOrError } from "../../actions/utils"
 import { getLessonById } from "../../actions/lessons"
 import SuccessModal from "../../components/SuccessModal"
 import DateTimePicker from "react-native-modal-datetime-picker"
 import Analytics from "appcenter-analytics"
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
+import AlertError from "../../components/AlertError"
 
-export class Lesson extends React.Component {
+export class Lesson extends AlertError {
 	constructor(props) {
 		super(props)
 		const duration = props.user.lesson_duration || DEFAULT_DURATION
@@ -143,13 +142,6 @@ export class Lesson extends React.Component {
 				this.state[input] = ""
 			}
 		})
-	}
-
-	componentDidUpdate() {
-		const error = this.props.dispatch(popLatestError(API_ERROR))
-		if (error) {
-			Alert.alert(strings("errors.title"), errors(error))
-		}
 	}
 
 	_showDateTimePicker = () => this.setState({ datePickerVisible: true })
@@ -745,7 +737,7 @@ function mapStateToProps(state) {
 	return {
 		fetchService: state.fetchService,
 		user: state.user,
-		errors: state.errors
+		error: state.error
 	}
 }
 export default connect(mapStateToProps)(Lesson)

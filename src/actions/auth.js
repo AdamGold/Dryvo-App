@@ -7,7 +7,7 @@ import {
 } from "../consts"
 import { Linking } from "react-native"
 import Storage from "../services/Storage"
-import { LOGIN, LOGOUT, API_ERROR } from "../reducers/consts"
+import { LOGIN, LOGOUT, ERROR } from "../reducers/consts"
 import { fetchOrError } from "./utils"
 
 const loginOrRegister = async (endpoint, params, dispatch, callback) => {
@@ -136,7 +136,7 @@ export const exchangeToken = (token, callback) => {
 			await setTokens(resp.json.auth_token, resp.json.refresh_token)
 			await dispatch(fetchUser(callback))
 		} catch (error) {
-			dispatch({ type: API_ERROR, error: DEFAULT_ERROR })
+			dispatch({ type: ERROR })
 		}
 	}
 }

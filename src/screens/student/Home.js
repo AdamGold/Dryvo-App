@@ -18,8 +18,7 @@ import StudentNextLessonView from "../../components/StudentNextLessonView"
 import {
 	getUserImage,
 	uploadUserImage,
-	getGreetingTime,
-	Analytics
+	getGreetingTime
 } from "../../actions/utils"
 import UploadProfileImage from "../../components/UploadProfileImage"
 import { NavigationActions } from "react-navigation"
@@ -52,7 +51,6 @@ export class Home extends React.Component {
 				this._handleRequests()
 			}
 		)
-		Analytics.setCurrentScreen("student_home", "Home")
 	}
 
 	componentWillUnmount() {

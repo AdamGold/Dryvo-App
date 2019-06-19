@@ -61,7 +61,6 @@ export default class StudentProfile extends AlertError {
 				this._handleRequests()
 			}
 		)
-		Analytics.setCurrentScreen("student_profile", "StudentProfile")
 	}
 
 	componentWillUnmount() {

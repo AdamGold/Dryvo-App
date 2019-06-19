@@ -26,7 +26,6 @@ import EmptyState from "../../components/EmptyState"
 import LessonsLoader from "../../components/LessonsLoader"
 import moment from "moment"
 import UserPic from "../../components/UserPic"
-import { Analytics } from "../../actions/utils"
 
 export class Schedule extends React.Component {
 	static navigationOptions = () => {
@@ -58,7 +57,6 @@ export class Schedule extends React.Component {
 				this._getItems(this.state.date)
 			}
 		)
-		Analytics.setCurrentScreen("teacher_schedule", "Schedule")
 	}
 
 	componentWillUnmount() {

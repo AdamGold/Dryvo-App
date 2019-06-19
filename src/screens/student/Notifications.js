@@ -19,7 +19,6 @@ import moment from "moment"
 import LessonPopup from "../../components/LessonPopup"
 import Hours from "../../components/Hours"
 import ShowReceipt from "../../components/ShowReceipt"
-import { Analytics } from "../../actions/utils"
 
 export class Notifications extends React.Component {
 	static navigationOptions = () => {
@@ -82,7 +81,6 @@ export class Notifications extends React.Component {
 				this._onNavigationFocus()
 			}
 		)
-		Analytics.setCurrentScreen("student_notifications", "Notifications")
 	}
 
 	componentWillUnmount() {

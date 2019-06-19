@@ -67,10 +67,6 @@ export class Lesson extends AlertError {
 		this._getAvailableHours(true)
 	}
 
-	componentDidMount() {
-		Analytics.setCurrentScreen("teacher_lesson", "Lesson")
-	}
-
 	_initializeExistingLesson = async () => {
 		// if we're editing a lesson
 		let lesson = this.props.navigation.getParam("lesson") || null

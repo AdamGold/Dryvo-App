@@ -23,6 +23,7 @@ import {
 	createFirebaseChannel
 } from "./actions/notifications"
 import Config from "react-native-config"
+import { getActiveRouteName, Analytics } from "./actions/utils"
 
 const store = configureStore()
 
@@ -126,6 +127,20 @@ class App extends Component {
 					<Page
 						ref={nav => {
 							this.navigator = nav
+						}}
+						onNavigationStateChange={(
+							prevState,
+							currentState,
+							action
+						) => {
+							const currentScreen = getActiveRouteName(
+								currentState
+							)
+							const prevScreen = getActiveRouteName(prevState)
+
+							if (prevScreen !== currentScreen) {
+								Analytics.setCurrentScreen(currentScreen)
+							}
 						}}
 					/>
 				</SafeAreaView>

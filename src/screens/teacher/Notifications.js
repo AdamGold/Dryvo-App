@@ -88,7 +88,6 @@ export class Notifications extends AlertError {
 				this._onNavigationFocus()
 			}
 		)
-		Analytics.setCurrentScreen("teacher_notifications", "Notifications")
 	}
 
 	componentWillUnmount() {

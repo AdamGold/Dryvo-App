@@ -13,7 +13,6 @@ import Separator from "../../components/Separator"
 import {
 	calendarTheme,
 	MAIN_PADDING,
-	API_DATE_FORMAT,
 	SHORT_API_DATE_FORMAT,
 	colors
 } from "../../consts"
@@ -23,7 +22,6 @@ import LessonPopup from "../../components/LessonPopup"
 import moment from "moment"
 import EmptyState from "../../components/EmptyState"
 import LessonsLoader from "../../components/LessonsLoader"
-import { Analytics } from "../../actions/utils"
 
 const EMPTY_LESSON = { empty: true }
 
@@ -57,7 +55,6 @@ export class Schedule extends React.Component {
 				this._getItems(this.state.date)
 			}
 		)
-		Analytics.setCurrentScreen("student_schedule", "Schedule")
 	}
 
 	componentWillUnmount() {

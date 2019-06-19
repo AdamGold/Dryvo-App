@@ -6,7 +6,11 @@ const student = {
 	student_id: 1,
 	balance: 900,
 	name: "test",
-	my_teacher: { user: { id: 2, name: "teacher" } }
+	my_teacher: {
+		user: { id: 2, name: "teacher" },
+		teacher_id: 2,
+		is_approved: true
+	}
 }
 const topics = {
 	new: [],
@@ -37,10 +41,7 @@ describe("StudentProfile", () => {
 	test("view renders correctly -> teacher's view", done => {
 		const wrapper = shallow(
 			<StudentProfile
-				user={{
-					name: "teacher",
-					teacher_id: 1
-				}}
+				user={student.my_teacher}
 				navigation={{ ...navigation, getParam: _ => student }}
 				fetchService={fetchService}
 				dispatch={dispatch}

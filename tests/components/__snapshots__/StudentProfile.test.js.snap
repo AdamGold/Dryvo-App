@@ -66,6 +66,8 @@ exports[`StudentProfile view renders correctly -> student's view 1`] = `
           Object {
             "balance": 900,
             "my_teacher": Object {
+              "is_approved": true,
+              "teacher_id": 2,
               "user": Object {
                 "id": 2,
                 "name": "teacher",
@@ -214,6 +216,8 @@ exports[`StudentProfile view renders correctly -> teacher's view 1`] = `
           Object {
             "balance": 900,
             "my_teacher": Object {
+              "is_approved": true,
+              "teacher_id": 2,
               "user": Object {
                 "id": 2,
                 "name": "teacher",
@@ -434,8 +438,12 @@ exports[`StudentProfile view renders correctly -> teacher's view 1`] = `
         sum={900}
         user={
           Object {
-            "name": "teacher",
-            "teacher_id": 1,
+            "is_approved": true,
+            "teacher_id": 2,
+            "user": Object {
+              "id": 2,
+              "name": "teacher",
+            },
           }
         }
       />

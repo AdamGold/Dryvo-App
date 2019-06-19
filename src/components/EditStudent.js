@@ -15,7 +15,7 @@ import { fetchOrError, showImagePicker } from "../actions/utils"
 import RectInput from "./RectInput"
 import { Button, Icon } from "react-native-elements"
 import PageTitle from "./PageTitle"
-import { setUser } from "../actions/auth"
+import { setUser, getRole } from "../actions/auth"
 import AlertError from "./AlertError"
 
 export default class EditProfile extends AlertError {
@@ -80,7 +80,7 @@ export default class EditProfile extends AlertError {
 
 	render() {
 		let extraForm
-		if (this.props.user.hasOwnProperty("teacher_id")) {
+		if (getRole(this.props.user) == "teacher") {
 			extraForm = (
 				<Fragment>
 					<RectInput

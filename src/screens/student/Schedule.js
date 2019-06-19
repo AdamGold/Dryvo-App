@@ -13,7 +13,6 @@ import Separator from "../../components/Separator"
 import {
 	calendarTheme,
 	MAIN_PADDING,
-	API_DATE_FORMAT,
 	SHORT_API_DATE_FORMAT,
 	colors
 } from "../../consts"

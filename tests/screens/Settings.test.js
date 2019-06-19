@@ -9,7 +9,12 @@ const student = {
 	balance: 900,
 	my_teacher: { user: {} }
 }
-const teacher = { ...user, teacher_id: 5, lesson_duration: 40 }
+const teacher = {
+	...user,
+	is_approved: true,
+	teacher_id: 5,
+	lesson_duration: 40
+}
 describe("Settings", () => {
 	test("view renders correctly for student", done => {
 		const wrapper = shallow(

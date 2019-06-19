@@ -136,7 +136,7 @@ export class Notifications extends AlertError {
 	}
 
 	approve = async (type, item, index) => {
-		const id = item.id || item.student_id
+		const id = item.student_id || item.id
 		Analytics.trackEvent("Teacher approved", {
 			Category: "Lesson"
 		})
@@ -170,7 +170,7 @@ export class Notifications extends AlertError {
 	}
 
 	delete = async (type, item, index) => {
-		const id = item.id || item.student_id
+		const id = item.student_id || item.id
 		const resp = await this.props.dispatch(
 			fetchOrError(`/${type}/${id}`, {
 				method: "DELETE"

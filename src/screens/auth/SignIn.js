@@ -53,7 +53,7 @@ export class SignIn extends AlertError {
 				exchangeToken(token, async user => {
 					if (user) {
 						await this.props.dispatch(
-							checkFirebasePermission(false, true)
+							checkFirebasePermission(true, true)
 						)
 						this.props.navigation.navigate("App")
 					}
@@ -91,7 +91,7 @@ export class SignIn extends AlertError {
 			directLogin(this.state.email, this.state.password, async user => {
 				if (user) {
 					await this.props.dispatch(
-						checkFirebasePermission(false, true)
+						checkFirebasePermission(true, true)
 					)
 					this.props.navigation.navigate("App")
 				} else {

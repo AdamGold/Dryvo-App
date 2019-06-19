@@ -19,10 +19,9 @@ import NotificationButtons from "./NotificationButtons"
 import Hours from "../../components/Hours"
 import moment from "moment"
 import LessonPopup from "../../components/LessonPopup"
-import { fetchOrError } from "../../actions/utils"
+import { fetchOrError, Analytics } from "../../actions/utils"
 import ShowReceipt from "../../components/ShowReceipt"
 import { Icon } from "react-native-elements"
-import Analytics from "appcenter-analytics"
 import AlertError from "../../components/AlertError"
 
 export class Notifications extends AlertError {
@@ -136,10 +135,8 @@ export class Notifications extends AlertError {
 	}
 
 	approve = async (type, item, index) => {
-		const id = item.id || item.student_id
-		Analytics.trackEvent("Teacher approved", {
-			Category: "Lesson"
-		})
+		const id = item.student_id || item.id
+		Analytics.logEvent("teacher_approved")
 		const resp = await this.props.dispatch(
 			fetchOrError(`/${type}/${id}/approve`, {
 				method: "GET"
@@ -170,7 +167,7 @@ export class Notifications extends AlertError {
 	}
 
 	delete = async (type, item, index) => {
-		const id = item.id || item.student_id
+		const id = item.student_id || item.id
 		const resp = await this.props.dispatch(
 			fetchOrError(`/${type}/${id}`, {
 				method: "DELETE"
@@ -193,7 +190,7 @@ export class Notifications extends AlertError {
 						style={styles.notification}
 						key={`lesson${item.id}`}
 						user={item.student}
-						name={`${item.student.name}(${item.lesson_number})`}
+						name={item.student.name}
 						type="new_lesson"
 						leftSide={
 							<View>
@@ -215,17 +212,13 @@ export class Notifications extends AlertError {
 						<NotificationButtons
 							approve={() => this.approve("lessons", item, index)}
 							edit={() => {
-								Analytics.trackEvent("Teacher edit lesson", {
-									Category: "Lesson"
-								})
+								Analytics.logEvent("teacher_edited")
 								this.props.navigation.navigate("Lesson", {
 									lesson: item
 								})
 							}}
 							delete={() => {
-								Analytics.trackEvent("Teacher deleted lesson", {
-									Category: "Lesson"
-								})
+								Analytics.logEvent("teacher_deleted")
 								this.deleteConfirm("lessons", item, index)
 							}}
 						/>

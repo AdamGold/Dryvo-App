@@ -16,9 +16,8 @@ import { strings } from "../../i18n"
 import { Icon } from "react-native-elements"
 import PageTitle from "../../components/PageTitle"
 import { MAIN_PADDING, fullButton } from "../../consts"
-import { fetchOrError } from "../../actions/utils"
+import { fetchOrError, Analytics } from "../../actions/utils"
 import SuccessModal from "../../components/SuccessModal"
-import Analytics from "appcenter-analytics"
 import { Dropdown } from "react-native-material-dropdown"
 import AlertError from "../../components/AlertError"
 
@@ -80,10 +79,7 @@ export class AddPaymentChooseAmount extends AlertError {
 				)
 				if (!respFromReceipt) return
 			}
-			Analytics.trackEvent("Payment added", {
-				Category: "Payment",
-				state: JSON.stringify(this.state)
-			})
+			Analytics.logEvent("payment_added")
 			this.setState({ successVisible: true })
 		}
 	}

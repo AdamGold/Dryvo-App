@@ -11,7 +11,7 @@ import {
 	Platform
 } from "react-native"
 import { connect } from "react-redux"
-import { strings, errors } from "../i18n"
+import { strings } from "../i18n"
 import ShadowRect from "../components/ShadowRect"
 import {
 	MAIN_PADDING,
@@ -24,7 +24,7 @@ import PageTitle from "../components/PageTitle"
 import { NavigationActions } from "react-navigation"
 import { Button, Icon } from "react-native-elements"
 import RectInput from "../components/RectInput"
-import { logout, setUser } from "../actions/auth"
+import { logout, setUser, getRole } from "../actions/auth"
 import Storage from "../services/Storage"
 import {
 	fetchOrError,
@@ -49,6 +49,7 @@ export class Settings extends AlertError {
 			notifications: "true",
 			contactVisible: false
 		}
+		this.role = getRole(this.props.user)
 		this._initNotifications()
 	}
 
@@ -91,7 +92,7 @@ export class Settings extends AlertError {
 			phone: this.state.phone
 		})
 		let resp2 = false
-		if (this.props.user.hasOwnProperty("teacher_id")) {
+		if (this.role == "teacher") {
 			resp2 = await this.submitTeacherInfo()
 		}
 
@@ -149,7 +150,7 @@ export class Settings extends AlertError {
 
 	render() {
 		let extraSettings, extraForm
-		if (this.props.user.hasOwnProperty("teacher_id")) {
+		if (this.role == "teacher") {
 			extraSettings = (
 				<Fragment>
 					<TouchableHighlight

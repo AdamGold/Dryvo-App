@@ -10,6 +10,7 @@ import {
 import { strings } from "../i18n"
 import { colors } from "../consts"
 import { fetchOrError } from "../actions/utils"
+import { getRole } from "../actions/auth"
 
 export default class ShowReceipt extends React.Component {
 	constructor(props) {
@@ -81,7 +82,7 @@ export default class ShowReceipt extends React.Component {
 				</TouchableOpacity>
 			)
 		} else {
-			if (this.props.user.hasOwnProperty("teacher_id")) {
+			if (getRole(this.props.user) == "teacher") {
 				return (
 					<TouchableOpacity
 						onPress={this._clickToCreateReceipt.bind(this)}

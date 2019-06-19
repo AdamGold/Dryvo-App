@@ -10,6 +10,7 @@ target 'dryvofront' do
 
   # Pods for dryvofront
   pod 'GoogleAppMeasurement', '5.8.1'
+  pod 'GoogleIDFASupport', '~> 3.14.0'
   pod 'Firebase/Core', '~> 5.20.0'
   pod 'Firebase/Messaging', '~> 5.20.1'
   pod 'yoga', :path => '../node_modules/react-native/ReactCommon/yoga'

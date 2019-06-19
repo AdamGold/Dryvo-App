@@ -103,3 +103,9 @@ export const fullButton = {
 }
 
 export const SUPPORT_PHONE = "0544440047"
+
+let env = "production"
+if (Config.APP_URL && Config.APP_URL.includes("staging")) {
+	env = "staging"
+}
+export const ENV = env

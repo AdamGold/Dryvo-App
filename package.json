@@ -74,7 +74,6 @@
 			"./__mocks__/mockContentLoader.js",
 			"./__mocks__/mockFirebase.js",
 			"./__mocks__/mockFormData.js",
-			"./__mocks__/mockAnalytics.js",
 			"./__mocks__/mockAsyncStorage.js",
 			"./tests/setupTests.js"
 		],

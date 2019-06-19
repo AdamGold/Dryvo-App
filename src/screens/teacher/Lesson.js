@@ -27,11 +27,10 @@ import NewLessonInput from "../../components/NewLessonInput"
 import Hours from "../../components/Hours"
 import InputSelectionButton from "../../components/InputSelectionButton"
 import moment from "moment"
-import { getHoursDiff, fetchOrError } from "../../actions/utils"
+import { getHoursDiff, fetchOrError, Analytics } from "../../actions/utils"
 import { getLessonById } from "../../actions/lessons"
 import SuccessModal from "../../components/SuccessModal"
 import DateTimePicker from "react-native-modal-datetime-picker"
-import Analytics from "appcenter-analytics"
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
 import AlertError from "../../components/AlertError"
 
@@ -399,12 +398,7 @@ export class Lesson extends AlertError {
 			)
 		}
 		if (topicsResp) {
-			Analytics.trackEvent("Teacher lesson created", {
-				Category: "Lesson",
-				date: moment.utc(this.state.dateAndTime).toISOString(),
-				studentName: this.state.studentName,
-				respFromServer: JSON.stringify(resp.json)
-			})
+			Analytics.logEvent("teacher_created_lesson")
 			this.setState({ successVisible: true })
 		}
 	}

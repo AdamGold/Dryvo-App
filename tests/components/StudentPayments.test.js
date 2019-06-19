@@ -4,7 +4,7 @@ import renderer from "react-test-renderer"
 
 import StudentPayments from "../../src/components/StudentPayments"
 
-const user = { name: "test", teacher_id: 1 }
+const user = { name: "test", teacher_id: 1, is_approved: true }
 describe("StudentPayments", () => {
 	test("view renders correctly", () => {
 		const tree = renderer

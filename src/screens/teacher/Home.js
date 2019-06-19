@@ -30,7 +30,8 @@ import { NavigationActions } from "react-navigation"
 import {
 	getUserImage,
 	uploadUserImage,
-	getGreetingTime
+	getGreetingTime,
+	Analytics
 } from "../../actions/utils"
 import UploadProfileImage from "../../components/UploadProfileImage"
 import moment from "moment"
@@ -64,6 +65,7 @@ export class Home extends React.Component {
 				this._sendRequests()
 			}
 		)
+		Analytics.setCurrentScreen("teacher_home", "Home")
 	}
 
 	componentWillUnmount() {

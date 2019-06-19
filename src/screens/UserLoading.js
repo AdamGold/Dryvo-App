@@ -2,21 +2,15 @@ import React from "react"
 import { ActivityIndicator, StyleSheet, StatusBar, View } from "react-native"
 import { connect } from "react-redux"
 import { NavigationActions } from "react-navigation"
+import { getRole } from "../actions/auth"
 
 class UserLoading extends React.Component {
 	componentWillMount() {
 		let routeName
-		if (
-			this.props.user.hasOwnProperty("teacher_id") &&
-			this.props.user.is_approved
-		) {
-			// it's a teacher
+		const role = getRole(this.props.user)
+		if (role == "teacher") {
 			routeName = "Teacher"
-		} else if (
-			this.props.user.hasOwnProperty("my_teacher") &&
-			this.props.user.is_approved
-		) {
-			// it's a student
+		} else if (role == "student") {
 			routeName = "Student"
 		} else {
 			this.props.navigation.navigate("NormalUser")

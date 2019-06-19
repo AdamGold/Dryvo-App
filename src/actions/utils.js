@@ -13,6 +13,8 @@ import ImagePicker from "react-native-image-picker"
 import ImageResizer from "react-native-image-resizer"
 import firebase from "react-native-firebase"
 
+export let Analytics = firebase.analytics()
+
 export const fetchOrError = (endpoint, params, dispatchError = true) => {
 	return async (dispatch, getState) => {
 		const { fetchService } = getState()

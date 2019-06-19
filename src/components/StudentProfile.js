@@ -18,12 +18,13 @@ import StudentPayments from "./StudentPayments"
 import { getPayments } from "../actions/lessons"
 import StudentNextLessonView from "./StudentNextLessonView"
 import SimpleLoader from "./SimpleLoader"
-import { getUserImage } from "../actions/utils"
+import { getUserImage, Analytics } from "../actions/utils"
 import FastImage from "react-native-fast-image"
 import { NavigationActions } from "react-navigation"
 import LessonPopup from "../components/LessonPopup"
 import ContactPopup from "../components/ContactPopup"
 import AlertError from "./AlertError"
+import { getRole } from "../actions/auth"
 
 export default class StudentProfile extends AlertError {
 	constructor(props) {
@@ -36,7 +37,7 @@ export default class StudentProfile extends AlertError {
 			showBackButton = true
 		}
 		let isTeacher = false
-		if (this.props.user.hasOwnProperty("teacher_id")) {
+		if (getRole(this.props.user) == "teacher") {
 			isTeacher = true
 		}
 		this.state = {
@@ -60,6 +61,7 @@ export default class StudentProfile extends AlertError {
 				this._handleRequests()
 			}
 		)
+		Analytics.setCurrentScreen("student_profile", "StudentProfile")
 	}
 
 	componentWillUnmount() {

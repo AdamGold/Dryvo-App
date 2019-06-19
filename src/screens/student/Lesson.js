@@ -24,11 +24,10 @@ import {
 import Hours from "../../components/Hours"
 import InputSelectionButton from "../../components/InputSelectionButton"
 import moment from "moment"
-import { getHoursDiff } from "../../actions/utils"
+import { getHoursDiff, Analytics } from "../../actions/utils"
 import DateTimePicker from "react-native-modal-datetime-picker"
 import { fetchOrError } from "../../actions/utils"
 import SuccessModal from "../../components/SuccessModal"
-import Analytics from "appcenter-analytics"
 import { Icon } from "react-native-elements"
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
 import AlertError from "../../components/AlertError"
@@ -55,6 +54,10 @@ export class Lesson extends AlertError {
 		this._handleDatePicked = this._handleDatePicked.bind(this)
 
 		this._initializeExistingLesson()
+	}
+
+	componentDidMount() {
+		Analytics.setCurrentScreen("student_lesson", "Lesson")
 	}
 
 	_initializeExistingLesson = async () => {
@@ -253,11 +256,7 @@ export class Lesson extends AlertError {
 			})
 		)
 		if (resp) {
-			Analytics.trackEvent("Student lesson created", {
-				Category: "Lesson",
-				date: moment.utc(this.state.dateAndTime).toISOString(),
-				respFromServer: JSON.stringify(resp.json)
-			})
+			Analytics.logEvent("student_created_lesson")
 			this.setState({ ...this.initState, successVisible: true })
 		}
 	}

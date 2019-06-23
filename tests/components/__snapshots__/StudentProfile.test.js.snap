@@ -1,624 +1,358 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`StudentProfile view renders correctly -> student's view 1`] = `
-<RCTScrollView
+<ScrollViewMock
   style={
     Object {
       "flex": 1,
     }
   }
 >
-  <View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "marginTop": 20,
+        "paddingLeft": 26,
+        "paddingRight": 26,
+      }
+    }
+  >
+    <ContactPopup
+      onPress={[Function]}
+      visible={false}
+    />
     <View
       style={
         Object {
           "alignItems": "center",
-          "flex": 1,
-          "marginTop": 20,
-          "paddingLeft": 26,
-          "paddingRight": 26,
+          "flexDirection": "row",
+          "maxHeight": 60,
         }
       }
     >
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "maxHeight": 60,
-          }
-        }
-      >
-        <View
-          style={
-            Object {
-              "flex": 1,
-              "flexDirection": "row",
-            }
-          }
-        >
-          <View>
-            <View
-              style={
-                Array [
-                  Object {
-                    "overflow": "hidden",
-                  },
-                  Object {
-                    "borderRadius": 27,
-                    "height": 54,
-                    "width": 54,
-                  },
-                ]
-              }
-            >
-              <FastImageView
-                resizeMode="cover"
-                source={
-                  Object {
-                    "uri": "https://res.cloudinary.com/hsmkon3br/image/upload/c_thumb,g_face,h_80,w_80/v1554188012/678099-profile-filled-256.png",
-                  }
-                }
-                style={
-                  Object {
-                    "bottom": 0,
-                    "left": 0,
-                    "position": "absolute",
-                    "right": 0,
-                    "top": 0,
-                  }
-                }
-              />
-            </View>
-          </View>
+      <UserWithPic
+        extra={
           <View
             style={
               Object {
                 "alignItems": "flex-start",
-                "flexDirection": "column",
-                "marginLeft": 16,
               }
             }
           >
-            <Text
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              test
+            <Text>
+               
+              שיעורים
             </Text>
-            <View>
-              <View
+            <TouchableOpacity
+              activeOpacity={0.2}
+              onPress={[Function]}
+            >
+              <Text
                 style={
                   Object {
-                    "alignItems": "flex-start",
+                    "color": "rgb(12,116,244)",
                   }
                 }
               >
-                <Text>
-                   
-                  שיעורים
-                </Text>
-                <View
-                  accessible={true}
-                  isTVSelectable={true}
-                  onResponderGrant={[Function]}
-                  onResponderMove={[Function]}
-                  onResponderRelease={[Function]}
-                  onResponderTerminate={[Function]}
-                  onResponderTerminationRequest={[Function]}
-                  onStartShouldSetResponder={[Function]}
-                  style={
-                    Object {
-                      "opacity": 1,
-                    }
-                  }
-                >
-                  <Text
-                    style={
-                      Object {
-                        "color": "rgb(12,116,244)",
-                      }
-                    }
-                  >
-                    ערוך פרטים
-                  </Text>
-                </View>
-              </View>
-            </View>
+                ערוך פרטים
+              </Text>
+            </TouchableOpacity>
           </View>
-        </View>
-        <View
-          style={
-            Object {
-              "flexDirection": "row",
-              "marginLeft": "auto",
-              "marginTop": -6,
-            }
-          }
-        >
-          <Text>
-            המורה שלי:
-          </Text>
-          <View
-            style={
-              Array [
-                Object {
-                  "overflow": "hidden",
-                },
-                Object {
-                  "borderRadius": 12,
-                  "height": 24,
-                  "marginLeft": 12,
-                  "marginTop": -2,
-                  "width": 24,
-                },
-              ]
-            }
-          >
-            <FastImageView
-              resizeMode="cover"
-              source={
-                Object {
-                  "uri": "https://res.cloudinary.com/hsmkon3br/image/upload/c_thumb,g_face,h_80,w_80/v1554188012/678099-profile-filled-256.png",
-                }
-              }
-              style={
-                Object {
-                  "bottom": 0,
-                  "left": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                }
-              }
-            />
-          </View>
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "justifyContent": "space-evenly",
-            "marginTop": 24,
-          }
         }
-      />
-      <View
-        style={
+        height={54}
+        user={
           Object {
-            "marginTop": 20,
-          }
-        }
-      />
-      <View
-        style={
-          Object {
-            "alignItems": "flex-start",
-            "backgroundColor": "#fff",
-            "borderRadius": 4,
-            "elevation": 6,
-            "marginBottom": 20,
-            "paddingHorizontal": 20,
-            "paddingVertical": 12,
-            "shadowColor": "#000",
-            "shadowOffset": Object {
-              "height": 6,
-              "width": 0,
+            "balance": 900,
+            "my_teacher": Object {
+              "is_approved": true,
+              "teacher_id": 2,
+              "user": Object {
+                "id": 2,
+                "name": "teacher",
+              },
             },
-            "shadowOpacity": 0.09,
-            "shadowRadius": 20,
-            "width": "100%",
+            "name": "test",
+            "student_id": 1,
+          }
+        }
+        width={54}
+      />
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "marginLeft": "auto",
+            "marginTop": -6,
           }
         }
       >
-        <View>
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
+        <Text>
+          המורה שלי:
+        </Text>
+        <FastImage
+          resizeMode="cover"
+          source={
+            Object {
+              "uri": "https://res.cloudinary.com/hsmkon3br/image/upload/c_thumb,g_face,h_80,w_80/v1554188012/678099-profile-filled-256.png",
             }
-            fillOpacity={1}
-            fillRule={1}
-            height="6.4"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
+          }
+          style={
+            Object {
+              "borderRadius": 12,
+              "height": 24,
+              "marginLeft": 12,
+              "marginTop": -2,
+              "width": 24,
             }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="4"
-            ry="4"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="80"
-            x={220}
-            y="32"
-          />
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            height="6.4"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="4"
-            ry="4"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="40.44"
-            x="16"
-            y="32"
-          />
-        </View>
+          }
+        />
       </View>
     </View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "space-evenly",
+          "marginTop": 24,
+        }
+      }
+    />
+    <View
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    />
+    <ShadowRect
+      style={Object {}}
+    >
+      <SimpleLoader />
+    </ShadowRect>
   </View>
-</RCTScrollView>
+</ScrollViewMock>
 `;
 
 exports[`StudentProfile view renders correctly -> teacher's view 1`] = `
-<RCTScrollView
+<ScrollViewMock
   style={
     Object {
       "flex": 1,
     }
   }
 >
-  <View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "flex": 1,
+        "marginTop": 20,
+        "paddingLeft": 26,
+        "paddingRight": 26,
+      }
+    }
+  >
+    <ContactPopup
+      onPress={[Function]}
+      visible={false}
+    />
     <View
       style={
         Object {
           "alignItems": "center",
-          "flex": 1,
-          "marginTop": 20,
-          "paddingLeft": 26,
-          "paddingRight": 26,
+          "flexDirection": "row",
+          "maxHeight": 60,
         }
       }
     >
-      <View
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
         style={
           Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-            "maxHeight": 60,
+            "marginRight": 8,
           }
         }
       >
-        <View
-          style={
-            Object {
-              "flex": 1,
-              "flexDirection": "row",
-            }
-          }
-        >
-          <View>
-            <View
-              style={
-                Array [
-                  Object {
-                    "overflow": "hidden",
-                  },
-                  Object {
-                    "borderRadius": 27,
-                    "height": 54,
-                    "width": 54,
-                  },
-                ]
-              }
-            >
-              <FastImageView
-                resizeMode="cover"
-                source={
-                  Object {
-                    "uri": "https://res.cloudinary.com/hsmkon3br/image/upload/c_thumb,g_face,h_80,w_80/v1554188012/678099-profile-filled-256.png",
-                  }
-                }
-                style={
-                  Object {
-                    "bottom": 0,
-                    "left": 0,
-                    "position": "absolute",
-                    "right": 0,
-                    "top": 0,
-                  }
-                }
-              />
-            </View>
-          </View>
+        <Themed.Icon
+          name="arrow-forward"
+          type="material"
+        />
+      </TouchableOpacity>
+      <UserWithPic
+        extra={
           <View
             style={
               Object {
                 "alignItems": "flex-start",
-                "flexDirection": "column",
-                "marginLeft": 16,
               }
             }
           >
-            <Text
-              style={
-                Object {
-                  "fontWeight": "bold",
-                }
-              }
-            >
-              test
+            <Text>
+               
+              שיעורים
             </Text>
-            <View>
-              <View
+            <TouchableOpacity
+              activeOpacity={0.2}
+              onPress={[Function]}
+            >
+              <Text
                 style={
                   Object {
-                    "alignItems": "flex-start",
+                    "color": "rgb(12,116,244)",
                   }
                 }
               >
-                <Text>
-                   
-                  שיעורים
-                </Text>
-                <View
-                  accessible={true}
-                  isTVSelectable={true}
-                  onResponderGrant={[Function]}
-                  onResponderMove={[Function]}
-                  onResponderRelease={[Function]}
-                  onResponderTerminate={[Function]}
-                  onResponderTerminationRequest={[Function]}
-                  onStartShouldSetResponder={[Function]}
-                  style={
-                    Object {
-                      "opacity": 1,
-                    }
-                  }
-                >
-                  <Text
-                    style={
-                      Object {
-                        "color": "rgb(12,116,244)",
-                      }
-                    }
-                  >
-                    ערוך פרטים
-                  </Text>
-                </View>
-              </View>
-            </View>
+                ערוך פרטים
+              </Text>
+            </TouchableOpacity>
           </View>
-        </View>
-        <View
-          style={
-            Object {
-              "flexDirection": "row",
-              "marginLeft": "auto",
-              "marginTop": -6,
-            }
+        }
+        height={54}
+        user={
+          Object {
+            "balance": 900,
+            "my_teacher": Object {
+              "is_approved": true,
+              "teacher_id": 2,
+              "user": Object {
+                "id": 2,
+                "name": "teacher",
+              },
+            },
+            "name": "test",
+            "student_id": 1,
           }
-        >
-          <Text>
-            המורה שלי:
-          </Text>
-          <View
-            style={
-              Array [
-                Object {
-                  "overflow": "hidden",
-                },
-                Object {
-                  "borderRadius": 12,
-                  "height": 24,
-                  "marginLeft": 12,
-                  "marginTop": -2,
-                  "width": 24,
-                },
-              ]
-            }
-          >
-            <FastImageView
-              resizeMode="cover"
-              source={
-                Object {
-                  "uri": "https://res.cloudinary.com/hsmkon3br/image/upload/c_thumb,g_face,h_80,w_80/v1554188012/678099-profile-filled-256.png",
-                }
-              }
-              style={
-                Object {
-                  "bottom": 0,
-                  "left": 0,
-                  "position": "absolute",
-                  "right": 0,
-                  "top": 0,
-                }
-              }
-            />
-          </View>
-        </View>
-      </View>
+        }
+        width={54}
+      />
       <View
         style={
           Object {
-            "alignItems": "center",
             "flexDirection": "row",
-            "justifyContent": "space-evenly",
-            "marginTop": 24,
+            "marginLeft": "auto",
+            "marginTop": -6,
           }
         }
       >
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+        <Text>
+          המורה שלי:
+        </Text>
+        <FastImage
+          resizeMode="cover"
+          source={
+            Object {
+              "uri": "https://res.cloudinary.com/hsmkon3br/image/upload/c_thumb,g_face,h_80,w_80/v1554188012/678099-profile-filled-256.png",
+            }
+          }
           style={
             Object {
-              "opacity": 1,
-              "padding": 12,
+              "borderRadius": 12,
+              "height": 24,
+              "marginLeft": 12,
+              "marginTop": -2,
+              "width": 24,
+            }
+          }
+        />
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "justifyContent": "space-evenly",
+          "marginTop": 24,
+        }
+      }
+    >
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
+        style={
+          Object {
+            "padding": 12,
+          }
+        }
+      >
+        <Themed.Icon
+          name="phone"
+          size={24}
+          type="feather"
+        />
+        <Text
+          style={
+            Object {
+              "marginTop": 8,
             }
           }
         >
-          <View>
-            <View
-              style={
-                Object {
-                  "alignItems": "center",
-                  "backgroundColor": "transparent",
-                  "justifyContent": "center",
-                }
-              }
-              theme={
-                Object {
-                  "colors": Object {
-                    "disabled": "hsl(208, 8%, 90%)",
-                    "divider": "#bcbbc1",
-                    "error": "#ff190c",
-                    "grey0": "#393e42",
-                    "grey1": "#43484d",
-                    "grey2": "#5e6977",
-                    "grey3": "#86939e",
-                    "grey4": "#bdc6cf",
-                    "grey5": "#e1e8ee",
-                    "greyOutline": "#bbb",
-                    "platform": Object {
-                      "android": Object {
-                        "error": "#f44336",
-                        "primary": "#2196f3",
-                        "secondary": "#9C27B0",
-                        "success": "#4caf50",
-                        "warning": "#ffeb3b",
-                      },
-                      "ios": Object {
-                        "error": "#ff3b30",
-                        "primary": "#007aff",
-                        "secondary": "#5856d6",
-                        "success": "#4cd964",
-                        "warning": "#ffcc00",
-                      },
-                    },
-                    "primary": "#2089dc",
-                    "searchBg": "#303337",
-                    "secondary": "#8F0CE8",
-                    "success": "#52c41a",
-                    "warning": "#faad14",
-                  },
-                }
-              }
-              underlayColor="white"
-            >
-              <Text
-                allowFontScaling={false}
-                style={
-                  Array [
-                    Object {
-                      "color": "black",
-                      "fontSize": 24,
-                    },
-                    Object {
-                      "backgroundColor": "transparent",
-                    },
-                    Object {
-                      "fontFamily": "Feather",
-                      "fontStyle": "normal",
-                      "fontWeight": "normal",
-                    },
-                    Object {},
-                  ]
-                }
-                testID="iconIcon"
-              >
-                
-              </Text>
-            </View>
-          </View>
-          <Text
-            style={
-              Object {
-                "marginTop": 8,
-              }
-            }
-          >
-            צור קשר
-          </Text>
-        </View>
-      </View>
-      <View
+          צור קשר
+        </Text>
+      </TouchableOpacity>
+    </View>
+    <ShadowRect
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      <Text
         style={
           Object {
-            "alignItems": "flex-start",
-            "backgroundColor": "#fff",
-            "borderRadius": 4,
-            "elevation": 6,
-            "marginBottom": 20,
-            "marginTop": 20,
-            "paddingHorizontal": 20,
-            "paddingVertical": 12,
-            "shadowColor": "#000",
-            "shadowOffset": Object {
-              "height": 6,
-              "width": 0,
-            },
-            "shadowOpacity": 0.09,
-            "shadowRadius": 20,
-            "width": "100%",
+            "color": "rgb(121, 121, 121)",
+            "fontWeight": "bold",
+          }
+        }
+        testID="schedule"
+      >
+        שיעור הבא
+      </Text>
+      <StudentNextLessonView
+        lesson={
+          Object {
+            "duration": 40,
+            "id": 1,
+          }
+        }
+        lessonPress={[Function]}
+        loading={false}
+        testID="lessonRowTouchable"
+      />
+      <LessonPopup
+        item={
+          Object {
+            "duration": 40,
+            "id": 1,
+          }
+        }
+        navigation={
+          Object {
+            "addListener": [Function],
+            "getParam": [Function],
+            "navigate": [MockFunction],
+          }
+        }
+        onPress={[Function]}
+        testID="lessonPopup"
+        visible={false}
+      />
+    </ShadowRect>
+    <ShadowRect
+      style={Object {}}
+    >
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
+        style={
+          Object {
+            "flex": 1,
+            "flexDirection": "row",
           }
         }
       >
@@ -629,699 +363,149 @@ exports[`StudentProfile view renders correctly -> teacher's view 1`] = `
               "fontWeight": "bold",
             }
           }
-          testID="schedule"
         >
-          שיעור הבא
+          מאזן כספי
         </Text>
-        <View>
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            height="6.4"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="4"
-            ry="4"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="80"
-            x={220}
-            y="32"
-          />
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            height="6.4"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="4"
-            ry="4"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="40.44"
-            x="16"
-            y="32"
-          />
-        </View>
-      </View>
-      <View
-        style={
-          Object {
-            "alignItems": "flex-start",
-            "backgroundColor": "#fff",
-            "borderRadius": 4,
-            "elevation": 6,
-            "marginBottom": 20,
-            "paddingHorizontal": 20,
-            "paddingVertical": 12,
-            "shadowColor": "#000",
-            "shadowOffset": Object {
-              "height": 6,
-              "width": 0,
-            },
-            "shadowOpacity": 0.09,
-            "shadowRadius": 20,
-            "width": "100%",
-          }
-        }
-      >
         <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
           style={
             Object {
+              "alignItems": "flex-end",
               "flex": 1,
-              "flexDirection": "row",
-              "opacity": 1,
+              "marginRight": "auto",
             }
           }
         >
-          <Text
-            style={
-              Object {
-                "color": "rgb(121, 121, 121)",
-                "fontWeight": "bold",
-              }
-            }
-          >
-            מאזן כספי
-          </Text>
-          <View
-            style={
-              Object {
-                "alignItems": "flex-end",
-                "flex": 1,
-                "marginRight": "auto",
-              }
-            }
-          >
-            <View>
-              <View
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "backgroundColor": "transparent",
-                    "justifyContent": "center",
-                  }
-                }
-                theme={
-                  Object {
-                    "colors": Object {
-                      "disabled": "hsl(208, 8%, 90%)",
-                      "divider": "#bcbbc1",
-                      "error": "#ff190c",
-                      "grey0": "#393e42",
-                      "grey1": "#43484d",
-                      "grey2": "#5e6977",
-                      "grey3": "#86939e",
-                      "grey4": "#bdc6cf",
-                      "grey5": "#e1e8ee",
-                      "greyOutline": "#bbb",
-                      "platform": Object {
-                        "android": Object {
-                          "error": "#f44336",
-                          "primary": "#2196f3",
-                          "secondary": "#9C27B0",
-                          "success": "#4caf50",
-                          "warning": "#ffeb3b",
-                        },
-                        "ios": Object {
-                          "error": "#ff3b30",
-                          "primary": "#007aff",
-                          "secondary": "#5856d6",
-                          "success": "#4cd964",
-                          "warning": "#ffcc00",
-                        },
-                      },
-                      "primary": "#2089dc",
-                      "searchBg": "#303337",
-                      "secondary": "#8F0CE8",
-                      "success": "#52c41a",
-                      "warning": "#faad14",
-                    },
-                  }
-                }
-                underlayColor="white"
-              >
-                <Text
-                  allowFontScaling={false}
-                  style={
-                    Array [
-                      Object {
-                        "color": "black",
-                        "fontSize": 20,
-                      },
-                      Object {
-                        "backgroundColor": "transparent",
-                      },
-                      Object {
-                        "fontFamily": "Material Icons",
-                        "fontStyle": "normal",
-                        "fontWeight": "normal",
-                      },
-                      Object {},
-                    ]
-                  }
-                  testID="iconIcon"
-                >
-                  
-                </Text>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View>
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            height="49"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="0"
-            ry="0"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="120"
-            x="90"
-            y="16"
-          />
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            height="10"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="0"
-            ry="0"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="70"
-            x="115"
-            y="76"
-          />
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            height="6.4"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="3"
-            ry="3"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="40"
-            x="17"
-            y="110"
-          />
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            height="6.4"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="4"
-            ry="4"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="74.88"
-            x="180.77"
-            y="110"
-          />
-          <RNSVGCircle
-            cx="280"
-            cy="113.5"
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            r="13"
-            rotation={0}
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            x={0}
-            y={0}
-          />
-          <RNSVGCircle
-            cx="280"
-            cy="175.6"
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            r="13"
-            rotation={0}
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            x={0}
-            y={0}
-          />
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            height="6.4"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="4"
-            ry="4"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="74.88"
-            x="180.77"
-            y="172"
-          />
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            height="6.4"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="3"
-            ry="3"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="40"
-            x="17"
-            y="172"
+          <Themed.Icon
+            name="arrow-back"
+            size={20}
+            type="material"
           />
         </View>
-      </View>
-      <View
+      </TouchableOpacity>
+      <StudentPayment
+        dispatch={
+          [MockFunction] {
+            "calls": Array [
+              Array [
+                [Function],
+              ],
+              Array [
+                [Function],
+              ],
+              Array [
+                [Function],
+              ],
+              Array [
+                [Function],
+              ],
+            ],
+            "results": Array [
+              Object {
+                "type": "return",
+                "value": null,
+              },
+              Object {
+                "type": "return",
+                "value": null,
+              },
+              Object {
+                "type": "return",
+                "value": null,
+              },
+              Object {
+                "type": "return",
+                "value": null,
+              },
+            ],
+          }
+        }
+        loading={false}
+        payments={
+          Array [
+            Object {
+              "amount": 100,
+              "details": "test",
+              "id": 1,
+              "pdf_link": "http://test.com",
+            },
+            Object {
+              "amount": 100,
+              "details": "test",
+              "id": 1,
+            },
+          ]
+        }
+        sum={900}
+        user={
+          Object {
+            "is_approved": true,
+            "teacher_id": 2,
+            "user": Object {
+              "id": 2,
+              "name": "teacher",
+            },
+          }
+        }
+      />
+    </ShadowRect>
+    <ShadowRect
+      style={Object {}}
+    >
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
         style={
           Object {
-            "alignItems": "flex-start",
-            "backgroundColor": "#fff",
-            "borderRadius": 4,
-            "elevation": 6,
-            "marginBottom": 20,
-            "paddingHorizontal": 20,
-            "paddingVertical": 12,
-            "shadowColor": "#000",
-            "shadowOffset": Object {
-              "height": 6,
-              "width": 0,
-            },
-            "shadowOpacity": 0.09,
-            "shadowRadius": 20,
-            "width": "100%",
+            "flexDirection": "row",
           }
         }
       >
-        <View>
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
+        <Text
+          style={
+            Object {
+              "color": "rgb(121, 121, 121)",
+              "fontWeight": "bold",
             }
-            fillOpacity={1}
-            fillRule={1}
-            height="6.4"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
+          }
+          testID="monthlyAmount"
+        >
+          נושאים
+        </Text>
+        <View
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "flex": 1,
+              "marginLeft": "auto",
             }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="4"
-            ry="4"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="80"
-            x={220}
-            y="32"
-          />
-          <RNSVGRect
-            fill={
-              Array [
-                0,
-                4278190080,
-              ]
-            }
-            fillOpacity={1}
-            fillRule={1}
-            height="6.4"
-            matrix={
-              Array [
-                1,
-                0,
-                0,
-                1,
-                0,
-                0,
-              ]
-            }
-            opacity={1}
-            originX={0}
-            originY={0}
-            propList={Array []}
-            rotation={0}
-            rx="4"
-            ry="4"
-            scaleX={1}
-            scaleY={1}
-            skewX={0}
-            skewY={0}
-            stroke={null}
-            strokeDasharray={null}
-            strokeDashoffset={null}
-            strokeLinecap={0}
-            strokeLinejoin={0}
-            strokeMiterlimit={4}
-            strokeOpacity={1}
-            strokeWidth={1}
-            vectorEffect={0}
-            width="40.44"
-            x="16"
-            y="32"
+          }
+        >
+          <Themed.Icon
+            name="arrow-back"
+            size={20}
+            type="material"
           />
         </View>
-      </View>
-    </View>
+      </TouchableOpacity>
+      <TopicsList
+        topics={
+          Array [
+            Object {
+              "id": 1,
+              "title": "test1",
+            },
+            Object {
+              "id": 2,
+              "title": "test2",
+            },
+            Object {
+              "id": 3,
+              "title": "test3",
+            },
+          ]
+        }
+      />
+    </ShadowRect>
   </View>
-</RCTScrollView>
+</ScrollViewMock>
 `;

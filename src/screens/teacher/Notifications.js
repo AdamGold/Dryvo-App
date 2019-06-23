@@ -2,7 +2,6 @@ import React, { Fragment } from "react"
 import {
 	View,
 	Text,
-	TouchableHighlight,
 	StyleSheet,
 	FlatList,
 	TouchableOpacity,
@@ -20,13 +19,12 @@ import NotificationButtons from "./NotificationButtons"
 import Hours from "../../components/Hours"
 import moment from "moment"
 import LessonPopup from "../../components/LessonPopup"
-import { fetchOrError, popLatestError } from "../../actions/utils"
-import { API_ERROR } from "../../reducers/consts"
+import { fetchOrError, Analytics } from "../../actions/utils"
 import ShowReceipt from "../../components/ShowReceipt"
 import { Icon } from "react-native-elements"
-import Analytics from "appcenter-analytics"
+import AlertError from "../../components/AlertError"
 
-export class Notifications extends React.Component {
+export class Notifications extends AlertError {
 	static navigationOptions = () => {
 		return {
 			title: "notifications",
@@ -96,13 +94,6 @@ export class Notifications extends React.Component {
 		this.willFocusSubscription.remove()
 	}
 
-	componentDidUpdate() {
-		const error = this.props.dispatch(popLatestError(API_ERROR))
-		if (error) {
-			Alert.alert(strings("errors.title"), errors(error))
-		}
-	}
-
 	_getItems = async (append = false) => {
 		const resp = await this.props.fetchService.fetch(
 			"/" +
@@ -144,10 +135,8 @@ export class Notifications extends React.Component {
 	}
 
 	approve = async (type, item, index) => {
-		const id = item.id || item.student_id
-		Analytics.trackEvent("Teacher approved", {
-			Category: "Lesson"
-		})
+		const id = item.student_id || item.id
+		Analytics.logEvent("teacher_approved")
 		const resp = await this.props.dispatch(
 			fetchOrError(`/${type}/${id}/approve`, {
 				method: "GET"
@@ -178,7 +167,7 @@ export class Notifications extends React.Component {
 	}
 
 	delete = async (type, item, index) => {
-		const id = item.id || item.student_id
+		const id = item.student_id || item.id
 		const resp = await this.props.dispatch(
 			fetchOrError(`/${type}/${id}`, {
 				method: "DELETE"
@@ -200,10 +189,8 @@ export class Notifications extends React.Component {
 					<Notification
 						style={styles.notification}
 						key={`lesson${item.id}`}
-						user={item.student.user}
-						name={`${item.student.user.name}(${
-							item.lesson_number
-						})`}
+						user={item.student}
+						name={item.student.name}
 						type="new_lesson"
 						leftSide={
 							<View>
@@ -225,17 +212,13 @@ export class Notifications extends React.Component {
 						<NotificationButtons
 							approve={() => this.approve("lessons", item, index)}
 							edit={() => {
-								Analytics.trackEvent("Teacher edit lesson", {
-									Category: "Lesson"
-								})
+								Analytics.logEvent("teacher_edited")
 								this.props.navigation.navigate("Lesson", {
 									lesson: item
 								})
 							}}
 							delete={() => {
-								Analytics.trackEvent("Teacher deleted lesson", {
-									Category: "Lesson"
-								})
+								Analytics.logEvent("teacher_deleted")
 								this.deleteConfirm("lessons", item, index)
 							}}
 						/>
@@ -257,8 +240,8 @@ export class Notifications extends React.Component {
 			<Notification
 				style={styles.notification}
 				key={`student${item.student_id}`}
-				name={`${item.user.name}`}
-				user={item.user}
+				name={`${item.name}`}
+				user={item}
 				type="new_student"
 			>
 				<NotificationButtons
@@ -282,8 +265,8 @@ export class Notifications extends React.Component {
 					style={styles.notification}
 					key={`payment${item.id}`}
 					leftSide={<Text style={styles.amount}>{item.amount}₪</Text>}
-					name={`${item.student.user.name}`}
-					user={item.student.user}
+					name={`${item.student.name}`}
+					user={item.student}
 					type="new_payment"
 					extra={
 						<ShowReceipt
@@ -482,7 +465,7 @@ function mapStateToProps(state) {
 	return {
 		fetchService: state.fetchService,
 		user: state.user,
-		errors: state.errors
+		error: state.error
 	}
 }
 

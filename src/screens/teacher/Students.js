@@ -43,7 +43,7 @@ export class Students extends React.Component {
 		this.sortOptions = [
 			{ value: "balance", label: strings("teacher.students.balance") },
 			{
-				value: "new_lesson_number",
+				value: "lessons_done",
 				label: strings("teacher.students.lesson_number")
 			}
 		]
@@ -51,7 +51,7 @@ export class Students extends React.Component {
 		this._dropdownChange = this._dropdownChange.bind(this)
 		this.navigateToProfile = this.navigateToProfile.bind(this)
 
-		this._getStudents(false)
+		// this._getStudents(false)
 	}
 
 	componentDidMount() {
@@ -137,12 +137,12 @@ export class Students extends React.Component {
 					}
 				>
 					<UserWithPic
-						user={item.user}
+						user={item}
 						extra={
 							<View style={{ alignItems: "flex-start" }}>
 								<Text>
 									{strings("teacher.students.lesson_num")}:{" "}
-									{item.new_lesson_number}
+									{item.lessons_done}
 								</Text>
 								<Text style={balanceStyle}>
 									{strings("teacher.students.balance")}:{" "}

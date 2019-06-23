@@ -7,7 +7,7 @@ import Storage from "../src/services/Storage"
 import { Platform } from "react-native"
 import mockStore from "redux-mock-store"
 import { TOKEN_KEY, REFRESH_TOKEN_KEY, DEFAULT_IMAGE } from "../src/consts"
-import { API_ERROR } from "../src/reducers/consts"
+import { ERROR } from "../src/reducers/consts"
 
 let user, store
 const fetchService = new FetchService()
@@ -83,12 +83,12 @@ describe("utils.js", () => {
 		store.clearActions()
 	})
 
-	it("should dispatch pop error", () => {
+	it("should dispatch truncate error", () => {
 		const storeWithErrors = mockStore({
-			errors: { [API_ERROR]: ["test", "test2"] }
+			error: "test"
 		})
-		const error = storeWithErrors.dispatch(utils.popLatestError(API_ERROR))
-		expect(error).toEqual("test2")
+		const error = storeWithErrors.dispatch(utils.getError())
+		expect(error).toEqual("test")
 		expect(storeWithErrors.getActions()).toMatchSnapshot()
 	})
 
@@ -100,14 +100,14 @@ describe("utils.js", () => {
 		store.clearActions()
 	})
 
-	it("should dispatch API ERROR", async () => {
+	it("should dispatch ERROR", async () => {
 		fetch.mockResponseFailure()
 		await store.dispatch(utils.fetchOrError("/test", {}))
 		expect(store.getActions()).toMatchSnapshot()
 		store.clearActions()
 	})
 
-	it("should not dispatch API ERROR", async () => {
+	it("should not dispatch ERROR", async () => {
 		fetch.mockResponseFailure()
 		await store.dispatch(utils.fetchOrError("/test", {}, false))
 		expect(store.getActions()).toMatchSnapshot()
@@ -137,7 +137,7 @@ describe("utils.js", () => {
 		expect(image).toEqual("test")
 	})
 
-	it("should dispatch API ERROR when trying to upload image", async () => {
+	it("should dispatch ERROR when trying to upload image", async () => {
 		fetch.mockResponseFailure()
 		await store.dispatch(utils.uploadUserImage({ uri: "test" }))
 		expect(store.getActions()).toMatchSnapshot()

@@ -15,5 +15,10 @@ exports[`AuthLoading view renders correctly 1`] = `
     hidesWhenStopped={true}
     size="small"
   />
+  <StatusBar
+    animated={false}
+    barStyle="default"
+    showHideTransition="fade"
+  />
 </View>
 `;

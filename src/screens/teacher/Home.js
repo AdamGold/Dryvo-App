@@ -149,14 +149,11 @@ export class Home extends React.Component {
 			)
 		}
 		let student = strings("teacher.no_student_applied")
-		let user = null
 		if (item.student) {
-			student = item.student.user.name
-			user = item.student.user
+			student = item.student.name
 		}
 		const date = item.date
-		let meetup = strings("not_set")
-		if (item.meetup_place) meetup = item.meetup_place.name
+		const meetup = item.meetup_place || strings("not_set")
 		const visible = this.state.visible.includes(item.id) ? true : false
 		return (
 			<Fragment>
@@ -177,7 +174,7 @@ export class Home extends React.Component {
 					>
 						<UserWithPic
 							name={student}
-							user={user}
+							user={item.student}
 							extra={
 								<View style={{ alignItems: "flex-start" }}>
 									<Text style={styles.places}>
@@ -215,10 +212,7 @@ export class Home extends React.Component {
 				}
 				key={`payment${item.id}`}
 			>
-				<UserWithPic
-					user={item.student.user}
-					nameStyle={styles.nameStyle}
-				/>
+				<UserWithPic user={item.student} nameStyle={styles.nameStyle} />
 			</Row>
 		)
 	}

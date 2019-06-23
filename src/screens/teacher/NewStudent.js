@@ -2,102 +2,137 @@ import React from "react"
 import {
 	View,
 	StyleSheet,
-	FlatList,
-	TouchableHighlight,
-	Alert
+	Alert,
+	ScrollView,
+	KeyboardAvoidingView,
+	Platform,
+	TouchableOpacity,
+	Text
 } from "react-native"
 import { connect } from "react-redux"
 import { strings, errors } from "../../i18n"
-import Row from "../../components/Row"
-import UserWithPic from "../../components/UserWithPic"
-import Separator from "../../components/Separator"
-import { SearchBar, Button, Icon } from "react-native-elements"
+import { Button, Icon } from "react-native-elements"
 import PageTitle from "../../components/PageTitle"
-import { MAIN_PADDING, DEFAULT_MESSAGE_TIME } from "../../consts"
-import { API_ERROR } from "../../reducers/consts"
 import { fetchOrError } from "../../actions/utils"
-import { popLatestError } from "../../actions/utils"
+import AuthInput from "../../components/AuthInput"
+import { MAIN_PADDING, DEFAULT_IMAGE, fullButton } from "../../consts"
+import UploadProfileImage from "../../components/UploadProfileImage"
+import SuccessModal from "../../components/SuccessModal"
+import validate, { registerValidation } from "../../actions/validate"
+import AlertError from "../../components/AlertError"
 
-export class NewStudent extends React.Component {
+export class NewStudent extends AlertError {
 	constructor(props) {
 		super(props)
 		this.state = {
-			search: "",
-			users: []
+			successVisible: false,
+			image: ""
 		}
-
-		this._getUsers = this._getUsers.bind(this)
-		this.assignUser = this.assignUser.bind(this)
-	}
-
-	updateSearch = search => {
-		this.setState({ search }, () => {
-			this._getUsers()
+		this.inputs = {
+			email: {},
+			name: {
+				iconName: "person",
+				placeholder: strings("signup.name")
+			},
+			phone: {
+				iconName: "phone",
+				placeholder: strings("signup.phone"),
+				onChangeText: (name, value) => {
+					this.setState({ [name]: value.replace(/[^0-9]/g, "") })
+				}
+			},
+			price: {
+				iconName: "payment",
+				placeholder: strings("signup.price")
+			}
+		}
+		Object.keys(this.inputs).forEach(input => {
+			this.state[input] = ""
 		})
 	}
 
-	componentDidUpdate() {
-		const error = this.props.dispatch(popLatestError(API_ERROR))
-		if (error) {
-			Alert.alert(strings("errors.title"), errors(error))
-		}
+	_onChangeText = (name, input) => {
+		this.setState({ [name]: input })
 	}
 
-	assignUser = async user => {
-		const resp = await this.props.dispatch(
-			fetchOrError("/user/make_student?user_id=" + user.id, {
-				method: "GET"
-			})
-		)
-		if (resp) {
-			Alert.alert(
-				strings("teacher.students.success_title"),
-				strings("teacher.students.success")
-			)
-			this.props.navigation.goBack()
-		}
-	}
-	_getUsers = async () => {
-		const resp = await this.props.fetchService.fetch(
-			"/user/search?name=" + this.state.search,
-			{ method: "GET" }
-		)
-		this.setState({
-			users: resp.json["data"]
-		})
-	}
-
-	renderItem = ({ item, index }) => {
-		return (
-			<TouchableHighlight
-				underlayColor="#f9f9f9"
-				key={`user${item.id}`}
-				onPress={() => {
-					this.assignUser(item)
-				}}
-				style={styles.row}
-			>
-				<Row
-					leftSide={
-						<View style={styles.icon}>
-							<Icon name="ios-add" type="ionicon" color="#000" />
-						</View>
+	renderInputs = () => {
+		return Object.keys(this.inputs).map((name, index) => {
+			const props = this.inputs[name]
+			return (
+				<AuthInput
+					key={`key${name}`}
+					name={name}
+					placeholder={props.placeholder || strings("signin." + name)}
+					onChangeText={
+						props.onChangeText || this._onChangeText.bind(this)
 					}
-				>
-					<UserWithPic
-						user={item}
-						nameStyle={styles.nameStyle}
-						width={64}
-						height={64}
-					/>
-				</Row>
-			</TouchableHighlight>
+					onFocus={props.onFocus}
+					value={this.state[name]}
+					testID={`r${name}Input`}
+					iconName={props.iconName || name}
+					validation={registerValidation}
+					secureTextEntry={props.secureTextEntry || false}
+				/>
+			)
+		})
+	}
+
+	submit = async () => {
+		let error,
+			flag = true
+		for (let input of Object.keys(this.inputs)) {
+			error = validate(input, this.state[input], registerValidation)
+			if (error) {
+				flag = false
+				break
+			}
+		}
+
+		if (!flag) {
+			Alert.alert(error)
+			return
+		}
+		var data = new FormData()
+		const params = {
+			email: this.state.email,
+			name: this.state.name,
+			phone: this.state.phone,
+			image: this.state.image,
+			price: parseInt(this.state.price)
+		}
+		Object.keys(params).forEach(key => data.append(key, params[key]))
+		const requestParams = {
+			method: "POST",
+			headers: {
+				"Content-Type": "multipart/form-data"
+			},
+			body: data
+		}
+		const resp = await this.props.dispatch(
+			fetchOrError("/teacher/create_student", requestParams)
 		)
+
+		if (resp) {
+			this.setState({ successVisible: true })
+		}
 	}
 
 	render() {
 		return (
 			<View style={styles.container}>
+				<SuccessModal
+					visible={this.state.successVisible}
+					image="signup"
+					title={strings("teacher.students.create_student_title")}
+					desc={strings("teacher.students.create_student_desc", {
+						name: this.state.name
+					})}
+					buttonPress={() => {
+						this.setState({ successVisible: false })
+						this.props.navigation.goBack()
+					}}
+					button={strings("teacher.students.success_button")}
+				/>
 				<View style={styles.headerRow}>
 					<PageTitle
 						style={styles.title}
@@ -119,31 +154,43 @@ export class NewStudent extends React.Component {
 						}
 					/>
 				</View>
-				<View
-					style={styles.studentsSearchView}
-					testID="StudentsSearchView"
+				<KeyboardAvoidingView
+					behavior={Platform.OS === "ios" ? "padding" : null}
+					keyboardVerticalOffset={Platform.select({
+						ios: fullButton.height,
+						android: null
+					})}
+					style={styles.container}
 				>
-					<SearchBar
-						placeholder={strings("teacher.students.search")}
-						onChangeText={this.updateSearch}
-						value={this.state.search}
-						platform="ios"
-						containerStyle={styles.searchBarContainer}
-						inputContainerStyle={styles.inputContainerStyle}
-						cancelButtonTitle={strings("teacher.students.cancel")}
-						inputStyle={styles.search}
-						textAlign="right"
-						autoFocus={true}
-						testID="searchBar"
-					/>
-					<Separator />
-					<FlatList
-						data={this.state.users}
-						keyboardShouldPersistTaps="always"
-						renderItem={this.renderItem}
-						keyExtractor={item => `user${item.id}`}
-					/>
-				</View>
+					<ScrollView
+						keyboardDismissMode={
+							Platform.OS === "ios" ? "interactive" : "on-drag"
+						}
+						keyboardShouldPersistTaps="handled"
+						ref={r => (this.scrollView = r)}
+						style={{ flex: 1 }}
+						testID="StudentsSearchView"
+					>
+						<UploadProfileImage
+							style={styles.profilePic}
+							image={this.state.image.uri || DEFAULT_IMAGE}
+							upload={async source => {
+								this.setState({
+									image: source
+								})
+							}}
+						/>
+						{this.renderInputs()}
+					</ScrollView>
+					<TouchableOpacity
+						onPress={this.submit}
+						style={styles.submitButton}
+					>
+						<Text style={styles.doneText}>
+							{strings("teacher.new_lesson.done")}
+						</Text>
+					</TouchableOpacity>
+				</KeyboardAvoidingView>
 			</View>
 		)
 	}
@@ -162,38 +209,23 @@ const styles = StyleSheet.create({
 		paddingRight: MAIN_PADDING,
 		maxHeight: 50
 	},
-	studentsSearchView: { padding: 26, paddingTop: 0 },
-	searchBarContainer: {
-		backgroundColor: "transparent",
-		paddingBottom: 0,
-		paddingTop: 0
+	submitButton: { ...fullButton, position: "relative" },
+	doneText: {
+		color: "#fff",
+		fontWeight: "bold",
+		fontSize: 20
 	},
-	inputContainerStyle: {
-		borderRadius: 30,
-		paddingLeft: 8,
-		paddingTop: 6,
-		paddingBottom: 6,
-		width: "100%",
-		marginLeft: 0,
-		marginRight: 0
-	},
-	search: {
-		alignItems: "flex-start",
-		paddingLeft: 6,
-		fontSize: 14,
-		marginLeft: 0
-	},
-	nameStyle: {
-		fontSize: 18,
-		marginTop: 14
-	},
-	row: { marginTop: 12 },
-	icon: { marginTop: 16 }
+	profilePic: {
+		width: 80,
+		height: 80,
+		borderRadius: 40,
+		alignSelf: "center"
+	}
 })
 
 function mapStateToProps(state) {
 	return {
-		errors: state.errors,
+		error: state.error,
 		fetchService: state.fetchService
 	}
 }

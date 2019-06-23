@@ -1,11 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Settings view renders correctly for student 1`] = `
-<RCTScrollView
-  keyboardDismissMode="on-drag"
-  keyboardShouldPersistTaps="always"
+<KeyboardAvoidingView
+  behavior="padding"
+  enabled={true}
+  keyboardVerticalOffset={0}
 >
-  <View>
+  <ScrollViewMock
+    keyboardDismissMode="on-drag"
+    keyboardShouldPersistTaps="always"
+  >
+    <ContactPopup
+      onPress={[Function]}
+      phone="0544440047"
+      visible={false}
+    />
     <View
       style={
         Object {
@@ -17,151 +26,27 @@ exports[`Settings view renders correctly for student 1`] = `
         }
       }
     >
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-          }
-        }
-      >
-        <Text
-          style={
-            Object {
-              "alignSelf": "flex-start",
-              "fontSize": 20,
-              "fontWeight": "bold",
-              "marginBottom": 20,
+      <PageTitle
+        leftSide={
+          <ForwardRef(Themed.Button)
+            icon={
+              <Themed.Icon
+                name="ios-close"
+                size={36}
+                type="ionicon"
+              />
             }
-          }
-        >
-          הגדרות
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "flex-end",
-              "flex": 1,
-              "marginLeft": "auto",
-              "marginTop": -5,
-            }
-          }
-        >
-          <View
+            onPress={[Function]}
             style={
               Object {
-                "borderRadius": 3,
+                "marginTop": -6,
               }
             }
-          >
-            <View
-              accessible={true}
-              isTVSelectable={true}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                Object {
-                  "marginTop": -6,
-                  "opacity": 1,
-                }
-              }
-            >
-              <View
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "backgroundColor": "transparent",
-                    "borderColor": "#2089dc",
-                    "borderRadius": 3,
-                    "borderWidth": 0,
-                    "flexDirection": "row",
-                    "justifyContent": "center",
-                    "padding": 8,
-                  }
-                }
-              >
-                <View>
-                  <View
-                    style={
-                      Object {
-                        "alignItems": "center",
-                        "backgroundColor": "transparent",
-                        "justifyContent": "center",
-                      }
-                    }
-                    theme={
-                      Object {
-                        "colors": Object {
-                          "disabled": "hsl(208, 8%, 90%)",
-                          "divider": "#bcbbc1",
-                          "error": "#ff190c",
-                          "grey0": "#393e42",
-                          "grey1": "#43484d",
-                          "grey2": "#5e6977",
-                          "grey3": "#86939e",
-                          "grey4": "#bdc6cf",
-                          "grey5": "#e1e8ee",
-                          "greyOutline": "#bbb",
-                          "platform": Object {
-                            "android": Object {
-                              "error": "#f44336",
-                              "primary": "#2196f3",
-                              "secondary": "#9C27B0",
-                              "success": "#4caf50",
-                              "warning": "#ffeb3b",
-                            },
-                            "ios": Object {
-                              "error": "#ff3b30",
-                              "primary": "#007aff",
-                              "secondary": "#5856d6",
-                              "success": "#4cd964",
-                              "warning": "#ffcc00",
-                            },
-                          },
-                          "primary": "#2089dc",
-                          "searchBg": "#303337",
-                          "secondary": "#8F0CE8",
-                          "success": "#52c41a",
-                          "warning": "#faad14",
-                        },
-                      }
-                    }
-                    underlayColor="white"
-                  >
-                    <Text
-                      allowFontScaling={false}
-                      style={
-                        Array [
-                          Object {
-                            "color": "black",
-                            "fontSize": 36,
-                          },
-                          Object {
-                            "backgroundColor": "transparent",
-                          },
-                          Object {
-                            "fontFamily": "Ionicons",
-                            "fontStyle": "normal",
-                            "fontWeight": "normal",
-                          },
-                          Object {},
-                        ]
-                      }
-                      testID="iconIcon"
-                    >
-                      
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-      </View>
+            type="clear"
+          />
+        }
+        title="הגדרות"
+      />
       <Text
         style={
           Object {
@@ -173,43 +58,27 @@ exports[`Settings view renders correctly for student 1`] = `
       >
         כללי
       </Text>
-      <View
+      <ShadowRect
         style={
           Object {
-            "alignItems": "flex-start",
-            "backgroundColor": "#fff",
-            "borderRadius": 4,
-            "elevation": 6,
             "marginBottom": 24,
             "marginTop": 12,
             "paddingHorizontal": 0,
             "paddingVertical": 0,
-            "shadowColor": "#000",
-            "shadowOffset": Object {
-              "height": 6,
-              "width": 0,
-            },
-            "shadowOpacity": 0.09,
-            "shadowRadius": 20,
-            "width": "100%",
           }
         }
       >
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+        <TouchableHighlight
+          activeOpacity={0.85}
+          delayPressOut={100}
+          onPress={[Function]}
           style={
             Object {
               "flex": 1,
               "width": "100%",
             }
           }
+          underlayColor="#f8f8f8"
         >
           <View
             style={
@@ -235,27 +104,40 @@ exports[`Settings view renders correctly for student 1`] = `
                 }
               }
             >
-              מופעל
+              [missing "he.settings.notifications_null" translation]
             </Text>
           </View>
-        </View>
-        <View
+        </TouchableHighlight>
+        <TouchableHighlight
+          activeOpacity={0.85}
+          delayPressOut={100}
+          onPress={[Function]}
           style={
             Object {
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "flexDirection": "row",
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
+              "flex": 1,
               "width": "100%",
             }
           }
+          underlayColor="#f8f8f8"
         >
-          <Text>
-            תמיכה
-          </Text>
-        </View>
-      </View>
+          <View
+            style={
+              Object {
+                "borderBottomColor": "#f7f7f7",
+                "borderBottomWidth": 1,
+                "flexDirection": "row",
+                "paddingHorizontal": 20,
+                "paddingVertical": 12,
+                "width": "100%",
+              }
+            }
+          >
+            <Text>
+              תמיכה
+            </Text>
+          </View>
+        </TouchableHighlight>
+      </ShadowRect>
       <Text
         style={
           Object {
@@ -267,641 +149,44 @@ exports[`Settings view renders correctly for student 1`] = `
       >
         פרטים אישיים (מלא רק שדות שברצונך לשנות)
       </Text>
-      <View
+      <ShadowRect
         style={
           Object {
-            "alignItems": "flex-start",
-            "backgroundColor": "#fff",
-            "borderRadius": 4,
-            "elevation": 6,
             "marginBottom": 24,
             "marginTop": 12,
             "paddingHorizontal": 0,
             "paddingVertical": 0,
-            "shadowColor": "#000",
-            "shadowOffset": Object {
-              "height": 6,
-              "width": 0,
-            },
-            "shadowOpacity": 0.09,
-            "shadowRadius": 20,
-            "width": "100%",
           }
         }
       >
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "flex-start",
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "opacity": 1,
-              "paddingBottom": 6,
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
-              "width": "100%",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "flexDirection": "row",
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "alignItems": "flex-start",
-                  "flex": 1,
-                  "flexDirection": "column",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "color": "#adadad",
-                    "fontSize": 14,
-                    "fontWeight": "bold",
-                  }
-                }
-              >
-                שם מלא בעברית
-              </Text>
-              <TextInput
-                allowFontScaling={true}
-                autoFocus={false}
-                onBlur={[Function]}
-                onChangeText={[Function]}
-                onFocus={[Function]}
-                rejectResponderTermination={true}
-                secureTextEntry={false}
-                style={
-                  Object {
-                    "padding": 6,
-                    "textAlign": "right",
-                  }
-                }
-                underlineColorAndroid="transparent"
-                value="test"
-              />
-            </View>
-            <View
-              style={
-                Object {
-                  "marginLeft": "auto",
-                  "marginTop": 8,
-                }
-              }
-            >
-              <View>
-                <View
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "backgroundColor": "transparent",
-                      "justifyContent": "center",
-                    }
-                  }
-                  theme={
-                    Object {
-                      "colors": Object {
-                        "disabled": "hsl(208, 8%, 90%)",
-                        "divider": "#bcbbc1",
-                        "error": "#ff190c",
-                        "grey0": "#393e42",
-                        "grey1": "#43484d",
-                        "grey2": "#5e6977",
-                        "grey3": "#86939e",
-                        "grey4": "#bdc6cf",
-                        "grey5": "#e1e8ee",
-                        "greyOutline": "#bbb",
-                        "platform": Object {
-                          "android": Object {
-                            "error": "#f44336",
-                            "primary": "#2196f3",
-                            "secondary": "#9C27B0",
-                            "success": "#4caf50",
-                            "warning": "#ffeb3b",
-                          },
-                          "ios": Object {
-                            "error": "#ff3b30",
-                            "primary": "#007aff",
-                            "secondary": "#5856d6",
-                            "success": "#4cd964",
-                            "warning": "#ffcc00",
-                          },
-                        },
-                        "primary": "#2089dc",
-                        "searchBg": "#303337",
-                        "secondary": "#8F0CE8",
-                        "success": "#52c41a",
-                        "warning": "#faad14",
-                      },
-                    }
-                  }
-                  underlayColor="white"
-                >
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      Array [
-                        Object {
-                          "color": "#adadad",
-                          "fontSize": 24,
-                        },
-                        Object {
-                          "backgroundColor": "transparent",
-                        },
-                        Object {
-                          "fontFamily": "Material Icons",
-                          "fontStyle": "normal",
-                          "fontWeight": "normal",
-                        },
-                        Object {},
-                      ]
-                    }
-                    testID="iconIcon"
-                  >
-                    
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "flex-start",
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "opacity": 1,
-              "paddingBottom": 6,
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
-              "width": "100%",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "flexDirection": "row",
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "alignItems": "flex-start",
-                  "flex": 1,
-                  "flexDirection": "column",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "color": "#adadad",
-                    "fontSize": 14,
-                    "fontWeight": "bold",
-                  }
-                }
-              >
-                איזור
-              </Text>
-              <TextInput
-                allowFontScaling={true}
-                autoFocus={false}
-                onBlur={[Function]}
-                onChangeText={[Function]}
-                onFocus={[Function]}
-                rejectResponderTermination={true}
-                secureTextEntry={false}
-                style={
-                  Object {
-                    "padding": 6,
-                    "textAlign": "right",
-                  }
-                }
-                underlineColorAndroid="transparent"
-                value="test"
-              />
-            </View>
-            <View
-              style={
-                Object {
-                  "marginLeft": "auto",
-                  "marginTop": 8,
-                }
-              }
-            >
-              <View>
-                <View
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "backgroundColor": "transparent",
-                      "justifyContent": "center",
-                    }
-                  }
-                  theme={
-                    Object {
-                      "colors": Object {
-                        "disabled": "hsl(208, 8%, 90%)",
-                        "divider": "#bcbbc1",
-                        "error": "#ff190c",
-                        "grey0": "#393e42",
-                        "grey1": "#43484d",
-                        "grey2": "#5e6977",
-                        "grey3": "#86939e",
-                        "grey4": "#bdc6cf",
-                        "grey5": "#e1e8ee",
-                        "greyOutline": "#bbb",
-                        "platform": Object {
-                          "android": Object {
-                            "error": "#f44336",
-                            "primary": "#2196f3",
-                            "secondary": "#9C27B0",
-                            "success": "#4caf50",
-                            "warning": "#ffeb3b",
-                          },
-                          "ios": Object {
-                            "error": "#ff3b30",
-                            "primary": "#007aff",
-                            "secondary": "#5856d6",
-                            "success": "#4cd964",
-                            "warning": "#ffcc00",
-                          },
-                        },
-                        "primary": "#2089dc",
-                        "searchBg": "#303337",
-                        "secondary": "#8F0CE8",
-                        "success": "#52c41a",
-                        "warning": "#faad14",
-                      },
-                    }
-                  }
-                  underlayColor="white"
-                >
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      Array [
-                        Object {
-                          "color": "#adadad",
-                          "fontSize": 24,
-                        },
-                        Object {
-                          "backgroundColor": "transparent",
-                        },
-                        Object {
-                          "fontFamily": "Material Icons",
-                          "fontStyle": "normal",
-                          "fontWeight": "normal",
-                        },
-                        Object {},
-                      ]
-                    }
-                    testID="iconIcon"
-                  >
-                    
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "flex-start",
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "opacity": 1,
-              "paddingBottom": 6,
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
-              "width": "100%",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "flexDirection": "row",
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "alignItems": "flex-start",
-                  "flex": 1,
-                  "flexDirection": "column",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "color": "#adadad",
-                    "fontSize": 14,
-                    "fontWeight": "bold",
-                  }
-                }
-              >
-                מספר נייד
-              </Text>
-              <TextInput
-                allowFontScaling={true}
-                autoFocus={false}
-                onBlur={[Function]}
-                onChangeText={[Function]}
-                onFocus={[Function]}
-                rejectResponderTermination={true}
-                secureTextEntry={false}
-                style={
-                  Object {
-                    "padding": 6,
-                    "textAlign": "right",
-                  }
-                }
-                underlineColorAndroid="transparent"
-                value="05501111"
-              />
-            </View>
-            <View
-              style={
-                Object {
-                  "marginLeft": "auto",
-                  "marginTop": 8,
-                }
-              }
-            >
-              <View>
-                <View
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "backgroundColor": "transparent",
-                      "justifyContent": "center",
-                    }
-                  }
-                  theme={
-                    Object {
-                      "colors": Object {
-                        "disabled": "hsl(208, 8%, 90%)",
-                        "divider": "#bcbbc1",
-                        "error": "#ff190c",
-                        "grey0": "#393e42",
-                        "grey1": "#43484d",
-                        "grey2": "#5e6977",
-                        "grey3": "#86939e",
-                        "grey4": "#bdc6cf",
-                        "grey5": "#e1e8ee",
-                        "greyOutline": "#bbb",
-                        "platform": Object {
-                          "android": Object {
-                            "error": "#f44336",
-                            "primary": "#2196f3",
-                            "secondary": "#9C27B0",
-                            "success": "#4caf50",
-                            "warning": "#ffeb3b",
-                          },
-                          "ios": Object {
-                            "error": "#ff3b30",
-                            "primary": "#007aff",
-                            "secondary": "#5856d6",
-                            "success": "#4cd964",
-                            "warning": "#ffcc00",
-                          },
-                        },
-                        "primary": "#2089dc",
-                        "searchBg": "#303337",
-                        "secondary": "#8F0CE8",
-                        "success": "#52c41a",
-                        "warning": "#faad14",
-                      },
-                    }
-                  }
-                  underlayColor="white"
-                >
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      Array [
-                        Object {
-                          "color": "#adadad",
-                          "fontSize": 24,
-                        },
-                        Object {
-                          "backgroundColor": "transparent",
-                        },
-                        Object {
-                          "fontFamily": "Material Icons",
-                          "fontStyle": "normal",
-                          "fontWeight": "normal",
-                        },
-                        Object {},
-                      ]
-                    }
-                    testID="iconIcon"
-                  >
-                    
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "flex-start",
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "opacity": 1,
-              "paddingBottom": 6,
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
-              "width": "100%",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "flexDirection": "row",
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "alignItems": "flex-start",
-                  "flex": 1,
-                  "flexDirection": "column",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "color": "#adadad",
-                    "fontSize": 14,
-                    "fontWeight": "bold",
-                  }
-                }
-              >
-                סיסמה
-              </Text>
-              <TextInput
-                allowFontScaling={true}
-                autoFocus={false}
-                onBlur={[Function]}
-                onChangeText={[Function]}
-                onFocus={[Function]}
-                rejectResponderTermination={true}
-                secureTextEntry={true}
-                style={
-                  Object {
-                    "padding": 6,
-                    "textAlign": "right",
-                  }
-                }
-                underlineColorAndroid="transparent"
-                value=""
-              />
-            </View>
-            <View
-              style={
-                Object {
-                  "marginLeft": "auto",
-                  "marginTop": 8,
-                }
-              }
-            >
-              <View>
-                <View
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "backgroundColor": "transparent",
-                      "justifyContent": "center",
-                    }
-                  }
-                  theme={
-                    Object {
-                      "colors": Object {
-                        "disabled": "hsl(208, 8%, 90%)",
-                        "divider": "#bcbbc1",
-                        "error": "#ff190c",
-                        "grey0": "#393e42",
-                        "grey1": "#43484d",
-                        "grey2": "#5e6977",
-                        "grey3": "#86939e",
-                        "grey4": "#bdc6cf",
-                        "grey5": "#e1e8ee",
-                        "greyOutline": "#bbb",
-                        "platform": Object {
-                          "android": Object {
-                            "error": "#f44336",
-                            "primary": "#2196f3",
-                            "secondary": "#9C27B0",
-                            "success": "#4caf50",
-                            "warning": "#ffeb3b",
-                          },
-                          "ios": Object {
-                            "error": "#ff3b30",
-                            "primary": "#007aff",
-                            "secondary": "#5856d6",
-                            "success": "#4cd964",
-                            "warning": "#ffcc00",
-                          },
-                        },
-                        "primary": "#2089dc",
-                        "searchBg": "#303337",
-                        "secondary": "#8F0CE8",
-                        "success": "#52c41a",
-                        "warning": "#faad14",
-                      },
-                    }
-                  }
-                  underlayColor="white"
-                >
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      Array [
-                        Object {
-                          "color": "#adadad",
-                          "fontSize": 24,
-                        },
-                        Object {
-                          "backgroundColor": "transparent",
-                        },
-                        Object {
-                          "fontFamily": "Material Icons",
-                          "fontStyle": "normal",
-                          "fontWeight": "normal",
-                        },
-                        Object {},
-                      ]
-                    }
-                    testID="iconIcon"
-                  >
-                    
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+        <RectInput
+          iconName="person"
+          label="שם מלא בעברית"
+          onChangeText={[Function]}
+          value="test"
+        />
+        <RectInput
+          iconName="person-pin"
+          label="איזור"
+          onChangeText={[Function]}
+          value="test"
+        />
+        <RectInput
+          iconName="phone"
+          label="מספר נייד"
+          onChangeText={[Function]}
+          value="05501111"
+        />
+        <RectInput
+          iconName="security"
+          label="סיסמה"
+          onChangeText={[Function]}
+          secureTextEntry={true}
+          value=""
+        />
+        <TouchableOpacity
+          activeOpacity={0.2}
+          onPress={[Function]}
           style={
             Object {
               "alignItems": "center",
@@ -910,7 +195,6 @@ exports[`Settings view renders correctly for student 1`] = `
               "elevation": 8,
               "height": 56,
               "justifyContent": "center",
-              "opacity": 1,
               "shadowColor": "rgb(12,116,244)",
               "shadowOffset": Object {
                 "height": 8,
@@ -935,22 +219,11 @@ exports[`Settings view renders correctly for student 1`] = `
               שמור
             </Text>
           </View>
-        </View>
-      </View>
-      <View
-        accessible={true}
-        isTVSelectable={true}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-          }
-        }
+        </TouchableOpacity>
+      </ShadowRect>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
       >
         <Text
           style={
@@ -964,18 +237,27 @@ exports[`Settings view renders correctly for student 1`] = `
         >
           התנתק
         </Text>
-      </View>
+      </TouchableOpacity>
     </View>
-  </View>
-</RCTScrollView>
+  </ScrollViewMock>
+</KeyboardAvoidingView>
 `;
 
 exports[`Settings view renders correctly for teacher 1`] = `
-<RCTScrollView
-  keyboardDismissMode="on-drag"
-  keyboardShouldPersistTaps="always"
+<KeyboardAvoidingView
+  behavior="padding"
+  enabled={true}
+  keyboardVerticalOffset={0}
 >
-  <View>
+  <ScrollViewMock
+    keyboardDismissMode="on-drag"
+    keyboardShouldPersistTaps="always"
+  >
+    <ContactPopup
+      onPress={[Function]}
+      phone="0544440047"
+      visible={false}
+    />
     <View
       style={
         Object {
@@ -987,151 +269,27 @@ exports[`Settings view renders correctly for teacher 1`] = `
         }
       }
     >
-      <View
-        style={
-          Object {
-            "alignItems": "center",
-            "flexDirection": "row",
-          }
-        }
-      >
-        <Text
-          style={
-            Object {
-              "alignSelf": "flex-start",
-              "fontSize": 20,
-              "fontWeight": "bold",
-              "marginBottom": 20,
+      <PageTitle
+        leftSide={
+          <ForwardRef(Themed.Button)
+            icon={
+              <Themed.Icon
+                name="ios-close"
+                size={36}
+                type="ionicon"
+              />
             }
-          }
-        >
-          הגדרות
-        </Text>
-        <View
-          style={
-            Object {
-              "alignItems": "flex-end",
-              "flex": 1,
-              "marginLeft": "auto",
-              "marginTop": -5,
-            }
-          }
-        >
-          <View
+            onPress={[Function]}
             style={
               Object {
-                "borderRadius": 3,
+                "marginTop": -6,
               }
             }
-          >
-            <View
-              accessible={true}
-              isTVSelectable={true}
-              onResponderGrant={[Function]}
-              onResponderMove={[Function]}
-              onResponderRelease={[Function]}
-              onResponderTerminate={[Function]}
-              onResponderTerminationRequest={[Function]}
-              onStartShouldSetResponder={[Function]}
-              style={
-                Object {
-                  "marginTop": -6,
-                  "opacity": 1,
-                }
-              }
-            >
-              <View
-                style={
-                  Object {
-                    "alignItems": "center",
-                    "backgroundColor": "transparent",
-                    "borderColor": "#2089dc",
-                    "borderRadius": 3,
-                    "borderWidth": 0,
-                    "flexDirection": "row",
-                    "justifyContent": "center",
-                    "padding": 8,
-                  }
-                }
-              >
-                <View>
-                  <View
-                    style={
-                      Object {
-                        "alignItems": "center",
-                        "backgroundColor": "transparent",
-                        "justifyContent": "center",
-                      }
-                    }
-                    theme={
-                      Object {
-                        "colors": Object {
-                          "disabled": "hsl(208, 8%, 90%)",
-                          "divider": "#bcbbc1",
-                          "error": "#ff190c",
-                          "grey0": "#393e42",
-                          "grey1": "#43484d",
-                          "grey2": "#5e6977",
-                          "grey3": "#86939e",
-                          "grey4": "#bdc6cf",
-                          "grey5": "#e1e8ee",
-                          "greyOutline": "#bbb",
-                          "platform": Object {
-                            "android": Object {
-                              "error": "#f44336",
-                              "primary": "#2196f3",
-                              "secondary": "#9C27B0",
-                              "success": "#4caf50",
-                              "warning": "#ffeb3b",
-                            },
-                            "ios": Object {
-                              "error": "#ff3b30",
-                              "primary": "#007aff",
-                              "secondary": "#5856d6",
-                              "success": "#4cd964",
-                              "warning": "#ffcc00",
-                            },
-                          },
-                          "primary": "#2089dc",
-                          "searchBg": "#303337",
-                          "secondary": "#8F0CE8",
-                          "success": "#52c41a",
-                          "warning": "#faad14",
-                        },
-                      }
-                    }
-                    underlayColor="white"
-                  >
-                    <Text
-                      allowFontScaling={false}
-                      style={
-                        Array [
-                          Object {
-                            "color": "black",
-                            "fontSize": 36,
-                          },
-                          Object {
-                            "backgroundColor": "transparent",
-                          },
-                          Object {
-                            "fontFamily": "Ionicons",
-                            "fontStyle": "normal",
-                            "fontWeight": "normal",
-                          },
-                          Object {},
-                        ]
-                      }
-                      testID="iconIcon"
-                    >
-                      
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-      </View>
+            type="clear"
+          />
+        }
+        title="הגדרות"
+      />
       <Text
         style={
           Object {
@@ -1143,43 +301,27 @@ exports[`Settings view renders correctly for teacher 1`] = `
       >
         כללי
       </Text>
-      <View
+      <ShadowRect
         style={
           Object {
-            "alignItems": "flex-start",
-            "backgroundColor": "#fff",
-            "borderRadius": 4,
-            "elevation": 6,
             "marginBottom": 24,
             "marginTop": 12,
             "paddingHorizontal": 0,
             "paddingVertical": 0,
-            "shadowColor": "#000",
-            "shadowOffset": Object {
-              "height": 6,
-              "width": 0,
-            },
-            "shadowOpacity": 0.09,
-            "shadowRadius": 20,
-            "width": "100%",
           }
         }
       >
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+        <TouchableHighlight
+          activeOpacity={0.85}
+          delayPressOut={100}
+          onPress={[Function]}
           style={
             Object {
               "flex": 1,
               "width": "100%",
             }
           }
+          underlayColor="#f8f8f8"
         >
           <View
             style={
@@ -1197,22 +339,18 @@ exports[`Settings view renders correctly for teacher 1`] = `
               שעות עבודה
             </Text>
           </View>
-        </View>
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+        </TouchableHighlight>
+        <TouchableHighlight
+          activeOpacity={0.85}
+          delayPressOut={100}
+          onPress={[Function]}
           style={
             Object {
               "flex": 1,
               "width": "100%",
             }
           }
+          underlayColor="#f8f8f8"
         >
           <View
             style={
@@ -1230,22 +368,18 @@ exports[`Settings view renders correctly for teacher 1`] = `
               ניהול הוצאות
             </Text>
           </View>
-        </View>
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+        </TouchableHighlight>
+        <TouchableHighlight
+          activeOpacity={0.85}
+          delayPressOut={100}
+          onPress={[Function]}
           style={
             Object {
               "flex": 1,
               "width": "100%",
             }
           }
+          underlayColor="#f8f8f8"
         >
           <View
             style={
@@ -1263,22 +397,18 @@ exports[`Settings view renders correctly for teacher 1`] = `
               הפקת דוחות
             </Text>
           </View>
-        </View>
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+        </TouchableHighlight>
+        <TouchableHighlight
+          activeOpacity={0.85}
+          delayPressOut={100}
+          onPress={[Function]}
           style={
             Object {
               "flex": 1,
               "width": "100%",
             }
           }
+          underlayColor="#f8f8f8"
         >
           <View
             style={
@@ -1304,27 +434,40 @@ exports[`Settings view renders correctly for teacher 1`] = `
                 }
               }
             >
-              מופעל
+              [missing "he.settings.notifications_null" translation]
             </Text>
           </View>
-        </View>
-        <View
+        </TouchableHighlight>
+        <TouchableHighlight
+          activeOpacity={0.85}
+          delayPressOut={100}
+          onPress={[Function]}
           style={
             Object {
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "flexDirection": "row",
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
+              "flex": 1,
               "width": "100%",
             }
           }
+          underlayColor="#f8f8f8"
         >
-          <Text>
-            תמיכה
-          </Text>
-        </View>
-      </View>
+          <View
+            style={
+              Object {
+                "borderBottomColor": "#f7f7f7",
+                "borderBottomWidth": 1,
+                "flexDirection": "row",
+                "paddingHorizontal": 20,
+                "paddingVertical": 12,
+                "width": "100%",
+              }
+            }
+          >
+            <Text>
+              תמיכה
+            </Text>
+          </View>
+        </TouchableHighlight>
+      </ShadowRect>
       <Text
         style={
           Object {
@@ -1336,943 +479,56 @@ exports[`Settings view renders correctly for teacher 1`] = `
       >
         פרטים אישיים (מלא רק שדות שברצונך לשנות)
       </Text>
-      <View
+      <ShadowRect
         style={
           Object {
-            "alignItems": "flex-start",
-            "backgroundColor": "#fff",
-            "borderRadius": 4,
-            "elevation": 6,
             "marginBottom": 24,
             "marginTop": 12,
             "paddingHorizontal": 0,
             "paddingVertical": 0,
-            "shadowColor": "#000",
-            "shadowOffset": Object {
-              "height": 6,
-              "width": 0,
-            },
-            "shadowOpacity": 0.09,
-            "shadowRadius": 20,
-            "width": "100%",
           }
         }
       >
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "flex-start",
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "opacity": 1,
-              "paddingBottom": 6,
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
-              "width": "100%",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "flexDirection": "row",
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "alignItems": "flex-start",
-                  "flex": 1,
-                  "flexDirection": "column",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "color": "#adadad",
-                    "fontSize": 14,
-                    "fontWeight": "bold",
-                  }
-                }
-              >
-                שם מלא בעברית
-              </Text>
-              <TextInput
-                allowFontScaling={true}
-                autoFocus={false}
-                onBlur={[Function]}
-                onChangeText={[Function]}
-                onFocus={[Function]}
-                rejectResponderTermination={true}
-                secureTextEntry={false}
-                style={
-                  Object {
-                    "padding": 6,
-                    "textAlign": "right",
-                  }
-                }
-                underlineColorAndroid="transparent"
-                value="test"
-              />
-            </View>
-            <View
-              style={
-                Object {
-                  "marginLeft": "auto",
-                  "marginTop": 8,
-                }
-              }
-            >
-              <View>
-                <View
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "backgroundColor": "transparent",
-                      "justifyContent": "center",
-                    }
-                  }
-                  theme={
-                    Object {
-                      "colors": Object {
-                        "disabled": "hsl(208, 8%, 90%)",
-                        "divider": "#bcbbc1",
-                        "error": "#ff190c",
-                        "grey0": "#393e42",
-                        "grey1": "#43484d",
-                        "grey2": "#5e6977",
-                        "grey3": "#86939e",
-                        "grey4": "#bdc6cf",
-                        "grey5": "#e1e8ee",
-                        "greyOutline": "#bbb",
-                        "platform": Object {
-                          "android": Object {
-                            "error": "#f44336",
-                            "primary": "#2196f3",
-                            "secondary": "#9C27B0",
-                            "success": "#4caf50",
-                            "warning": "#ffeb3b",
-                          },
-                          "ios": Object {
-                            "error": "#ff3b30",
-                            "primary": "#007aff",
-                            "secondary": "#5856d6",
-                            "success": "#4cd964",
-                            "warning": "#ffcc00",
-                          },
-                        },
-                        "primary": "#2089dc",
-                        "searchBg": "#303337",
-                        "secondary": "#8F0CE8",
-                        "success": "#52c41a",
-                        "warning": "#faad14",
-                      },
-                    }
-                  }
-                  underlayColor="white"
-                >
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      Array [
-                        Object {
-                          "color": "#adadad",
-                          "fontSize": 24,
-                        },
-                        Object {
-                          "backgroundColor": "transparent",
-                        },
-                        Object {
-                          "fontFamily": "Material Icons",
-                          "fontStyle": "normal",
-                          "fontWeight": "normal",
-                        },
-                        Object {},
-                      ]
-                    }
-                    testID="iconIcon"
-                  >
-                    
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "flex-start",
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "opacity": 1,
-              "paddingBottom": 6,
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
-              "width": "100%",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "flexDirection": "row",
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "alignItems": "flex-start",
-                  "flex": 1,
-                  "flexDirection": "column",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "color": "#adadad",
-                    "fontSize": 14,
-                    "fontWeight": "bold",
-                  }
-                }
-              >
-                איזור
-              </Text>
-              <TextInput
-                allowFontScaling={true}
-                autoFocus={false}
-                onBlur={[Function]}
-                onChangeText={[Function]}
-                onFocus={[Function]}
-                rejectResponderTermination={true}
-                secureTextEntry={false}
-                style={
-                  Object {
-                    "padding": 6,
-                    "textAlign": "right",
-                  }
-                }
-                underlineColorAndroid="transparent"
-                value="test"
-              />
-            </View>
-            <View
-              style={
-                Object {
-                  "marginLeft": "auto",
-                  "marginTop": 8,
-                }
-              }
-            >
-              <View>
-                <View
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "backgroundColor": "transparent",
-                      "justifyContent": "center",
-                    }
-                  }
-                  theme={
-                    Object {
-                      "colors": Object {
-                        "disabled": "hsl(208, 8%, 90%)",
-                        "divider": "#bcbbc1",
-                        "error": "#ff190c",
-                        "grey0": "#393e42",
-                        "grey1": "#43484d",
-                        "grey2": "#5e6977",
-                        "grey3": "#86939e",
-                        "grey4": "#bdc6cf",
-                        "grey5": "#e1e8ee",
-                        "greyOutline": "#bbb",
-                        "platform": Object {
-                          "android": Object {
-                            "error": "#f44336",
-                            "primary": "#2196f3",
-                            "secondary": "#9C27B0",
-                            "success": "#4caf50",
-                            "warning": "#ffeb3b",
-                          },
-                          "ios": Object {
-                            "error": "#ff3b30",
-                            "primary": "#007aff",
-                            "secondary": "#5856d6",
-                            "success": "#4cd964",
-                            "warning": "#ffcc00",
-                          },
-                        },
-                        "primary": "#2089dc",
-                        "searchBg": "#303337",
-                        "secondary": "#8F0CE8",
-                        "success": "#52c41a",
-                        "warning": "#faad14",
-                      },
-                    }
-                  }
-                  underlayColor="white"
-                >
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      Array [
-                        Object {
-                          "color": "#adadad",
-                          "fontSize": 24,
-                        },
-                        Object {
-                          "backgroundColor": "transparent",
-                        },
-                        Object {
-                          "fontFamily": "Material Icons",
-                          "fontStyle": "normal",
-                          "fontWeight": "normal",
-                        },
-                        Object {},
-                      ]
-                    }
-                    testID="iconIcon"
-                  >
-                    
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "flex-start",
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "opacity": 1,
-              "paddingBottom": 6,
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
-              "width": "100%",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "flexDirection": "row",
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "alignItems": "flex-start",
-                  "flex": 1,
-                  "flexDirection": "column",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "color": "#adadad",
-                    "fontSize": 14,
-                    "fontWeight": "bold",
-                  }
-                }
-              >
-                מספר נייד
-              </Text>
-              <TextInput
-                allowFontScaling={true}
-                autoFocus={false}
-                onBlur={[Function]}
-                onChangeText={[Function]}
-                onFocus={[Function]}
-                rejectResponderTermination={true}
-                secureTextEntry={false}
-                style={
-                  Object {
-                    "padding": 6,
-                    "textAlign": "right",
-                  }
-                }
-                underlineColorAndroid="transparent"
-                value="05501111"
-              />
-            </View>
-            <View
-              style={
-                Object {
-                  "marginLeft": "auto",
-                  "marginTop": 8,
-                }
-              }
-            >
-              <View>
-                <View
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "backgroundColor": "transparent",
-                      "justifyContent": "center",
-                    }
-                  }
-                  theme={
-                    Object {
-                      "colors": Object {
-                        "disabled": "hsl(208, 8%, 90%)",
-                        "divider": "#bcbbc1",
-                        "error": "#ff190c",
-                        "grey0": "#393e42",
-                        "grey1": "#43484d",
-                        "grey2": "#5e6977",
-                        "grey3": "#86939e",
-                        "grey4": "#bdc6cf",
-                        "grey5": "#e1e8ee",
-                        "greyOutline": "#bbb",
-                        "platform": Object {
-                          "android": Object {
-                            "error": "#f44336",
-                            "primary": "#2196f3",
-                            "secondary": "#9C27B0",
-                            "success": "#4caf50",
-                            "warning": "#ffeb3b",
-                          },
-                          "ios": Object {
-                            "error": "#ff3b30",
-                            "primary": "#007aff",
-                            "secondary": "#5856d6",
-                            "success": "#4cd964",
-                            "warning": "#ffcc00",
-                          },
-                        },
-                        "primary": "#2089dc",
-                        "searchBg": "#303337",
-                        "secondary": "#8F0CE8",
-                        "success": "#52c41a",
-                        "warning": "#faad14",
-                      },
-                    }
-                  }
-                  underlayColor="white"
-                >
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      Array [
-                        Object {
-                          "color": "#adadad",
-                          "fontSize": 24,
-                        },
-                        Object {
-                          "backgroundColor": "transparent",
-                        },
-                        Object {
-                          "fontFamily": "Material Icons",
-                          "fontStyle": "normal",
-                          "fontWeight": "normal",
-                        },
-                        Object {},
-                      ]
-                    }
-                    testID="iconIcon"
-                  >
-                    
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "flex-start",
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "opacity": 1,
-              "paddingBottom": 6,
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
-              "width": "100%",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "flexDirection": "row",
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "alignItems": "flex-start",
-                  "flex": 1,
-                  "flexDirection": "column",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "color": "#adadad",
-                    "fontSize": 14,
-                    "fontWeight": "bold",
-                  }
-                }
-              >
-                תמחור שיעור
-              </Text>
-              <TextInput
-                allowFontScaling={true}
-                autoFocus={false}
-                onBlur={[Function]}
-                onChangeText={[Function]}
-                onFocus={[Function]}
-                rejectResponderTermination={true}
-                secureTextEntry={false}
-                style={
-                  Object {
-                    "padding": 6,
-                    "textAlign": "right",
-                  }
-                }
-                underlineColorAndroid="transparent"
-                value="1000"
-              />
-            </View>
-            <View
-              style={
-                Object {
-                  "marginLeft": "auto",
-                  "marginTop": 8,
-                }
-              }
-            >
-              <View>
-                <View
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "backgroundColor": "transparent",
-                      "justifyContent": "center",
-                    }
-                  }
-                  theme={
-                    Object {
-                      "colors": Object {
-                        "disabled": "hsl(208, 8%, 90%)",
-                        "divider": "#bcbbc1",
-                        "error": "#ff190c",
-                        "grey0": "#393e42",
-                        "grey1": "#43484d",
-                        "grey2": "#5e6977",
-                        "grey3": "#86939e",
-                        "grey4": "#bdc6cf",
-                        "grey5": "#e1e8ee",
-                        "greyOutline": "#bbb",
-                        "platform": Object {
-                          "android": Object {
-                            "error": "#f44336",
-                            "primary": "#2196f3",
-                            "secondary": "#9C27B0",
-                            "success": "#4caf50",
-                            "warning": "#ffeb3b",
-                          },
-                          "ios": Object {
-                            "error": "#ff3b30",
-                            "primary": "#007aff",
-                            "secondary": "#5856d6",
-                            "success": "#4cd964",
-                            "warning": "#ffcc00",
-                          },
-                        },
-                        "primary": "#2089dc",
-                        "searchBg": "#303337",
-                        "secondary": "#8F0CE8",
-                        "success": "#52c41a",
-                        "warning": "#faad14",
-                      },
-                    }
-                  }
-                  underlayColor="white"
-                >
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      Array [
-                        Object {
-                          "color": "#adadad",
-                          "fontSize": 24,
-                        },
-                        Object {
-                          "backgroundColor": "transparent",
-                        },
-                        Object {
-                          "fontFamily": "Material Icons",
-                          "fontStyle": "normal",
-                          "fontWeight": "normal",
-                        },
-                        Object {},
-                      ]
-                    }
-                    testID="iconIcon"
-                  >
-                    
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "flex-start",
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "opacity": 1,
-              "paddingBottom": 6,
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
-              "width": "100%",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "flexDirection": "row",
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "alignItems": "flex-start",
-                  "flex": 1,
-                  "flexDirection": "column",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "color": "#adadad",
-                    "fontSize": 14,
-                    "fontWeight": "bold",
-                  }
-                }
-              >
-                זמן שיעור
-              </Text>
-              <TextInput
-                allowFontScaling={true}
-                autoFocus={false}
-                onBlur={[Function]}
-                onChangeText={[Function]}
-                onFocus={[Function]}
-                rejectResponderTermination={true}
-                secureTextEntry={false}
-                style={
-                  Object {
-                    "padding": 6,
-                    "textAlign": "right",
-                  }
-                }
-                underlineColorAndroid="transparent"
-                value="40"
-              />
-            </View>
-            <View
-              style={
-                Object {
-                  "marginLeft": "auto",
-                  "marginTop": 8,
-                }
-              }
-            >
-              <View>
-                <View
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "backgroundColor": "transparent",
-                      "justifyContent": "center",
-                    }
-                  }
-                  theme={
-                    Object {
-                      "colors": Object {
-                        "disabled": "hsl(208, 8%, 90%)",
-                        "divider": "#bcbbc1",
-                        "error": "#ff190c",
-                        "grey0": "#393e42",
-                        "grey1": "#43484d",
-                        "grey2": "#5e6977",
-                        "grey3": "#86939e",
-                        "grey4": "#bdc6cf",
-                        "grey5": "#e1e8ee",
-                        "greyOutline": "#bbb",
-                        "platform": Object {
-                          "android": Object {
-                            "error": "#f44336",
-                            "primary": "#2196f3",
-                            "secondary": "#9C27B0",
-                            "success": "#4caf50",
-                            "warning": "#ffeb3b",
-                          },
-                          "ios": Object {
-                            "error": "#ff3b30",
-                            "primary": "#007aff",
-                            "secondary": "#5856d6",
-                            "success": "#4cd964",
-                            "warning": "#ffcc00",
-                          },
-                        },
-                        "primary": "#2089dc",
-                        "searchBg": "#303337",
-                        "secondary": "#8F0CE8",
-                        "success": "#52c41a",
-                        "warning": "#faad14",
-                      },
-                    }
-                  }
-                  underlayColor="white"
-                >
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      Array [
-                        Object {
-                          "color": "#adadad",
-                          "fontSize": 24,
-                        },
-                        Object {
-                          "backgroundColor": "transparent",
-                        },
-                        Object {
-                          "fontFamily": "Material Icons",
-                          "fontStyle": "normal",
-                          "fontWeight": "normal",
-                        },
-                        Object {},
-                      ]
-                    }
-                    testID="iconIcon"
-                  >
-                    
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
-          style={
-            Object {
-              "alignItems": "flex-start",
-              "borderBottomColor": "#f7f7f7",
-              "borderBottomWidth": 1,
-              "opacity": 1,
-              "paddingBottom": 6,
-              "paddingHorizontal": 20,
-              "paddingVertical": 12,
-              "width": "100%",
-            }
-          }
-        >
-          <View
-            style={
-              Object {
-                "flexDirection": "row",
-              }
-            }
-          >
-            <View
-              style={
-                Object {
-                  "alignItems": "flex-start",
-                  "flex": 1,
-                  "flexDirection": "column",
-                }
-              }
-            >
-              <Text
-                style={
-                  Object {
-                    "color": "#adadad",
-                    "fontSize": 14,
-                    "fontWeight": "bold",
-                  }
-                }
-              >
-                סיסמה
-              </Text>
-              <TextInput
-                allowFontScaling={true}
-                autoFocus={false}
-                onBlur={[Function]}
-                onChangeText={[Function]}
-                onFocus={[Function]}
-                rejectResponderTermination={true}
-                secureTextEntry={true}
-                style={
-                  Object {
-                    "padding": 6,
-                    "textAlign": "right",
-                  }
-                }
-                underlineColorAndroid="transparent"
-                value=""
-              />
-            </View>
-            <View
-              style={
-                Object {
-                  "marginLeft": "auto",
-                  "marginTop": 8,
-                }
-              }
-            >
-              <View>
-                <View
-                  style={
-                    Object {
-                      "alignItems": "center",
-                      "backgroundColor": "transparent",
-                      "justifyContent": "center",
-                    }
-                  }
-                  theme={
-                    Object {
-                      "colors": Object {
-                        "disabled": "hsl(208, 8%, 90%)",
-                        "divider": "#bcbbc1",
-                        "error": "#ff190c",
-                        "grey0": "#393e42",
-                        "grey1": "#43484d",
-                        "grey2": "#5e6977",
-                        "grey3": "#86939e",
-                        "grey4": "#bdc6cf",
-                        "grey5": "#e1e8ee",
-                        "greyOutline": "#bbb",
-                        "platform": Object {
-                          "android": Object {
-                            "error": "#f44336",
-                            "primary": "#2196f3",
-                            "secondary": "#9C27B0",
-                            "success": "#4caf50",
-                            "warning": "#ffeb3b",
-                          },
-                          "ios": Object {
-                            "error": "#ff3b30",
-                            "primary": "#007aff",
-                            "secondary": "#5856d6",
-                            "success": "#4cd964",
-                            "warning": "#ffcc00",
-                          },
-                        },
-                        "primary": "#2089dc",
-                        "searchBg": "#303337",
-                        "secondary": "#8F0CE8",
-                        "success": "#52c41a",
-                        "warning": "#faad14",
-                      },
-                    }
-                  }
-                  underlayColor="white"
-                >
-                  <Text
-                    allowFontScaling={false}
-                    style={
-                      Array [
-                        Object {
-                          "color": "#adadad",
-                          "fontSize": 24,
-                        },
-                        Object {
-                          "backgroundColor": "transparent",
-                        },
-                        Object {
-                          "fontFamily": "Material Icons",
-                          "fontStyle": "normal",
-                          "fontWeight": "normal",
-                        },
-                        Object {},
-                      ]
-                    }
-                    testID="iconIcon"
-                  >
-                    
-                  </Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View>
-        <View
-          accessible={true}
-          isTVSelectable={true}
-          onResponderGrant={[Function]}
-          onResponderMove={[Function]}
-          onResponderRelease={[Function]}
-          onResponderTerminate={[Function]}
-          onResponderTerminationRequest={[Function]}
-          onStartShouldSetResponder={[Function]}
+        <RectInput
+          iconName="person"
+          label="שם מלא בעברית"
+          onChangeText={[Function]}
+          value="test"
+        />
+        <RectInput
+          iconName="person-pin"
+          label="איזור"
+          onChangeText={[Function]}
+          value="test"
+        />
+        <RectInput
+          iconName="phone"
+          label="מספר נייד"
+          onChangeText={[Function]}
+          value="05501111"
+        />
+        <RectInput
+          iconName="payment"
+          label="תמחור שיעור"
+          onChangeText={[Function]}
+          value="1000"
+        />
+        <RectInput
+          iconName="access-time"
+          label="זמן שיעור"
+          onChangeText={[Function]}
+          value="40"
+        />
+        <RectInput
+          iconName="security"
+          label="סיסמה"
+          onChangeText={[Function]}
+          secureTextEntry={true}
+          value=""
+        />
+        <TouchableOpacity
+          activeOpacity={0.2}
+          onPress={[Function]}
           style={
             Object {
               "alignItems": "center",
@@ -2281,7 +537,6 @@ exports[`Settings view renders correctly for teacher 1`] = `
               "elevation": 8,
               "height": 56,
               "justifyContent": "center",
-              "opacity": 1,
               "shadowColor": "rgb(12,116,244)",
               "shadowOffset": Object {
                 "height": 8,
@@ -2306,22 +561,11 @@ exports[`Settings view renders correctly for teacher 1`] = `
               שמור
             </Text>
           </View>
-        </View>
-      </View>
-      <View
-        accessible={true}
-        isTVSelectable={true}
-        onResponderGrant={[Function]}
-        onResponderMove={[Function]}
-        onResponderRelease={[Function]}
-        onResponderTerminate={[Function]}
-        onResponderTerminationRequest={[Function]}
-        onStartShouldSetResponder={[Function]}
-        style={
-          Object {
-            "opacity": 1,
-          }
-        }
+        </TouchableOpacity>
+      </ShadowRect>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
       >
         <Text
           style={
@@ -2335,8 +579,8 @@ exports[`Settings view renders correctly for teacher 1`] = `
         >
           התנתק
         </Text>
-      </View>
+      </TouchableOpacity>
     </View>
-  </View>
-</RCTScrollView>
+  </ScrollViewMock>
+</KeyboardAvoidingView>
 `;

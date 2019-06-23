@@ -23,8 +23,7 @@ import {
 import { Icon } from "react-native-elements"
 import DateTimePicker from "react-native-modal-datetime-picker"
 import moment from "moment"
-import { API_ERROR } from "../../reducers/consts"
-import { fetchOrError, popLatestError } from "../../actions/utils"
+import { fetchOrError } from "../../actions/utils"
 
 const DEFAULT_HOURS = {
 	from_hour: 5,
@@ -240,13 +239,6 @@ export class WorkDays extends React.Component {
 		})
 	}
 
-	componentDidUpdate() {
-		const error = this.props.dispatch(popLatestError(API_ERROR))
-		if (error) {
-			Alert.alert(strings("errors.title"), errors(error))
-		}
-	}
-
 	save = async () => {
 		// don't send the non-changed days for better efficiency
 		const resp = await this.props.dispatch(
@@ -392,7 +384,7 @@ const styles = StyleSheet.create({
 })
 function mapStateToProps(state) {
 	return {
-		errors: state.errors,
+		error: state.error,
 		fetchService: state.fetchService
 	}
 }

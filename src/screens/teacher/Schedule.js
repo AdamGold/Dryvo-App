@@ -175,21 +175,17 @@ export class Schedule extends React.Component {
 
 	_renderLesson(item) {
 		let student = strings("teacher.no_student_applied")
-		let user = null
 		if (item.student) {
 			student =
-				item.student.user.name.slice(0, NAME_LENGTH) +
+				item.student.name.slice(0, NAME_LENGTH) +
 				" " +
 				strings("teacher.schedule.lesson_number", {
 					num: item.lesson_number
 				})
-			user = item.student.user
 		}
 		const date = item.date
-		let meetup = strings("not_set")
-		if (item.meetup_place) meetup = item.meetup_place.name
-		let dropoff = strings("not_set")
-		if (item.dropoff_place) dropoff = item.dropoff_place.name
+		const meetup = item.meetup_place || strings("not_set")
+		const dropoff = item.dropoff_place || strings("not_set")
 		const visible = this.state.visible.includes(item.id) ? true : false
 		return (
 			<Fragment key={item.id}>
@@ -198,7 +194,7 @@ export class Schedule extends React.Component {
 						style={styles.row}
 						leftSide={
 							<UserPic
-								user={user}
+								user={item.student}
 								style={styles.imageStyle}
 								width={44}
 								height={44}

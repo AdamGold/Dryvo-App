@@ -4,8 +4,8 @@ import renderer from "react-test-renderer"
 
 import ShowReceipt from "../../src/components/ShowReceipt"
 
-const teacher = { name: "test", teacher_id: 1 }
-const student = { name: "student", my_teacher: teacher }
+const teacher = { name: "test", teacher_id: 1, is_approved: true }
+const student = { name: "student", my_teacher: teacher, is_approved: true }
 const item1 = { amount: 100, details: "test", payment_type: "cash" }
 const item2 = {
 	amount: 100,

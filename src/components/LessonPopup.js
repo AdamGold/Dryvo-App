@@ -32,10 +32,8 @@ export default class LessonPopup extends React.Component {
 	render() {
 		const { item } = this.props
 		if (!item) return null
-		let meetup = strings("not_set")
-		if (item.meetup_place) meetup = item.meetup_place.name
-		let dropoff = strings("not_set")
-		if (item.dropoff_place) dropoff = item.dropoff_place.name
+		const meetup = item.meetup_place || strings("not_set")
+		const dropoff = item.dropoff_place || strings("not_set")
 		let approved
 		if (!item.is_approved) {
 			approved = (
@@ -51,7 +49,7 @@ export default class LessonPopup extends React.Component {
 				</Text>
 			)
 		} else {
-			const name = item.student.user.name.slice(0, NAME_LENGTH)
+			const name = item.student.name.slice(0, NAME_LENGTH)
 			const number = `${strings("teacher.home.lesson_number")} ${
 				item.lesson_number
 			}`
@@ -63,7 +61,7 @@ export default class LessonPopup extends React.Component {
 					<Fragment>
 						<View style={styles.imageView}>
 							<UserPic
-								user={item.student.user}
+								user={item.student}
 								width={styles.image.width}
 								height={styles.image.height}
 							/>

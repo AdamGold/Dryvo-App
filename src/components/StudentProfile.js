@@ -18,13 +18,15 @@ import StudentPayments from "./StudentPayments"
 import { getPayments } from "../actions/lessons"
 import StudentNextLessonView from "./StudentNextLessonView"
 import SimpleLoader from "./SimpleLoader"
-import { getUserImage, popLatestError } from "../actions/utils"
+import { getUserImage, Analytics } from "../actions/utils"
 import FastImage from "react-native-fast-image"
 import { NavigationActions } from "react-navigation"
 import LessonPopup from "../components/LessonPopup"
-import { API_ERROR } from "../reducers/consts"
+import ContactPopup from "../components/ContactPopup"
+import AlertError from "./AlertError"
+import { getRole } from "../actions/auth"
 
-export default class StudentProfile extends React.Component {
+export default class StudentProfile extends AlertError {
 	constructor(props) {
 		super(props)
 		let student = this.props.user
@@ -35,7 +37,7 @@ export default class StudentProfile extends React.Component {
 			showBackButton = true
 		}
 		let isTeacher = false
-		if (this.props.user.hasOwnProperty("teacher_id")) {
+		if (getRole(this.props.user) == "teacher") {
 			isTeacher = true
 		}
 		this.state = {
@@ -47,7 +49,8 @@ export default class StudentProfile extends React.Component {
 			isTeacher,
 			loading: true,
 			lessonPopupVisible: false,
-			showBackButton
+			showBackButton,
+			contactVisible: false
 		}
 	}
 
@@ -64,17 +67,6 @@ export default class StudentProfile extends React.Component {
 		this.willFocusSubscription.remove()
 	}
 
-	componentDidUpdate() {
-		const error = this.props.dispatch(popLatestError(API_ERROR))
-		if (error) {
-			Alert.alert(strings("errors.title"), errors(error))
-		}
-	}
-
-	_callPhone = () => {
-		Linking.openURL(`tel:${this.state.student.user.phone}`)
-	}
-
 	_handleRequests = async () => {
 		await this._getTopics()
 		if (this.state.isTeacher) {
@@ -88,7 +80,7 @@ export default class StudentProfile extends React.Component {
 		this.props.navigation.navigate("Payments", {
 			filter: "lessons/payments",
 			extraFilter: "&student_id=" + this.state.student.student_id,
-			filterText: this.state.student.user.name
+			filterText: this.state.student.name
 		})
 	}
 
@@ -219,6 +211,12 @@ export default class StudentProfile extends React.Component {
 		this.setState({ lessonPopupVisible: !this.state.lessonPopupVisible })
 	}
 
+	contactPress = () => {
+		this.setState({
+			contactVisible: !this.state.contactVisible
+		})
+	}
+
 	render() {
 		const { student } = this.state
 		let backButton, contact
@@ -239,7 +237,7 @@ export default class StudentProfile extends React.Component {
 			// teacher is logged in, show next lesson and payments
 			contact = (
 				<TouchableOpacity
-					onPress={this._callPhone.bind(this)}
+					onPress={this.contactPress.bind(this)}
 					style={styles.badge}
 				>
 					<Icon type="feather" name="phone" size={24} />
@@ -300,6 +298,11 @@ export default class StudentProfile extends React.Component {
 		return (
 			<ScrollView style={{ flex: 1 }}>
 				<View style={styles.container}>
+					<ContactPopup
+						phone={this.state.student.phone}
+						visible={this.state.contactVisible}
+						onPress={this.contactPress.bind(this)}
+					/>
 					<View style={styles.header}>
 						{backButton}
 						<UserWithPic
@@ -307,7 +310,7 @@ export default class StudentProfile extends React.Component {
 							extra={
 								<View style={{ alignItems: "flex-start" }}>
 									<Text>
-										{student.new_lesson_number}{" "}
+										{student.lessons_done}{" "}
 										{strings("student_profile.lessons")}
 									</Text>
 									<TouchableOpacity

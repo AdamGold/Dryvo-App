@@ -2,13 +2,13 @@ import {
 	ROOT_URL,
 	TOKEN_KEY,
 	REFRESH_TOKEN_KEY,
-	DEFAULT_ERROR,
-	signUpRoles
+	signUpRoles,
+	ENV
 } from "../consts"
 import { Linking } from "react-native"
 import Storage from "../services/Storage"
-import { LOGIN, LOGOUT, API_ERROR } from "../reducers/consts"
-import { fetchOrError } from "./utils"
+import { LOGIN, LOGOUT, ERROR } from "../reducers/consts"
+import { fetchOrError, Analytics } from "./utils"
 
 const loginOrRegister = async (endpoint, params, dispatch, callback) => {
 	const resp = await dispatch(fetchOrError(endpoint, params))
@@ -94,7 +94,24 @@ const setTokens = async (token, refresh_token) => {
 
 export const setUser = user => {
 	return dispatch => {
+		Analytics.setAnalyticsCollectionEnabled(true)
+		Analytics.setUserId(`user-${user.id}`)
+		Analytics.setUserProperty("Environment", ENV)
+		Analytics.setUserProperty("Role", getRole(user))
+		Analytics.setUserProperty("created_time", user.created_at)
 		dispatch({ type: LOGIN, user: user })
+	}
+}
+
+export const getRole = user => {
+	if (user.hasOwnProperty("teacher_id") && user.is_approved) {
+		// it's a teacher
+		return "teacher"
+	} else if (user.hasOwnProperty("my_teacher") && user.is_approved) {
+		// it's a student
+		return "student"
+	} else {
+		return "normal"
 	}
 }
 
@@ -136,7 +153,7 @@ export const exchangeToken = (token, callback) => {
 			await setTokens(resp.json.auth_token, resp.json.refresh_token)
 			await dispatch(fetchUser(callback))
 		} catch (error) {
-			dispatch({ type: API_ERROR, error: DEFAULT_ERROR })
+			dispatch({ type: ERROR })
 		}
 	}
 }

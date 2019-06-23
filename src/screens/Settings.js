@@ -6,32 +6,36 @@ import {
 	StyleSheet,
 	TouchableOpacity,
 	TouchableHighlight,
-	Alert
+	Alert,
+	KeyboardAvoidingView,
+	Platform
 } from "react-native"
 import { connect } from "react-redux"
-import { strings, errors } from "../i18n"
+import { strings } from "../i18n"
 import ShadowRect from "../components/ShadowRect"
 import {
 	MAIN_PADDING,
 	floatButtonOnlyStyle,
-	NOTIFICATIONS_KEY
+	NOTIFICATIONS_KEY,
+	SUPPORT_PHONE,
+	fullButton
 } from "../consts"
 import PageTitle from "../components/PageTitle"
 import { NavigationActions } from "react-navigation"
 import { Button, Icon } from "react-native-elements"
 import RectInput from "../components/RectInput"
-import { logout, setUser } from "../actions/auth"
-import { API_ERROR } from "../reducers/consts"
+import { logout, setUser, getRole } from "../actions/auth"
 import Storage from "../services/Storage"
 import {
 	fetchOrError,
-	popLatestError,
 	deleteDeviceToken,
 	navigateToEZCount
 } from "../actions/utils"
 import validate, { registerValidation } from "../actions/validate"
+import ContactPopup from "../components/ContactPopup"
+import AlertError from "../components/AlertError"
 
-export class Settings extends React.Component {
+export class Settings extends AlertError {
 	constructor(props) {
 		// only here for the test suite to work
 		super(props)
@@ -42,8 +46,10 @@ export class Settings extends React.Component {
 			password: "",
 			price: this.props.user.price,
 			duration: this.props.user.lesson_duration,
-			notifications: "true"
+			notifications: "true",
+			contactVisible: false
 		}
+		this.role = getRole(this.props.user)
 		this._initNotifications()
 	}
 
@@ -54,13 +60,6 @@ export class Settings extends React.Component {
 				this.props.navigation.navigate("Auth")
 			})
 		)
-	}
-
-	componentDidUpdate() {
-		const error = this.props.dispatch(popLatestError(API_ERROR))
-		if (error) {
-			Alert.alert(strings("errors.title"), errors(error))
-		}
 	}
 
 	submitTeacherInfo = async () => {
@@ -93,7 +92,7 @@ export class Settings extends React.Component {
 			phone: this.state.phone
 		})
 		let resp2 = false
-		if (this.props.user.hasOwnProperty("teacher_id")) {
+		if (this.role == "teacher") {
 			resp2 = await this.submitTeacherInfo()
 		}
 
@@ -145,9 +144,13 @@ export class Settings extends React.Component {
 		)
 	}
 
+	contactPress = () => {
+		this.setState({ contactVisible: !this.state.contactVisible })
+	}
+
 	render() {
 		let extraSettings, extraForm
-		if (this.props.user.hasOwnProperty("teacher_id")) {
+		if (this.role == "teacher") {
 			extraSettings = (
 				<Fragment>
 					<TouchableHighlight
@@ -209,116 +212,131 @@ export class Settings extends React.Component {
 			)
 		}
 		return (
-			<ScrollView
-				keyboardDismissMode="on-drag"
-				keyboardShouldPersistTaps="always"
+			<KeyboardAvoidingView
+				behavior={Platform.OS === "ios" ? "padding" : null}
 			>
-				<View style={styles.container}>
-					<PageTitle
-						style={styles.title}
-						title={strings("settings.title")}
-						leftSide={
-							<Button
-								icon={
-									<Icon
-										name="ios-close"
-										type="ionicon"
-										size={36}
-									/>
-								}
-								onPress={() => {
-									this.props.navigation.dispatch(
-										NavigationActions.back()
-									)
-								}}
-								type="clear"
-								style={styles.closeButton}
-							/>
-						}
+				<ScrollView
+					keyboardDismissMode="on-drag"
+					keyboardShouldPersistTaps="always"
+				>
+					<ContactPopup
+						phone={SUPPORT_PHONE}
+						visible={this.state.contactVisible}
+						onPress={this.contactPress.bind(this)}
 					/>
-					<Text style={styles.rectTitle}>
-						{strings("settings.general")}
-					</Text>
-					<ShadowRect style={styles.rect}>
-						{extraSettings}
-						<TouchableHighlight
-							underlayColor="#f8f8f8"
-							onPress={this.toggleNotifications.bind(this)}
-							style={styles.fullWidth}
-						>
-							<View style={styles.rectInsideView}>
-								<Text style={styles.rightSide}>
-									{strings("settings.notifications")}
-								</Text>
-								<Text style={styles.leftSide}>
-									{strings(
-										"settings.notifications_" +
-											this.state.notifications
-									)}
-								</Text>
-							</View>
-						</TouchableHighlight>
-						<View style={styles.rectInsideView}>
-							<Text>{strings("settings.support")}</Text>
-						</View>
-					</ShadowRect>
-					<Text style={styles.rectTitle}>
-						{strings("settings.personal_info")}
-					</Text>
-					<ShadowRect style={styles.rect}>
-						<RectInput
-							label={strings("signup.name")}
-							iconName="person"
-							value={this.state.name}
-							onChangeText={value =>
-								this.onChangeText("name", value)
+					<View style={styles.container}>
+						<PageTitle
+							style={styles.title}
+							title={strings("settings.title")}
+							leftSide={
+								<Button
+									icon={
+										<Icon
+											name="ios-close"
+											type="ionicon"
+											size={36}
+										/>
+									}
+									onPress={() => {
+										this.props.navigation.dispatch(
+											NavigationActions.back()
+										)
+									}}
+									type="clear"
+									style={styles.closeButton}
+								/>
 							}
 						/>
-						<RectInput
-							label={strings("signup.area")}
-							iconName="person-pin"
-							value={this.state.area}
-							onChangeText={value =>
-								this.onChangeText("area", value)
-							}
-						/>
-						<RectInput
-							label={strings("signup.phone")}
-							iconName="phone"
-							value={this.state.phone}
-							onChangeText={value =>
-								this.onChangeText("phone", value)
-							}
-						/>
-						{extraForm}
-						<RectInput
-							label={strings("signin.password")}
-							iconName="security"
-							value={this.state.password}
-							onChangeText={value =>
-								this.onChangeText("password", value)
-							}
-							secureTextEntry
-						/>
-						<TouchableOpacity
-							style={styles.button}
-							onPress={this.submitInfo.bind(this)}
-						>
-							<View>
-								<Text style={styles.buttonText}>
-									{strings("settings.submit")}
-								</Text>
-							</View>
-						</TouchableOpacity>
-					</ShadowRect>
-
-					<TouchableOpacity onPress={this.logout.bind(this)}>
-						<Text style={styles.logout}>
-							{strings("settings.logout")}
+						<Text style={styles.rectTitle}>
+							{strings("settings.general")}
 						</Text>
-					</TouchableOpacity>
-				</View>
-			</ScrollView>
+						<ShadowRect style={styles.rect}>
+							{extraSettings}
+							<TouchableHighlight
+								underlayColor="#f8f8f8"
+								onPress={this.toggleNotifications.bind(this)}
+								style={styles.fullWidth}
+							>
+								<View style={styles.rectInsideView}>
+									<Text style={styles.rightSide}>
+										{strings("settings.notifications")}
+									</Text>
+									<Text style={styles.leftSide}>
+										{strings(
+											"settings.notifications_" +
+												this.state.notifications
+										)}
+									</Text>
+								</View>
+							</TouchableHighlight>
+							<TouchableHighlight
+								underlayColor="#f8f8f8"
+								onPress={this.contactPress.bind(this)}
+								style={styles.fullWidth}
+							>
+								<View style={styles.rectInsideView}>
+									<Text>{strings("settings.support")}</Text>
+								</View>
+							</TouchableHighlight>
+						</ShadowRect>
+						<Text style={styles.rectTitle}>
+							{strings("settings.personal_info")}
+						</Text>
+						<ShadowRect style={styles.rect}>
+							<RectInput
+								label={strings("signup.name")}
+								iconName="person"
+								value={this.state.name}
+								onChangeText={value =>
+									this.onChangeText("name", value)
+								}
+							/>
+							<RectInput
+								label={strings("signup.area")}
+								iconName="person-pin"
+								value={this.state.area}
+								onChangeText={value =>
+									this.onChangeText("area", value)
+								}
+							/>
+							<RectInput
+								label={strings("signup.phone")}
+								iconName="phone"
+								value={this.state.phone}
+								onChangeText={value =>
+									this.onChangeText("phone", value)
+								}
+							/>
+							{extraForm}
+							<RectInput
+								label={strings("signin.password")}
+								iconName="security"
+								value={this.state.password}
+								onChangeText={value =>
+									this.onChangeText("password", value)
+								}
+								secureTextEntry
+							/>
+							<TouchableOpacity
+								style={styles.button}
+								onPress={this.submitInfo.bind(this)}
+							>
+								<View>
+									<Text style={styles.buttonText}>
+										{strings("settings.submit")}
+									</Text>
+								</View>
+							</TouchableOpacity>
+						</ShadowRect>
+
+						<TouchableOpacity onPress={this.logout.bind(this)}>
+							<Text style={styles.logout}>
+								{strings("settings.logout")}
+							</Text>
+						</TouchableOpacity>
+					</View>
+				</ScrollView>
+			</KeyboardAvoidingView>
 		)
 	}
 }
@@ -377,7 +395,7 @@ const styles = StyleSheet.create({
 function mapStateToProps(state) {
 	return {
 		user: state.user,
-		errors: state.errors
+		error: state.error
 	}
 }
 

@@ -13,7 +13,8 @@ const student = {
 	number_of_old_lessons: 4,
 	eyes_check: true,
 	doctor_check: false,
-	price: 1000
+	price: 1000,
+	is_approved: true
 }
 const navigation = {
 	navigate: jest.fn(),

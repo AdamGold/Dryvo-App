@@ -15,18 +15,18 @@ import {
 } from "../../actions/utils"
 import { connect } from "react-redux"
 import { exchangeToken, openFacebook, directLogin } from "../../actions/auth"
-import { API_ERROR } from "../../reducers/consts"
 import { strings, errors } from "../../i18n"
 import { colors, MAIN_PADDING } from "../../consts"
 import Logo from "../../components/Logo"
 import AuthInput from "../../components/AuthInput"
 import LoadingButton from "../../components/LoadingButton"
 import validate, { loginValidation } from "../../actions/validate"
-import { popLatestError, checkFirebasePermission } from "../../actions/utils"
+import { checkFirebasePermission } from "../../actions/utils"
+import AlertError from "../../components/AlertError"
 
 // https://stackoverflow.com/a/53080379/695377
 var dummyDeepLinkedUrl
-export class SignIn extends React.Component {
+export class SignIn extends AlertError {
 	constructor(props) {
 		super(props)
 		this.state = {}
@@ -53,7 +53,7 @@ export class SignIn extends React.Component {
 				exchangeToken(token, async user => {
 					if (user) {
 						await this.props.dispatch(
-							checkFirebasePermission(false, true)
+							checkFirebasePermission(true, true)
 						)
 						this.props.navigation.navigate("App")
 					}
@@ -68,13 +68,6 @@ export class SignIn extends React.Component {
 
 	async componentWillUnmount() {
 		await deepLinkingRemoveListener(this.handleOpenURL)
-	}
-
-	componentDidUpdate() {
-		const error = this.props.dispatch(popLatestError(API_ERROR))
-		if (error) {
-			Alert.alert(strings("errors.title"), errors(error))
-		}
 	}
 
 	async login() {
@@ -98,7 +91,7 @@ export class SignIn extends React.Component {
 			directLogin(this.state.email, this.state.password, async user => {
 				if (user) {
 					await this.props.dispatch(
-						checkFirebasePermission(false, true)
+						checkFirebasePermission(true, true)
 					)
 					this.props.navigation.navigate("App")
 				} else {
@@ -233,7 +226,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
 	return {
-		errors: state.errors
+		error: state.error
 	}
 }
 

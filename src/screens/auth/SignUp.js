@@ -11,19 +11,19 @@ import {
 } from "react-native"
 import { connect } from "react-redux"
 import { register } from "../../actions/auth"
-import { API_ERROR } from "../../reducers/consts"
 import validate, { registerValidation } from "../../actions/validate"
 import { strings, errors } from "../../i18n"
 import AuthInput from "../../components/AuthInput"
 import { MAIN_PADDING, DEFAULT_IMAGE, signUpRoles } from "../../consts"
 import { Icon } from "react-native-elements"
 import LoadingButton from "../../components/LoadingButton"
-import { popLatestError, checkFirebasePermission } from "../../actions/utils"
+import { checkFirebasePermission } from "../../actions/utils"
 import UploadProfileImage from "../../components/UploadProfileImage"
 import SuccessModal from "../../components/SuccessModal"
 import InputSelectionButton from "../../components/InputSelectionButton"
+import AlertError from "../../components/AlertError"
 
-export class SignUp extends React.Component {
+export class SignUp extends AlertError {
 	constructor(props) {
 		super(props)
 		this.register = this.register.bind(this)
@@ -136,13 +136,6 @@ export class SignUp extends React.Component {
 				</InputSelectionButton>
 			)
 		})
-	}
-
-	componentDidUpdate() {
-		const error = this.props.dispatch(popLatestError(API_ERROR))
-		if (error) {
-			Alert.alert(strings("errors.title"), errors(error))
-		}
 	}
 
 	async register() {
@@ -357,7 +350,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
 	return {
-		errors: state.errors,
+		error: state.error,
 		fetchService: state.fetchService
 	}
 }

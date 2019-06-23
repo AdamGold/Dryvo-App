@@ -64,10 +64,8 @@ export class ChooseDate extends React.Component {
 	)
 	renderItem = ({ item, index }) => {
 		let student = strings("teacher.no_student_applied")
-		let user = null
 		if (item.student) {
-			student = item.student.user.name
-			user = item.student.user
+			student = item.student.name
 		}
 		return (
 			<Row
@@ -83,7 +81,7 @@ export class ChooseDate extends React.Component {
 			>
 				<UserWithPic
 					name={student}
-					user={user}
+					user={item.student}
 					nameStyle={styles.nameStyle}
 					width={42}
 					height={42}
@@ -150,6 +148,7 @@ export class ChooseDate extends React.Component {
 		return (
 			<View style={styles.container}>
 				<CalendarList
+					current={this.state.selected || new Date()}
 					style={styles.calendar}
 					theme={calendarTheme}
 					// Enable horizontal scrolling, default = false
@@ -170,7 +169,7 @@ export class ChooseDate extends React.Component {
 					// Handler which gets executed on day press. Default = undefined
 					onDayPress={this.onDayPress}
 					// Month format in calendar title. Formatting values: http://arshaw.com/xdate/#Formatting
-					monthFormat={"MMMM"}
+					monthFormat={"MMMM yy"}
 					renderArrow={this.renderArrow}
 					hideArrows={false}
 					// Do not show days of other months in month page.

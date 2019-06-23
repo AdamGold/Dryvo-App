@@ -13,7 +13,6 @@ import Separator from "../../components/Separator"
 import {
 	calendarTheme,
 	MAIN_PADDING,
-	API_DATE_FORMAT,
 	SHORT_API_DATE_FORMAT,
 	colors
 } from "../../consts"
@@ -125,10 +124,8 @@ export class Schedule extends React.Component {
 			)
 		}
 		const date = item.date
-		let meetup = strings("not_set")
-		if (item.meetup_place) meetup = item.meetup_place.name
-		let dropoff = strings("not_set")
-		if (item.dropoff_place) dropoff = item.dropoff_place.name
+		const meetup = item.meetup_place || strings("not_set")
+		const dropoff = item.dropoff_place || strings("not_set")
 		const visible = this.state.visible.includes(item.id) ? true : false
 		let approved
 		if (!item.is_approved) {

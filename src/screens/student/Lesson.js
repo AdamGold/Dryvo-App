@@ -17,27 +17,31 @@ import {
 	fullButton,
 	API_DATE_FORMAT,
 	SHORT_API_DATE_FORMAT,
-	DISPLAY_SHORT_DATE_FORMAT
+	DISPLAY_SHORT_DATE_FORMAT,
+	GOOGLE_MAPS_QUERY,
+	autoCompletePlacesStyle
 } from "../../consts"
-import NewLessonInput from "../../components/NewLessonInput"
 import Hours from "../../components/Hours"
 import InputSelectionButton from "../../components/InputSelectionButton"
 import moment from "moment"
-import { getHoursDiff } from "../../actions/utils"
-import { API_ERROR } from "../../reducers/consts"
+import { getHoursDiff, Analytics } from "../../actions/utils"
 import DateTimePicker from "react-native-modal-datetime-picker"
 import { fetchOrError } from "../../actions/utils"
-import { popLatestError } from "../../actions/utils"
 import SuccessModal from "../../components/SuccessModal"
-import Analytics from "appcenter-analytics"
 import { Icon } from "react-native-elements"
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
+import AlertError from "../../components/AlertError"
 
-export class Lesson extends React.Component {
+export class Lesson extends AlertError {
 	constructor(props) {
 		super(props)
 		this.initState = {
 			hours: [],
-			dateAndTime: ""
+			dateAndTime: "",
+			meetup: {},
+			dropoff: {},
+			meetupListViewDisplayed: false,
+			dropoffListViewDisplayed: false
 		}
 		this.state = {
 			date: "",
@@ -45,14 +49,11 @@ export class Lesson extends React.Component {
 			successVisible: false,
 			...this.initState
 		}
-		this._initializeInputs = this._initializeInputs.bind(this)
-		this.onChangeText = this.onChangeText.bind(this)
 		this._onHourPress = this._onHourPress.bind(this)
 		this.createLesson = this.createLesson.bind(this)
 		this._handleDatePicked = this._handleDatePicked.bind(this)
 
 		this._initializeExistingLesson()
-		this._initializeInputs()
 	}
 
 	_initializeExistingLesson = async () => {
@@ -74,8 +75,8 @@ export class Lesson extends React.Component {
 					.local()
 					.format(SHORT_API_DATE_FORMAT),
 				duration: lesson.duration.toString(),
-				meetup: (lesson.meetup_place || {}).name,
-				dropoff: (lesson.dropoff_place || {}).name,
+				meetup: { description: lesson.meetup_place },
+				dropoff: { description: lesson.dropoff_place },
 				hours: [[lesson.date, null]],
 				hour: moment
 					.utc(lesson.date)
@@ -85,29 +86,45 @@ export class Lesson extends React.Component {
 			await this._getAvailableHours(true)
 		}
 	}
-	_initializeInputs = (force = false) => {
-		this.inputs = {
-			meetup: {
-				iconName: "navigation",
-				iconType: "feather"
-			},
-			dropoff: {
-				iconName: "map-pin",
-				iconType: "feather"
-			}
-		}
-		Object.keys(this.inputs).forEach(input => {
-			if (!this.state[input] || force) {
-				this.state[input] = ""
+
+	handlePlaceSelection = (name, data) => {
+		const mainText = data.structured_formatting.main_text
+		const placeID = data.place_id
+		this.setState({
+			[name + "ListViewDisplayed"]: false,
+			[name]: {
+				description: mainText,
+				google_id: placeID
 			}
 		})
 	}
 
-	componentDidUpdate() {
-		const error = this.props.dispatch(popLatestError(API_ERROR))
-		if (error) {
-			Alert.alert(strings("errors.title"), errors(error))
-		}
+	renderPlaces = () => {
+		const places = ["meetup", "dropoff"]
+
+		return places.map((name, index) => {
+			return (
+				<GooglePlacesAutocomplete
+					key={`autocomplete-${name}`}
+					query={GOOGLE_MAPS_QUERY}
+					placeholder={strings("teacher.new_lesson." + name)}
+					minLength={2}
+					autoFocus={false}
+					returnKeyType={"default"}
+					fetchDetails={false}
+					currentLocation={false}
+					currentLocationLabel={strings("current_location")}
+					nearbyPlacesAPI="GooglePlacesSearch"
+					listViewDisplayed={this.state[name + "ListViewDisplayed"]}
+					styles={autoCompletePlacesStyle}
+					onPress={(data, details = null) => {
+						// 'details' is provided when fetchDetails = true
+						this.handlePlaceSelection(name, data)
+					}}
+					getDefaultValue={() => this.state[name].description || ""}
+				/>
+			)
+		})
 	}
 
 	_getAvailableHours = async (append = false) => {
@@ -127,43 +144,6 @@ export class Lesson extends React.Component {
 		}
 		this.setState({
 			hours: hours
-		})
-	}
-
-	onFocus = input => {
-		this.setState({ [`${input}Color`]: "rgb(12,116,244)" })
-	}
-
-	onBlur = input => {
-		this.setState({ [`${input}Color`]: undefined })
-	}
-
-	onChangeText = (name, value) => this.setState({ [name]: value })
-
-	renderInputs = () => {
-		const keys = Object.keys(this.inputs)
-		return keys.map((name, index) => {
-			const props = this.inputs[name]
-			const next = keys[index + 1]
-			return (
-				<NewLessonInput
-					key={`key${index}`}
-					name={name}
-					editable={props.editable}
-					selectTextOnFocus={props.selectTextOnFocus}
-					autoFocus={props.autoFocus}
-					onFocus={props.onFocus || this.onFocus}
-					onBlur={props.onBlur || this.onBlur}
-					onChangeText={props.onChangeText || this.onChangeText}
-					iconName={props.iconName}
-					state={this.state}
-					iconType={props.iconType}
-					onSubmitEditing={props.onSubmitEditing}
-					extraPlaceholder={props.extraPlaceholder || ""}
-					style={props.style}
-					below={props.below}
-				/>
-			)
 		})
 	}
 
@@ -272,12 +252,7 @@ export class Lesson extends React.Component {
 			})
 		)
 		if (resp) {
-			Analytics.trackEvent("Student lesson created", {
-				Category: "Lesson",
-				date: moment.utc(this.state.dateAndTime).toISOString(),
-				respFromServer: JSON.stringify(resp.json)
-			})
-			this._initializeInputs(true)
+			Analytics.logEvent("student_created_lesson")
 			this.setState({ ...this.initState, successVisible: true })
 		}
 	}
@@ -340,18 +315,10 @@ export class Lesson extends React.Component {
 					})}
 					buttonPress={() => {
 						this.setState({ successVisible: false })
-						this.props.navigation.navigate("Schedule")
+						this.props.navigation.goBack()
 					}}
 					button={strings("student.new_lesson.success_button")}
 				/>
-				<View style={styles.headerRow}>
-					{backButton}
-					<PageTitle
-						style={styles.title}
-						title={strings("teacher.new_lesson.title")}
-					/>
-					{deleteButton}
-				</View>
 				<ScrollView
 					ref={ref => (this._scrollView = ref)}
 					style={styles.formContainer}
@@ -360,6 +327,14 @@ export class Lesson extends React.Component {
 					}
 					keyboardShouldPersistTaps="handled"
 				>
+					<View style={styles.headerRow}>
+						{backButton}
+						<PageTitle
+							style={styles.title}
+							title={strings("teacher.new_lesson.title")}
+						/>
+						{deleteButton}
+					</View>
 					<TouchableOpacity onPress={this._showDateTimePicker}>
 						<View style={styles.nonInputContainer}>
 							<Text style={styles.nonInputTitle}>
@@ -374,12 +349,12 @@ export class Lesson extends React.Component {
 						</Text>
 					</View>
 					<View style={styles.hours}>{this.renderHours()}</View>
-					{this.renderInputs()}
+					{this.renderPlaces()}
 				</ScrollView>
 				<KeyboardAvoidingView
-					behavior={Platform.OS === "ios" ? "position" : null}
+					behavior={Platform.OS === "ios" ? "padding" : null}
 					keyboardVerticalOffset={Platform.select({
-						ios: fullButton.height + 10,
+						ios: fullButton.height,
 						android: null
 					})}
 				>
@@ -421,8 +396,7 @@ const styles = StyleSheet.create({
 	},
 	formContainer: {
 		width: 340,
-		alignSelf: "center",
-		marginBottom: 70
+		alignSelf: "center"
 	},
 	submitButton: { ...fullButton, position: "relative" },
 	doneText: {
@@ -462,7 +436,7 @@ function mapStateToProps(state) {
 	return {
 		fetchService: state.fetchService,
 		user: state.user,
-		errors: state.errors
+		error: state.error
 	}
 }
 export default connect(mapStateToProps)(Lesson)

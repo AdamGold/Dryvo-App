@@ -19,6 +19,36 @@ export const MAIN_PADDING = 26
 export const DEFAULT_DURATION = 40
 export const NAME_LENGTH = 16
 export const FCM_CHANNEL = "dryvo-channel"
+export const GOOGLE_MAPS_KEY = "AIzaSyCjQszW7r4s56d0Q50zN_b9dljpe8pjfGg"
+export const GOOGLE_MAPS_QUERY = {
+	// available options: https://developers.google.com/places/web-service/autocomplete
+	key: GOOGLE_MAPS_KEY,
+	language: "he", // language of the results
+	components: "country:il",
+	region: "il"
+}
+export const autoCompletePlacesStyle = {
+	row: {
+		flexDirection: null
+	},
+	description: {
+		alignSelf: "flex-start"
+	},
+	textInputContainer: {
+		borderBottomColor: "rgb(200,200,200)",
+		backgroundColor: "rgba(0,0,0,0)",
+		borderBottomWidth: 1,
+		borderTopWidth: 0,
+		paddingBottom: 8,
+		marginTop: 24
+	},
+	textInput: {
+		paddingLeft: 12,
+		fontFamily: "Assistant",
+		fontSize: 16,
+		textAlign: "right"
+	}
+}
 
 export const signUpRoles = {
 	student: "student",
@@ -71,3 +101,11 @@ export const fullButton = {
 	width: "100%",
 	borderRadius: 0
 }
+
+export const SUPPORT_PHONE = "0544440047"
+
+let env = "production"
+if (Config.APP_URL && Config.APP_URL.includes("staging")) {
+	env = "staging"
+}
+export const ENV = env

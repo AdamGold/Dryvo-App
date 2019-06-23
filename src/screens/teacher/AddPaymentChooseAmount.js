@@ -12,18 +12,16 @@ import {
 	Switch
 } from "react-native"
 import { connect } from "react-redux"
-import { strings, errors } from "../../i18n"
+import { strings } from "../../i18n"
 import { Icon } from "react-native-elements"
 import PageTitle from "../../components/PageTitle"
 import { MAIN_PADDING, fullButton } from "../../consts"
-import { API_ERROR } from "../../reducers/consts"
-import { fetchOrError } from "../../actions/utils"
-import { popLatestError } from "../../actions/utils"
+import { fetchOrError, Analytics } from "../../actions/utils"
 import SuccessModal from "../../components/SuccessModal"
-import Analytics from "appcenter-analytics"
 import { Dropdown } from "react-native-material-dropdown"
+import AlertError from "../../components/AlertError"
 
-export class AddPaymentChooseAmount extends React.Component {
+export class AddPaymentChooseAmount extends AlertError {
 	constructor(props) {
 		super(props)
 		this.filterOptions = [
@@ -44,13 +42,6 @@ export class AddPaymentChooseAmount extends React.Component {
 		}
 
 		this.addPayment = this.addPayment.bind(this)
-	}
-
-	componentDidUpdate() {
-		const error = this.props.dispatch(popLatestError(API_ERROR))
-		if (error) {
-			Alert.alert(strings("errors.title"), errors(error))
-		}
 	}
 
 	addPayment = async () => {
@@ -88,10 +79,7 @@ export class AddPaymentChooseAmount extends React.Component {
 				)
 				if (!respFromReceipt) return
 			}
-			Analytics.trackEvent("Payment added", {
-				Category: "Payment",
-				state: JSON.stringify(this.state)
-			})
+			Analytics.logEvent("payment_added")
 			this.setState({ successVisible: true })
 		}
 	}
@@ -109,7 +97,7 @@ export class AddPaymentChooseAmount extends React.Component {
 					title={strings("teacher.add_payment.success_title")}
 					desc={strings("teacher.add_payment.success_desc", {
 						amount: this.state.amount,
-						student: this.state.student.user.name
+						student: this.state.student.name
 					})}
 					buttonPress={() => {
 						this.setState({ successVisible: false })
@@ -212,7 +200,7 @@ export class AddPaymentChooseAmount extends React.Component {
 function mapStateToProps(state) {
 	return {
 		fetchService: state.fetchService,
-		errors: state.errors
+		error: state.error
 	}
 }
 export default connect(mapStateToProps)(AddPaymentChooseAmount)

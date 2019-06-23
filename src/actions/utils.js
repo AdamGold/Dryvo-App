@@ -1,19 +1,19 @@
 import { Platform, Linking } from "react-native"
 import {
 	LOAD_FETCH_SERVICE,
-	API_ERROR,
-	APP_ERROR,
-	POP_ERROR,
-	CHANGE_USER_IMAGE
+	CHANGE_USER_IMAGE,
+	ERROR,
+	TRUNCATE_ERROR
 } from "../reducers/consts"
-import { DEFAULT_IMAGE, DEFAULT_IMAGE_MAX_SIZE, DEFAULT_ERROR } from "../consts"
-import { getLatestError } from "../error_handling"
+import { DEFAULT_IMAGE, DEFAULT_IMAGE_MAX_SIZE } from "../consts"
 import { strings } from "../i18n"
 import moment from "moment"
 import Storage from "../services/Storage"
 import ImagePicker from "react-native-image-picker"
 import ImageResizer from "react-native-image-resizer"
 import firebase from "react-native-firebase"
+
+export let Analytics = firebase.analytics()
 
 export const fetchOrError = (endpoint, params, dispatchError = true) => {
 	return async (dispatch, getState) => {
@@ -26,19 +26,18 @@ export const fetchOrError = (endpoint, params, dispatchError = true) => {
 				let msg = error || ""
 				if (error && error.hasOwnProperty("message"))
 					msg = error.message
-				dispatch({ type: API_ERROR, error: msg })
+				dispatch({ type: ERROR, error: msg })
 			}
 			return null
 		}
 	}
 }
 
-export const popLatestError = type => {
+export const getError = () => {
 	return (dispatch, getState) => {
-		const { errors } = getState()
-		const error = getLatestError(errors[type])
+		const { error } = getState()
 		if (error) {
-			dispatch({ type: POP_ERROR, errorType: type })
+			dispatch({ type: TRUNCATE_ERROR })
 			return error
 		}
 		return null
@@ -117,7 +116,7 @@ export const deleteDeviceToken = () => {
 					method: "GET"
 				})
 			} catch (error) {
-				dispatch({ type: API_ERROR, error: DEFAULT_ERROR })
+				dispatch({ type: ERROR })
 			}
 		}
 	}
@@ -148,7 +147,7 @@ const _registerDeviceToken = fcmToken => {
 					)
 				}
 			} catch (err) {
-				dispatch({ type: API_ERROR, error: DEFAULT_ERROR })
+				dispatch({ type: ERROR })
 			}
 		}
 	}
@@ -193,7 +192,7 @@ export const showImagePicker = (callback, sizes = {}) => {
 					callback(source)
 				})
 				.catch(err => {
-					dispatch({ type: APP_ERROR, error: DEFAULT_ERROR })
+					dispatch({ type: ERROR })
 				})
 		}
 	})
@@ -217,7 +216,7 @@ export const uploadUserImage = source => {
 				image: resp.json["image"]
 			})
 		} catch (error) {
-			dispatch({ type: API_ERROR, error: DEFAULT_ERROR })
+			dispatch({ type: ERROR })
 		}
 	}
 }
@@ -290,4 +289,17 @@ export function navigateToEZCount(endpoint) {
 			Linking.openURL(resp.json["url"])
 		}
 	}
+}
+
+// gets the current screen from navigation state
+export function getActiveRouteName(navigationState) {
+	if (!navigationState) {
+		return null
+	}
+	const route = navigationState.routes[navigationState.index]
+	// dive into nested navigators
+	if (route.routes) {
+		return getActiveRouteName(route)
+	}
+	return route.routeName
 }

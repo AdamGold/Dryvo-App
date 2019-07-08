@@ -6,8 +6,7 @@ import {
 	View,
 	TouchableOpacity,
 	ScrollView,
-	Platform,
-	Alert
+	Platform
 } from "react-native"
 import { connect } from "react-redux"
 import { Button, Icon } from "react-native-elements"
@@ -19,9 +18,7 @@ import {
 	API_DATE_FORMAT,
 	DEFAULT_DURATION,
 	SHORT_API_DATE_FORMAT,
-	DISPLAY_SHORT_DATE_FORMAT,
-	GOOGLE_MAPS_QUERY,
-	autoCompletePlacesStyle
+	DISPLAY_SHORT_DATE_FORMAT
 } from "../../consts"
 import NewLessonInput from "../../components/NewLessonInput"
 import Hours from "../../components/Hours"
@@ -31,10 +28,9 @@ import { getHoursDiff, fetchOrError, Analytics } from "../../actions/utils"
 import { getLessonById } from "../../actions/lessons"
 import SuccessModal from "../../components/SuccessModal"
 import DateTimePicker from "react-native-modal-datetime-picker"
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
-import AlertError from "../../components/AlertError"
+import LessonParent from "../LessonParent"
 
-export class Lesson extends AlertError {
+export class Lesson extends LessonParent {
 	constructor(props) {
 		super(props)
 		const duration = props.user.lesson_duration || DEFAULT_DURATION
@@ -141,20 +137,6 @@ export class Lesson extends AlertError {
 				this.state[input] = ""
 			}
 		})
-	}
-
-	_showDateTimePicker = () => this.setState({ datePickerVisible: true })
-
-	_hideDateTimePicker = () => this.setState({ datePickerVisible: false })
-
-	_handleDatePicked = date => {
-		this._hideDateTimePicker()
-		this.setState(
-			{ date: moment(date).format(SHORT_API_DATE_FORMAT) },
-			() => {
-				this._getAvailableHours()
-			}
-		)
 	}
 
 	_getAvailableHours = async (append = false) => {
@@ -281,36 +263,6 @@ export class Lesson extends AlertError {
 				</InputSelectionButton>
 			)
 		})
-	}
-
-	deleteConfirm() {
-		Alert.alert(strings("are_you_sure"), strings("are_you_sure_delete"), [
-			{
-				text: strings("cancel"),
-				style: "cancel"
-			},
-			{
-				text: strings("ok"),
-				onPress: () => {
-					this.delete()
-				}
-			}
-		])
-	}
-
-	delete = async () => {
-		const { lesson } = this.state
-		if (!lesson) return
-		const resp = await this.props.fetchService.fetch(
-			`/lessons/${lesson.id}`,
-			{
-				method: "DELETE"
-			}
-		)
-		if (resp) {
-			Alert.alert(strings("teacher.notifications.lessons_deleted"))
-			this.props.navigation.goBack()
-		}
 	}
 
 	_onStudentPress = student => {
@@ -453,6 +405,7 @@ export class Lesson extends AlertError {
 				<InputSelectionButton
 					selected={selected}
 					secondTimeSelected={secondTimeSelected}
+					selectedColor="#d6a40d"
 					key={`student${index}`}
 					onPress={() => this._onTopicPress(topic)}
 				>
@@ -489,46 +442,6 @@ export class Lesson extends AlertError {
 		}
 
 		return null
-	}
-
-	handlePlaceSelection = (name, data) => {
-		const mainText = data.structured_formatting.main_text
-		const placeID = data.place_id
-		this.setState({
-			[name + "ListViewDisplayed"]: false,
-			[name]: {
-				description: mainText,
-				google_id: placeID
-			}
-		})
-	}
-
-	renderPlaces = () => {
-		const places = ["meetup", "dropoff"]
-
-		return places.map((name, index) => {
-			return (
-				<GooglePlacesAutocomplete
-					key={`autocomplete-${name}`}
-					query={GOOGLE_MAPS_QUERY}
-					placeholder={strings("teacher.new_lesson." + name)}
-					minLength={2}
-					autoFocus={false}
-					returnKeyType={"default"}
-					fetchDetails={false}
-					currentLocation={false}
-					currentLocationLabel={strings("current_location")}
-					nearbyPlacesAPI="GooglePlacesSearch"
-					listViewDisplayed={this.state[name + "ListViewDisplayed"]}
-					styles={autoCompletePlacesStyle}
-					onPress={(data, details = null) => {
-						// 'details' is provided when fetchDetails = true
-						this.handlePlaceSelection(name, data)
-					}}
-					getDefaultValue={() => this.state[name].description || ""}
-				/>
-			)
-		})
 	}
 
 	render() {
@@ -702,7 +615,8 @@ const styles = StyleSheet.create({
 		paddingLeft: 12
 	},
 	hoursText: {
-		color: "gray"
+		color: "gray",
+		textAlign: "center"
 	},
 	rects: {
 		flex: 1,

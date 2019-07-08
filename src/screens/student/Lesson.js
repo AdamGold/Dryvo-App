@@ -6,8 +6,7 @@ import {
 	StyleSheet,
 	View,
 	TouchableOpacity,
-	ScrollView,
-	Alert
+	ScrollView
 } from "react-native"
 import { connect } from "react-redux"
 import { strings, errors } from "../../i18n"
@@ -17,9 +16,7 @@ import {
 	fullButton,
 	API_DATE_FORMAT,
 	SHORT_API_DATE_FORMAT,
-	DISPLAY_SHORT_DATE_FORMAT,
-	GOOGLE_MAPS_QUERY,
-	autoCompletePlacesStyle
+	DISPLAY_SHORT_DATE_FORMAT
 } from "../../consts"
 import Hours from "../../components/Hours"
 import InputSelectionButton from "../../components/InputSelectionButton"
@@ -29,10 +26,9 @@ import DateTimePicker from "react-native-modal-datetime-picker"
 import { fetchOrError } from "../../actions/utils"
 import SuccessModal from "../../components/SuccessModal"
 import { Icon } from "react-native-elements"
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
-import AlertError from "../../components/AlertError"
+import LessonParent from "../LessonParent"
 
-export class Lesson extends AlertError {
+export class Lesson extends LessonParent {
 	constructor(props) {
 		super(props)
 		this.initState = {
@@ -87,53 +83,15 @@ export class Lesson extends AlertError {
 		}
 	}
 
-	handlePlaceSelection = (name, data) => {
-		const mainText = data.structured_formatting.main_text
-		const placeID = data.place_id
-		this.setState({
-			[name + "ListViewDisplayed"]: false,
-			[name]: {
-				description: mainText,
-				google_id: placeID
-			}
-		})
-	}
-
-	renderPlaces = () => {
-		const places = ["meetup", "dropoff"]
-
-		return places.map((name, index) => {
-			return (
-				<GooglePlacesAutocomplete
-					key={`autocomplete-${name}`}
-					query={GOOGLE_MAPS_QUERY}
-					placeholder={strings("teacher.new_lesson." + name)}
-					minLength={2}
-					autoFocus={false}
-					returnKeyType={"default"}
-					fetchDetails={false}
-					currentLocation={false}
-					currentLocationLabel={strings("current_location")}
-					nearbyPlacesAPI="GooglePlacesSearch"
-					listViewDisplayed={this.state[name + "ListViewDisplayed"]}
-					styles={autoCompletePlacesStyle}
-					onPress={(data, details = null) => {
-						// 'details' is provided when fetchDetails = true
-						this.handlePlaceSelection(name, data)
-					}}
-					getDefaultValue={() => this.state[name].description || ""}
-				/>
-			)
-		})
-	}
-
 	_getAvailableHours = async (append = false) => {
 		const resp = await this.props.fetchService.fetch(
 			`/teacher/${this.props.user.my_teacher.teacher_id}/available_hours`,
 			{
 				method: "POST",
 				body: JSON.stringify({
-					date: this.state.date
+					date: this.state.date,
+					meetup_place_id: this.state.meetup.google_id,
+					dropoff_place_id: this.state.dropoff.google_id
 				})
 			}
 		)
@@ -159,36 +117,6 @@ export class Lesson extends AlertError {
 		})
 	}
 
-	deleteConfirm() {
-		Alert.alert(strings("are_you_sure"), strings("are_you_sure_delete"), [
-			{
-				text: strings("cancel"),
-				style: "cancel"
-			},
-			{
-				text: strings("ok"),
-				onPress: () => {
-					this.delete()
-				}
-			}
-		])
-	}
-
-	delete = async () => {
-		const { lesson } = this.state
-		if (!lesson) return
-		const resp = await this.props.fetchService.fetch(
-			`/lessons/${lesson.id}`,
-			{
-				method: "DELETE"
-			}
-		)
-		if (resp) {
-			Alert.alert(strings("teacher.notifications.lessons_deleted"))
-			this.props.navigation.goBack()
-		}
-	}
-
 	renderHours = () => {
 		if (this.state.hours.length == 0) {
 			if (this.state.date) {
@@ -201,6 +129,18 @@ export class Lesson extends AlertError {
 			return (
 				<Text>
 					{strings("student.new_lesson.pick_date_before_hours")}
+				</Text>
+			)
+		}
+		if (
+			!this.state.meetup.hasOwnProperty("description") ||
+			this.state.meetup.description == "" ||
+			!this.state.dropoff.hasOwnProperty("description") ||
+			this.state.dropoff.description == ""
+		) {
+			return (
+				<Text>
+					{strings("student.new_lesson.pick_places_before_hours")}
 				</Text>
 			)
 		}
@@ -255,20 +195,6 @@ export class Lesson extends AlertError {
 			Analytics.logEvent("student_created_lesson")
 			this.setState({ ...this.initState, successVisible: true })
 		}
-	}
-
-	_showDateTimePicker = () => this.setState({ datePickerVisible: true })
-
-	_hideDateTimePicker = () => this.setState({ datePickerVisible: false })
-
-	_handleDatePicked = date => {
-		this._hideDateTimePicker()
-		this.setState(
-			{ date: moment(date).format(SHORT_API_DATE_FORMAT) },
-			() => {
-				this._getAvailableHours()
-			}
-		)
 	}
 
 	render() {
@@ -348,8 +274,8 @@ export class Lesson extends AlertError {
 							{strings("teacher.new_lesson.hour")}
 						</Text>
 					</View>
-					<View style={styles.hours}>{this.renderHours()}</View>
 					{this.renderPlaces()}
+					<View style={styles.hours}>{this.renderHours()}</View>
 				</ScrollView>
 				<KeyboardAvoidingView
 					behavior={Platform.OS === "ios" ? "padding" : null}

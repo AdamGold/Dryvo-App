@@ -269,12 +269,12 @@ export class Lesson extends LessonParent {
 							<Text>{date}</Text>
 						</View>
 					</TouchableOpacity>
+					{this.renderPlaces()}
 					<View style={styles.nonInputContainer}>
 						<Text style={styles.nonInputTitle}>
 							{strings("teacher.new_lesson.hour")}
 						</Text>
 					</View>
-					{this.renderPlaces()}
 					<View style={styles.hours}>{this.renderHours()}</View>
 				</ScrollView>
 				<KeyboardAvoidingView

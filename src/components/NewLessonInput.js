@@ -2,6 +2,7 @@ import React, { Fragment } from "react"
 import { View, StyleSheet } from "react-native"
 import { Input, Button, Icon } from "react-native-elements"
 import { strings } from "../i18n"
+import { MAIN_PADDING } from "../consts"
 
 export default class NewLessonInput extends React.Component {
 	render() {
@@ -66,7 +67,9 @@ const styles = StyleSheet.create({
 		borderBottomColor: "rgb(200,200,200)",
 		borderBottomWidth: 1,
 		paddingBottom: 8,
-		marginTop: 24
+		marginTop: 24,
+		marginRight: MAIN_PADDING - 8,
+		marginLeft: MAIN_PADDING - 8
 	},
 	input: {
 		paddingLeft: 12,

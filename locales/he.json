@@ -39,6 +39,9 @@
 	"current_location": "מיקום נוכחי",
 	"call_phone": "התקשר",
 	"whatsapp": "שלח WhatsApp",
+	"normal_lesson": "רגיל",
+	"double_lesson": "כפול",
+	"lesson_and_a_half": "שיעור וחצי",
 	"student_profile": {
 		"lessons": "שיעורים",
 		"my_teacher": "המורה שלי:",

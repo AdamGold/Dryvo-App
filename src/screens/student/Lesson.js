@@ -28,7 +28,6 @@ import { fetchOrError } from "../../actions/utils"
 import SuccessModal from "../../components/SuccessModal"
 import { Icon } from "react-native-elements"
 import LessonParent from "../LessonParent"
-import { Dropdown } from "react-native-material-dropdown"
 
 export class Lesson extends LessonParent {
 	constructor(props) {
@@ -282,6 +281,11 @@ export class Lesson extends LessonParent {
 						</Text>
 					</View>
 					{this.renderDuration()}
+					<View style={styles.nonInputContainer}>
+						<Text style={styles.nonInputTitle}>
+							{strings("teacher.new_lesson.places")}
+						</Text>
+					</View>
 					{this.renderPlaces()}
 					<View style={styles.nonInputContainer}>
 						<Text style={styles.nonInputTitle}>

@@ -137,6 +137,9 @@ export default class LessonParent extends AlertError {
 						marginRight: MAIN_PADDING,
 						marginTop: 8
 					}}
+					inputContainerStyle={{
+						borderBottomColor: "transparent"
+					}}
 				/>
 			</Fragment>
 		)

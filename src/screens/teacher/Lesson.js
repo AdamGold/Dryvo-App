@@ -532,6 +532,11 @@ export class Lesson extends LessonParent {
 						</View>
 						<View style={styles.rects}>{this.renderHours()}</View>
 						{this.renderInputs(1, 5)}
+						<View style={styles.nonInputContainer}>
+							<Text style={styles.nonInputTitle}>
+								{strings("teacher.new_lesson.places")}
+							</Text>
+						</View>
 						{this.renderPlaces()}
 						<View style={styles.nonInputContainer}>
 							<Text style={styles.nonInputTitle}>

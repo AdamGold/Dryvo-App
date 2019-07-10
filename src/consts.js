@@ -40,7 +40,7 @@ export const autoCompletePlacesStyle = {
 		borderBottomWidth: 1,
 		borderTopWidth: 0,
 		paddingBottom: 8,
-		marginTop: 24,
+		marginTop: 8,
 		marginRight: MAIN_PADDING,
 		marginLeft: MAIN_PADDING
 	},

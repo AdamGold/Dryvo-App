@@ -18,6 +18,8 @@ Array [
           "borderBottomWidth": 1,
           "borderColor": "#86939e",
           "flexDirection": "row",
+          "marginLeft": 18,
+          "marginRight": 18,
           "marginTop": 20,
           "paddingBottom": 8,
           "transform": Array [

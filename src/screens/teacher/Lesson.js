@@ -33,14 +33,13 @@ import LessonParent from "../LessonParent"
 export class Lesson extends LessonParent {
 	constructor(props) {
 		super(props)
-		const duration = props.user.lesson_duration || DEFAULT_DURATION
+		this.duration = props.user.lesson_duration || DEFAULT_DURATION
 		this.state = {
 			date: props.navigation.getParam("date"),
 			hours: [],
 			students: [],
 			student: {},
 			dateAndTime: "",
-			defaultDuration: duration.toString(),
 			allTopics: [],
 			progress: [],
 			finished: [],
@@ -50,7 +49,8 @@ export class Lesson extends LessonParent {
 			meetup: {},
 			dropoff: {},
 			meetupListViewDisplayed: false,
-			dropoffListViewDisplayed: false
+			dropoffListViewDisplayed: false,
+			duration_mul: 1
 		}
 		this._initializeInputs = this._initializeInputs.bind(this)
 		this.onChangeText = this.onChangeText.bind(this)
@@ -84,7 +84,6 @@ export class Lesson extends LessonParent {
 					.format(SHORT_API_DATE_FORMAT),
 				dateAndTime: moment.utc(lesson.date).format(API_DATE_FORMAT),
 				studentName: lesson.student.name,
-				duration: lesson.duration.toString(),
 				meetup: { description: lesson.meetup_place },
 				dropoff: { description: lesson.dropoff_place },
 				hours: [[lesson.date, null]],
@@ -111,17 +110,6 @@ export class Lesson extends LessonParent {
 				},
 				...studentEditable
 			},
-			duration: {
-				iconName: "swap-horiz",
-				extraPlaceholder: ` (${strings(
-					"teacher.new_lesson.default"
-				)}: ${this.state.defaultDuration})`,
-				onBlur: input => {
-					this._getAvailableHours()
-					this.onBlur(input)
-				},
-				style: { marginTop: 0 }
-			},
 			price: {
 				iconName: "dollar-sign",
 				iconType: "feather",
@@ -147,8 +135,7 @@ export class Lesson extends LessonParent {
 				method: "POST",
 				body: JSON.stringify({
 					date: this.state.date,
-					duration:
-						this.state.duration || this.props.user.lesson_duration
+					duration_mul: this.state.duration_mul
 				})
 			}
 		)
@@ -215,7 +202,7 @@ export class Lesson extends LessonParent {
 		this._scrollView.scrollToEnd()
 		const hours = getHoursDiff(
 			date,
-			this.state.duration || this.state.defaultDuration
+			this.duration * this.state.duration_mul
 		)
 		this.setState({
 			hour: hours["start"] + " - " + hours["end"],
@@ -256,9 +243,7 @@ export class Lesson extends LessonParent {
 							...selectedTextStyle
 						}}
 						date={hours[0]}
-						duration={
-							this.state.duration || this.state.defaultDuration
-						}
+						duration={this.state.duration_mul * this.duration}
 					/>
 				</InputSelectionButton>
 			)
@@ -329,6 +314,7 @@ export class Lesson extends LessonParent {
 					price: this.state.price,
 					meetup_place: this.state.meetup,
 					dropoff_place: this.state.dropoff,
+					duration_mul: this.state.duration_mul,
 					...student
 				})
 			})
@@ -532,14 +518,25 @@ export class Lesson extends LessonParent {
 								<Text>{date}</Text>
 							</View>
 						</TouchableOpacity>
-						{this.renderInputs(0, 2)}
+						{this.renderInputs(0, 1)}
+						<View style={styles.nonInputContainer}>
+							<Text style={styles.nonInputTitle}>
+								{strings("teacher.new_lesson.duration")}
+							</Text>
+						</View>
+						{this.renderDuration()}
 						<View style={styles.nonInputContainer}>
 							<Text style={styles.nonInputTitle}>
 								{strings("teacher.new_lesson.hour")}
 							</Text>
 						</View>
 						<View style={styles.rects}>{this.renderHours()}</View>
-						{this.renderInputs(2, 5)}
+						{this.renderInputs(1, 5)}
+						<View style={styles.nonInputContainer}>
+							<Text style={styles.nonInputTitle}>
+								{strings("teacher.new_lesson.places")}
+							</Text>
+						</View>
 						{this.renderPlaces()}
 						<View style={styles.nonInputContainer}>
 							<Text style={styles.nonInputTitle}>

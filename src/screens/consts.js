@@ -2,6 +2,7 @@ import React from "react"
 import { Platform } from "react-native"
 import TabBar from "../components/TabBar"
 import { Icon } from "react-native-elements"
+import { strings } from "../i18n"
 const options = {
 	activeTintColor: "rgb(12,116,244)",
 	inactiveTintColor: "black",
@@ -49,3 +50,9 @@ export const tabBarOptions = {
 	}),
 	tabBarOptions: options
 }
+
+export const durationMulOptions = [
+	{ value: 1, label: strings("normal_lesson") },
+	{ value: 1.5, label: strings("lesson_and_a_half") },
+	{ value: 2, label: strings("double_lesson") }
+]

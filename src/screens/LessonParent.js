@@ -1,14 +1,17 @@
-import React from "react"
-import { Alert } from "react-native"
+import React, { Fragment } from "react"
+import { Alert, View } from "react-native"
 import { strings } from "../i18n"
 import {
 	SHORT_API_DATE_FORMAT,
 	GOOGLE_MAPS_QUERY,
-	autoCompletePlacesStyle
+	autoCompletePlacesStyle,
+	MAIN_PADDING
 } from "../consts"
 import moment from "moment"
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
 import AlertError from "../components/AlertError"
+import { Dropdown } from "react-native-material-dropdown"
+import { durationMulOptions } from "./consts"
 
 export default class LessonParent extends AlertError {
 	handlePlaceSelection = (name, data) => {
@@ -103,6 +106,42 @@ export default class LessonParent extends AlertError {
 			() => {
 				this._getAvailableHours()
 			}
+		)
+	}
+
+	_dropdownChange = (value, index, data) => {
+		this.setState(
+			{
+				duration_mul: value
+			},
+			() => {
+				this._getAvailableHours()
+			}
+		)
+	}
+
+	renderDuration = () => {
+		return (
+			<Fragment>
+				<Dropdown
+					value={this.state.duration_mul}
+					data={durationMulOptions}
+					onChangeText={this._dropdownChange.bind(this)}
+					dropdownMargins={{ min: 20, max: 60 }}
+					dropdownOffset={{
+						top: 0,
+						left: 0
+					}}
+					containerStyle={{
+						marginLeft: MAIN_PADDING,
+						marginRight: MAIN_PADDING,
+						marginTop: 8
+					}}
+					inputContainerStyle={{
+						borderBottomColor: "transparent"
+					}}
+				/>
+			</Fragment>
 		)
 	}
 }

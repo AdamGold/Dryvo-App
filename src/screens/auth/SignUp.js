@@ -177,9 +177,14 @@ export class SignUp extends AlertError {
 				async user => {
 					if (user) {
 						// we are not awaiting, let's try to do this fully in background
-						this.props.fetchService.fetch("/teacher/ezcount_user", {
-							method: "GET"
-						})
+						if (this.role == signUpRoles.teacher) {
+							this.props.fetchService.fetch(
+								"/teacher/ezcount_user",
+								{
+									method: "GET"
+								}
+							)
+						}
 						await this.props.dispatch(
 							checkFirebasePermission(true, true)
 						)

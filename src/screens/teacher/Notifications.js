@@ -36,13 +36,13 @@ export class Notifications extends AlertError {
 	constructor(props) {
 		super(props)
 		this.filterOptions = [
-			{ value: "lessons/", label: strings("notifications.lessons") },
+			{ value: "appointments/", label: strings("notifications.lessons") },
 			{
 				value: "teacher/students",
 				label: strings("notifications.students")
 			},
 			{
-				value: "lessons/payments",
+				value: "appointments/payments",
 				label: strings("notifications.payments")
 			}
 		]
@@ -229,6 +229,7 @@ export class Notifications extends AlertError {
 						onPress={this.lessonPress}
 						testID="lessonPopup"
 						navigation={this.props.navigation}
+						isStudent={false}
 					/>
 				</TouchableOpacity>
 			</Fragment>

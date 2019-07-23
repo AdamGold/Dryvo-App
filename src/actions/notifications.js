@@ -25,7 +25,7 @@ export function handleNotification(
 	firebase
 		.notifications()
 		.removeDeliveredNotification(notification.notification._notificationId)
-	let filter = "lessons/"
+	let filter = "appointments/"
 	if (!notification.notification._title) return
 	const title = notification.notification._title.toLowerCase()
 	if (title.includes("payment")) {

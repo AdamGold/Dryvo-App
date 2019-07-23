@@ -33,11 +33,11 @@ export class Notifications extends React.Component {
 		super(props)
 		this.filterOptions = [
 			{
-				value: "lessons/",
+				value: "appointments/",
 				label: strings("notifications.scheduled_lessons")
 			},
 			{
-				value: "lessons/payments",
+				value: "appointments/payments",
 				label: strings("notifications.payments")
 			}
 		]
@@ -161,7 +161,8 @@ export class Notifications extends React.Component {
 		if (item.creator_id == this.props.user.my_teacher.user.id) {
 			// teacher created the lesson
 			teacherApprovedOrScheduled = strings(
-				"notifications.teacher_scheduled"
+				"notifications.teacher_scheduled",
+				{ type: strings("teacher.new_lesson.types." + item.type) }
 			)
 		}
 		return (
@@ -204,6 +205,7 @@ export class Notifications extends React.Component {
 						onPress={this.lessonPress}
 						testID="lessonPopup"
 						navigation={this.props.navigation}
+						isStudent={true}
 					/>
 				</TouchableOpacity>
 			</Fragment>

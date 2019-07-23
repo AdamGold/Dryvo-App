@@ -78,7 +78,7 @@ export default class StudentProfile extends AlertError {
 
 	_navigateToPayments = () => {
 		this.props.navigation.navigate("Payments", {
-			filter: "lessons/payments",
+			filter: "appointments/payments",
 			extraFilter: "&student_id=" + this.state.student.student_id,
 			filterText: this.state.student.name
 		})
@@ -87,7 +87,7 @@ export default class StudentProfile extends AlertError {
 	_getNextLesson = async () => {
 		const now = new Date().toISOString()
 		const resp = await this.props.fetchService.fetch(
-			"/lessons/?limit=1&is_approved=true&date=ge:" +
+			"/appointments/?limit=1&is_approved=true&date=ge:" +
 				now +
 				"&student_id=" +
 				this.state.student.student_id,
@@ -264,6 +264,7 @@ export default class StudentProfile extends AlertError {
 							onPress={this.lessonPress}
 							testID="lessonPopup"
 							navigation={this.props.navigation}
+							isStudent={!this.state.isTeacher}
 						/>
 					</ShadowRect>
 					<ShadowRect style={styles.rect}>

@@ -1,4 +1,4 @@
-image: node:9.4.0
+image: node:latest
 
 stages:
     - test

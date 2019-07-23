@@ -42,6 +42,37 @@ export default class LessonPopup extends React.Component {
 		}
 
 		let studentInfo
+		let typeAndPrice = (
+			<Text style={styles.lessonNumber}>
+				{strings("lesson_price")}: {item.price}₪
+			</Text>
+		)
+		let editButton = (
+			<TouchableOpacity
+				underlayColor="#ffffff00"
+				onPress={this.navigateToLesson}
+				style={styles.button}
+			>
+				<View testID="editLessonButton">
+					<Text style={styles.buttonText}>
+						{strings("edit_lesson")}
+					</Text>
+				</View>
+			</TouchableOpacity>
+		)
+		if (item.type != "lesson") {
+			let goodLuck
+			if (this.props.isStudent) {
+				editButton = null
+				goodLuck = " (" + strings("good_luck") + ")"
+			}
+			typeAndPrice = (
+				<Text style={styles.lessonType}>
+					{strings("teacher.new_lesson.types." + item.type)}
+					{goodLuck}
+				</Text>
+			)
+		}
 		if (!item.student) {
 			studentInfo = (
 				<Text style={{ ...styles.title, alignSelf: "center" }}>
@@ -69,9 +100,7 @@ export default class LessonPopup extends React.Component {
 						<View style={styles.userInfo}>
 							<Text style={styles.title}>{name}</Text>
 							<Text style={styles.lessonNumber}>{number}</Text>
-							<Text style={styles.lessonNumber}>
-								{strings("lesson_price")}: {item.price}₪
-							</Text>
+							{typeAndPrice}
 						</View>
 					</Fragment>
 				</TouchableOpacity>
@@ -124,17 +153,7 @@ export default class LessonPopup extends React.Component {
 							<Text style={styles.texts}>{dropoff}</Text>
 						</View>
 					</View>
-					<TouchableOpacity
-						underlayColor="#ffffff00"
-						onPress={this.navigateToLesson}
-						style={styles.button}
-					>
-						<View testID="editLessonButton">
-							<Text style={styles.buttonText}>
-								{strings("edit_lesson")}
-							</Text>
-						</View>
-					</TouchableOpacity>
+					{editButton}
 				</View>
 			</Modal>
 		)
@@ -211,5 +230,10 @@ const styles = StyleSheet.create({
 		fontWeight: "bold",
 		color: "#fff",
 		fontSize: 20
+	},
+	lessonType: {
+		color: "green",
+		alignSelf: "flex-start",
+		fontWeight: "bold"
 	}
 })

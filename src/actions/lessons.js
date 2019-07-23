@@ -28,7 +28,7 @@ export async function getPayments(fetchService, forMonth = true, extra = "") {
 	if (extra) extra = `&${extra}`
 	try {
 		const resp = await fetchService.fetch(
-			`/lessons/payments?order_by=created_at desc${forMonthURL}${extra}`,
+			`/appointments/payments?order_by=created_at desc${forMonthURL}${extra}`,
 			{ method: "GET" }
 		)
 		var sum = 0
@@ -47,7 +47,7 @@ export async function getPayments(fetchService, forMonth = true, extra = "") {
 
 export async function getLessonById(fetchService, id) {
 	try {
-		const resp = await fetchService.fetch(`/lessons/${id}`, {
+		const resp = await fetchService.fetch(`/appointments/${id}`, {
 			method: "GET"
 		})
 		return resp.json["data"]

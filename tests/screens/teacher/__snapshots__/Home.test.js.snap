@@ -68,7 +68,7 @@ exports[`Home view renders correctly 1`] = `
     <ShadowRect
       style={
         Object {
-          "minHeight": 220,
+          "minHeight": 240,
         }
       }
     >
@@ -83,7 +83,7 @@ exports[`Home view renders correctly 1`] = `
         }
         testID="schedule"
       >
-        שיעור נוכחי
+        מפגש נוכחי
       </Text>
       <TouchableOpacity
         activeOpacity={0.2}
@@ -93,13 +93,25 @@ exports[`Home view renders correctly 1`] = `
         <Row
           key="itemundefined"
           leftSide={
-            <Hours
-              style={
-                Object {
-                  "marginTop": 8,
+            <React.Fragment>
+              <Hours
+                style={
+                  Object {
+                    "marginTop": 8,
+                  }
                 }
-              }
-            />
+              />
+              <Text
+                style={
+                  Object {
+                    "alignSelf": "center",
+                    "color": "red",
+                  }
+                }
+              >
+                [missing "he.teacher.new_lesson.types.undefined" translation]
+              </Text>
+            </React.Fragment>
           }
           style={
             Object {
@@ -152,6 +164,7 @@ exports[`Home view renders correctly 1`] = `
         </Row>
       </TouchableOpacity>
       <LessonPopup
+        isStudent={false}
         item={
           Object {
             "dropoff_place": "t",
@@ -182,7 +195,7 @@ exports[`Home view renders correctly 1`] = `
           }
         }
       >
-        שיעור הבא
+        מפגש הבא
       </Text>
       <Text
         style={

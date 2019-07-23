@@ -84,7 +84,7 @@ export default class LessonParent extends AlertError {
 		const { lesson } = this.state
 		if (!lesson) return
 		const resp = await this.props.fetchService.fetch(
-			`/lessons/${lesson.id}`,
+			`/appointments/${lesson.id}`,
 			{
 				method: "DELETE"
 			}

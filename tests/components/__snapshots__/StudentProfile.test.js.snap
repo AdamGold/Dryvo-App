@@ -311,7 +311,7 @@ exports[`StudentProfile view renders correctly -> teacher's view 1`] = `
         }
         testID="schedule"
       >
-        שיעור הבא
+        מפגש הבא
       </Text>
       <StudentNextLessonView
         lesson={
@@ -325,6 +325,7 @@ exports[`StudentProfile view renders correctly -> teacher's view 1`] = `
         testID="lessonRowTouchable"
       />
       <LessonPopup
+        isStudent={false}
         item={
           Object {
             "duration": 40,

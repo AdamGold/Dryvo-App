@@ -187,7 +187,7 @@ export class Lesson extends LessonParent {
 		let lessonId = ""
 		if (this.state.lesson) lessonId = this.state.lesson.id
 		const resp = await this.props.dispatch(
-			fetchOrError("/lessons/" + lessonId, {
+			fetchOrError("/appointments/" + lessonId, {
 				method: "POST",
 				body: JSON.stringify({
 					date: moment.utc(this.state.dateAndTime).toISOString(),
@@ -224,16 +224,18 @@ export class Lesson extends LessonParent {
 					<Icon name="arrow-forward" type="material" />
 				</TouchableOpacity>
 			)
-			deleteButton = (
-				<TouchableOpacity
-					onPress={this.deleteConfirm.bind(this)}
-					style={styles.deleteButton}
-				>
-					<Text style={{ color: "red" }}>
-						{strings("delete_lesson")}
-					</Text>
-				</TouchableOpacity>
-			)
+			if (this.state.lesson.type == "lesson") {
+				deleteButton = (
+					<TouchableOpacity
+						onPress={this.deleteConfirm.bind(this)}
+						style={styles.deleteButton}
+					>
+						<Text style={{ color: "red" }}>
+							{strings("delete_lesson")}
+						</Text>
+					</TouchableOpacity>
+				)
+			}
 		}
 		return (
 			<View style={{ flex: 1, marginTop: 20 }}>

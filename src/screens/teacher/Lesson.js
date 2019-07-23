@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 import {
 	KeyboardAvoidingView,
 	Text,
@@ -29,6 +29,16 @@ import { getLessonById } from "../../actions/lessons"
 import SuccessModal from "../../components/SuccessModal"
 import DateTimePicker from "react-native-modal-datetime-picker"
 import LessonParent from "../LessonParent"
+import { Dropdown } from "react-native-material-dropdown"
+
+const typeMulOptions = [
+	{ value: "lesson", label: strings("teacher.new_lesson.types.lesson") },
+	{
+		value: "inner_exam",
+		label: strings("teacher.new_lesson.types.inner_exam")
+	},
+	{ value: "test", label: strings("teacher.new_lesson.types.test") }
+]
 
 export class Lesson extends LessonParent {
 	constructor(props) {
@@ -50,7 +60,8 @@ export class Lesson extends LessonParent {
 			dropoff: {},
 			meetupListViewDisplayed: false,
 			dropoffListViewDisplayed: false,
-			duration_mul: 1
+			duration_mul: 1,
+			type: "lesson"
 		}
 		this._initializeInputs = this._initializeInputs.bind(this)
 		this.onChangeText = this.onChangeText.bind(this)
@@ -90,7 +101,8 @@ export class Lesson extends LessonParent {
 				hour: moment
 					.utc(lesson.date)
 					.local()
-					.format("HH:mm")
+					.format("HH:mm"),
+				type: lesson.type
 			}
 		}
 		await this._getTopics()
@@ -172,7 +184,7 @@ export class Lesson extends LessonParent {
 
 	onChangeText = (name, value) => this.setState({ [name]: value })
 
-	renderInputs = (start = 0, end = 5) => {
+	renderInputs = (start = 0, end = 1) => {
 		const keys = Object.keys(this.inputs).slice(start, end)
 		return keys.map((name, index) => {
 			const props = this.inputs[name]
@@ -307,7 +319,7 @@ export class Lesson extends LessonParent {
 		if (this.state.student)
 			student = { student_id: this.state.student.student_id }
 		const resp = await this.props.dispatch(
-			fetchOrError("/lessons/" + lessonId, {
+			fetchOrError("/appointments/" + lessonId, {
 				method: "POST",
 				body: JSON.stringify({
 					date: moment.utc(this.state.dateAndTime).toISOString(),
@@ -315,6 +327,7 @@ export class Lesson extends LessonParent {
 					meetup_place: this.state.meetup,
 					dropoff_place: this.state.dropoff,
 					duration_mul: this.state.duration_mul,
+					type: this.state.type,
 					...student
 				})
 			})
@@ -324,7 +337,7 @@ export class Lesson extends LessonParent {
 		let topicsResp = true
 		if (this.state.progress.length > 0 || this.state.finished.length > 0) {
 			topicsResp = await this.props.dispatch(
-				fetchOrError(`/lessons/${lessonId}/topics`, {
+				fetchOrError(`/appointments/${lessonId}/topics`, {
 					method: "POST",
 					body: JSON.stringify({
 						topics: {
@@ -420,7 +433,7 @@ export class Lesson extends LessonParent {
 	}
 
 	buildTopicsUrl = () => {
-		let url = "/lessons"
+		let url = "/appointments"
 		if (this.state.lesson) {
 			return url + `/${this.state.lesson.id}/topics`
 		} else if (this.state.student && this.state.student.student_id) {
@@ -430,17 +443,48 @@ export class Lesson extends LessonParent {
 		return null
 	}
 
+	_typeChange = (value, index, data) => {
+		this.setState({
+			type: value
+		})
+	}
+
+	renderType = () => {
+		return (
+			<Dropdown
+				value={this.state.type}
+				data={typeMulOptions}
+				onChangeText={this._typeChange.bind(this)}
+				dropdownMargins={{ min: 20, max: 60 }}
+				dropdownOffset={{
+					top: 0,
+					left: 0
+				}}
+				containerStyle={{
+					marginLeft: MAIN_PADDING,
+					marginRight: MAIN_PADDING,
+					marginTop: 8
+				}}
+				inputContainerStyle={{
+					borderBottomColor: "transparent"
+				}}
+			/>
+		)
+	}
+
 	render() {
 		let date = moment(this.state.date).format(DISPLAY_SHORT_DATE_FORMAT)
 		let desc = strings("teacher.new_lesson.success_desc_with_student", {
 			student: this.state.studentName,
 			hours: this.state.hour,
-			date
+			date,
+			type: strings("teacher.new_lesson.types." + this.state.type)
 		})
 		if (this.state.studentName == "") {
 			desc = strings("teacher.new_lesson.success_desc_without_student", {
 				hours: this.state.hour,
-				date
+				date,
+				type: strings("teacher.new_lesson.types." + this.state.type)
 			})
 		}
 
@@ -460,6 +504,21 @@ export class Lesson extends LessonParent {
 					</Text>
 				</TouchableOpacity>
 			)
+		}
+		let price
+		let topics
+		if (this.state.type == "lesson") {
+			topics = (
+				<Fragment>
+					<View style={styles.nonInputContainer}>
+						<Text style={styles.nonInputTitle}>
+							{strings("teacher.new_lesson.topics")}
+						</Text>
+					</View>
+					<View style={styles.rects}>{this.renderTopics()}</View>
+				</Fragment>
+			)
+			price = this.renderInputs(1, 1)
 		}
 
 		return (
@@ -527,23 +586,24 @@ export class Lesson extends LessonParent {
 						{this.renderDuration()}
 						<View style={styles.nonInputContainer}>
 							<Text style={styles.nonInputTitle}>
+								{strings("teacher.new_lesson.type")}
+							</Text>
+						</View>
+						{this.renderType()}
+						<View style={styles.nonInputContainer}>
+							<Text style={styles.nonInputTitle}>
 								{strings("teacher.new_lesson.hour")}
 							</Text>
 						</View>
 						<View style={styles.rects}>{this.renderHours()}</View>
-						{this.renderInputs(1, 5)}
+						{price}
 						<View style={styles.nonInputContainer}>
 							<Text style={styles.nonInputTitle}>
 								{strings("teacher.new_lesson.places")}
 							</Text>
 						</View>
 						{this.renderPlaces()}
-						<View style={styles.nonInputContainer}>
-							<Text style={styles.nonInputTitle}>
-								{strings("teacher.new_lesson.topics")}
-							</Text>
-						</View>
-						<View style={styles.rects}>{this.renderTopics()}</View>
+						{topics}
 					</ScrollView>
 					<TouchableOpacity
 						onPress={this.submit}

@@ -69,7 +69,7 @@ export class Home extends React.Component {
 	_getLesson = async () => {
 		const now = new Date().toISOString()
 		const resp = await this.props.fetchService.fetch(
-			"/lessons/?limit=1&is_approved=true&date=ge:" + now,
+			"/appointments/?limit=1&is_approved=true&date=ge:" + now,
 			{ method: "GET" }
 		)
 		if (resp.json["data"].length == 0) return
@@ -105,6 +105,7 @@ export class Home extends React.Component {
 					onPress={this.lessonPress}
 					testID="lessonPopup"
 					navigation={this.props.navigation}
+					isStudent={true}
 				/>
 			</Fragment>
 		)
@@ -117,7 +118,7 @@ export class Home extends React.Component {
 			action: NavigationActions.navigate({
 				routeName: "Main",
 				params: {
-					filter: "lessons/payments"
+					filter: "appointments/payments"
 				}
 			})
 		})

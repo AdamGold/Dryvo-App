@@ -87,14 +87,14 @@ export default class Fetch {
 			...fetchParams[1]["headers"],
 			...auth
 		}
-		/*console.log(
+		console.log(
 			"request to " +
 				fetchParams[0] +
 				" with data " +
 				JSON.stringify(fetchParams[1]) +
 				" with requests sent: " +
 				this.sentRequests
-		)*/
+		)
 		const resp = await fetch(ROOT_URL + fetchParams[0], fetchParams[1])
 		let respJSON = await resp.json()
 		/*console.log(

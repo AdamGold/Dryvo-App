@@ -4,7 +4,12 @@ import Modal from "react-native-modal"
 import { strings } from "../i18n"
 import Hours from "./Hours"
 import moment from "moment"
-import { fullButton, NAME_LENGTH, DATE_FORMAT } from "../consts"
+import {
+	fullButton,
+	NAME_LENGTH,
+	DATE_FORMAT,
+	floatButtonOnlyStyle
+} from "../consts"
 import { getUserImage } from "../actions/utils"
 import UserPic from "./UserPic"
 
@@ -210,8 +215,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: "row",
 		alignItems: "center",
-		marginTop: 12,
-		maxHeight: 60
+		marginTop: 12
 	},
 	column: {
 		flexDirection: "column",
@@ -224,8 +228,17 @@ const styles = StyleSheet.create({
 		color: "gray",
 		alignSelf: "flex-start"
 	},
-	texts: { fontSize: 18, marginTop: 6, alignSelf: "flex-start" },
-	button: { ...fullButton, width: 320 },
+	texts: {
+		fontSize: 18,
+		marginTop: 6,
+		alignSelf: "flex-start",
+		textAlign: "left"
+	},
+	button: {
+		...fullButton,
+		bottom: -floatButtonOnlyStyle.height + 6,
+		width: 320
+	},
 	buttonText: {
 		fontWeight: "bold",
 		color: "#fff",

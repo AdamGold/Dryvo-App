@@ -189,7 +189,7 @@ export class Home extends React.Component {
 								<View style={{ alignItems: "flex-start" }}>
 									<Text style={styles.places}>
 										{strings("teacher.new_lesson.meetup")}:{" "}
-										{meetup}
+										{meetup.slice(0, NAME_LENGTH)}
 									</Text>
 								</View>
 							}

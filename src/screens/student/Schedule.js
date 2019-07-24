@@ -129,11 +129,7 @@ export class Schedule extends React.Component {
 		const visible = this.state.visible.includes(item.id) ? true : false
 		let approved
 		if (!item.is_approved) {
-			approved = (
-				<Text style={{ color: "red" }}>
-					({strings("not_approved")})
-				</Text>
-			)
+			approved = " - " + strings("not_approved")
 		}
 		let lessonTitle =
 			strings("teacher.home.lesson_number") +
@@ -279,7 +275,8 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		color: "gray",
 		marginTop: 4,
-		alignSelf: "flex-start"
+		alignSelf: "flex-start",
+		textAlign: "left"
 	},
 	hours: {
 		fontSize: 14,

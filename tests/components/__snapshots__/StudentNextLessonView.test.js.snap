@@ -37,7 +37,8 @@ exports[`StudentNextLessonView view renders correctly 1`] = `
         }
       >
         איסוף
-        : 
+        :
+         
         לא נקבע
       </Text>
       <Text

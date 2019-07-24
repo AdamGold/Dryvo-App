@@ -108,8 +108,8 @@ android {
         applicationId "com.dryvofront"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 2
-        versionName "0.0.7"
+        versionCode 3
+        versionName "0.0.8"
     }
     splits {
         abi {

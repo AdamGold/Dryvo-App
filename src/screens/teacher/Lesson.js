@@ -335,7 +335,11 @@ export class Lesson extends LessonParent {
 		if (!resp) return
 		if (!lessonId) lessonId = resp.json["data"]["id"]
 		let topicsResp = true
-		if (this.state.progress.length > 0 || this.state.finished.length > 0) {
+		if (
+			(this.state.progress.length > 0 ||
+				this.state.finished.length > 0) &&
+			this.state.type == "lesson"
+		) {
 			topicsResp = await this.props.dispatch(
 				fetchOrError(`/appointments/${lessonId}/topics`, {
 					method: "POST",
@@ -349,7 +353,7 @@ export class Lesson extends LessonParent {
 			)
 		}
 		if (topicsResp) {
-			Analytics.logEvent("teacher_created_lesson")
+			Analytics.logEvent("teacher_created_" + this.state.type)
 			this.setState({ successVisible: true })
 		}
 	}

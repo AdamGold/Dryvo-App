@@ -5,7 +5,7 @@ import {
 	createStackNavigator,
 	createAppContainer
 } from "react-navigation"
-import { SafeAreaView } from "react-native"
+import { SafeAreaView, Alert, BackHandler } from "react-native"
 import NormalUser from "./screens/normal_user"
 import Teacher from "./screens/teacher"
 import Student from "./screens/student"
@@ -24,6 +24,8 @@ import {
 } from "./actions/notifications"
 import Config from "react-native-config"
 import { getActiveRouteName, Analytics } from "./actions/utils"
+import packageJson from "../package.json"
+import { strings } from "./i18n"
 
 const store = configureStore()
 
@@ -82,6 +84,16 @@ class App extends Component {
 
 	async componentDidMount() {
 		this.createNotificationListeners()
+		if (packageJson.version != "0.0.8") {
+			Alert.alert(
+				strings("errors.title"),
+				strings("update_version"),
+				[{ text: "OK", onPress: () => BackHandler.exitApp() }],
+				{
+					cancelable: false
+				}
+			)
+		}
 	}
 
 	componentWillUnmount() {

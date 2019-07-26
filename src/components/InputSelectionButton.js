@@ -6,7 +6,13 @@ export default class InputSelectionButton extends React.Component {
 	render() {
 		let style = { ...styles.rects, ...this.props.style }
 		if (this.props.selected || this.props.secondTimeSelected) {
-			style = { ...style, ...styles.selected }
+			const selectedColor = this.props.selectedColor || colors.blue
+			style = {
+				...style,
+				...styles.selected,
+				backgroundColor: selectedColor,
+				shadowColor: selectedColor
+			}
 		}
 		if (this.props.secondTimeSelected) {
 			style = { ...style, ...styles.secondTimeSelected }
@@ -32,9 +38,7 @@ const styles = StyleSheet.create({
 		alignItems: "center"
 	},
 	selected: {
-		backgroundColor: colors.blue,
 		borderRadius: 4,
-		shadowColor: colors.blue,
 		shadowOffset: {
 			width: 0,
 			height: 6

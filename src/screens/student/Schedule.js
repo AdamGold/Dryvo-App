@@ -70,7 +70,7 @@ export class Schedule extends React.Component {
 	_getItems = async date => {
 		const dateObject = getDateAndString(date)
 		const resp = await this.props.fetchService.fetch(
-			"/lessons/?date=ge:" +
+			"/appointments/?date=ge:" +
 				dateObject.date.startOf("day").toISOString() +
 				"&date=le:" +
 				dateObject.date.endOf("week").toISOString(),
@@ -127,23 +127,25 @@ export class Schedule extends React.Component {
 		const meetup = item.meetup_place || strings("not_set")
 		const dropoff = item.dropoff_place || strings("not_set")
 		const visible = this.state.visible.includes(item.id) ? true : false
-		let approved
+		let approved = ""
 		if (!item.is_approved) {
-			approved = (
-				<Text style={{ color: "red" }}>
-					({strings("not_approved")})
-				</Text>
-			)
+			approved = " - " + strings("not_approved")
+		}
+		let lessonTitle =
+			strings("teacher.home.lesson_number") +
+			" " +
+			item.lesson_number +
+			approved
+
+		if (item.type != "lesson") {
+			lessonTitle = strings("teacher.new_lesson.types." + item.type) + "!"
 		}
 		return (
 			<Fragment>
 				{dayTitle}
 				<View style={styles.lesson}>
 					<TouchableOpacity onPress={() => this.lessonPress(item)}>
-						<Text style={styles.lessonTitle}>
-							{strings("teacher.home.lesson_number")}{" "}
-							{item.lesson_number} {approved}
-						</Text>
+						<Text style={styles.lessonTitle}>{lessonTitle}</Text>
 						<Hours
 							duration={item.duration}
 							date={date}
@@ -160,6 +162,7 @@ export class Schedule extends React.Component {
 					item={item}
 					onPress={this.lessonPress}
 					navigation={this.props.navigation}
+					isStudent={true}
 				/>
 			</Fragment>
 		)
@@ -272,7 +275,8 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		color: "gray",
 		marginTop: 4,
-		alignSelf: "flex-start"
+		alignSelf: "flex-start",
+		textAlign: "left"
 	},
 	hours: {
 		fontSize: 14,

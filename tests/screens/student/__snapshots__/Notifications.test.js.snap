@@ -37,11 +37,11 @@ exports[`Notifications view renders correctly 1`] = `
               Array [
                 Object {
                   "label": "שיעורים שנקבעו",
-                  "value": "lessons/",
+                  "value": "appointments/",
                 },
                 Object {
                   "label": "פעילויות כספיות",
-                  "value": "lessons/payments",
+                  "value": "appointments/payments",
                 },
               ]
             }
@@ -102,7 +102,7 @@ exports[`Notifications view renders correctly 1`] = `
             }
             textColor="rgba(0, 0, 0, .87)"
             useNativeDriver={false}
-            value="lessons/"
+            value="appointments/"
             valueExtractor={[Function]}
           />
         </View>

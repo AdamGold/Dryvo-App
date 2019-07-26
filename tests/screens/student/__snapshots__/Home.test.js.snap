@@ -77,7 +77,7 @@ exports[`Home view renders correctly 1`] = `
         }
         testID="schedule"
       >
-        שיעור הבא
+        מפגש הבא
       </Text>
       <StudentNextLessonView
         lesson={
@@ -94,6 +94,7 @@ exports[`Home view renders correctly 1`] = `
         testID="lessonRowTouchable"
       />
       <LessonPopup
+        isStudent={true}
         item={
           Object {
             "dropoff_place": "t",

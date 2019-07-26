@@ -1,4 +1,4 @@
-import React from "react"
+import React, { Fragment } from "react"
 import {
 	KeyboardAvoidingView,
 	Text,
@@ -6,8 +6,7 @@ import {
 	View,
 	TouchableOpacity,
 	ScrollView,
-	Platform,
-	Alert
+	Platform
 } from "react-native"
 import { connect } from "react-redux"
 import { Button, Icon } from "react-native-elements"
@@ -19,9 +18,7 @@ import {
 	API_DATE_FORMAT,
 	DEFAULT_DURATION,
 	SHORT_API_DATE_FORMAT,
-	DISPLAY_SHORT_DATE_FORMAT,
-	GOOGLE_MAPS_QUERY,
-	autoCompletePlacesStyle
+	DISPLAY_SHORT_DATE_FORMAT
 } from "../../consts"
 import NewLessonInput from "../../components/NewLessonInput"
 import Hours from "../../components/Hours"
@@ -31,20 +28,28 @@ import { getHoursDiff, fetchOrError, Analytics } from "../../actions/utils"
 import { getLessonById } from "../../actions/lessons"
 import SuccessModal from "../../components/SuccessModal"
 import DateTimePicker from "react-native-modal-datetime-picker"
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
-import AlertError from "../../components/AlertError"
+import LessonParent from "../LessonParent"
+import { Dropdown } from "react-native-material-dropdown"
 
-export class Lesson extends AlertError {
+const typeMulOptions = [
+	{ value: "lesson", label: strings("teacher.new_lesson.types.lesson") },
+	{
+		value: "inner_exam",
+		label: strings("teacher.new_lesson.types.inner_exam")
+	},
+	{ value: "test", label: strings("teacher.new_lesson.types.test") }
+]
+
+export class Lesson extends LessonParent {
 	constructor(props) {
 		super(props)
-		const duration = props.user.lesson_duration || DEFAULT_DURATION
+		this.duration = props.user.lesson_duration || DEFAULT_DURATION
 		this.state = {
 			date: props.navigation.getParam("date"),
 			hours: [],
 			students: [],
 			student: {},
 			dateAndTime: "",
-			defaultDuration: duration.toString(),
 			allTopics: [],
 			progress: [],
 			finished: [],
@@ -54,7 +59,9 @@ export class Lesson extends AlertError {
 			meetup: {},
 			dropoff: {},
 			meetupListViewDisplayed: false,
-			dropoffListViewDisplayed: false
+			dropoffListViewDisplayed: false,
+			duration_mul: 1,
+			type: "lesson"
 		}
 		this._initializeInputs = this._initializeInputs.bind(this)
 		this.onChangeText = this.onChangeText.bind(this)
@@ -88,14 +95,14 @@ export class Lesson extends AlertError {
 					.format(SHORT_API_DATE_FORMAT),
 				dateAndTime: moment.utc(lesson.date).format(API_DATE_FORMAT),
 				studentName: lesson.student.name,
-				duration: lesson.duration.toString(),
 				meetup: { description: lesson.meetup_place },
 				dropoff: { description: lesson.dropoff_place },
 				hours: [[lesson.date, null]],
 				hour: moment
 					.utc(lesson.date)
 					.local()
-					.format("HH:mm")
+					.format("HH:mm"),
+				type: lesson.type
 			}
 		}
 		await this._getTopics()
@@ -115,17 +122,6 @@ export class Lesson extends AlertError {
 				},
 				...studentEditable
 			},
-			duration: {
-				iconName: "swap-horiz",
-				extraPlaceholder: ` (${strings(
-					"teacher.new_lesson.default"
-				)}: ${this.state.defaultDuration})`,
-				onBlur: input => {
-					this._getAvailableHours()
-					this.onBlur(input)
-				},
-				style: { marginTop: 0 }
-			},
 			price: {
 				iconName: "dollar-sign",
 				iconType: "feather",
@@ -143,20 +139,6 @@ export class Lesson extends AlertError {
 		})
 	}
 
-	_showDateTimePicker = () => this.setState({ datePickerVisible: true })
-
-	_hideDateTimePicker = () => this.setState({ datePickerVisible: false })
-
-	_handleDatePicked = date => {
-		this._hideDateTimePicker()
-		this.setState(
-			{ date: moment(date).format(SHORT_API_DATE_FORMAT) },
-			() => {
-				this._getAvailableHours()
-			}
-		)
-	}
-
 	_getAvailableHours = async (append = false) => {
 		if (!this.state.date) return
 		const resp = await this.props.fetchService.fetch(
@@ -165,8 +147,7 @@ export class Lesson extends AlertError {
 				method: "POST",
 				body: JSON.stringify({
 					date: this.state.date,
-					duration:
-						this.state.duration || this.props.user.lesson_duration
+					duration_mul: this.state.duration_mul
 				})
 			}
 		)
@@ -203,7 +184,7 @@ export class Lesson extends AlertError {
 
 	onChangeText = (name, value) => this.setState({ [name]: value })
 
-	renderInputs = (start = 0, end = 5) => {
+	renderInputs = (start = 0, end = 1) => {
 		const keys = Object.keys(this.inputs).slice(start, end)
 		return keys.map((name, index) => {
 			const props = this.inputs[name]
@@ -233,7 +214,7 @@ export class Lesson extends AlertError {
 		this._scrollView.scrollToEnd()
 		const hours = getHoursDiff(
 			date,
-			this.state.duration || this.state.defaultDuration
+			this.duration * this.state.duration_mul
 		)
 		this.setState({
 			hour: hours["start"] + " - " + hours["end"],
@@ -274,43 +255,11 @@ export class Lesson extends AlertError {
 							...selectedTextStyle
 						}}
 						date={hours[0]}
-						duration={
-							this.state.duration || this.state.defaultDuration
-						}
+						duration={this.state.duration_mul * this.duration}
 					/>
 				</InputSelectionButton>
 			)
 		})
-	}
-
-	deleteConfirm() {
-		Alert.alert(strings("are_you_sure"), strings("are_you_sure_delete"), [
-			{
-				text: strings("cancel"),
-				style: "cancel"
-			},
-			{
-				text: strings("ok"),
-				onPress: () => {
-					this.delete()
-				}
-			}
-		])
-	}
-
-	delete = async () => {
-		const { lesson } = this.state
-		if (!lesson) return
-		const resp = await this.props.fetchService.fetch(
-			`/lessons/${lesson.id}`,
-			{
-				method: "DELETE"
-			}
-		)
-		if (resp) {
-			Alert.alert(strings("teacher.notifications.lessons_deleted"))
-			this.props.navigation.goBack()
-		}
 	}
 
 	_onStudentPress = student => {
@@ -370,13 +319,15 @@ export class Lesson extends AlertError {
 		if (this.state.student)
 			student = { student_id: this.state.student.student_id }
 		const resp = await this.props.dispatch(
-			fetchOrError("/lessons/" + lessonId, {
+			fetchOrError("/appointments/" + lessonId, {
 				method: "POST",
 				body: JSON.stringify({
 					date: moment.utc(this.state.dateAndTime).toISOString(),
 					price: this.state.price,
 					meetup_place: this.state.meetup,
 					dropoff_place: this.state.dropoff,
+					duration_mul: this.state.duration_mul,
+					type: this.state.type,
 					...student
 				})
 			})
@@ -384,9 +335,13 @@ export class Lesson extends AlertError {
 		if (!resp) return
 		if (!lessonId) lessonId = resp.json["data"]["id"]
 		let topicsResp = true
-		if (this.state.progress.length > 0 || this.state.finished.length > 0) {
+		if (
+			(this.state.progress.length > 0 ||
+				this.state.finished.length > 0) &&
+			this.state.type == "lesson"
+		) {
 			topicsResp = await this.props.dispatch(
-				fetchOrError(`/lessons/${lessonId}/topics`, {
+				fetchOrError(`/appointments/${lessonId}/topics`, {
 					method: "POST",
 					body: JSON.stringify({
 						topics: {
@@ -398,7 +353,7 @@ export class Lesson extends AlertError {
 			)
 		}
 		if (topicsResp) {
-			Analytics.logEvent("teacher_created_lesson")
+			Analytics.logEvent("teacher_created_" + this.state.type)
 			this.setState({ successVisible: true })
 		}
 	}
@@ -453,6 +408,7 @@ export class Lesson extends AlertError {
 				<InputSelectionButton
 					selected={selected}
 					secondTimeSelected={secondTimeSelected}
+					selectedColor="#d6a40d"
 					key={`student${index}`}
 					onPress={() => this._onTopicPress(topic)}
 				>
@@ -481,7 +437,7 @@ export class Lesson extends AlertError {
 	}
 
 	buildTopicsUrl = () => {
-		let url = "/lessons"
+		let url = "/appointments"
 		if (this.state.lesson) {
 			return url + `/${this.state.lesson.id}/topics`
 		} else if (this.state.student && this.state.student.student_id) {
@@ -491,44 +447,33 @@ export class Lesson extends AlertError {
 		return null
 	}
 
-	handlePlaceSelection = (name, data) => {
-		const mainText = data.structured_formatting.main_text
-		const placeID = data.place_id
+	_typeChange = (value, index, data) => {
 		this.setState({
-			[name + "ListViewDisplayed"]: false,
-			[name]: {
-				description: mainText,
-				google_id: placeID
-			}
+			type: value
 		})
 	}
 
-	renderPlaces = () => {
-		const places = ["meetup", "dropoff"]
-
-		return places.map((name, index) => {
-			return (
-				<GooglePlacesAutocomplete
-					key={`autocomplete-${name}`}
-					query={GOOGLE_MAPS_QUERY}
-					placeholder={strings("teacher.new_lesson." + name)}
-					minLength={2}
-					autoFocus={false}
-					returnKeyType={"default"}
-					fetchDetails={false}
-					currentLocation={false}
-					currentLocationLabel={strings("current_location")}
-					nearbyPlacesAPI="GooglePlacesSearch"
-					listViewDisplayed={this.state[name + "ListViewDisplayed"]}
-					styles={autoCompletePlacesStyle}
-					onPress={(data, details = null) => {
-						// 'details' is provided when fetchDetails = true
-						this.handlePlaceSelection(name, data)
-					}}
-					getDefaultValue={() => this.state[name].description || ""}
-				/>
-			)
-		})
+	renderType = () => {
+		return (
+			<Dropdown
+				value={this.state.type}
+				data={typeMulOptions}
+				onChangeText={this._typeChange.bind(this)}
+				dropdownMargins={{ min: 20, max: 60 }}
+				dropdownOffset={{
+					top: 0,
+					left: 0
+				}}
+				containerStyle={{
+					marginLeft: MAIN_PADDING,
+					marginRight: MAIN_PADDING,
+					marginTop: 8
+				}}
+				inputContainerStyle={{
+					borderBottomColor: "transparent"
+				}}
+			/>
+		)
 	}
 
 	render() {
@@ -536,12 +481,14 @@ export class Lesson extends AlertError {
 		let desc = strings("teacher.new_lesson.success_desc_with_student", {
 			student: this.state.studentName,
 			hours: this.state.hour,
-			date
+			date,
+			type: strings("teacher.new_lesson.types." + this.state.type)
 		})
 		if (this.state.studentName == "") {
 			desc = strings("teacher.new_lesson.success_desc_without_student", {
 				hours: this.state.hour,
-				date
+				date,
+				type: strings("teacher.new_lesson.types." + this.state.type)
 			})
 		}
 
@@ -561,6 +508,21 @@ export class Lesson extends AlertError {
 					</Text>
 				</TouchableOpacity>
 			)
+		}
+		let price
+		let topics
+		if (this.state.type == "lesson") {
+			topics = (
+				<Fragment>
+					<View style={styles.nonInputContainer}>
+						<Text style={styles.nonInputTitle}>
+							{strings("teacher.new_lesson.topics")}
+						</Text>
+					</View>
+					<View style={styles.rects}>{this.renderTopics()}</View>
+				</Fragment>
+			)
+			price = this.renderInputs(1, 1)
 		}
 
 		return (
@@ -619,21 +581,33 @@ export class Lesson extends AlertError {
 								<Text>{date}</Text>
 							</View>
 						</TouchableOpacity>
-						{this.renderInputs(0, 2)}
+						{this.renderInputs(0, 1)}
+						<View style={styles.nonInputContainer}>
+							<Text style={styles.nonInputTitle}>
+								{strings("teacher.new_lesson.duration")}
+							</Text>
+						</View>
+						{this.renderDuration()}
+						<View style={styles.nonInputContainer}>
+							<Text style={styles.nonInputTitle}>
+								{strings("teacher.new_lesson.type")}
+							</Text>
+						</View>
+						{this.renderType()}
 						<View style={styles.nonInputContainer}>
 							<Text style={styles.nonInputTitle}>
 								{strings("teacher.new_lesson.hour")}
 							</Text>
 						</View>
 						<View style={styles.rects}>{this.renderHours()}</View>
-						{this.renderInputs(2, 5)}
-						{this.renderPlaces()}
+						{price}
 						<View style={styles.nonInputContainer}>
 							<Text style={styles.nonInputTitle}>
-								{strings("teacher.new_lesson.topics")}
+								{strings("teacher.new_lesson.places")}
 							</Text>
 						</View>
-						<View style={styles.rects}>{this.renderTopics()}</View>
+						{this.renderPlaces()}
+						{topics}
 					</ScrollView>
 					<TouchableOpacity
 						onPress={this.submit}
@@ -702,7 +676,8 @@ const styles = StyleSheet.create({
 		paddingLeft: 12
 	},
 	hoursText: {
-		color: "gray"
+		color: "gray",
+		textAlign: "center"
 	},
 	rects: {
 		flex: 1,

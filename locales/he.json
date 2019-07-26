@@ -2,7 +2,7 @@
 	"tabs": {
 		"home": "בית",
 		"notifications_title": "פעילויות",
-		"add": "הוספת שיעור",
+		"add": "הוספת מפגש",
 		"students": "התלמידים שלי"
 	},
 	"default_error": "קרתה תקלה, אנא נסו שנית.",
@@ -12,7 +12,7 @@
 	"approve": "אישור",
 	"reject": "ביטול",
 	"not_set": "לא נקבע",
-	"edit_lesson": "ערוך שיעור",
+	"edit_lesson": "ערוך מפגש",
 	"done": "סיום",
 	"not_approved": "לא מאושר",
 	"empty_lessons": "טרם נקבעו שיעורים",
@@ -22,7 +22,7 @@
 	"empty_topics": "טרם נלמדו נושאים",
 	"empty_work_hours": "לא הגדרת שעות עבודה!",
 	"select_image": "בחר תמונה",
-	"delete_lesson": "ביטול השיעור",
+	"delete_lesson": "ביטול המפגש",
 	"show_receipt": "צפה בחשבונית",
 	"show_receipt_later": "צפה לאחר מכן",
 	"lesson_price": "מחיר",
@@ -35,10 +35,14 @@
 	"ok": "אישור",
 	"cancel": "לא כרגע",
 	"are_you_sure_general": "האם להמשיך בפעולה?",
-	"are_you_sure_delete": "האם לבטל את השיעור?",
+	"are_you_sure_delete": "האם לבטל את המפגש?",
 	"current_location": "מיקום נוכחי",
 	"call_phone": "התקשר",
 	"whatsapp": "שלח WhatsApp",
+	"normal_lesson": "רגיל",
+	"double_lesson": "כפול",
+	"lesson_and_a_half": "שיעור וחצי",
+	"good_luck": "בהצלחה!",
 	"student_profile": {
 		"lessons": "שיעורים",
 		"my_teacher": "המורה שלי:",
@@ -103,8 +107,8 @@
 		"receipt_created_msg": "החשבונית נוצרה בהצלחה ונשלחה למייל של {{student}}.",
 		"are_you_sure_invoice": "האם להפיק חשבונית?",
 		"home": {
-			"current_lesson": "שיעור נוכחי",
-			"next_lesson": "שיעור הבא",
+			"current_lesson": "מפגש נוכחי",
+			"next_lesson": "מפגש הבא",
 			"monthly_amount": "פעילויות כספיות (חודשי)",
 			"welcome": "{{greeting}}, {{name}}",
 			"full_schedule": "לו״ז מלא",
@@ -120,37 +124,44 @@
 			"title": "התראות",
 			"new_student": "רוצה להצטרף כתלמיד",
 			"new_payment": "ביצע העברה",
-			"lessons_approved": "השיעור אושר!",
-			"lessons_deleted": "השיעור בוטל.",
+			"appointments_approved": "השיעור אושר!",
+			"appointments_deleted": "השיעור בוטל.",
 			"student_approved": "הבקשה אושרה!",
 			"student_deleted": "הבקשה נדחתה.",
 			"extra_filter": "סינון:",
 			"delete_filter": "נקה סינון"
 		},
 		"new_lesson": {
-			"title": "פרטי שיעור",
-			"continue": "צור שיעור חדש",
+			"title": "פרטי מפגש",
+			"continue": "צור מפגש חדש",
 			"date": "תאריך",
 			"hour": "שעה",
 			"studentName": "שם התלמיד/ה",
-			"duration": "אורך השיעור",
-			"price": "תמחור שיעור",
+			"duration": "אורך המפגש",
+			"price": "תמחור",
 			"meetup": "איסוף",
 			"dropoff": "הורדה",
 			"topics": "נושאים",
 			"done": "שליחה",
 			"default": "ברירת מחדל",
-			"success_title": "השיעור עודכן בהצלחה!",
-			"success_desc_with_student": "נשלחה התראה ל%{student} עבור שיעור בתאריך %{date} בשעה %{hours}.",
-			"success_desc_without_student": "עודכן השיעור בתאריך %{date} בשעה %{hours}. כרגע אין תלמיד הרשום לשיעור זה.",
+			"success_title": "המפגש עודכן בהצלחה!",
+			"success_desc_with_student": "נשלחה התראה ל%{student} עבור %{type} בתאריך %{date} בשעה %{hours}.",
+			"success_desc_without_student": "עודכן ה%{type} בתאריך %{date} בשעה %{hours}.",
 			"success_button": "חזור אחורה",
 			"empty_topics": "אין נושאים אפשריים",
 			"empty_students": "לא נמצאו תלמידים",
-			"enter_student_name": "תחילה, הכנס שם תלמיד"
+			"enter_student_name": "תחילה, הכנס שם תלמיד",
+			"places": "מקומות",
+			"type": "סוג המפגש",
+			"types": {
+				"lesson": "שיעור",
+				"inner_exam": "טסט פנימי",
+				"test": "טסט"
+			}
 		},
 		"schedule": {
 			"change_work_days": "שינוי שעות עבודה בשבוע זה",
-			"lesson_number": "(שיעור %{num})",
+			"lesson_number": "שיעור %{num}",
 			"no_lessons_in_hour": "אין שיעורים"
 		},
 		"students": {
@@ -206,7 +217,8 @@
 			"success_button": "חזרה אחורה",
 			"no_hours_available": "אין שעות פנויות",
 			"pick_date": "בחר תאריך",
-			"pick_date_before_hours": "בחר תאריך על מנת לצפות בשעות"
+			"pick_date_before_hours": "בחר תאריך על מנת לצפות בשעות",
+			"pick_places_before_hours": "בחר מקום איסוף והורדה על מנת לצפות בשעות"
 		}
 	},
 	"settings": {
@@ -302,9 +314,10 @@
 		"lessons": "בקשות שיעורים",
 		"payments": "פעילויות כספיות",
 		"scheduled_lessons": "שיעורים שנקבעו",
-		"teacher_scheduled": "קבע שיעור חדש",
-		"teacher_approved": "אישר את השיעור",
-		"student_lesson": "{{teacher}} {{text}}"
+		"teacher_scheduled": "נקבע %{type}",
+		"teacher_name": "עם {{teacher}}",
+		"teacher_approved": "{{name}} אישר את השיעור",
+		"student_lesson": "{{text}} {{teacher_name}}"
 	},
 	"normal_user": {
 		"home": {

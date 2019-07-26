@@ -6,8 +6,7 @@ import {
 	StyleSheet,
 	View,
 	TouchableOpacity,
-	ScrollView,
-	Alert
+	ScrollView
 } from "react-native"
 import { connect } from "react-redux"
 import { strings, errors } from "../../i18n"
@@ -18,8 +17,7 @@ import {
 	API_DATE_FORMAT,
 	SHORT_API_DATE_FORMAT,
 	DISPLAY_SHORT_DATE_FORMAT,
-	GOOGLE_MAPS_QUERY,
-	autoCompletePlacesStyle
+	DEFAULT_DURATION
 } from "../../consts"
 import Hours from "../../components/Hours"
 import InputSelectionButton from "../../components/InputSelectionButton"
@@ -29,19 +27,21 @@ import DateTimePicker from "react-native-modal-datetime-picker"
 import { fetchOrError } from "../../actions/utils"
 import SuccessModal from "../../components/SuccessModal"
 import { Icon } from "react-native-elements"
-import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
-import AlertError from "../../components/AlertError"
+import LessonParent from "../LessonParent"
 
-export class Lesson extends AlertError {
+export class Lesson extends LessonParent {
 	constructor(props) {
 		super(props)
+		this.duration =
+			props.user.my_teacher.lesson_duration || DEFAULT_DURATION
 		this.initState = {
 			hours: [],
 			dateAndTime: "",
 			meetup: {},
 			dropoff: {},
 			meetupListViewDisplayed: false,
-			dropoffListViewDisplayed: false
+			dropoffListViewDisplayed: false,
+			duration_mul: 1
 		}
 		this.state = {
 			date: "",
@@ -74,7 +74,6 @@ export class Lesson extends AlertError {
 					.utc(lesson.date)
 					.local()
 					.format(SHORT_API_DATE_FORMAT),
-				duration: lesson.duration.toString(),
 				meetup: { description: lesson.meetup_place },
 				dropoff: { description: lesson.dropoff_place },
 				hours: [[lesson.date, null]],
@@ -87,53 +86,17 @@ export class Lesson extends AlertError {
 		}
 	}
 
-	handlePlaceSelection = (name, data) => {
-		const mainText = data.structured_formatting.main_text
-		const placeID = data.place_id
-		this.setState({
-			[name + "ListViewDisplayed"]: false,
-			[name]: {
-				description: mainText,
-				google_id: placeID
-			}
-		})
-	}
-
-	renderPlaces = () => {
-		const places = ["meetup", "dropoff"]
-
-		return places.map((name, index) => {
-			return (
-				<GooglePlacesAutocomplete
-					key={`autocomplete-${name}`}
-					query={GOOGLE_MAPS_QUERY}
-					placeholder={strings("teacher.new_lesson." + name)}
-					minLength={2}
-					autoFocus={false}
-					returnKeyType={"default"}
-					fetchDetails={false}
-					currentLocation={false}
-					currentLocationLabel={strings("current_location")}
-					nearbyPlacesAPI="GooglePlacesSearch"
-					listViewDisplayed={this.state[name + "ListViewDisplayed"]}
-					styles={autoCompletePlacesStyle}
-					onPress={(data, details = null) => {
-						// 'details' is provided when fetchDetails = true
-						this.handlePlaceSelection(name, data)
-					}}
-					getDefaultValue={() => this.state[name].description || ""}
-				/>
-			)
-		})
-	}
-
 	_getAvailableHours = async (append = false) => {
+		if (!this.state.date) return
 		const resp = await this.props.fetchService.fetch(
 			`/teacher/${this.props.user.my_teacher.teacher_id}/available_hours`,
 			{
 				method: "POST",
 				body: JSON.stringify({
-					date: this.state.date
+					date: this.state.date,
+					meetup_place_id: this.state.meetup.google_id,
+					dropoff_place_id: this.state.dropoff.google_id,
+					duration_mul: this.state.duration_mul
 				})
 			}
 		)
@@ -151,42 +114,12 @@ export class Lesson extends AlertError {
 		this._scrollView.scrollToEnd()
 		const hours = getHoursDiff(
 			date,
-			this.props.user.my_teacher.lesson_duration
+			this.duration * this.state.duration_mul
 		)
 		this.setState({
 			hour: hours["start"] + " - " + hours["end"],
 			dateAndTime: moment.utc(date).format(API_DATE_FORMAT)
 		})
-	}
-
-	deleteConfirm() {
-		Alert.alert(strings("are_you_sure"), strings("are_you_sure_delete"), [
-			{
-				text: strings("cancel"),
-				style: "cancel"
-			},
-			{
-				text: strings("ok"),
-				onPress: () => {
-					this.delete()
-				}
-			}
-		])
-	}
-
-	delete = async () => {
-		const { lesson } = this.state
-		if (!lesson) return
-		const resp = await this.props.fetchService.fetch(
-			`/lessons/${lesson.id}`,
-			{
-				method: "DELETE"
-			}
-		)
-		if (resp) {
-			Alert.alert(strings("teacher.notifications.lessons_deleted"))
-			this.props.navigation.goBack()
-		}
 	}
 
 	renderHours = () => {
@@ -201,6 +134,18 @@ export class Lesson extends AlertError {
 			return (
 				<Text>
 					{strings("student.new_lesson.pick_date_before_hours")}
+				</Text>
+			)
+		}
+		if (
+			!this.state.meetup.hasOwnProperty("description") ||
+			this.state.meetup.description == "" ||
+			!this.state.dropoff.hasOwnProperty("description") ||
+			this.state.dropoff.description == ""
+		) {
+			return (
+				<Text>
+					{strings("student.new_lesson.pick_places_before_hours")}
 				</Text>
 			)
 		}
@@ -231,7 +176,7 @@ export class Lesson extends AlertError {
 							...selectedTextStyle
 						}}
 						date={hours[0]}
-						duration={this.props.user.my_teacher.lesson_duration}
+						duration={this.state.duration_mul * this.duration}
 					/>
 				</InputSelectionButton>
 			)
@@ -242,12 +187,13 @@ export class Lesson extends AlertError {
 		let lessonId = ""
 		if (this.state.lesson) lessonId = this.state.lesson.id
 		const resp = await this.props.dispatch(
-			fetchOrError("/lessons/" + lessonId, {
+			fetchOrError("/appointments/" + lessonId, {
 				method: "POST",
 				body: JSON.stringify({
 					date: moment.utc(this.state.dateAndTime).toISOString(),
 					meetup_place: this.state.meetup,
-					dropoff_place: this.state.dropoff
+					dropoff_place: this.state.dropoff,
+					duration_mul: this.state.duration_mul
 				})
 			})
 		)
@@ -255,20 +201,6 @@ export class Lesson extends AlertError {
 			Analytics.logEvent("student_created_lesson")
 			this.setState({ ...this.initState, successVisible: true })
 		}
-	}
-
-	_showDateTimePicker = () => this.setState({ datePickerVisible: true })
-
-	_hideDateTimePicker = () => this.setState({ datePickerVisible: false })
-
-	_handleDatePicked = date => {
-		this._hideDateTimePicker()
-		this.setState(
-			{ date: moment(date).format(SHORT_API_DATE_FORMAT) },
-			() => {
-				this._getAvailableHours()
-			}
-		)
 	}
 
 	render() {
@@ -292,16 +224,18 @@ export class Lesson extends AlertError {
 					<Icon name="arrow-forward" type="material" />
 				</TouchableOpacity>
 			)
-			deleteButton = (
-				<TouchableOpacity
-					onPress={this.deleteConfirm.bind(this)}
-					style={styles.deleteButton}
-				>
-					<Text style={{ color: "red" }}>
-						{strings("delete_lesson")}
-					</Text>
-				</TouchableOpacity>
-			)
+			if (this.state.lesson.type == "lesson") {
+				deleteButton = (
+					<TouchableOpacity
+						onPress={this.deleteConfirm.bind(this)}
+						style={styles.deleteButton}
+					>
+						<Text style={{ color: "red" }}>
+							{strings("delete_lesson")}
+						</Text>
+					</TouchableOpacity>
+				)
+			}
 		}
 		return (
 			<View style={{ flex: 1, marginTop: 20 }}>
@@ -345,11 +279,22 @@ export class Lesson extends AlertError {
 					</TouchableOpacity>
 					<View style={styles.nonInputContainer}>
 						<Text style={styles.nonInputTitle}>
+							{strings("teacher.new_lesson.duration")}
+						</Text>
+					</View>
+					{this.renderDuration()}
+					<View style={styles.nonInputContainer}>
+						<Text style={styles.nonInputTitle}>
+							{strings("teacher.new_lesson.places")}
+						</Text>
+					</View>
+					{this.renderPlaces()}
+					<View style={styles.nonInputContainer}>
+						<Text style={styles.nonInputTitle}>
 							{strings("teacher.new_lesson.hour")}
 						</Text>
 					</View>
 					<View style={styles.hours}>{this.renderHours()}</View>
-					{this.renderPlaces()}
 				</ScrollView>
 				<KeyboardAvoidingView
 					behavior={Platform.OS === "ios" ? "padding" : null}

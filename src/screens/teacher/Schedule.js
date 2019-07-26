@@ -26,6 +26,7 @@ import EmptyState from "../../components/EmptyState"
 import LessonsLoader from "../../components/LessonsLoader"
 import moment from "moment"
 import UserPic from "../../components/UserPic"
+import { truncateWithEllipses } from "../../actions/utils"
 
 export class Schedule extends React.Component {
 	static navigationOptions = () => {
@@ -145,7 +146,7 @@ export class Schedule extends React.Component {
 	_getItems = async date => {
 		const dateObject = getDateAndString(date)
 		const resp = await this.props.fetchService.fetch(
-			"/lessons/?is_approved=true&date=ge:" +
+			"/appointments/?is_approved=true&date=ge:" +
 				dateObject.date.startOf("day").toISOString() +
 				"&date=le:" +
 				dateObject.date.endOf("day").toISOString(),
@@ -175,13 +176,18 @@ export class Schedule extends React.Component {
 
 	_renderLesson(item) {
 		let student = strings("teacher.no_student_applied")
+		let typeOrNumber = strings("teacher.schedule.lesson_number", {
+			num: item.lesson_number
+		})
+		if (item.type != "lesson") {
+			typeOrNumber = strings("teacher.new_lesson.types." + item.type)
+		}
 		if (item.student) {
 			student =
 				item.student.name.slice(0, NAME_LENGTH) +
-				" " +
-				strings("teacher.schedule.lesson_number", {
-					num: item.lesson_number
-				})
+				" (" +
+				typeOrNumber +
+				")"
 		}
 		const date = item.date
 		const meetup = item.meetup_place || strings("not_set")
@@ -209,11 +215,11 @@ export class Schedule extends React.Component {
 						<Text style={styles.name}>{student}</Text>
 						<Text style={styles.places}>
 							{strings("teacher.new_lesson.meetup")}:{" "}
-							{meetup.slice(0, 20)}
+							{truncateWithEllipses(meetup, NAME_LENGTH)}
 						</Text>
 						<Text style={styles.places}>
 							{strings("teacher.new_lesson.dropoff")}:{" "}
-							{dropoff.slice(0, 20)}
+							{truncateWithEllipses(dropoff, NAME_LENGTH)}
 						</Text>
 					</Row>
 				</TouchableOpacity>
@@ -222,6 +228,7 @@ export class Schedule extends React.Component {
 					item={item}
 					onPress={this.lessonPress}
 					navigation={this.props.navigation}
+					isStudent={false}
 				/>
 			</Fragment>
 		)

@@ -6,7 +6,8 @@ import { strings } from "../i18n"
 import EmptyState from "./EmptyState"
 import SimpleLoader from "./SimpleLoader"
 import moment from "moment"
-import { DATE_FORMAT } from "../consts"
+import { DATE_FORMAT, NAME_LENGTH } from "../consts"
+import { truncateWithEllipses } from "../actions/utils"
 
 export default class StudentNextLessonView extends React.Component {
 	render() {
@@ -42,11 +43,12 @@ export default class StudentNextLessonView extends React.Component {
 							}
 						>
 							<Text style={styles.placeStyle}>
-								{strings("teacher.new_lesson.meetup")}: {meetup}
+								{strings("teacher.new_lesson.meetup")}:{" "}
+								{truncateWithEllipses(meetup, NAME_LENGTH)}
 							</Text>
 							<Text style={styles.placeStyle}>
 								{strings("teacher.new_lesson.dropoff")}:{" "}
-								{dropoff}
+								{truncateWithEllipses(dropoff, NAME_LENGTH)}
 							</Text>
 						</Row>
 					</Fragment>

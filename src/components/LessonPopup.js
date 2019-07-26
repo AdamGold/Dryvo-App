@@ -4,7 +4,12 @@ import Modal from "react-native-modal"
 import { strings } from "../i18n"
 import Hours from "./Hours"
 import moment from "moment"
-import { fullButton, NAME_LENGTH, DATE_FORMAT } from "../consts"
+import {
+	fullButton,
+	NAME_LENGTH,
+	DATE_FORMAT,
+	floatButtonOnlyStyle
+} from "../consts"
 import { getUserImage } from "../actions/utils"
 import UserPic from "./UserPic"
 
@@ -42,6 +47,37 @@ export default class LessonPopup extends React.Component {
 		}
 
 		let studentInfo
+		let typeAndPrice = (
+			<Text style={styles.lessonNumber}>
+				{strings("lesson_price")}: {item.price}₪
+			</Text>
+		)
+		let editButton = (
+			<TouchableOpacity
+				underlayColor="#ffffff00"
+				onPress={this.navigateToLesson}
+				style={styles.button}
+			>
+				<View testID="editLessonButton">
+					<Text style={styles.buttonText}>
+						{strings("edit_lesson")}
+					</Text>
+				</View>
+			</TouchableOpacity>
+		)
+		if (item.type != "lesson") {
+			let goodLuck
+			if (this.props.isStudent) {
+				editButton = null
+				goodLuck = " (" + strings("good_luck") + ")"
+			}
+			typeAndPrice = (
+				<Text style={styles.lessonType}>
+					{strings("teacher.new_lesson.types." + item.type)}
+					{goodLuck}
+				</Text>
+			)
+		}
 		if (!item.student) {
 			studentInfo = (
 				<Text style={{ ...styles.title, alignSelf: "center" }}>
@@ -69,9 +105,7 @@ export default class LessonPopup extends React.Component {
 						<View style={styles.userInfo}>
 							<Text style={styles.title}>{name}</Text>
 							<Text style={styles.lessonNumber}>{number}</Text>
-							<Text style={styles.lessonNumber}>
-								{strings("lesson_price")}: {item.price}₪
-							</Text>
+							{typeAndPrice}
 						</View>
 					</Fragment>
 				</TouchableOpacity>
@@ -124,17 +158,7 @@ export default class LessonPopup extends React.Component {
 							<Text style={styles.texts}>{dropoff}</Text>
 						</View>
 					</View>
-					<TouchableOpacity
-						underlayColor="#ffffff00"
-						onPress={this.navigateToLesson}
-						style={styles.button}
-					>
-						<View testID="editLessonButton">
-							<Text style={styles.buttonText}>
-								{strings("edit_lesson")}
-							</Text>
-						</View>
-					</TouchableOpacity>
+					{editButton}
 				</View>
 			</Modal>
 		)
@@ -191,8 +215,7 @@ const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: "row",
 		alignItems: "center",
-		marginTop: 12,
-		maxHeight: 60
+		marginTop: 12
 	},
 	column: {
 		flexDirection: "column",
@@ -205,11 +228,25 @@ const styles = StyleSheet.create({
 		color: "gray",
 		alignSelf: "flex-start"
 	},
-	texts: { fontSize: 18, marginTop: 6, alignSelf: "flex-start" },
-	button: { ...fullButton, width: 320 },
+	texts: {
+		fontSize: 16,
+		marginTop: 6,
+		alignSelf: "flex-start",
+		textAlign: "left"
+	},
+	button: {
+		...fullButton,
+		bottom: -floatButtonOnlyStyle.height + 6,
+		width: 320
+	},
 	buttonText: {
 		fontWeight: "bold",
 		color: "#fff",
 		fontSize: 20
+	},
+	lessonType: {
+		color: "green",
+		alignSelf: "flex-start",
+		fontWeight: "bold"
 	}
 })

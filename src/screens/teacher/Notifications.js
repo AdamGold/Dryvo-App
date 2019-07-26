@@ -36,13 +36,13 @@ export class Notifications extends AlertError {
 	constructor(props) {
 		super(props)
 		this.filterOptions = [
-			{ value: "lessons/", label: strings("notifications.lessons") },
+			{ value: "appointments/", label: strings("notifications.lessons") },
 			{
 				value: "teacher/students",
 				label: strings("notifications.students")
 			},
 			{
-				value: "lessons/payments",
+				value: "appointments/payments",
 				label: strings("notifications.payments")
 			}
 		]
@@ -210,7 +210,9 @@ export class Notifications extends AlertError {
 						}
 					>
 						<NotificationButtons
-							approve={() => this.approve("lessons", item, index)}
+							approve={() =>
+								this.approve("appointments", item, index)
+							}
 							edit={() => {
 								Analytics.logEvent("teacher_edited")
 								this.props.navigation.navigate("Lesson", {
@@ -219,7 +221,7 @@ export class Notifications extends AlertError {
 							}}
 							delete={() => {
 								Analytics.logEvent("teacher_deleted")
-								this.deleteConfirm("lessons", item, index)
+								this.deleteConfirm("appointments", item, index)
 							}}
 						/>
 					</Notification>
@@ -229,6 +231,7 @@ export class Notifications extends AlertError {
 						onPress={this.lessonPress}
 						testID="lessonPopup"
 						navigation={this.props.navigation}
+						isStudent={false}
 					/>
 				</TouchableOpacity>
 			</Fragment>

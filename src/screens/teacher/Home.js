@@ -30,7 +30,8 @@ import { NavigationActions } from "react-navigation"
 import {
 	getUserImage,
 	uploadUserImage,
-	getGreetingTime
+	getGreetingTime,
+	truncateWithEllipses
 } from "../../actions/utils"
 import UploadProfileImage from "../../components/UploadProfileImage"
 import moment from "moment"
@@ -84,14 +85,14 @@ export class Home extends React.Component {
 			.add(duration, "minutes")
 			.toISOString()
 		const currentLessonResp = await this.props.fetchService.fetch(
-			"/lessons/?limit=1&is_approved=true&date=ge:" +
+			"/appointments/?limit=1&is_approved=true&date=ge:" +
 				now +
 				"&date=le:" +
 				nowPlusLessonDuration,
 			{ method: "GET" }
 		)
 		const nextLessonResp = await this.props.fetchService.fetch(
-			"/lessons/?limit=2&is_approved=true&date=ge:" + now,
+			"/appointments/?limit=2&is_approved=true&date=ge:" + now,
 			{ method: "GET" }
 		)
 		let nextLesson = null,
@@ -148,6 +149,13 @@ export class Home extends React.Component {
 				</Text>
 			)
 		}
+		let type
+		if (item.type != "lesson")
+			type = (
+				<Text style={styles.lessonType}>
+					{strings("teacher.new_lesson.types." + item.type)}
+				</Text>
+			)
 		let student = strings("teacher.no_student_applied")
 		if (item.student) {
 			student = item.student.name
@@ -165,11 +173,14 @@ export class Home extends React.Component {
 						key={`item${item.id}`}
 						style={styles.lessonRow}
 						leftSide={
-							<Hours
-								style={styles.hours}
-								duration={item.duration}
-								date={date}
-							/>
+							<Fragment>
+								<Hours
+									style={styles.hours}
+									duration={item.duration}
+									date={date}
+								/>
+								{type}
+							</Fragment>
 						}
 					>
 						<UserWithPic
@@ -179,7 +190,10 @@ export class Home extends React.Component {
 								<View style={{ alignItems: "flex-start" }}>
 									<Text style={styles.places}>
 										{strings("teacher.new_lesson.meetup")}:{" "}
-										{meetup}
+										{truncateWithEllipses(
+											meetup,
+											NAME_LENGTH
+										)}
 									</Text>
 								</View>
 							}
@@ -194,6 +208,7 @@ export class Home extends React.Component {
 					onPress={this.lessonPress}
 					testID="lessonPopup"
 					navigation={this.props.navigation}
+					isStudent={false}
 				/>
 			</Fragment>
 		)
@@ -304,7 +319,7 @@ export class Home extends React.Component {
 			action: NavigationActions.navigate({
 				routeName: "Main",
 				params: {
-					filter: "lessons/payments"
+					filter: "appointments/payments"
 				}
 			})
 		})
@@ -396,7 +411,7 @@ const styles = StyleSheet.create({
 		paddingRight: MAIN_PADDING,
 		alignItems: "center"
 	},
-	schedule: { minHeight: 220 },
+	schedule: { minHeight: 240 },
 	welcomeHeader: {
 		alignSelf: "center",
 		alignItems: "center",
@@ -479,6 +494,10 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: "flex-end",
 		marginRight: "auto"
+	},
+	lessonType: {
+		color: "red",
+		alignSelf: "center"
 	}
 })
 

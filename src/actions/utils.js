@@ -303,3 +303,7 @@ export function getActiveRouteName(navigationState) {
 	}
 	return route.routeName
 }
+
+export function truncateWithEllipses(text, max) {
+	return text.substr(0, max - 1) + (text.length > max ? "..." : "")
+}

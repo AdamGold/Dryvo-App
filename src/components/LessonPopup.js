@@ -229,7 +229,7 @@ const styles = StyleSheet.create({
 		alignSelf: "flex-start"
 	},
 	texts: {
-		fontSize: 18,
+		fontSize: 16,
 		marginTop: 6,
 		alignSelf: "flex-start",
 		textAlign: "left"

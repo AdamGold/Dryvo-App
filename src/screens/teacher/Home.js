@@ -30,7 +30,8 @@ import { NavigationActions } from "react-navigation"
 import {
 	getUserImage,
 	uploadUserImage,
-	getGreetingTime
+	getGreetingTime,
+	truncateWithEllipses
 } from "../../actions/utils"
 import UploadProfileImage from "../../components/UploadProfileImage"
 import moment from "moment"
@@ -189,7 +190,10 @@ export class Home extends React.Component {
 								<View style={{ alignItems: "flex-start" }}>
 									<Text style={styles.places}>
 										{strings("teacher.new_lesson.meetup")}:{" "}
-										{meetup.slice(0, NAME_LENGTH)}
+										{truncateWithEllipses(
+											meetup,
+											NAME_LENGTH
+										)}
 									</Text>
 								</View>
 							}

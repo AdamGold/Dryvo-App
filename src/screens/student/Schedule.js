@@ -127,7 +127,7 @@ export class Schedule extends React.Component {
 		const meetup = item.meetup_place || strings("not_set")
 		const dropoff = item.dropoff_place || strings("not_set")
 		const visible = this.state.visible.includes(item.id) ? true : false
-		let approved
+		let approved = ""
 		if (!item.is_approved) {
 			approved = " - " + strings("not_approved")
 		}

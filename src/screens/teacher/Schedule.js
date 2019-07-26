@@ -26,6 +26,7 @@ import EmptyState from "../../components/EmptyState"
 import LessonsLoader from "../../components/LessonsLoader"
 import moment from "moment"
 import UserPic from "../../components/UserPic"
+import { truncateWithEllipses } from "../../actions/utils"
 
 export class Schedule extends React.Component {
 	static navigationOptions = () => {
@@ -214,11 +215,11 @@ export class Schedule extends React.Component {
 						<Text style={styles.name}>{student}</Text>
 						<Text style={styles.places}>
 							{strings("teacher.new_lesson.meetup")}:{" "}
-							{meetup.slice(0, 20)}
+							{truncateWithEllipses(meetup, NAME_LENGTH)}
 						</Text>
 						<Text style={styles.places}>
 							{strings("teacher.new_lesson.dropoff")}:{" "}
-							{dropoff.slice(0, 20)}
+							{truncateWithEllipses(dropoff, NAME_LENGTH)}
 						</Text>
 					</Row>
 				</TouchableOpacity>

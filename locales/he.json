@@ -41,7 +41,6 @@
 	"whatsapp": "שלח WhatsApp",
 	"normal_lesson": "רגיל",
 	"double_lesson": "כפול",
-	"triple_lesson": "שלושה שיעורים",
 	"lesson_and_a_half": "שיעור וחצי",
 	"good_luck": "בהצלחה!",
 	"student_profile": {
@@ -125,8 +124,8 @@
 			"title": "התראות",
 			"new_student": "רוצה להצטרף כתלמיד",
 			"new_payment": "ביצע העברה",
-			"lessons_approved": "השיעור אושר!",
-			"lessons_deleted": "השיעור בוטל.",
+			"appointments_approved": "השיעור אושר!",
+			"appointments_deleted": "השיעור בוטל.",
 			"student_approved": "הבקשה אושרה!",
 			"student_deleted": "הבקשה נדחתה.",
 			"extra_filter": "סינון:",
@@ -315,9 +314,10 @@
 		"lessons": "בקשות שיעורים",
 		"payments": "פעילויות כספיות",
 		"scheduled_lessons": "שיעורים שנקבעו",
-		"teacher_scheduled": "קבע %{type}",
-		"teacher_approved": "אישר את השיעור",
-		"student_lesson": "{{teacher}} {{text}}"
+		"teacher_scheduled": "נקבע %{type}",
+		"teacher_name": "עם {{teacher}}",
+		"teacher_approved": "{{name}} אישר את השיעור",
+		"student_lesson": "{{text}} {{teacher_name}}"
 	},
 	"normal_user": {
 		"home": {

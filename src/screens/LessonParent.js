@@ -90,7 +90,7 @@ export default class LessonParent extends AlertError {
 			}
 		)
 		if (resp) {
-			Alert.alert(strings("teacher.notifications.lessons_deleted"))
+			Alert.alert(strings("teacher.notifications.appointments_deleted"))
 			this.props.navigation.goBack()
 		}
 	}

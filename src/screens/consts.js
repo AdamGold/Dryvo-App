@@ -54,5 +54,6 @@ export const tabBarOptions = {
 export const durationMulOptions = [
 	{ value: 1, label: strings("normal_lesson") },
 	{ value: 1.5, label: strings("lesson_and_a_half") },
-	{ value: 2, label: strings("double_lesson") }
+	{ value: 2, label: strings("double_lesson") },
+	{ value: 3, label: strings("triple_lesson") }
 ]

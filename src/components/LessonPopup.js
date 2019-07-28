@@ -121,7 +121,7 @@ export default class LessonPopup extends React.Component {
 				<View style={styles.popup} testID={this.props.testID}>
 					{studentInfo}
 					{approved}
-					<View style={styles.row}>
+					<View style={{ ...styles.row, maxHeight: 60 }}>
 						<View style={styles.column}>
 							<Text style={styles.titles}>
 								{strings("teacher.new_lesson.date")}
@@ -168,7 +168,7 @@ export default class LessonPopup extends React.Component {
 const styles = StyleSheet.create({
 	popup: {
 		flex: 1,
-		maxHeight: 340,
+		maxHeight: 360,
 		backgroundColor: "#fff",
 		padding: 26,
 		alignSelf: "center",
@@ -214,7 +214,6 @@ const styles = StyleSheet.create({
 	row: {
 		flex: 1,
 		flexDirection: "row",
-		alignItems: "center",
 		marginTop: 12
 	},
 	column: {
@@ -236,7 +235,7 @@ const styles = StyleSheet.create({
 	},
 	button: {
 		...fullButton,
-		bottom: -floatButtonOnlyStyle.height + 6,
+		bottom: 0,
 		width: 320
 	},
 	buttonText: {

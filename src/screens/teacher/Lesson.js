@@ -102,7 +102,8 @@ export class Lesson extends LessonParent {
 					.utc(lesson.date)
 					.local()
 					.format("HH:mm"),
-				type: lesson.type
+				type: lesson.type,
+				duration_mul: lesson.duration / this.duration
 			}
 		}
 		await this._getTopics()

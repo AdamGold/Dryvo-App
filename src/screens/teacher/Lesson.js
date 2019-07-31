@@ -523,7 +523,7 @@ export class Lesson extends LessonParent {
 					<View style={styles.rects}>{this.renderTopics()}</View>
 				</Fragment>
 			)
-			price = this.renderInputs(1, 1)
+			price = this.renderInputs(1, 2)
 		}
 
 		return (

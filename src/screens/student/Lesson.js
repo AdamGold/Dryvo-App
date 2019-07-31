@@ -80,7 +80,8 @@ export class Lesson extends LessonParent {
 				hour: moment
 					.utc(lesson.date)
 					.local()
-					.format("HH:mm")
+					.format("HH:mm"),
+				duration_mul: lesson.duration / this.duration
 			}
 			await this._getAvailableHours(true)
 		}

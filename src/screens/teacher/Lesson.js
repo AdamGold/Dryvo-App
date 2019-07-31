@@ -102,7 +102,8 @@ export class Lesson extends LessonParent {
 					.utc(lesson.date)
 					.local()
 					.format("HH:mm"),
-				type: lesson.type
+				type: lesson.type,
+				duration_mul: lesson.duration / this.duration
 			}
 		}
 		await this._getTopics()
@@ -522,7 +523,7 @@ export class Lesson extends LessonParent {
 					<View style={styles.rects}>{this.renderTopics()}</View>
 				</Fragment>
 			)
-			price = this.renderInputs(1, 1)
+			price = this.renderInputs(1, 2)
 		}
 
 		return (

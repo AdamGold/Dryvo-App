@@ -117,7 +117,11 @@ export default class LessonParent extends AlertError {
 			() => {
 				this._getAvailableHours()
 				if (this.state.hasOwnProperty("price")) {
-					this.setState({ price: this.props.user.price * value })
+					let newPrice = this.props.user.price * value
+					if (Object.keys(this.state.student).length > 0) {
+						newPrice = this.state.student.price * value
+					}
+					this.setState({ price: newPrice })
 				}
 			}
 		)

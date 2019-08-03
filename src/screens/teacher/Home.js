@@ -79,32 +79,23 @@ export class Home extends React.Component {
 
 	_getLessons = async () => {
 		const now = new Date().toISOString()
-		const duration = this.props.user.lesson_duration || DEFAULT_DURATION
-		const nowPlusLessonDuration = moment
-			.utc()
-			.add(duration, "minutes")
-			.toISOString()
-		const currentLessonResp = await this.props.fetchService.fetch(
-			"/appointments/?limit=1&is_approved=true&date=ge:" +
-				now +
-				"&date=le:" +
-				nowPlusLessonDuration,
-			{ method: "GET" }
-		)
 		const nextLessonResp = await this.props.fetchService.fetch(
 			"/appointments/?limit=2&is_approved=true&date=ge:" + now,
 			{ method: "GET" }
 		)
 		let nextLesson = null,
 			currentLesson = null
-
-		if (nextLessonResp.json["data"].length > 0) {
-			if (currentLessonResp.json["data"].length == 0) {
-				// no current lesson (no lessons today)
-				nextLesson = nextLessonResp.json["data"][0]
+		const data = nextLessonResp.json["data"]
+		if (data.length > 0) {
+			const endDateOfFirst = moment
+				.utc(data[0].date)
+				.add(data[0].duration, "minutes")
+			if (endDateOfFirst <= moment()) {
+				// lesson is happening now
+				currentLesson = data[0]
+				nextLesson = data[1]
 			} else {
-				currentLesson = currentLessonResp.json["data"][0]
-				nextLesson = nextLessonResp.json["data"][1]
+				nextLesson = data[0]
 			}
 		}
 

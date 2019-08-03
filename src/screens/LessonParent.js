@@ -103,11 +103,13 @@ export default class LessonParent extends AlertError {
 	_handleDatePicked = date => {
 		this._hideDateTimePicker()
 		this.setState({ date: moment(date).format(API_DATE_FORMAT) }, () => {
-			if (typeof this["getAvailableHours"] === "function") {
-				this._getAvailableHours()
-			}
+			this._getAvailableHours()
 		})
 	}
+
+	_getAvailableHours() {}
+
+	calculatePrice() {}
 
 	_dropdownChange = (value, index, data) => {
 		let newDuration = value * this.duration
@@ -118,12 +120,8 @@ export default class LessonParent extends AlertError {
 				duration: newDuration
 			},
 			() => {
-				if (typeof this["getAvailableHours"] === "function") {
-					this._getAvailableHours()
-				}
-				if (typeof this["calculatePrice"] === "function") {
-					this.calculatePrice()
-				}
+				this._getAvailableHours()
+				this.calculatePrice()
 			}
 		)
 	}
@@ -132,7 +130,7 @@ export default class LessonParent extends AlertError {
 		let value = this.state.duration_mul
 		const values = durationMulOptions.map(({ value }) => value)
 		if (!values.includes(value)) {
-			value = -1 // other
+			value = 0 // other
 		}
 		return (
 			<Fragment>

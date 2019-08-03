@@ -200,7 +200,6 @@ export class Lesson extends LessonParent {
 
 	calculatePrice() {
 		if (this.state.hasOwnProperty("price") && this.state.duration_mul) {
-			console.log(this.state.duration_mul)
 			let newPrice = this.props.user.price * this.state.duration_mul
 			if (Object.keys(this.state.student).length > 0) {
 				newPrice = this.state.student.price * this.state.duration_mul

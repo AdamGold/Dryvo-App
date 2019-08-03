@@ -5,7 +5,8 @@ import {
 	SHORT_API_DATE_FORMAT,
 	GOOGLE_MAPS_QUERY,
 	autoCompletePlacesStyle,
-	MAIN_PADDING
+	MAIN_PADDING,
+	API_DATE_FORMAT
 } from "../consts"
 import moment from "moment"
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete"
@@ -101,37 +102,42 @@ export default class LessonParent extends AlertError {
 
 	_handleDatePicked = date => {
 		this._hideDateTimePicker()
-		this.setState(
-			{ date: moment(date).format(SHORT_API_DATE_FORMAT) },
-			() => {
+		this.setState({ date: moment(date).format(API_DATE_FORMAT) }, () => {
+			if (typeof this["getAvailableHours"] === "function") {
 				this._getAvailableHours()
 			}
-		)
+		})
 	}
 
 	_dropdownChange = (value, index, data) => {
+		let newDuration = value * this.duration
+		if (newDuration === 0) newDuration = this.state.duration
 		this.setState(
 			{
-				duration_mul: value
+				duration_mul: value,
+				duration: newDuration
 			},
 			() => {
-				this._getAvailableHours()
-				if (this.state.hasOwnProperty("price")) {
-					let newPrice = this.props.user.price * value
-					if (Object.keys(this.state.student).length > 0) {
-						newPrice = this.state.student.price * value
-					}
-					this.setState({ price: newPrice })
+				if (typeof this["getAvailableHours"] === "function") {
+					this._getAvailableHours()
+				}
+				if (typeof this["calculatePrice"] === "function") {
+					this.calculatePrice()
 				}
 			}
 		)
 	}
 
 	renderDuration = () => {
+		let value = this.state.duration_mul
+		const values = durationMulOptions.map(({ value }) => value)
+		if (!values.includes(value)) {
+			value = -1 // other
+		}
 		return (
 			<Fragment>
 				<Dropdown
-					value={this.state.duration_mul}
+					value={value}
 					data={durationMulOptions}
 					onChangeText={this._dropdownChange.bind(this)}
 					dropdownMargins={{ min: 20, max: 60 }}

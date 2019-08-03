@@ -21,7 +21,7 @@ Array [
           "marginLeft": 18,
           "marginRight": 18,
           "marginTop": 20,
-          "paddingBottom": 8,
+          "paddingBottom": 4,
           "transform": Array [
             Object {
               "translateX": 0,
@@ -30,6 +30,34 @@ Array [
         }
       }
     >
+      <TextInput
+        allowFontScaling={true}
+        autoFocus={false}
+        editable={true}
+        onBlur={[Function]}
+        onChangeText={[Function]}
+        onFocus={[Function]}
+        onSubmitEditing={[Function]}
+        placeholder="[missing \\"he.teacher.new_lesson.test\\" translation]kiwi"
+        placeholderTextColor="lightgray"
+        rejectResponderTermination={true}
+        selectTextOnFocus={false}
+        style={
+          Object {
+            "alignSelf": "center",
+            "color": "#000",
+            "flex": 1,
+            "fontFamily": "Assistant",
+            "fontSize": 18,
+            "minHeight": 40,
+            "paddingLeft": 8,
+          }
+        }
+        testID="testInput"
+        textAlign="right"
+        underlineColorAndroid="transparent"
+        value="value"
+      />
       <View
         style={
           Object {
@@ -94,7 +122,7 @@ Array [
                 Array [
                   Object {
                     "color": "#000",
-                    "fontSize": 24,
+                    "fontSize": 16,
                   },
                   Object {
                     "backgroundColor": "transparent",
@@ -114,34 +142,6 @@ Array [
           </View>
         </View>
       </View>
-      <TextInput
-        allowFontScaling={true}
-        autoFocus={false}
-        editable={true}
-        onBlur={[Function]}
-        onChangeText={[Function]}
-        onFocus={[Function]}
-        onSubmitEditing={[Function]}
-        placeholder="[missing \\"he.teacher.new_lesson.test\\" translation]kiwi"
-        placeholderTextColor="lightgray"
-        rejectResponderTermination={true}
-        selectTextOnFocus={false}
-        style={
-          Object {
-            "alignSelf": "center",
-            "color": "#000",
-            "flex": 1,
-            "fontFamily": "Assistant",
-            "fontSize": 18,
-            "minHeight": 40,
-            "paddingLeft": 12,
-          }
-        }
-        testID="testInput"
-        textAlign="right"
-        underlineColorAndroid="transparent"
-        value="value"
-      />
     </View>
   </View>,
   <View

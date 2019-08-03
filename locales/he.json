@@ -43,6 +43,7 @@
 	"normal_lesson": "רגיל",
 	"double_lesson": "כפול",
 	"lesson_and_a_half": "שיעור וחצי",
+	"other_duration": "אחר",
 	"good_luck": "בהצלחה!",
 	"student_profile": {
 		"lessons": "שיעורים",
@@ -136,9 +137,11 @@
 			"title": "פרטי מפגש",
 			"continue": "צור מפגש חדש",
 			"date": "תאריך",
+			"date_and_hour": "תאריך ושעה",
 			"hour": "שעה",
 			"studentName": "שם התלמיד/ה",
 			"duration": "אורך המפגש",
+			"duration_title": "אורך המפגש (בדקות)",
 			"price": "תמחור",
 			"meetup": "איסוף",
 			"dropoff": "הורדה",
@@ -146,8 +149,8 @@
 			"done": "שליחה",
 			"default": "ברירת מחדל",
 			"success_title": "המפגש עודכן בהצלחה!",
-			"success_desc_with_student": "נשלחה התראה ל%{student} עבור %{type} בתאריך %{date} בשעה %{hours}.",
-			"success_desc_without_student": "עודכן ה%{type} בתאריך %{date} בשעה %{hours}.",
+			"success_desc_with_student": "נשלחה התראה ל%{student} עבור %{type} בתאריך %{date}.",
+			"success_desc_without_student": "עודכן ה%{type} בתאריך %{date}.",
 			"success_button": "חזור אחורה",
 			"empty_topics": "אין נושאים אפשריים",
 			"empty_students": "לא נמצאו תלמידים",
@@ -308,7 +311,8 @@
 		"Not authorized": "הינך לא מורשה לבצע פעולה זו.",
 		"payment_empty_fields": "הסכום ופרטי התשלום הינם שדות חובה.",
 		"Teacher does not have an invoice account": "אין לך עדיין חשבון ב EZCount, אנא פנה למנהלים.",
-		"Empty fields": "אחד או יותר מהשדות נשארו ריקים."
+		"Empty fields": "אחד או יותר מהשדות נשארו ריקים.",
+		"Duration is required": "זמן השיעור הינו שדה חובה."
 	},
 	"notifications": {
 		"students": "בקשות הצטרפות",

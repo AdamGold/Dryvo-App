@@ -46,7 +46,7 @@ export class Lesson extends LessonParent {
 		super(props)
 		this.duration = props.user.lesson_duration || DEFAULT_DURATION
 		this.state = {
-			date: props.navigation.getParam("date"),
+			date: new Date(props.navigation.getParam("date")),
 			students: [],
 			student: {},
 			allTopics: [],
@@ -460,9 +460,7 @@ export class Lesson extends LessonParent {
 			{
 				method: "POST",
 				body: JSON.stringify({
-					date: moment(this.state.date)
-						.utc()
-						.format(SHORT_API_DATE_FORMAT),
+					date: moment(this.state.date).format(SHORT_API_DATE_FORMAT),
 					duration: this.state.duration
 				})
 			}

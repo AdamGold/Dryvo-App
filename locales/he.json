@@ -312,7 +312,8 @@
 		"payment_empty_fields": "הסכום ופרטי התשלום הינם שדות חובה.",
 		"Teacher does not have an invoice account": "אין לך עדיין חשבון ב EZCount, אנא פנה למנהלים.",
 		"Empty fields": "אחד או יותר מהשדות נשארו ריקים.",
-		"Duration is required": "זמן השיעור הינו שדה חובה."
+		"Duration is required": "זמן השיעור הינו שדה חובה.",
+		"Please insert the date of the appointment": "אנא הכנס תאריך ושעה."
 	},
 	"notifications": {
 		"students": "בקשות הצטרפות",

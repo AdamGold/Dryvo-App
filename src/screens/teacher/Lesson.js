@@ -580,11 +580,9 @@ export class Lesson extends LessonParent {
 									)}
 								</Text>
 								<Text>{date}</Text>
-								<View style={styles.rects}>
-									{this.renderHours()}
-								</View>
 							</View>
 						</TouchableOpacity>
+						<View style={styles.rects}>{this.renderHours()}</View>
 						{this.renderInputs(0, 1)}
 						<View style={styles.nonInputContainer}>
 							<Text style={styles.nonInputTitle}>

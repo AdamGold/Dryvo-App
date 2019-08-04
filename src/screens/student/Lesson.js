@@ -96,7 +96,7 @@ export class Lesson extends LessonParent {
 			{
 				method: "POST",
 				body: JSON.stringify({
-					date: this.state.date,
+					date: moment(this.state.date).utc().format(SHORT_API_DATE_FORMAT),
 					meetup_place_id: this.state.meetup.google_id,
 					dropoff_place_id: this.state.dropoff.google_id,
 					duration: this.state.duration

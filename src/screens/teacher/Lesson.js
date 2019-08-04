@@ -30,6 +30,7 @@ import SuccessModal from "../../components/SuccessModal"
 import DateTimePicker from "react-native-modal-datetime-picker"
 import LessonParent from "../LessonParent"
 import { Dropdown } from "react-native-material-dropdown"
+import Hours from "../../components/Hours"
 
 const typeMulOptions = [
 	{ value: "lesson", label: strings("teacher.new_lesson.types.lesson") },
@@ -60,15 +61,18 @@ export class Lesson extends LessonParent {
 			dropoffListViewDisplayed: false,
 			duration_mul: 1,
 			duration: this.duration,
-			type: "lesson"
+			type: "lesson",
+			hours: []
 		}
 		this._initializeInputs = this._initializeInputs.bind(this)
 		this.onChangeText = this.onChangeText.bind(this)
 		this._onStudentPress = this._onStudentPress.bind(this)
 		this.submit = this.submit.bind(this)
+		this._onHourPress = this._onHourPress.bind(this)
 
 		this._initializeExistingLesson()
 		this._initializeInputs()
+		this._getAvailableHours(true)
 	}
 
 	_initializeExistingLesson = async () => {
@@ -92,7 +96,8 @@ export class Lesson extends LessonParent {
 				dropoff: { description: lesson.dropoff_place },
 				type: lesson.type,
 				duration_mul: lesson.duration / this.duration,
-				duration: lesson.duration
+				duration: lesson.duration,
+				hours: [[lesson.date, null]]
 			}
 		}
 		await this._getTopics()
@@ -424,6 +429,54 @@ export class Lesson extends LessonParent {
 		)
 	}
 
+	_onHourPress = date => {
+		this.setState({
+			date: moment.utc(date).local()
+		})
+	}
+
+	renderHours = () => {
+		let noDuplicates = []
+		return this.state.hours.map((hours, index) => {
+			if (noDuplicates.includes(hours[0])) {
+				return <View />
+			}
+			noDuplicates.push(hours[0])
+			return (
+				<InputSelectionButton
+					key={`hours${index}`}
+					onPress={() => this._onHourPress(hours[0])}
+				>
+					<Hours date={hours[0]} duration={this.state.duration} />
+				</InputSelectionButton>
+			)
+		})
+	}
+
+	_getAvailableHours = async (append = false) => {
+		if (!this.state.date) return
+		const resp = await this.props.fetchService.fetch(
+			`/teacher/${this.props.user.teacher_id}/available_hours`,
+			{
+				method: "POST",
+				body: JSON.stringify({
+					date: moment(this.state.date)
+						.utc()
+						.format(SHORT_API_DATE_FORMAT),
+					duration: this.state.duration
+				})
+			}
+		)
+		let hours = resp.json.data
+		if (append) {
+			// we're appending available hours to the current hour of the edited lesson
+			hours = [...this.state.hours, ...resp.json.data]
+		}
+		this.setState({
+			hours: hours
+		})
+	}
+
 	render() {
 		let date = moment(this.state.date).format(DISPLAY_LONG_DATE_FORMAT)
 		let desc = strings("teacher.new_lesson.success_desc_with_student", {
@@ -527,6 +580,9 @@ export class Lesson extends LessonParent {
 									)}
 								</Text>
 								<Text>{date}</Text>
+								<View style={styles.rects}>
+									{this.renderHours()}
+								</View>
 							</View>
 						</TouchableOpacity>
 						{this.renderInputs(0, 1)}

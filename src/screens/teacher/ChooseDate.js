@@ -156,7 +156,7 @@ export class ChooseDate extends React.Component {
 					// Enable paging on horizontal, default = false
 					pagingEnabled={true}
 					// Minimum date that can be selected, dates before minDate will be grayed out. Default = undefined
-					minDate={Date().getDate() - 7}
+					minDate={new Date().getDate() - 14}
 					maxDate={moment()
 						.add(4, "months")
 						.format(SHORT_API_DATE_FORMAT)}

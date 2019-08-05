@@ -96,7 +96,7 @@ export class Lesson extends LessonParent {
 			{
 				method: "POST",
 				body: JSON.stringify({
-					date: moment(this.state.date).utc().format(SHORT_API_DATE_FORMAT),
+					date: moment(this.state.date).format(SHORT_API_DATE_FORMAT),
 					meetup_place_id: this.state.meetup.google_id,
 					dropoff_place_id: this.state.dropoff.google_id,
 					duration: this.state.duration
@@ -139,9 +139,9 @@ export class Lesson extends LessonParent {
 		}
 		if (
 			!this.state.meetup.hasOwnProperty("description") ||
-			this.state.meetup.description == "" ||
+			!this.state.meetup.description ||
 			!this.state.dropoff.hasOwnProperty("description") ||
-			this.state.dropoff.description == ""
+			!this.state.dropoff.description
 		) {
 			return (
 				<Text>
@@ -245,7 +245,7 @@ export class Lesson extends LessonParent {
 					title={strings("student.new_lesson.success_title")}
 					desc={strings("student.new_lesson.success_desc", {
 						hours: this.state.hour,
-						date: this.state.date
+						date
 					})}
 					buttonPress={() => {
 						this.setState({ successVisible: false })
@@ -319,6 +319,7 @@ export class Lesson extends LessonParent {
 					onCancel={this._hideDateTimePicker}
 					minimumDate={today}
 					maximumDate={fourMonthsAway}
+					date={new Date(this.state.date)}
 				/>
 			</View>
 		)

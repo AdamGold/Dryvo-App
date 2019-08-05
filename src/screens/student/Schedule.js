@@ -171,7 +171,8 @@ export class Schedule extends React.Component {
 	onDayPress = day => {
 		this.setState(
 			{
-				selected: day.dateString
+				selected: day.dateString,
+				date: day
 			},
 			() => {
 				this._getItems(day)
@@ -190,6 +191,7 @@ export class Schedule extends React.Component {
 	}
 
 	render() {
+		console.log(this.state.items)
 		return (
 			<View style={styles.container}>
 				<View testID="ScheduleView" style={styles.schedule}>

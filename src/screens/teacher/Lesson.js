@@ -577,7 +577,7 @@ export class Lesson extends LessonParent {
 										"teacher.new_lesson.date_and_hour"
 									)}
 								</Text>
-								<Text>{date}</Text>
+								<Text style={styles.date}>{date}</Text>
 							</View>
 						</TouchableOpacity>
 						<View style={styles.rects}>{this.renderHours()}</View>
@@ -619,6 +619,7 @@ export class Lesson extends LessonParent {
 					onConfirm={this._handleDatePicked}
 					onCancel={this._hideDateTimePicker}
 					maximumDate={fourMonthsAway}
+					date={moment(this.state.date).toDate()}
 				/>
 			</View>
 		)
@@ -638,18 +639,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 		maxHeight: 50
 	},
-	selectedDateView: {
-		flex: 1,
-		flexDirection: "row",
-		justifyContent: "flex-end",
-		alignItems: "center",
-		marginRight: MAIN_PADDING,
-		marginTop: -10
-	},
-	selectedDate: {
-		marginLeft: 6,
-		fontSize: 14,
-		fontWeight: "bold"
+	date: {
+		fontSize: 20
 	},
 	formContainer: {
 		width: 340,

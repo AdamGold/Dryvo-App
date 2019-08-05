@@ -21,6 +21,7 @@ export default class InputSelectionButton extends React.Component {
 			<TouchableHighlight
 				onPress={this.props.onPress}
 				underlayColor="#ffffff00"
+				activeOpacity={0.3}
 			>
 				<View style={style}>{this.props.children}</View>
 			</TouchableHighlight>

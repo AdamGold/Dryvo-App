@@ -18,10 +18,10 @@ import {
 	API_DATE_FORMAT,
 	DEFAULT_DURATION,
 	SHORT_API_DATE_FORMAT,
-	DISPLAY_SHORT_DATE_FORMAT
+	DISPLAY_SHORT_DATE_FORMAT,
+	DISPLAY_LONG_DATE_FORMAT
 } from "../../consts"
 import NewLessonInput from "../../components/NewLessonInput"
-import Hours from "../../components/Hours"
 import InputSelectionButton from "../../components/InputSelectionButton"
 import moment from "moment"
 import { getHoursDiff, fetchOrError, Analytics } from "../../actions/utils"
@@ -30,6 +30,7 @@ import SuccessModal from "../../components/SuccessModal"
 import DateTimePicker from "react-native-modal-datetime-picker"
 import LessonParent from "../LessonParent"
 import { Dropdown } from "react-native-material-dropdown"
+import Hours from "../../components/Hours"
 
 const typeMulOptions = [
 	{ value: "lesson", label: strings("teacher.new_lesson.types.lesson") },
@@ -45,11 +46,9 @@ export class Lesson extends LessonParent {
 		super(props)
 		this.duration = props.user.lesson_duration || DEFAULT_DURATION
 		this.state = {
-			date: props.navigation.getParam("date"),
-			hours: [],
+			date: new Date(props.navigation.getParam("date")),
 			students: [],
 			student: {},
-			dateAndTime: "",
 			allTopics: [],
 			progress: [],
 			finished: [],
@@ -61,13 +60,15 @@ export class Lesson extends LessonParent {
 			meetupListViewDisplayed: false,
 			dropoffListViewDisplayed: false,
 			duration_mul: 1,
-			type: "lesson"
+			duration: this.duration,
+			type: "lesson",
+			hours: []
 		}
 		this._initializeInputs = this._initializeInputs.bind(this)
 		this.onChangeText = this.onChangeText.bind(this)
-		this._onHourPress = this._onHourPress.bind(this)
 		this._onStudentPress = this._onStudentPress.bind(this)
 		this.submit = this.submit.bind(this)
+		this._onHourPress = this._onHourPress.bind(this)
 
 		this._initializeExistingLesson()
 		this._initializeInputs()
@@ -83,27 +84,20 @@ export class Lesson extends LessonParent {
 			)
 		}
 		if (lesson) {
-			// init duration, studentName, meetup, dropoff, hour
+			// init duration, studentName, meetup, dropoff,
 			this.state = {
 				...this.state,
 				lesson,
 				student: lesson.student,
 				price: lesson.price,
-				date: moment
-					.utc(lesson.date)
-					.local()
-					.format(SHORT_API_DATE_FORMAT),
-				dateAndTime: moment.utc(lesson.date).format(API_DATE_FORMAT),
+				date: moment.utc(lesson.date).local(),
 				studentName: lesson.student.name,
 				meetup: { description: lesson.meetup_place },
 				dropoff: { description: lesson.dropoff_place },
-				hours: [[lesson.date, null]],
-				hour: moment
-					.utc(lesson.date)
-					.local()
-					.format("HH:mm"),
 				type: lesson.type,
-				duration_mul: lesson.duration / this.duration
+				duration_mul: lesson.duration / this.duration,
+				duration: lesson.duration,
+				hours: [[lesson.date, null]]
 			}
 		}
 		await this._getTopics()
@@ -123,6 +117,26 @@ export class Lesson extends LessonParent {
 				},
 				...studentEditable
 			},
+			duration: {
+				iconName: "clock",
+				iconType: "feather",
+				onChangeText: (name, value) => {
+					if (!value) value = 0
+					else value = parseInt(value)
+					this.setState({ duration: value })
+				},
+				onBlur: input => {
+					this.onBlur(input)
+					this.setState(
+						{
+							duration_mul: this.state.duration / this.duration
+						},
+						() => {
+							this.calculatePrice()
+						}
+					)
+				}
+			},
 			price: {
 				iconName: "dollar-sign",
 				iconType: "feather",
@@ -137,28 +151,6 @@ export class Lesson extends LessonParent {
 			if (!this.state[input]) {
 				this.state[input] = ""
 			}
-		})
-	}
-
-	_getAvailableHours = async (append = false) => {
-		if (!this.state.date) return
-		const resp = await this.props.fetchService.fetch(
-			`/teacher/${this.props.user.teacher_id}/available_hours`,
-			{
-				method: "POST",
-				body: JSON.stringify({
-					date: this.state.date,
-					duration_mul: this.state.duration_mul
-				})
-			}
-		)
-		let hours = resp.json.data
-		if (append) {
-			// we're appending available hours to the current hour of the edited lesson
-			hours = [...this.state.hours, ...resp.json.data]
-		}
-		this.setState({
-			hours: hours
 		})
 	}
 
@@ -211,56 +203,14 @@ export class Lesson extends LessonParent {
 		})
 	}
 
-	_onHourPress = date => {
-		this._scrollView.scrollToEnd()
-		const hours = getHoursDiff(
-			date,
-			this.duration * this.state.duration_mul
-		)
-		this.setState({
-			hour: hours["start"] + " - " + hours["end"],
-			dateAndTime: moment.utc(date).format(API_DATE_FORMAT)
-		})
-	}
-
-	renderHours = () => {
-		if (this.state.hours.length == 0) {
-			return (
-				<Text>{strings("student.new_lesson.no_hours_available")}</Text>
-			)
+	calculatePrice() {
+		if (this.state.hasOwnProperty("price") && this.state.duration_mul) {
+			let newPrice = this.props.user.price * this.state.duration_mul
+			if (Object.keys(this.state.student).length > 0) {
+				newPrice = this.state.student.price * this.state.duration_mul
+			}
+			this.setState({ price: newPrice })
 		}
-		let noDuplicates = []
-		return this.state.hours.map((hours, index) => {
-			if (noDuplicates.includes(hours[0])) {
-				return <View />
-			}
-			noDuplicates.push(hours[0])
-			let selected = false
-			let selectedTextStyle
-			if (
-				this.state.dateAndTime ==
-				moment.utc(hours[0]).format(API_DATE_FORMAT)
-			) {
-				selected = true
-				selectedTextStyle = { color: "#fff" }
-			}
-			return (
-				<InputSelectionButton
-					selected={selected}
-					key={`hours${index}`}
-					onPress={() => this._onHourPress(hours[0])}
-				>
-					<Hours
-						style={{
-							...styles.hoursText,
-							...selectedTextStyle
-						}}
-						date={hours[0]}
-						duration={this.state.duration_mul * this.duration}
-					/>
-				</InputSelectionButton>
-			)
-		})
 	}
 
 	_onStudentPress = student => {
@@ -323,11 +273,13 @@ export class Lesson extends LessonParent {
 			fetchOrError("/appointments/" + lessonId, {
 				method: "POST",
 				body: JSON.stringify({
-					date: moment.utc(this.state.dateAndTime).toISOString(),
+					date: moment(this.state.date)
+						.utc()
+						.toISOString(),
 					price: this.state.price,
 					meetup_place: this.state.meetup,
 					dropoff_place: this.state.dropoff,
-					duration_mul: this.state.duration_mul,
+					duration: this.state.duration,
 					type: this.state.type,
 					...student
 				})
@@ -477,17 +429,61 @@ export class Lesson extends LessonParent {
 		)
 	}
 
+	_onHourPress = date => {
+		this.setState({
+			date: moment.utc(date).local()
+		})
+	}
+
+	renderHours = () => {
+		let noDuplicates = []
+		return this.state.hours.map((hours, index) => {
+			if (noDuplicates.includes(hours[0])) {
+				return <View />
+			}
+			noDuplicates.push(hours[0])
+			return (
+				<InputSelectionButton
+					key={`hours${index}`}
+					onPress={() => this._onHourPress(hours[0])}
+				>
+					<Hours date={hours[0]} duration={this.state.duration} />
+				</InputSelectionButton>
+			)
+		})
+	}
+
+	_getAvailableHours = async (append = false) => {
+		if (!this.state.date) return
+		const resp = await this.props.fetchService.fetch(
+			`/teacher/${this.props.user.teacher_id}/available_hours`,
+			{
+				method: "POST",
+				body: JSON.stringify({
+					date: moment(this.state.date).format(SHORT_API_DATE_FORMAT),
+					duration: this.state.duration
+				})
+			}
+		)
+		let hours = resp.json.data
+		if (append) {
+			// we're appending available hours to the current hour of the edited lesson
+			hours = [...this.state.hours, ...resp.json.data]
+		}
+		this.setState({
+			hours: hours
+		})
+	}
+
 	render() {
-		let date = moment(this.state.date).format(DISPLAY_SHORT_DATE_FORMAT)
+		let date = moment(this.state.date).format(DISPLAY_LONG_DATE_FORMAT)
 		let desc = strings("teacher.new_lesson.success_desc_with_student", {
 			student: this.state.studentName,
-			hours: this.state.hour,
 			date,
 			type: strings("teacher.new_lesson.types." + this.state.type)
 		})
 		if (this.state.studentName == "") {
 			desc = strings("teacher.new_lesson.success_desc_without_student", {
-				hours: this.state.hour,
 				date,
 				type: strings("teacher.new_lesson.types." + this.state.type)
 			})
@@ -523,7 +519,7 @@ export class Lesson extends LessonParent {
 					<View style={styles.rects}>{this.renderTopics()}</View>
 				</Fragment>
 			)
-			price = this.renderInputs(1, 2)
+			price = this.renderInputs(2, 3)
 		}
 
 		return (
@@ -577,30 +573,28 @@ export class Lesson extends LessonParent {
 						<TouchableOpacity onPress={this._showDateTimePicker}>
 							<View style={styles.nonInputContainer}>
 								<Text style={styles.nonInputTitle}>
-									{strings("teacher.new_lesson.date")}
+									{strings(
+										"teacher.new_lesson.date_and_hour"
+									)}
 								</Text>
-								<Text>{date}</Text>
+								<Text style={styles.date}>{date}</Text>
 							</View>
 						</TouchableOpacity>
+						<View style={styles.rects}>{this.renderHours()}</View>
 						{this.renderInputs(0, 1)}
 						<View style={styles.nonInputContainer}>
 							<Text style={styles.nonInputTitle}>
-								{strings("teacher.new_lesson.duration")}
+								{strings("teacher.new_lesson.duration_title")}
 							</Text>
 						</View>
 						{this.renderDuration()}
+						{this.renderInputs(1, 2)}
 						<View style={styles.nonInputContainer}>
 							<Text style={styles.nonInputTitle}>
 								{strings("teacher.new_lesson.type")}
 							</Text>
 						</View>
 						{this.renderType()}
-						<View style={styles.nonInputContainer}>
-							<Text style={styles.nonInputTitle}>
-								{strings("teacher.new_lesson.hour")}
-							</Text>
-						</View>
-						<View style={styles.rects}>{this.renderHours()}</View>
 						{price}
 						<View style={styles.nonInputContainer}>
 							<Text style={styles.nonInputTitle}>
@@ -621,9 +615,11 @@ export class Lesson extends LessonParent {
 				</KeyboardAvoidingView>
 				<DateTimePicker
 					isVisible={this.state.datePickerVisible}
+					mode="datetime"
 					onConfirm={this._handleDatePicked}
 					onCancel={this._hideDateTimePicker}
 					maximumDate={fourMonthsAway}
+					date={moment(this.state.date).toDate()}
 				/>
 			</View>
 		)
@@ -643,18 +639,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 		maxHeight: 50
 	},
-	selectedDateView: {
-		flex: 1,
-		flexDirection: "row",
-		justifyContent: "flex-end",
-		alignItems: "center",
-		marginRight: MAIN_PADDING,
-		marginTop: -10
-	},
-	selectedDate: {
-		marginLeft: 6,
-		fontSize: 14,
-		fontWeight: "bold"
+	date: {
+		fontSize: 20
 	},
 	formContainer: {
 		width: 340,

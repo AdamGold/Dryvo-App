@@ -41,10 +41,11 @@ export class Lesson extends LessonParent {
 			dropoff: {},
 			meetupListViewDisplayed: false,
 			dropoffListViewDisplayed: false,
-			duration_mul: 1
+			duration_mul: 1,
+			duration: this.duration
 		}
 		this.state = {
-			date: "",
+			date: null,
 			datePickerVisible: false,
 			successVisible: false,
 			...this.initState
@@ -81,7 +82,8 @@ export class Lesson extends LessonParent {
 					.utc(lesson.date)
 					.local()
 					.format("HH:mm"),
-				duration_mul: lesson.duration / this.duration
+				duration_mul: lesson.duration / this.duration,
+				duration: lesson.duration
 			}
 			await this._getAvailableHours(true)
 		}
@@ -94,10 +96,10 @@ export class Lesson extends LessonParent {
 			{
 				method: "POST",
 				body: JSON.stringify({
-					date: this.state.date,
+					date: moment(this.state.date).format(SHORT_API_DATE_FORMAT),
 					meetup_place_id: this.state.meetup.google_id,
 					dropoff_place_id: this.state.dropoff.google_id,
-					duration_mul: this.state.duration_mul
+					duration: this.state.duration
 				})
 			}
 		)
@@ -113,10 +115,7 @@ export class Lesson extends LessonParent {
 
 	_onHourPress = date => {
 		this._scrollView.scrollToEnd()
-		const hours = getHoursDiff(
-			date,
-			this.duration * this.state.duration_mul
-		)
+		const hours = getHoursDiff(date, this.state.duration)
 		this.setState({
 			hour: hours["start"] + " - " + hours["end"],
 			dateAndTime: moment.utc(date).format(API_DATE_FORMAT)
@@ -138,12 +137,7 @@ export class Lesson extends LessonParent {
 				</Text>
 			)
 		}
-		if (
-			!this.state.meetup.hasOwnProperty("description") ||
-			this.state.meetup.description == "" ||
-			!this.state.dropoff.hasOwnProperty("description") ||
-			this.state.dropoff.description == ""
-		) {
+		if (!this.state.meetup.description || !this.state.dropoff.description) {
 			return (
 				<Text>
 					{strings("student.new_lesson.pick_places_before_hours")}
@@ -177,7 +171,7 @@ export class Lesson extends LessonParent {
 							...selectedTextStyle
 						}}
 						date={hours[0]}
-						duration={this.state.duration_mul * this.duration}
+						duration={this.state.duration}
 					/>
 				</InputSelectionButton>
 			)
@@ -194,7 +188,7 @@ export class Lesson extends LessonParent {
 					date: moment.utc(this.state.dateAndTime).toISOString(),
 					meetup_place: this.state.meetup,
 					dropoff_place: this.state.dropoff,
-					duration_mul: this.state.duration_mul
+					duration: this.state.duration
 				})
 			})
 		)
@@ -246,7 +240,7 @@ export class Lesson extends LessonParent {
 					title={strings("student.new_lesson.success_title")}
 					desc={strings("student.new_lesson.success_desc", {
 						hours: this.state.hour,
-						date: this.state.date
+						date
 					})}
 					buttonPress={() => {
 						this.setState({ successVisible: false })
@@ -320,6 +314,7 @@ export class Lesson extends LessonParent {
 					onCancel={this._hideDateTimePicker}
 					minimumDate={today}
 					maximumDate={fourMonthsAway}
+					date={new Date(this.state.date)}
 				/>
 			</View>
 		)

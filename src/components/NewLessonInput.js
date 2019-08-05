@@ -40,11 +40,11 @@ export default class NewLessonInput extends React.Component {
 							return
 						}
 					}}
-					leftIcon={
+					rightIcon={
 						<Icon
 							name={this.props.iconName}
 							type={iconType}
-							size={24}
+							size={16}
 							color={this.props.state[`${name}Color`] || "#000"}
 						/>
 					}
@@ -66,13 +66,13 @@ const styles = StyleSheet.create({
 	inputContainer: {
 		borderBottomColor: "rgb(200,200,200)",
 		borderBottomWidth: 1,
-		paddingBottom: 8,
-		marginTop: 24,
+		paddingBottom: 4,
+		marginTop: 0,
 		marginRight: MAIN_PADDING - 8,
 		marginLeft: MAIN_PADDING - 8
 	},
 	input: {
-		paddingLeft: 12,
+		paddingLeft: 8,
 		fontFamily: "Assistant"
 	},
 	belowStyle: {

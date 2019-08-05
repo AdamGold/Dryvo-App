@@ -300,7 +300,7 @@ exports[`Home view renders correctly 1`] = `
             }
           }
         >
-          0
+          100
           ₪
         </Text>
         <TouchableOpacity
@@ -322,10 +322,29 @@ exports[`Home view renders correctly 1`] = `
         </TouchableOpacity>
       </View>
       <Separator />
-      <EmptyState
-        image="payments"
-        imageSize="small"
-        text="טרם נשמרו תשלומים"
+      <FlatList
+        data={
+          Array [
+            Object {
+              "amount": 100,
+              "student": Object {
+                "name": "test",
+              },
+            },
+          ]
+        }
+        disableVirtualization={false}
+        horizontal={false}
+        initialNumToRender={10}
+        keyExtractor={[Function]}
+        maxToRenderPerBatch={10}
+        numColumns={1}
+        onEndReachedThreshold={2}
+        removeClippedSubviews={false}
+        renderItem={[Function]}
+        scrollEventThrottle={50}
+        updateCellsBatchingPeriod={50}
+        windowSize={21}
       />
     </ShadowRect>
   </View>

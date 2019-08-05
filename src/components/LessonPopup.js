@@ -231,7 +231,9 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		marginTop: 6,
 		alignSelf: "flex-start",
-		textAlign: "left"
+		textAlign: "left",
+		flexWrap: "wrap",
+		width: "70%"
 	},
 	button: {
 		...fullButton,

@@ -41,6 +41,14 @@ export default class LessonParent extends AlertError {
 		return places.map((name, index) => {
 			return (
 				<GooglePlacesAutocomplete
+					textInputProps={{
+						onChangeText: text => {
+							if (text == "") {
+								this.setState({ [name]: "" })
+								this.renderHours()
+							}
+						}
+					}}
 					ref={instance => {
 						this[name + "Ref"] = instance
 					}}

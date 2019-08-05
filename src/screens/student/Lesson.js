@@ -45,7 +45,7 @@ export class Lesson extends LessonParent {
 			duration: this.duration
 		}
 		this.state = {
-			date: "",
+			date: null,
 			datePickerVisible: false,
 			successVisible: false,
 			...this.initState
@@ -137,12 +137,7 @@ export class Lesson extends LessonParent {
 				</Text>
 			)
 		}
-		if (
-			!this.state.meetup.hasOwnProperty("description") ||
-			!this.state.meetup.description ||
-			!this.state.dropoff.hasOwnProperty("description") ||
-			!this.state.dropoff.description
-		) {
+		if (!this.state.meetup.description || !this.state.dropoff.description) {
 			return (
 				<Text>
 					{strings("student.new_lesson.pick_places_before_hours")}

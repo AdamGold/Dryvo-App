@@ -94,7 +94,7 @@ export class Students extends React.Component {
 	}
 
 	_getStudents = async (append = true) => {
-		resp = await getStudents(this.props.fetchService, this.state)
+		const resp = await getStudents(this.props.fetchService, this.state)
 		let newValue = resp.students
 		if (append) {
 			newValue = [...this.state.students, ...newValue]

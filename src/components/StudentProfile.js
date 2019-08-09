@@ -248,7 +248,7 @@ export default class StudentProfile extends AlertError {
 			)
 			teacherView = (
 				<Fragment>
-					<ShadowRect style={{ ...styles.rect, marginTop: 20 }}>
+					<ShadowRect style={styles.rect}>
 						<Text style={styles.rectTitle} testID="schedule">
 							{strings("teacher.home.next_lesson")}
 						</Text>
@@ -349,6 +349,34 @@ export default class StudentProfile extends AlertError {
 						{this._renderBadges()}
 						{contact}
 					</View>
+
+					<ShadowRect style={{ marginTop: 20, ...styles.rect }}>
+						<TouchableOpacity
+							onPress={() => {
+								this.props.navigation.navigate(
+									"StudentHistory",
+									{ student_id: student.student_id }
+								)
+							}}
+							style={{
+								flex: 1,
+								flexDirection: "row"
+							}}
+						>
+							<Fragment>
+								<Text style={styles.rectTitle}>
+									{strings("student_profile.lessons_history")}
+								</Text>
+								<View style={styles.paymentsButton}>
+									<Icon
+										name="arrow-back"
+										type="material"
+										size={20}
+									/>
+								</View>
+							</Fragment>
+						</TouchableOpacity>
+					</ShadowRect>
 					{teacherView}
 					<ShadowRect style={styles.rect}>
 						{this._renderTopics()}

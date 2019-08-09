@@ -120,6 +120,50 @@ exports[`StudentProfile view renders correctly -> student's view 1`] = `
         }
       }
     />
+    <ShadowRect
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
+        style={
+          Object {
+            "flex": 1,
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "rgb(121, 121, 121)",
+              "fontWeight": "bold",
+            }
+          }
+        >
+          היסטוריית מפגשים
+        </Text>
+        <View
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "flex": 1,
+              "marginRight": "auto",
+            }
+          }
+        >
+          <Themed.Icon
+            name="arrow-back"
+            size={20}
+            type="material"
+          />
+        </View>
+      </TouchableOpacity>
+    </ShadowRect>
     <View
       style={
         Object {
@@ -301,6 +345,46 @@ exports[`StudentProfile view renders correctly -> teacher's view 1`] = `
           "marginTop": 20,
         }
       }
+    >
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
+        style={
+          Object {
+            "flex": 1,
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "rgb(121, 121, 121)",
+              "fontWeight": "bold",
+            }
+          }
+        >
+          היסטוריית מפגשים
+        </Text>
+        <View
+          style={
+            Object {
+              "alignItems": "flex-end",
+              "flex": 1,
+              "marginRight": "auto",
+            }
+          }
+        >
+          <Themed.Icon
+            name="arrow-back"
+            size={20}
+            type="material"
+          />
+        </View>
+      </TouchableOpacity>
+    </ShadowRect>
+    <ShadowRect
+      style={Object {}}
     >
       <Text
         style={

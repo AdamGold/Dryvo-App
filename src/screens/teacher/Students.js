@@ -58,7 +58,9 @@ export class Students extends React.Component {
 		this.willFocusSubscription = this.props.navigation.addListener(
 			"willFocus",
 			payload => {
-				this._getStudents(false)
+				this.setState({ page: 1, nextUrl: "" }, () => {
+					this._getStudents(false)
+				})
 			}
 		)
 		if (Platform.OS === "android") {
@@ -92,7 +94,7 @@ export class Students extends React.Component {
 	}
 
 	_getStudents = async (append = true) => {
-		resp = await getStudents(this.props.fetchService, this.state)
+		const resp = await getStudents(this.props.fetchService, this.state)
 		let newValue = resp.students
 		if (append) {
 			newValue = [...this.state.students, ...newValue]

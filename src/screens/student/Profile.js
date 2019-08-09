@@ -3,6 +3,7 @@ import { connect } from "react-redux"
 import { strings } from "../../i18n"
 import StudentProfile from "../../components/StudentProfile"
 import EditStudent from "../../components/EditStudent"
+import StudentHistory from "../../screens/StudentHistory"
 import Notifications from "../teacher/Notifications"
 import { createStackNavigator } from "react-navigation"
 import Topics from "../Topics"
@@ -40,7 +41,8 @@ const profile = createStackNavigator(
 		Main: profileScreen,
 		Topics,
 		EditStudent: editScreen,
-		Payments: Notifications
+		Payments: Notifications,
+		StudentHistory
 	},
 	{
 		initialRouteName: "Main",

@@ -41,7 +41,6 @@ export class StudentHistory extends React.Component {
 				method: "GET"
 			}
 		)
-		console.log(resp.json.data)
 		this.setState({
 			appointments: resp.json.data,
 			loading: false

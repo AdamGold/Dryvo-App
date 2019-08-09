@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StudentHistory view renders correctly 1`] = `
+<ScrollViewMock
+  style={
+    Object {
+      "flex": 1,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "flex": 1,
+        "marginHorizontal": 26,
+        "marginVertical": 26,
+      }
+    }
+  >
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <ForwardRef(Themed.Button)
+        icon={
+          <Themed.Icon
+            name="arrow-forward"
+            type="material"
+          />
+        }
+        onPress={[Function]}
+        style={
+          Object {
+            "marginTop": -6,
+          }
+        }
+        type="clear"
+      />
+      <PageTitle
+        title="היסטוריית מפגשים"
+      />
+    </View>
+    <FlatList
+      ListEmptyComponent={[Function]}
+      data={
+        Array [
+          Object {
+            "dropoff_place": "t",
+            "meetup_place": "a",
+            "student": Object {
+              "area": "test",
+              "balance": 900,
+              "my_teacher": Object {
+                "user": Object {},
+              },
+              "name": "test",
+              "phone": "05501111",
+              "price": 1000,
+              "student_id": 1,
+            },
+          },
+        ]
+      }
+      disableVirtualization={false}
+      extraData={Array []}
+      horizontal={false}
+      initialNumToRender={10}
+      keyExtractor={[Function]}
+      maxToRenderPerBatch={10}
+      numColumns={1}
+      onEndReachedThreshold={2}
+      removeClippedSubviews={false}
+      renderItem={[Function]}
+      scrollEventThrottle={50}
+      updateCellsBatchingPeriod={50}
+      windowSize={21}
+    />
+  </View>
+</ScrollViewMock>
+`;

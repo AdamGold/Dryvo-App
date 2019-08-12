@@ -2,16 +2,17 @@ import React from "react"
 import { View, StyleSheet, TouchableOpacity, Alert, Text } from "react-native"
 import { logout } from "../../actions/auth"
 import { connect } from "react-redux"
-import { strings, errors } from "../../i18n"
+import { strings } from "../../i18n"
 import SuccessModal from "../../components/SuccessModal"
 import { signUpRoles, floatButtonOnlyStyle, MAIN_PADDING } from "../../consts"
 import { deleteDeviceToken, fetchOrError } from "../../actions/utils"
 import ShadowRect from "../../components/ShadowRect"
-import RectInput from "../../components/RectInput"
+import RectInput, { styles as rectStyles } from "../../components/RectInput"
 import validate, { registerValidation } from "../../actions/validate"
 import { getUserImage, uploadUserImage } from "../../actions/utils"
 import UploadProfileImage from "../../components/UploadProfileImage"
 import AlertError from "../../components/AlertError"
+import InputSelectionButton from "../../components/InputSelectionButton"
 
 export class Home extends AlertError {
 	static navigationOptions = () => {
@@ -32,7 +33,9 @@ export class Home extends AlertError {
 			fillForm,
 			name: "",
 			phone: "",
-			area: ""
+			area: "",
+			teachers: [],
+			teacher_id: null
 		}
 		if (this.props.user.hasOwnProperty("teacher_id")) {
 			// it's a teacher
@@ -40,6 +43,9 @@ export class Home extends AlertError {
 		} else if (this.props.user.hasOwnProperty("my_teacher")) {
 			// it's a student
 			this.role = signUpRoles.student
+		} else {
+			// new user
+			this._getTeachers()
 		}
 	}
 
@@ -50,6 +56,54 @@ export class Home extends AlertError {
 				this.props.navigation.navigate("Auth")
 			})
 		)
+	}
+
+	_getTeachers = async () => {
+		const resp = await this.props.fetchService.fetch("/teacher/", {
+			method: "GET"
+		})
+		this.setState({
+			teachers: resp.json["data"]
+		})
+	}
+
+	_onTeacherPress = teacher => {
+		this.setState({
+			teacher_id: teacher.teacher_id,
+			teacher: teacher.user.name
+		})
+	}
+
+	_renderTeachers = () => {
+		return this.state.teachers.map((teacher, index) => {
+			let style = {}
+			if (index == 0) {
+				style = { marginLeft: 0 }
+			}
+			let selected = false
+			let selectedTextStyle
+			if (this.state.teacher == teacher.user.name) {
+				selected = true
+				selectedTextStyle = { color: "#fff" }
+			}
+			return (
+				<InputSelectionButton
+					selected={selected}
+					key={`teacher${index}`}
+					onPress={() => this._onTeacherPress(teacher)}
+					style={style}
+				>
+					<Text
+						style={{
+							...styles.hoursText,
+							...selectedTextStyle
+						}}
+					>
+						{teacher.user.name}
+					</Text>
+				</InputSelectionButton>
+			)
+		})
 	}
 
 	onChangeText = (param, value) => {
@@ -90,8 +144,16 @@ export class Home extends AlertError {
 				})
 			})
 		)
+		const roleRequest = await this.props.dispatch(
+			fetchOrError(
+				"/user/make_student?teacher_id=" + this.state.teacher_id,
+				{
+					method: "GET"
+				}
+			)
+		)
 
-		if (resp) {
+		if (resp && roleRequest) {
 			this.setState({ fillForm: false })
 		}
 	}
@@ -138,6 +200,14 @@ export class Home extends AlertError {
 								this.onChangeText("phone", value)
 							}
 						/>
+						<View style={styles.teachers}>
+							<Text style={styles.labelTitle}>
+								{strings("signup.teacher")}
+							</Text>
+							<View style={styles.teachersList}>
+								{this._renderTeachers()}
+							</View>
+						</View>
 						<TouchableOpacity
 							style={styles.button}
 							onPress={this.submit.bind(this)}
@@ -203,12 +273,24 @@ const styles = StyleSheet.create({
 		height: 80,
 		borderRadius: 40,
 		marginBottom: 16
+	},
+	teachers: rectStyles.inputView,
+	labelTitle: {
+		...rectStyles.inputLabel,
+		alignSelf: "flex-start"
+	},
+	teachersList: {
+		marginTop: 8,
+		flexWrap: "wrap",
+		flexDirection: "row",
+		justifyContent: "flex-start"
 	}
 })
 const mapStateToProps = state => {
 	return {
 		user: state.user,
-		error: state.error
+		error: state.error,
+		fetchService: state.fetchService
 	}
 }
 

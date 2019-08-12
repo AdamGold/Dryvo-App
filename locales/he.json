@@ -87,7 +87,8 @@
 		"price": "תמחור שיעור",
 		"duration": "זמן שיעור",
 		"phone": "מספר נייד",
-		"crn": "ח.פ"
+		"crn": "ח.פ",
+		"car_number": "מספר רכב"
 	},
 	"signin": {
 		"login_button": "התחברות",

@@ -258,7 +258,10 @@
 		"kilometers": {
 			"start_of_day": "ק״מ בתחילת היום",
 			"end_of_day": "ק״מ בסוף היום",
-			"personal": "פרטי"
+			"personal": "פרטי",
+			"success_title": "הוספת מרחק בהצלחה!",
+			"success_desc": "הוספת מרחק לתאריך {{date}}.",
+			"success_button": "חזור אחורה"
 		}
 	},
 	"date": {

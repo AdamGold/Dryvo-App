@@ -326,7 +326,9 @@
 		"Duration is required": "זמן השיעור הינו שדה חובה.",
 		"Please insert the date of the appointment": "אנא הכנס תאריך ושעה.",
 		"This appointment is either in the past or in less than 24 hours": "מפגש זה הינו בעבר או שמתקיים בעוד פחות מ-24 שעות.",
-		"No cars available": "לא רשומות מכוניות תחת חשבונך."
+		"No cars available": "לא רשומות מכוניות תחת חשבונך.",
+		"All kilometer distances are required": "שדות הקילומטרים הינם שדות חובה.",
+		"Ending value must be bigger than starting value": "הערך בסוף היום חייב להיות גדול יותר מהערך בתחילת היום."
 	},
 	"notifications": {
 		"students": "בקשות הצטרפות",

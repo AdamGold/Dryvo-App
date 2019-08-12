@@ -118,7 +118,7 @@ export default class RectInput extends React.Component {
 	}
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
 	inputView: {
 		width: "100%",
 		borderBottomWidth: 1,

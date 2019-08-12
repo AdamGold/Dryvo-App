@@ -55,6 +55,13 @@ export class SignUp extends AlertError {
 				crn: {
 					iconName: "confirmation-number",
 					placeholder: strings("signup.crn")
+				},
+				carNumber: {
+					iconName: "directions-car",
+					placeholder: strings("signup.car_number"),
+					onChangeText: (name, value) => {
+						this.setState({ [name]: value.replace(/[^0-9]/g, "") })
+					}
 				}
 			}
 		}
@@ -178,12 +185,20 @@ export class SignUp extends AlertError {
 					if (user) {
 						// we are not awaiting, let's try to do this fully in background
 						if (this.role == signUpRoles.teacher) {
-							this.props.fetchService.fetch(
-								"/teacher/ezcount_user",
-								{
-									method: "GET"
-								}
-							)
+							try {
+								this.props.fetchService.fetch(
+									"/teacher/ezcount_user",
+									{
+										method: "GET"
+									}
+								)
+								this.props.fetchService.fetch("/teacher/cars", {
+									method: "POST",
+									body: JSON.stringify({
+										number: this.state.carNumber
+									})
+								})
+							} catch {}
 						}
 						await this.props.dispatch(
 							checkFirebasePermission(true, true)

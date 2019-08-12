@@ -7,7 +7,8 @@ import {
 	Platform,
 	ScrollView,
 	TouchableHighlight,
-	Linking
+	Linking,
+	Alert
 } from "react-native"
 import { connect } from "react-redux"
 import { strings, errors } from "../../i18n"
@@ -80,11 +81,29 @@ export class Reports extends AlertError {
 		this.setState({ [name]: moment(date).format(SHORT_API_DATE_FORMAT) })
 	}
 
-	async createReport(report_type) {
+	async createReport(report_type, withCar = false) {
+		let car = null
+		if (withCar) {
+			const cars = await this.props.dispatch(
+				fetchOrError(`/teacher/${this.props.user.teacher_id}/cars`, {
+					method: "GET"
+				})
+			)
+			if (cars.json.data.length <= 0) {
+				Alert.alert(
+					strings("errors.title"),
+					errors("No cars available")
+				)
+				return
+			} else {
+				car = cars.json.data[0].id
+			}
+		}
 		let data = {
 			report_type,
 			since: this.state.since,
-			until: this.state.until
+			until: this.state.until,
+			car
 		}
 		const resp = await this.props.dispatch(
 			fetchOrError(`/teacher/reports`, {
@@ -190,6 +209,21 @@ export class Reports extends AlertError {
 							</View>
 						</TouchableHighlight>
 						{this._renderExternalReports()}
+						<TouchableHighlight
+							underlayColor="#f8f8f8"
+							onPress={() => {
+								this.props.navigation.navigate("Kilometers")
+							}}
+							style={styles.fullWidth}
+						>
+							<View style={styles.rectInsideView}>
+								<Text>
+									{strings(
+										"settings.report_types.kilometers"
+									)}
+								</Text>
+							</View>
+						</TouchableHighlight>
 					</ShadowRect>
 					<Text style={styles.rectTitle}>
 						{strings("settings.export_lessons_report")}
@@ -202,6 +236,26 @@ export class Reports extends AlertError {
 							style={styles.button}
 							onPress={() => {
 								this.createReport("lessons")
+							}}
+						>
+							<View>
+								<Text style={styles.buttonText}>
+									{strings("settings.product")}
+								</Text>
+							</View>
+						</TouchableOpacity>
+					</ShadowRect>
+					<Text style={styles.rectTitle}>
+						{strings("settings.export_kilometers_report")}
+					</Text>
+					<ShadowRect style={styles.rect}>
+						<View style={styles.row}>
+							{this._renderVisibleDates()}
+						</View>
+						<TouchableOpacity
+							style={styles.button}
+							onPress={() => {
+								this.createReport("kilometers", true)
 							}}
 						>
 							<View>
@@ -286,6 +340,7 @@ const styles = StyleSheet.create({
 })
 function mapStateToProps(state) {
 	return {
+		user: state.user,
 		error: state.error,
 		fetchService: state.fetchService
 	}

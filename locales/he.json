@@ -240,19 +240,26 @@
 		"success": "פרטים שונו בהצלחה!",
 		"teacher_info": "פרטי שיעור",
 		"expenses": "ניהול הוצאות",
-		"reports": "הפקת דוחות",
+		"reports": "דוחות",
 		"report_types": {
 			"payments": "תקבולים ותשלומים",
 			"incomes": "הכנסות",
 			"export": "ייצוא קובץ אחיד למס הכנסה",
 			"revenue": "רווח והפסד",
 			"students": "ספר תלמידים",
-			"lessons": "יומן הזמנות"
+			"lessons": "יומן הזמנות",
+			"kilometers": "מילוי מד מרחק"
 		},
 		"export_lessons_report": "הפקת יומן הזמנות",
+		"export_kilometers_report": "הפקת מד מרחק",
 		"product": "הפק",
 		"since_date": "תאריך התחלה",
-		"until_date": "תאריך סיום"
+		"until_date": "תאריך סיום",
+		"kilometers": {
+			"start_of_day": "ק״מ בתחילת היום",
+			"end_of_day": "ק״מ בסוף היום",
+			"personal": "פרטי"
+		}
 	},
 	"date": {
 		"formats": {
@@ -315,7 +322,8 @@
 		"Empty fields": "אחד או יותר מהשדות נשארו ריקים.",
 		"Duration is required": "זמן השיעור הינו שדה חובה.",
 		"Please insert the date of the appointment": "אנא הכנס תאריך ושעה.",
-		"This appointment is either in the past or in less than 24 hours": "מפגש זה הינו בעבר או שמתקיים בעוד פחות מ-24 שעות."
+		"This appointment is either in the past or in less than 24 hours": "מפגש זה הינו בעבר או שמתקיים בעוד פחות מ-24 שעות.",
+		"No cars available": "לא רשומות מכוניות תחת חשבונך."
 	},
 	"notifications": {
 		"students": "בקשות הצטרפות",

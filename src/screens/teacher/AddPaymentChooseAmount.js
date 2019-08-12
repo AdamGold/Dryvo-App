@@ -118,71 +118,70 @@ export class AddPaymentChooseAmount extends AlertError {
 						title={strings("teacher.add_payment.title2")}
 					/>
 				</View>
-				<KeyboardAvoidingView
+				<ScrollView
+					keyboardDismissMode={
+						Platform.OS === "ios" ? "interactive" : "on-drag"
+					}
+					keyboardShouldPersistTaps="handled"
 					style={styles.container}
-					behavior={Platform.OS === "ios" ? "padding" : null}
 				>
-					<ScrollView
-						keyboardDismissMode={
-							Platform.OS === "ios" ? "interactive" : "on-drag"
+					<View style={styles.amountContainer}>
+						<TextInput
+							placeholder="000"
+							value={this.state.amount}
+							onChangeText={val => this.changeText("amount", val)}
+							style={styles.amountInput}
+							autoFocus={true}
+							maxLength={5}
+							keyboardType="number-pad"
+						/>
+					</View>
+					<Dropdown
+						containerStyle={styles.dropdown}
+						value={this.state.type}
+						data={this.filterOptions}
+						onChangeText={(val, index, data) =>
+							this.setState({ type: val })
 						}
-						keyboardShouldPersistTaps="handled"
-						style={styles.container}
-					>
-						<View style={styles.amountContainer}>
-							<TextInput
-								placeholder="000"
-								value={this.state.amount}
-								onChangeText={val =>
-									this.changeText("amount", val)
-								}
-								style={styles.amountInput}
-								autoFocus={true}
-								maxLength={5}
-								keyboardType="number-pad"
-							/>
-						</View>
-						<Dropdown
-							containerStyle={styles.dropdown}
-							value={this.state.type}
-							data={this.filterOptions}
-							onChangeText={(val, index, data) =>
-								this.setState({ type: val })
-							}
-							dropdownMargins={{ min: 20, max: 40 }}
-							dropdownOffset={{ top: 0, left: 0 }}
+						dropdownMargins={{ min: 20, max: 40 }}
+						dropdownOffset={{ top: 0, left: 0 }}
+					/>
+					<TextInput
+						placeholder={strings(
+							"teacher.add_payment.details_placeholder"
+						)}
+						value={this.state.details}
+						onChangeText={val => this.changeText("details", val)}
+						style={styles.normalInput}
+					/>
+					<TextInput
+						placeholder={strings(
+							"teacher.add_payment.crn_placeholder"
+						)}
+						value={this.state.crn}
+						onChangeText={val => this.changeText("crn", val)}
+						style={styles.normalInput}
+					/>
+					<View style={styles.receipt}>
+						<Text style={styles.receiptText}>
+							{strings("teacher.add_payment.create_receipt")}
+						</Text>
+						<Switch
+							style={styles.receiptButton}
+							value={this.state.receipt}
+							onValueChange={val => {
+								this.setState({ receipt: val })
+							}}
 						/>
-						<TextInput
-							placeholder={strings(
-								"teacher.add_payment.details_placeholder"
-							)}
-							value={this.state.details}
-							onChangeText={val =>
-								this.changeText("details", val)
-							}
-							style={styles.normalInput}
-						/>
-						<TextInput
-							placeholder={strings(
-								"teacher.add_payment.crn_placeholder"
-							)}
-							value={this.state.crn}
-							onChangeText={val => this.changeText("crn", val)}
-							style={styles.normalInput}
-						/>
-						<View style={styles.receipt}>
-							<Text style={styles.receiptText}>
-								{strings("teacher.add_payment.create_receipt")}
-							</Text>
-							<Switch
-								style={styles.receiptButton}
-								value={this.state.receipt}
-								onValueChange={val => {
-									this.setState({ receipt: val })
-								}}
-							/>
-						</View>
-					</ScrollView>
+					</View>
+				</ScrollView>
+				<KeyboardAvoidingView
+					behavior={Platform.OS === "ios" ? "padding" : null}
+					keyboardVerticalOffset={Platform.select({
+						ios: fullButton.height,
+						android: null
+					})}
+				>
 					<TouchableOpacity
 						onPress={this.addPayment}
 						style={styles.floatButton}
@@ -248,7 +247,8 @@ const styles = StyleSheet.create({
 		fontSize: 20
 	},
 	floatButton: {
-		...fullButton
+		...fullButton,
+		position: "relative"
 	},
 	receipt: {
 		padding: MAIN_PADDING,

@@ -115,6 +115,42 @@ exports[`Home view renders correctly for user without area yet (should show form
       onChangeText={[Function]}
       value=""
     />
+    <View
+      style={
+        Object {
+          "alignItems": "flex-start",
+          "borderBottomColor": "#f7f7f7",
+          "borderBottomWidth": 1,
+          "paddingBottom": 6,
+          "paddingHorizontal": 20,
+          "paddingVertical": 12,
+          "width": "100%",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "alignSelf": "flex-start",
+            "color": "#adadad",
+            "fontSize": 14,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        בחירת מורה
+      </Text>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "flexWrap": "wrap",
+            "justifyContent": "flex-start",
+            "marginTop": 8,
+          }
+        }
+      />
+    </View>
     <TouchableOpacity
       activeOpacity={0.2}
       onPress={[Function]}

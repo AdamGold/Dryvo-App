@@ -35,14 +35,18 @@ export class Notifications extends AlertError {
 	}
 	constructor(props) {
 		super(props)
+		const now = new Date().toISOString()
 		this.filterOptions = [
-			{ value: "appointments/", label: strings("notifications.lessons") },
 			{
-				value: "teacher/students",
+				value: "appointments/?date=ge:" + now + "&order_by=date asc&",
+				label: strings("notifications.lessons")
+			},
+			{
+				value: "teacher/students?order_by=created_at desc&",
 				label: strings("notifications.students")
 			},
 			{
-				value: "appointments/payments",
+				value: "appointments/payments?order_by=created_at desc&",
 				label: strings("notifications.payments")
 			}
 		]
@@ -98,7 +102,7 @@ export class Notifications extends AlertError {
 		const resp = await this.props.fetchService.fetch(
 			"/" +
 				this.state.filter +
-				"?limit=10&is_approved=false&order_by=created_at desc&page=" +
+				"limit=10&is_approved=false&page=" +
 				this.state.page +
 				this.state.extraFilter,
 			{

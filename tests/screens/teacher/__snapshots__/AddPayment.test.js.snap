@@ -47,204 +47,199 @@ exports[`AddPaymentChooseAmount view renders correctly 1`] = `
       title="הוספת תשלום - סכום"
     />
   </View>
-  <KeyboardAvoidingView
-    behavior="padding"
-    enabled={true}
-    keyboardVerticalOffset={0}
+  <ScrollViewMock
+    keyboardDismissMode="interactive"
+    keyboardShouldPersistTaps="handled"
     style={
       Object {
         "flex": 1,
       }
     }
   >
-    <ScrollViewMock
-      keyboardDismissMode="interactive"
-      keyboardShouldPersistTaps="handled"
+    <View
       style={
         Object {
-          "flex": 1,
+          "backgroundColor": "#f4f4f4",
+          "borderBottomWidth": 0,
+          "padding": 20,
         }
       }
     >
-      <View
-        style={
-          Object {
-            "backgroundColor": "#f4f4f4",
-            "borderBottomWidth": 0,
-            "padding": 20,
-          }
-        }
-      >
-        <TextInput
-          allowFontScaling={true}
-          autoFocus={true}
-          keyboardType="number-pad"
-          maxLength={5}
-          onChangeText={[Function]}
-          placeholder="000"
-          rejectResponderTermination={true}
-          style={
-            Object {
-              "fontFamily": "Assistant-Light",
-              "fontSize": 48,
-              "textAlign": "right",
-            }
-          }
-          underlineColorAndroid="transparent"
-          value=""
-        />
-      </View>
-      <Dropdown
-        absoluteRTLLayout={false}
-        animationDuration={225}
-        baseColor="rgba(0, 0, 0, .38)"
-        containerStyle={
-          Object {
-            "alignSelf": "center",
-            "marginTop": 20,
-            "width": "90%",
-          }
-        }
-        data={
-          Array [
-            Object {
-              "label": "מזומן",
-              "value": "cash",
-            },
-            Object {
-              "label": "צ׳ק",
-              "value": "check",
-            },
-            Object {
-              "label": "כרטיס אשראי",
-              "value": "credit",
-            },
-            Object {
-              "label": "העברה בנקאית",
-              "value": "bank",
-            },
-            Object {
-              "label": "אחר",
-              "value": "other",
-            },
-          ]
-        }
-        disabled={false}
-        dropdownMargins={
-          Object {
-            "max": 40,
-            "min": 20,
-          }
-        }
-        dropdownOffset={
-          Object {
-            "left": 0,
-            "top": 0,
-          }
-        }
-        fontSize={16}
-        hitSlop={
-          Object {
-            "bottom": 6,
-            "left": 4,
-            "right": 4,
-            "top": 6,
-          }
-        }
-        itemColor="rgba(0, 0, 0, .54)"
-        itemCount={4}
-        itemPadding={8}
-        labelExtractor={[Function]}
-        onChangeText={[Function]}
-        propsExtractor={[Function]}
-        rippleCentered={false}
-        rippleDuration={400}
-        rippleInsets={
-          Object {
-            "bottom": -8,
-            "left": 0,
-            "right": 0,
-            "top": 16,
-          }
-        }
-        rippleOpacity={0.54}
-        rippleSequential={true}
-        shadeOpacity={0.12}
-        supportedOrientations={
-          Array [
-            "portrait",
-            "portrait-upside-down",
-            "landscape",
-            "landscape-left",
-            "landscape-right",
-          ]
-        }
-        textColor="rgba(0, 0, 0, .87)"
-        useNativeDriver={false}
-        value="cash"
-        valueExtractor={[Function]}
-      />
       <TextInput
         allowFontScaling={true}
+        autoFocus={true}
+        keyboardType="number-pad"
+        maxLength={5}
         onChangeText={[Function]}
-        placeholder="על מה התשלום? (ברירת מחדל: שיעורי נהיגה)"
+        placeholder="000"
         rejectResponderTermination={true}
         style={
           Object {
-            "backgroundColor": "#f4f4f4",
-            "marginTop": 12,
-            "padding": 20,
+            "fontFamily": "Assistant-Light",
+            "fontSize": 48,
             "textAlign": "right",
           }
         }
         underlineColorAndroid="transparent"
         value=""
       />
-      <TextInput
-        allowFontScaling={true}
-        onChangeText={[Function]}
-        placeholder="ח.פ (השאר ריק אם אין)"
-        rejectResponderTermination={true}
-        style={
-          Object {
-            "backgroundColor": "#f4f4f4",
-            "marginTop": 12,
-            "padding": 20,
-            "textAlign": "right",
-          }
+    </View>
+    <Dropdown
+      absoluteRTLLayout={false}
+      animationDuration={225}
+      baseColor="rgba(0, 0, 0, .38)"
+      containerStyle={
+        Object {
+          "alignSelf": "center",
+          "marginTop": 20,
+          "width": "90%",
         }
-        underlineColorAndroid="transparent"
-        value=""
-      />
-      <View
+      }
+      data={
+        Array [
+          Object {
+            "label": "מזומן",
+            "value": "cash",
+          },
+          Object {
+            "label": "צ׳ק",
+            "value": "check",
+          },
+          Object {
+            "label": "כרטיס אשראי",
+            "value": "credit",
+          },
+          Object {
+            "label": "העברה בנקאית",
+            "value": "bank",
+          },
+          Object {
+            "label": "אחר",
+            "value": "other",
+          },
+        ]
+      }
+      disabled={false}
+      dropdownMargins={
+        Object {
+          "max": 40,
+          "min": 20,
+        }
+      }
+      dropdownOffset={
+        Object {
+          "left": 0,
+          "top": 0,
+        }
+      }
+      fontSize={16}
+      hitSlop={
+        Object {
+          "bottom": 6,
+          "left": 4,
+          "right": 4,
+          "top": 6,
+        }
+      }
+      itemColor="rgba(0, 0, 0, .54)"
+      itemCount={4}
+      itemPadding={8}
+      labelExtractor={[Function]}
+      onChangeText={[Function]}
+      propsExtractor={[Function]}
+      rippleCentered={false}
+      rippleDuration={400}
+      rippleInsets={
+        Object {
+          "bottom": -8,
+          "left": 0,
+          "right": 0,
+          "top": 16,
+        }
+      }
+      rippleOpacity={0.54}
+      rippleSequential={true}
+      shadeOpacity={0.12}
+      supportedOrientations={
+        Array [
+          "portrait",
+          "portrait-upside-down",
+          "landscape",
+          "landscape-left",
+          "landscape-right",
+        ]
+      }
+      textColor="rgba(0, 0, 0, .87)"
+      useNativeDriver={false}
+      value="cash"
+      valueExtractor={[Function]}
+    />
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      placeholder="על מה התשלום? (ברירת מחדל: שיעורי נהיגה)"
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "backgroundColor": "#f4f4f4",
+          "marginTop": 12,
+          "padding": 20,
+          "textAlign": "right",
+        }
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+    <TextInput
+      allowFontScaling={true}
+      onChangeText={[Function]}
+      placeholder="ח.פ (השאר ריק אם אין)"
+      rejectResponderTermination={true}
+      style={
+        Object {
+          "backgroundColor": "#f4f4f4",
+          "marginTop": 12,
+          "padding": 20,
+          "textAlign": "right",
+        }
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "padding": 26,
+        }
+      }
+    >
+      <Text
         style={
           Object {
-            "flexDirection": "row",
-            "padding": 26,
+            "fontWeight": "bold",
+            "marginTop": 4,
           }
         }
       >
-        <Text
-          style={
-            Object {
-              "fontWeight": "bold",
-              "marginTop": 4,
-            }
+        צור חשבונית כעת
+      </Text>
+      <Switch
+        onValueChange={[Function]}
+        style={
+          Object {
+            "marginLeft": "auto",
           }
-        >
-          צור חשבונית כעת
-        </Text>
-        <Switch
-          onValueChange={[Function]}
-          style={
-            Object {
-              "marginLeft": "auto",
-            }
-          }
-          value={false}
-        />
-      </View>
-    </ScrollViewMock>
+        }
+        value={false}
+      />
+    </View>
+  </ScrollViewMock>
+  <KeyboardAvoidingView
+    behavior="padding"
+    enabled={true}
+    keyboardVerticalOffset={56}
+  >
     <TouchableOpacity
       activeOpacity={0.2}
       onPress={[Function]}
@@ -257,7 +252,7 @@ exports[`AddPaymentChooseAmount view renders correctly 1`] = `
           "elevation": 8,
           "height": 56,
           "justifyContent": "center",
-          "position": "absolute",
+          "position": "relative",
           "shadowColor": "rgb(12,116,244)",
           "shadowOffset": Object {
             "height": 8,

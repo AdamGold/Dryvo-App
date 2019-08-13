@@ -18,6 +18,7 @@ import StudentProfile from "../student/Profile"
 import Settings from "../Settings"
 import WorkDays from "./WorkDays"
 import Reports from "./Reports"
+import Kilometers from "./Kilometers"
 
 export default createBottomTabNavigator(
 	{
@@ -33,7 +34,13 @@ export default createBottomTabNavigator(
 				AddPayment,
 				Settings,
 				WorkDays,
-				Reports
+				Reports: createStackNavigator(
+					{ Reports, Kilometers },
+					{
+						initialRouteKey: "Reports",
+						headerMode: "none"
+					}
+				)
 			},
 			{
 				initialRouteName: "Main",

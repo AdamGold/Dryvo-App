@@ -40,15 +40,15 @@ exports[`Notifications view renders correctly 1`] = `
                 Array [
                   Object {
                     "label": "בקשות שיעורים",
-                    "value": "appointments/",
+                    "value": "appointments/?date=ge:2019-08-13T09:19:08.457Z&order_by=date asc&",
                   },
                   Object {
                     "label": "בקשות הצטרפות",
-                    "value": "teacher/students",
+                    "value": "teacher/students?order_by=created_at desc&",
                   },
                   Object {
                     "label": "פעילויות כספיות",
-                    "value": "appointments/payments",
+                    "value": "appointments/payments?order_by=created_at desc&",
                   },
                 ]
               }
@@ -109,7 +109,7 @@ exports[`Notifications view renders correctly 1`] = `
               }
               textColor="rgba(0, 0, 0, .87)"
               useNativeDriver={false}
-              value="appointments/"
+              value="appointments/?date=ge:2019-08-13T09:19:08.457Z&order_by=date asc&"
               valueExtractor={[Function]}
             />
           </View>

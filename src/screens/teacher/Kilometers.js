@@ -11,7 +11,7 @@ import {
 	Alert
 } from "react-native"
 import { connect } from "react-redux"
-import { strings } from "../../i18n"
+import { strings, errors } from "../../i18n"
 import PageTitle from "../../components/PageTitle"
 import {
 	MAIN_PADDING,

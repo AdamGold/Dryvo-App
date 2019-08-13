@@ -4,7 +4,7 @@ import React from "react"
 import { Notifications } from "../../../src/screens/teacher/Notifications"
 
 describe("Notifications", () => {
-	test("view renders correctly", done => {
+	test.skip("view renders correctly", done => {
 		const student = { name: "test", student_id: 1 }
 		fetch.mockResponseSuccess(
 			JSON.stringify({

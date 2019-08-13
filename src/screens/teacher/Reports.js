@@ -26,6 +26,7 @@ import ShadowRect from "../../components/ShadowRect"
 import DateTimePicker from "react-native-modal-datetime-picker"
 import moment from "moment"
 import AlertError from "../../components/AlertError"
+import { NavigationActions } from "react-navigation"
 
 export class Reports extends AlertError {
 	constructor(props) {
@@ -181,7 +182,9 @@ export class Reports extends AlertError {
 						leftSide={
 							<TouchableOpacity
 								onPress={() => {
-									this.props.navigation.goBack()
+									this.props.navigation.dispatch(
+										NavigationActions.back()
+									)
 								}}
 								style={styles.closeButton}
 							>

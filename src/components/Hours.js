@@ -9,7 +9,7 @@ export default class Hours extends React.Component {
 		const hours = getHoursDiff(this.props.date, this.props.duration)
 		return (
 			<Text style={this.props.style}>
-				{hours["start"]} - {hours["end"]}
+				{hours["end"]} - {hours["start"]}
 			</Text>
 		)
 	}

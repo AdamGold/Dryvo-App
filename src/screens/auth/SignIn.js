@@ -31,7 +31,7 @@ export class SignIn extends AlertError {
 		super(props)
 		this.state = {}
 		this.inputs = {
-			email: {},
+			email: { keyboardType: "email-address" },
 			password: { secureTextEntry: true, iconName: "security" }
 		}
 		Object.keys(this.inputs).forEach(input => {
@@ -100,12 +100,14 @@ export class SignIn extends AlertError {
 			})
 		)
 	}
+
 	renderInputs = () => {
 		return Object.keys(this.inputs).map((name, index) => {
 			const props = this.inputs[name]
 			return (
 				<AuthInput
 					key={`key${name}`}
+					keyboardType={props.keyboardType}
 					name={name}
 					placeholder={strings("signin." + name)}
 					onChangeText={(name, input) =>

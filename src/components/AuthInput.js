@@ -1,8 +1,9 @@
 import React from "react"
-import { View, StyleSheet } from "react-native"
+import { TouchableOpacity, View, StyleSheet } from "react-native"
 import { Input, Icon } from "react-native-elements"
 import { colors } from "../consts"
 import validate from "../actions/validate"
+import TouchInput from "./TouchInput"
 
 export default class AuthInput extends React.Component {
 	constructor(props) {
@@ -28,9 +29,12 @@ export default class AuthInput extends React.Component {
 			selectedColor: ""
 		})
 	}
+
 	render() {
 		return (
-			<Input
+			<TouchInput
+				type={"Input"}
+				keyboardType={this.props.keyboardType || "default"}
 				placeholder={this.props.placeholder}
 				onChangeText={value =>
 					this.props.onChangeText(this.props.name, value)
@@ -55,7 +59,6 @@ export default class AuthInput extends React.Component {
 						/>
 					</View>
 				}
-				ref={this.props.ref_}
 			/>
 		)
 	}

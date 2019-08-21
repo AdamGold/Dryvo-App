@@ -118,6 +118,7 @@ export class Lesson extends LessonParent {
 				...studentEditable
 			},
 			duration: {
+				keyboardType: "number-pad",
 				iconName: "clock",
 				iconType: "feather",
 				onChangeText: (name, value) => {
@@ -138,6 +139,7 @@ export class Lesson extends LessonParent {
 				}
 			},
 			price: {
+				keyboardType: "number-pad",
 				iconName: "dollar-sign",
 				iconType: "feather",
 				onFocus: input => {
@@ -183,6 +185,7 @@ export class Lesson extends LessonParent {
 			const props = this.inputs[name]
 			return (
 				<NewLessonInput
+					keyboardType={props.keyboardType}
 					key={`key${index}`}
 					name={name}
 					editable={props.editable}

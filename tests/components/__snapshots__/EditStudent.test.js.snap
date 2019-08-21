@@ -774,23 +774,46 @@ exports[`EditStudent view renders correctly -> teacher's view 1`] = `
               >
                 מספר שיעורים לפני כניסה למערכת
               </Text>
-              <TextInput
-                allowFontScaling={true}
-                autoFocus={false}
-                onBlur={[Function]}
-                onChangeText={[Function]}
-                onFocus={[Function]}
-                rejectResponderTermination={true}
-                secureTextEntry={false}
+              <View
+                accessible={true}
+                isTVSelectable={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
                 style={
                   Object {
-                    "padding": 6,
-                    "textAlign": "right",
+                    "opacity": 1,
+                    "width": "100%",
                   }
                 }
-                underlineColorAndroid="transparent"
-                value="4"
-              />
+              >
+                <View
+                  pointerEvents="none"
+                >
+                  <TextInput
+                    allowFontScaling={true}
+                    autoFocus={false}
+                    elem={[Function]}
+                    keyboardType="numeric"
+                    onBlur={[Function]}
+                    onChangeText={[Function]}
+                    onFocus={[Function]}
+                    rejectResponderTermination={true}
+                    secureTextEntry={false}
+                    style={
+                      Object {
+                        "padding": 6,
+                        "textAlign": "right",
+                      }
+                    }
+                    underlineColorAndroid="transparent"
+                    value="4"
+                  />
+                </View>
+              </View>
             </View>
             <View
               style={
@@ -925,23 +948,46 @@ exports[`EditStudent view renders correctly -> teacher's view 1`] = `
               >
                 תמחור שיעור
               </Text>
-              <TextInput
-                allowFontScaling={true}
-                autoFocus={false}
-                onBlur={[Function]}
-                onChangeText={[Function]}
-                onFocus={[Function]}
-                rejectResponderTermination={true}
-                secureTextEntry={false}
+              <View
+                accessible={true}
+                isTVSelectable={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
                 style={
                   Object {
-                    "padding": 6,
-                    "textAlign": "right",
+                    "opacity": 1,
+                    "width": "100%",
                   }
                 }
-                underlineColorAndroid="transparent"
-                value="1000"
-              />
+              >
+                <View
+                  pointerEvents="none"
+                >
+                  <TextInput
+                    allowFontScaling={true}
+                    autoFocus={false}
+                    elem={[Function]}
+                    keyboardType="numeric"
+                    onBlur={[Function]}
+                    onChangeText={[Function]}
+                    onFocus={[Function]}
+                    rejectResponderTermination={true}
+                    secureTextEntry={false}
+                    style={
+                      Object {
+                        "padding": 6,
+                        "textAlign": "right",
+                      }
+                    }
+                    underlineColorAndroid="transparent"
+                    value="1000"
+                  />
+                </View>
+              </View>
             </View>
             <View
               style={

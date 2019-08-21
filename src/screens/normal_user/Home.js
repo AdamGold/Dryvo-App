@@ -1,5 +1,12 @@
 import React from "react"
-import { View, StyleSheet, TouchableOpacity, Alert, Text } from "react-native"
+import {
+	View,
+	ScrollView,
+	StyleSheet,
+	TouchableOpacity,
+	Alert,
+	Text
+} from "react-native"
 import { logout } from "../../actions/auth"
 import { connect } from "react-redux"
 import { strings } from "../../i18n"
@@ -161,65 +168,70 @@ export class Home extends AlertError {
 	render() {
 		if (this.state.fillForm) {
 			return (
-				<View style={styles.formContainer}>
-					<UploadProfileImage
-						style={styles.profilePic}
-						image={getUserImage(this.props.user)}
-						upload={async source => {
-							await this.props.dispatch(uploadUserImage(source))
-						}}
-					/>
-					<Text style={styles.welcomeTitle}>
-						{strings("welcome_from_facebook_title")}
-					</Text>
-					<Text style={styles.welcomeDesc}>
-						{strings("welcome_from_facebook_desc")}
-					</Text>
-					<ShadowRect style={styles.rect}>
-						<RectInput
-							label={strings("signup.name")}
-							iconName="person"
-							value={this.state.name}
-							onChangeText={value =>
-								this.onChangeText("name", value)
-							}
+				<ScrollView>
+					<View style={styles.formContainer}>
+						<UploadProfileImage
+							style={styles.profilePic}
+							image={getUserImage(this.props.user)}
+							upload={async source => {
+								await this.props.dispatch(
+									uploadUserImage(source)
+								)
+							}}
 						/>
-						<RectInput
-							label={strings("signup.area")}
-							iconName="person-pin"
-							value={this.state.area}
-							onChangeText={value =>
-								this.onChangeText("area", value)
-							}
-						/>
-						<RectInput
-							label={strings("signup.phone")}
-							iconName="phone"
-							value={this.state.phone}
-							onChangeText={value =>
-								this.onChangeText("phone", value)
-							}
-						/>
-						<View style={styles.teachers}>
-							<Text style={styles.labelTitle}>
-								{strings("signup.teacher")}
-							</Text>
-							<View style={styles.teachersList}>
-								{this._renderTeachers()}
-							</View>
-						</View>
-						<TouchableOpacity
-							style={styles.button}
-							onPress={this.submit.bind(this)}
-						>
-							<View>
-								<Text style={styles.buttonText}>
-									{strings("settings.submit")}
+						<Text style={styles.welcomeTitle}>
+							{strings("welcome_from_facebook_title")}
+						</Text>
+						<Text style={styles.welcomeDesc}>
+							{strings("welcome_from_facebook_desc")}
+						</Text>
+						<ShadowRect style={styles.rect}>
+							<RectInput
+								label={strings("signup.name")}
+								iconName="person"
+								value={this.state.name}
+								onChangeText={value =>
+									this.onChangeText("name", value)
+								}
+							/>
+							<RectInput
+								label={strings("signup.area")}
+								iconName="person-pin"
+								value={this.state.area}
+								onChangeText={value =>
+									this.onChangeText("area", value)
+								}
+							/>
+							<RectInput
+								keyboardType={"phone-pad"}
+								label={strings("signup.phone")}
+								iconName="phone"
+								value={this.state.phone}
+								onChangeText={value =>
+									this.onChangeText("phone", value)
+								}
+							/>
+							<View style={styles.teachers}>
+								<Text style={styles.labelTitle}>
+									{strings("signup.teacher")}
 								</Text>
+								<View style={styles.teachersList}>
+									{this._renderTeachers()}
+								</View>
 							</View>
-						</TouchableOpacity>
-					</ShadowRect>
-				</View>
+							<TouchableOpacity
+								style={styles.button}
+								onPress={this.submit.bind(this)}
+							>
+								<View>
+									<Text style={styles.buttonText}>
+										{strings("settings.submit")}
+									</Text>
+								</View>
+							</TouchableOpacity>
+						</ShadowRect>
+					</View>
+				</ScrollView>
 			)
 		}
 		return (

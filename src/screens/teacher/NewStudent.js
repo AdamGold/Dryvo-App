@@ -29,12 +29,13 @@ export class NewStudent extends AlertError {
 			image: ""
 		}
 		this.inputs = {
-			email: {},
+			email: { keyboardType: "email-address" },
 			name: {
 				iconName: "person",
 				placeholder: strings("signup.name")
 			},
 			phone: {
+				keyboardType: "phone-pad",
 				iconName: "phone",
 				placeholder: strings("signup.phone"),
 				onChangeText: (name, value) => {
@@ -43,6 +44,7 @@ export class NewStudent extends AlertError {
 			},
 			price: {
 				iconName: "payment",
+				keyboardType: "numeric",
 				placeholder: strings("signup.price")
 			}
 		}
@@ -60,6 +62,7 @@ export class NewStudent extends AlertError {
 			const props = this.inputs[name]
 			return (
 				<AuthInput
+					keyboardType={props.keyboardType}
 					key={`key${name}`}
 					name={name}
 					placeholder={props.placeholder || strings("signin." + name)}

@@ -301,6 +301,7 @@ export class Settings extends AlertError {
 							/>
 							<RectInput
 								label={strings("signup.phone")}
+								keyboardType={"phone-pad"}
 								iconName="phone"
 								value={this.state.phone}
 								onChangeText={value =>

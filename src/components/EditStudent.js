@@ -84,6 +84,7 @@ export default class EditProfile extends AlertError {
 			extraForm = (
 				<Fragment>
 					<RectInput
+						keyboardType={"numeric"}
 						label={strings(
 							"student_profile.edit_screen.number_of_old_lessons"
 						)}
@@ -94,6 +95,7 @@ export default class EditProfile extends AlertError {
 						}
 					/>
 					<RectInput
+						keyboardType={"numeric"}
 						label={strings("student_profile.edit_screen.price")}
 						iconName="dollar-sign"
 						iconType="feather"

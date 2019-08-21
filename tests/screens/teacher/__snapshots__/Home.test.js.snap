@@ -109,17 +109,109 @@ exports[`Home view renders correctly 1`] = `
       >
         מפגש הבא
       </Text>
-      <Text
-        style={
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
+        testID="lessonRowTouchable"
+      >
+        <Row
+          key="itemundefined"
+          leftSide={
+            <React.Fragment>
+              <Hours
+                date="2019-08-21T16:05:15.776Z"
+                duration={40}
+                style={
+                  Object {
+                    "marginTop": 8,
+                  }
+                }
+              />
+              <Text
+                style={
+                  Object {
+                    "alignSelf": "center",
+                    "color": "red",
+                  }
+                }
+              >
+                [missing "he.teacher.new_lesson.types.undefined" translation]
+              </Text>
+            </React.Fragment>
+          }
+          style={
+            Object {
+              "marginTop": 12,
+            }
+          }
+        >
+          <UserWithPic
+            extra={
+              <View
+                style={
+                  Object {
+                    "alignItems": "flex-start",
+                  }
+                }
+              >
+                <Text
+                  style={
+                    Object {
+                      "color": "gray",
+                      "fontSize": 14,
+                    }
+                  }
+                >
+                  איסוף
+                  :
+                   
+                  a
+                </Text>
+              </View>
+            }
+            imageContainerStyle={
+              Object {
+                "marginTop": 8,
+              }
+            }
+            name="test"
+            nameStyle={
+              Object {
+                "marginLeft": -2,
+                "marginTop": 4,
+              }
+            }
+            user={
+              Object {
+                "name": "test",
+              }
+            }
+          />
+        </Row>
+      </TouchableOpacity>
+      <LessonPopup
+        isStudent={false}
+        item={
           Object {
-            "alignSelf": "center",
-            "fontSize": 20,
-            "marginTop": 12,
+            "date": "2019-08-21T16:05:15.776Z",
+            "dropoff_place": "t",
+            "duration": 40,
+            "meetup_place": "a",
+            "student": Object {
+              "name": "test",
+            },
           }
         }
-      >
-        אינך מלמד כעת. הפסקה נעימה!
-      </Text>
+        navigation={
+          Object {
+            "addListener": [Function],
+            "navigate": [MockFunction],
+          }
+        }
+        onPress={[Function]}
+        testID="lessonPopup"
+        visible={false}
+      />
     </ShadowRect>
     <TouchableOpacity
       activeOpacity={0.2}

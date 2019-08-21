@@ -2,157 +2,180 @@
 
 exports[`AuthInput view renders correctly 1`] = `
 <View
+  accessible={true}
+  isTVSelectable={true}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
   style={
     Object {
-      "paddingHorizontal": 10,
+      "opacity": 1,
       "width": "100%",
     }
   }
 >
   <View
-    style={
-      Object {
-        "alignItems": "center",
-        "borderBottomWidth": 1,
-        "borderColor": "#e0e0e0",
-        "borderRadius": 28,
-        "borderWidth": 1,
-        "flexDirection": "row",
-        "marginTop": 12,
-        "transform": Array [
-          Object {
-            "translateX": 0,
-          },
-        ],
-      }
-    }
+    pointerEvents="none"
   >
     <View
       style={
         Object {
-          "alignItems": "center",
-          "height": 40,
-          "justifyContent": "center",
-          "marginLeft": 15,
+          "paddingHorizontal": 10,
+          "width": "100%",
         }
       }
     >
       <View
         style={
           Object {
-            "marginLeft": 6,
+            "alignItems": "center",
+            "borderBottomWidth": 1,
+            "borderColor": "#e0e0e0",
+            "borderRadius": 28,
+            "borderWidth": 1,
+            "flexDirection": "row",
+            "marginTop": 12,
+            "transform": Array [
+              Object {
+                "translateX": 0,
+              },
+            ],
           }
         }
       >
-        <View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "height": 40,
+              "justifyContent": "center",
+              "marginLeft": 15,
+            }
+          }
+        >
           <View
             style={
               Object {
-                "alignItems": "center",
-                "backgroundColor": "transparent",
-                "justifyContent": "center",
+                "marginLeft": 6,
               }
             }
-            theme={
-              Object {
-                "colors": Object {
-                  "disabled": "hsl(208, 8%, 90%)",
-                  "divider": "#bcbbc1",
-                  "error": "#ff190c",
-                  "grey0": "#393e42",
-                  "grey1": "#43484d",
-                  "grey2": "#5e6977",
-                  "grey3": "#86939e",
-                  "grey4": "#bdc6cf",
-                  "grey5": "#e1e8ee",
-                  "greyOutline": "#bbb",
-                  "platform": Object {
-                    "android": Object {
-                      "error": "#f44336",
-                      "primary": "#2196f3",
-                      "secondary": "#9C27B0",
-                      "success": "#4caf50",
-                      "warning": "#ffeb3b",
-                    },
-                    "ios": Object {
-                      "error": "#ff3b30",
-                      "primary": "#007aff",
-                      "secondary": "#5856d6",
-                      "success": "#4cd964",
-                      "warning": "#ffcc00",
-                    },
-                  },
-                  "primary": "#2089dc",
-                  "searchBg": "#303337",
-                  "secondary": "#8F0CE8",
-                  "success": "#52c41a",
-                  "warning": "#faad14",
-                },
-              }
-            }
-            underlayColor="white"
           >
-            <Text
-              allowFontScaling={false}
-              style={
-                Array [
+            <View>
+              <View
+                style={
                   Object {
-                    "color": "#c9c9c9",
-                    "fontSize": 20,
-                  },
-                  Object {
+                    "alignItems": "center",
                     "backgroundColor": "transparent",
-                  },
+                    "justifyContent": "center",
+                  }
+                }
+                theme={
                   Object {
-                    "fontFamily": "Material Icons",
-                    "fontStyle": "normal",
-                    "fontWeight": "normal",
-                  },
-                  Object {},
-                ]
-              }
-              testID="iconIcon"
-            >
-              
-            </Text>
+                    "colors": Object {
+                      "disabled": "hsl(208, 8%, 90%)",
+                      "divider": "#bcbbc1",
+                      "error": "#ff190c",
+                      "grey0": "#393e42",
+                      "grey1": "#43484d",
+                      "grey2": "#5e6977",
+                      "grey3": "#86939e",
+                      "grey4": "#bdc6cf",
+                      "grey5": "#e1e8ee",
+                      "greyOutline": "#bbb",
+                      "platform": Object {
+                        "android": Object {
+                          "error": "#f44336",
+                          "primary": "#2196f3",
+                          "secondary": "#9C27B0",
+                          "success": "#4caf50",
+                          "warning": "#ffeb3b",
+                        },
+                        "ios": Object {
+                          "error": "#ff3b30",
+                          "primary": "#007aff",
+                          "secondary": "#5856d6",
+                          "success": "#4cd964",
+                          "warning": "#ffcc00",
+                        },
+                      },
+                      "primary": "#2089dc",
+                      "searchBg": "#303337",
+                      "secondary": "#8F0CE8",
+                      "success": "#52c41a",
+                      "warning": "#faad14",
+                    },
+                  }
+                }
+                underlayColor="white"
+              >
+                <Text
+                  allowFontScaling={false}
+                  style={
+                    Array [
+                      Object {
+                        "color": "#c9c9c9",
+                        "fontSize": 20,
+                      },
+                      Object {
+                        "backgroundColor": "transparent",
+                      },
+                      Object {
+                        "fontFamily": "Material Icons",
+                        "fontStyle": "normal",
+                        "fontWeight": "normal",
+                      },
+                      Object {},
+                    ]
+                  }
+                  testID="iconIcon"
+                >
+                  
+                </Text>
+              </View>
+            </View>
           </View>
         </View>
+        <TextInput
+          allowFontScaling={true}
+          keyboardType="default"
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          onFocus={[Function]}
+          placeholder="test"
+          rejectResponderTermination={true}
+          secureTextEntry={true}
+          style={
+            Object {
+              "alignSelf": "center",
+              "color": "black",
+              "flex": 1,
+              "fontSize": 18,
+              "minHeight": 40,
+              "padding": 16,
+              "textAlign": "right",
+            }
+          }
+          testID="test"
+          type="Input"
+          underlineColorAndroid="transparent"
+          value="test"
+        />
       </View>
-    </View>
-    <TextInput
-      allowFontScaling={true}
-      onBlur={[Function]}
-      onChangeText={[Function]}
-      onFocus={[Function]}
-      placeholder="test"
-      rejectResponderTermination={true}
-      secureTextEntry={true}
-      style={
-        Object {
-          "alignSelf": "center",
-          "color": "black",
-          "flex": 1,
-          "fontSize": 18,
-          "minHeight": 40,
-          "padding": 16,
-          "textAlign": "right",
+      <Text
+        style={
+          Object {
+            "color": "#ff190c",
+            "fontSize": 12,
+            "margin": 5,
+          }
         }
-      }
-      testID="test"
-      underlineColorAndroid="transparent"
-      value="test"
-    />
+      >
+        error
+      </Text>
+    </View>
   </View>
-  <Text
-    style={
-      Object {
-        "color": "#ff190c",
-        "fontSize": 12,
-        "margin": 5,
-      }
-    }
-  >
-    error
-  </Text>
 </View>
 `;

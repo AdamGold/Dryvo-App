@@ -43,150 +43,153 @@ exports[`Home view renders correctly for teacher 1`] = `
 `;
 
 exports[`Home view renders correctly for user without area yet (should show form) 1`] = `
-<View
-  style={
-    Object {
-      "alignItems": "center",
-      "flex": 1,
-      "marginTop": 20,
-      "paddingLeft": 26,
-      "paddingRight": 26,
-    }
-  }
->
-  <UploadProfileImage
-    image="https://res.cloudinary.com/hsmkon3br/image/upload/c_thumb,g_face,h_80,w_80/v1554188012/678099-profile-filled-256.png"
+<ScrollViewMock>
+  <View
     style={
       Object {
-        "borderRadius": 40,
-        "height": 80,
-        "marginBottom": 16,
-        "width": 80,
-      }
-    }
-    upload={[Function]}
-  />
-  <Text
-    style={
-      Object {
-        "fontSize": 24,
-        "fontWeight": "bold",
+        "alignItems": "center",
+        "flex": 1,
+        "marginTop": 20,
+        "paddingLeft": 26,
+        "paddingRight": 26,
       }
     }
   >
-    ברוך הבא!
-  </Text>
-  <Text
-    style={
-      Object {
-        "marginTop": 12,
-        "textAlign": "center",
-        "width": 240,
-      }
-    }
-  >
-    בזמן ההמתנה לאישור, אולי ננצל את הזמן ונמלא את הפרטים הבאים?
-  </Text>
-  <ShadowRect
-    style={
-      Object {
-        "marginBottom": 24,
-        "marginTop": 24,
-        "paddingHorizontal": 0,
-        "paddingVertical": 0,
-      }
-    }
-  >
-    <RectInput
-      iconName="person"
-      label="שם מלא בעברית"
-      onChangeText={[Function]}
-      value=""
-    />
-    <RectInput
-      iconName="person-pin"
-      label="איזור"
-      onChangeText={[Function]}
-      value=""
-    />
-    <RectInput
-      iconName="phone"
-      label="מספר נייד"
-      onChangeText={[Function]}
-      value=""
-    />
-    <View
+    <UploadProfileImage
+      image="https://res.cloudinary.com/hsmkon3br/image/upload/c_thumb,g_face,h_80,w_80/v1554188012/678099-profile-filled-256.png"
       style={
         Object {
-          "alignItems": "flex-start",
-          "borderBottomColor": "#f7f7f7",
-          "borderBottomWidth": 1,
-          "paddingBottom": 6,
-          "paddingHorizontal": 20,
-          "paddingVertical": 12,
-          "width": "100%",
+          "borderRadius": 40,
+          "height": 80,
+          "marginBottom": 16,
+          "width": 80,
+        }
+      }
+      upload={[Function]}
+    />
+    <Text
+      style={
+        Object {
+          "fontSize": 24,
+          "fontWeight": "bold",
         }
       }
     >
-      <Text
-        style={
-          Object {
-            "alignSelf": "flex-start",
-            "color": "#adadad",
-            "fontSize": 14,
-            "fontWeight": "bold",
-          }
+      ברוך הבא!
+    </Text>
+    <Text
+      style={
+        Object {
+          "marginTop": 12,
+          "textAlign": "center",
+          "width": 240,
         }
-      >
-        בחירת מורה
-      </Text>
+      }
+    >
+      בזמן ההמתנה לאישור, אולי ננצל את הזמן ונמלא את הפרטים הבאים?
+    </Text>
+    <ShadowRect
+      style={
+        Object {
+          "marginBottom": 24,
+          "marginTop": 24,
+          "paddingHorizontal": 0,
+          "paddingVertical": 0,
+        }
+      }
+    >
+      <RectInput
+        iconName="person"
+        label="שם מלא בעברית"
+        onChangeText={[Function]}
+        value=""
+      />
+      <RectInput
+        iconName="person-pin"
+        label="איזור"
+        onChangeText={[Function]}
+        value=""
+      />
+      <RectInput
+        iconName="phone"
+        keyboardType="phone-pad"
+        label="מספר נייד"
+        onChangeText={[Function]}
+        value=""
+      />
       <View
         style={
           Object {
-            "flexDirection": "row",
-            "flexWrap": "wrap",
-            "justifyContent": "flex-start",
-            "marginTop": 8,
+            "alignItems": "flex-start",
+            "borderBottomColor": "#f7f7f7",
+            "borderBottomWidth": 1,
+            "paddingBottom": 6,
+            "paddingHorizontal": 20,
+            "paddingVertical": 12,
+            "width": "100%",
           }
         }
-      />
-    </View>
-    <TouchableOpacity
-      activeOpacity={0.2}
-      onPress={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "rgb(12,116,244)",
-          "borderRadius": 0,
-          "elevation": 8,
-          "height": 56,
-          "justifyContent": "center",
-          "shadowColor": "rgb(12,116,244)",
-          "shadowOffset": Object {
-            "height": 8,
-            "width": 0,
-          },
-          "shadowOpacity": 0.5,
-          "shadowRadius": 16,
-          "width": "100%",
-        }
-      }
-    >
-      <View>
+      >
         <Text
           style={
             Object {
-              "color": "#fff",
-              "fontSize": 20,
+              "alignSelf": "flex-start",
+              "color": "#adadad",
+              "fontSize": 14,
               "fontWeight": "bold",
             }
           }
         >
-          שמור
+          בחירת מורה
         </Text>
+        <View
+          style={
+            Object {
+              "flexDirection": "row",
+              "flexWrap": "wrap",
+              "justifyContent": "flex-start",
+              "marginTop": 8,
+            }
+          }
+        />
       </View>
-    </TouchableOpacity>
-  </ShadowRect>
-</View>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
+        style={
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "rgb(12,116,244)",
+            "borderRadius": 0,
+            "elevation": 8,
+            "height": 56,
+            "justifyContent": "center",
+            "shadowColor": "rgb(12,116,244)",
+            "shadowOffset": Object {
+              "height": 8,
+              "width": 0,
+            },
+            "shadowOpacity": 0.5,
+            "shadowRadius": 16,
+            "width": "100%",
+          }
+        }
+      >
+        <View>
+          <Text
+            style={
+              Object {
+                "color": "#fff",
+                "fontSize": 20,
+                "fontWeight": "bold",
+              }
+            }
+          >
+            שמור
+          </Text>
+        </View>
+      </TouchableOpacity>
+    </ShadowRect>
+  </View>
+</ScrollViewMock>
 `;

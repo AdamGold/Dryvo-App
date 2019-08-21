@@ -46,18 +46,22 @@ export class SignUp extends AlertError {
 			extraInputs = {
 				duration: {
 					iconName: "access-time",
+					keyboardType: "numeric",
 					placeholder: strings("signup.duration")
 				},
 				price: {
 					iconName: "payment",
+					keyboardType: "numeric",
 					placeholder: strings("signup.price")
 				},
 				crn: {
 					iconName: "confirmation-number",
+					keyboardType: "numeric",
 					placeholder: strings("signup.crn")
 				},
 				carNumber: {
 					iconName: "directions-car",
+					keyboardType: "numeric",
 					placeholder: strings("signup.car_number"),
 					onChangeText: (name, value) => {
 						this.setState({ [name]: value.replace(/[^0-9]/g, "") })
@@ -67,6 +71,7 @@ export class SignUp extends AlertError {
 		}
 		this.inputs = {
 			email: {
+				keyboardType: "email-address",
 				onFocus: () => {
 					this.scrollView.scrollTo({ y: -200 })
 				}
@@ -80,6 +85,7 @@ export class SignUp extends AlertError {
 				placeholder: strings("signup.area")
 			},
 			phone: {
+				keyboardType: "phone-pad",
 				iconName: "phone",
 				placeholder: strings("signup.phone"),
 				onChangeText: (name, value) => {
@@ -223,6 +229,7 @@ export class SignUp extends AlertError {
 			return (
 				<AuthInput
 					key={`key${name}`}
+					keyboardType={props.keyboardType}
 					name={name}
 					placeholder={props.placeholder || strings("signin." + name)}
 					onChangeText={

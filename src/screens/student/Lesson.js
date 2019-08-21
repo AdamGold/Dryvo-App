@@ -123,14 +123,7 @@ export class Lesson extends LessonParent {
 	}
 
 	renderHours = () => {
-		if (this.state.hours.length == 0) {
-			if (this.state.date) {
-				return (
-					<Text>
-						{strings("student.new_lesson.no_hours_available")}
-					</Text>
-				)
-			}
+		if (!this.state.date) {
 			return (
 				<Text>
 					{strings("student.new_lesson.pick_date_before_hours")}
@@ -142,6 +135,11 @@ export class Lesson extends LessonParent {
 				<Text>
 					{strings("student.new_lesson.pick_places_before_hours")}
 				</Text>
+			)
+		}
+		if (this.state.hours.length == 0) {
+			return (
+				<Text>{strings("student.new_lesson.no_hours_available")}</Text>
 			)
 		}
 		let noDuplicates = []
@@ -195,6 +193,7 @@ export class Lesson extends LessonParent {
 		if (resp) {
 			Analytics.logEvent("student_created_lesson")
 			this.setState({ ...this.initState, successVisible: true })
+			this.clearPlaces()
 		}
 	}
 

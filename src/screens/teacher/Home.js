@@ -78,24 +78,31 @@ export class Home extends React.Component {
 	}
 
 	_getLessons = async () => {
-		const now = new Date().toISOString()
-		const nextLessonResp = await this.props.fetchService.fetch(
-			"/appointments/?limit=2&is_approved=true&date=ge:" + now,
+		const ThreeHoursAgo = moment()
+			.subtract(3, "hours")
+			.toISOString()
+		const appoints = await this.props.fetchService.fetch(
+			"/appointments/?limit=10&is_approved=true&date=ge:" + ThreeHoursAgo,
 			{ method: "GET" }
 		)
 		let nextLesson = null,
 			currentLesson = null
-		const data = nextLessonResp.json["data"]
-		if (data.length > 0) {
-			const endDateOfFirst = moment
-				.utc(data[0].date)
-				.add(data[0].duration, "minutes")
-			if (endDateOfFirst <= moment()) {
-				// lesson is happening now
-				currentLesson = data[0]
-				nextLesson = data[1]
+		const data = appoints.json["data"]
+		for (var i = 0; i < data.length; i++) {
+			var appointment = data[i]
+			const endDate = moment
+				.utc(appointment.date)
+				.add(appointment.duration, "minutes")
+			if (endDate < moment()) {
+				// lesson is in the past
+				continue
+			}
+			if (appointment.date <= moment()) {
+				// only if already started
+				currentLesson = appointment
 			} else {
-				nextLesson = data[0]
+				nextLesson = appointment
+				break
 			}
 		}
 

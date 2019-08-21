@@ -86,9 +86,9 @@ exports[`StudentNextLessonView view renders correctly 1`] = `
             }
           }
         >
-          00:00
-           - 
           00:40
+           - 
+          00:00
         </Text>
       </View>
     </View>

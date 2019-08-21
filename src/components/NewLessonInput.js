@@ -3,6 +3,7 @@ import { View, StyleSheet } from "react-native"
 import { Input, Button, Icon } from "react-native-elements"
 import { strings } from "../i18n"
 import { MAIN_PADDING } from "../consts"
+import TouchInput from "./TouchInput"
 
 export default class NewLessonInput extends React.Component {
 	render() {
@@ -14,7 +15,9 @@ export default class NewLessonInput extends React.Component {
 			below = <View style={styles.belowStyle}>{this.props.below()}</View>
 		return (
 			<Fragment>
-				<Input
+				<TouchInput
+					type={"Input"}
+					keyboardType={this.props.keyboardType || "default"}
 					placeholder={
 						strings(`teacher.new_lesson.${name}`) +
 						this.props.extraPlaceholder

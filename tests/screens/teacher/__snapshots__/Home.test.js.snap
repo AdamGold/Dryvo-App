@@ -85,6 +85,30 @@ exports[`Home view renders correctly 1`] = `
       >
         מפגש נוכחי
       </Text>
+      <Text
+        style={
+          Object {
+            "alignSelf": "center",
+            "fontSize": 20,
+            "marginTop": 12,
+          }
+        }
+      >
+        אינך מלמד כעת. הפסקה נעימה!
+      </Text>
+      <Separator />
+      <Text
+        style={
+          Object {
+            "alignSelf": "flex-start",
+            "color": "rgb(121, 121, 121)",
+            "fontSize": 16,
+            "fontWeight": "bold",
+          }
+        }
+      >
+        מפגש הבא
+      </Text>
       <TouchableOpacity
         activeOpacity={0.2}
         onPress={[Function]}
@@ -95,6 +119,8 @@ exports[`Home view renders correctly 1`] = `
           leftSide={
             <React.Fragment>
               <Hours
+                date="2019-08-21T16:05:15.776Z"
+                duration={40}
                 style={
                   Object {
                     "marginTop": 8,
@@ -167,7 +193,9 @@ exports[`Home view renders correctly 1`] = `
         isStudent={false}
         item={
           Object {
+            "date": "2019-08-21T16:05:15.776Z",
             "dropoff_place": "t",
+            "duration": 40,
             "meetup_place": "a",
             "student": Object {
               "name": "test",
@@ -184,30 +212,6 @@ exports[`Home view renders correctly 1`] = `
         testID="lessonPopup"
         visible={false}
       />
-      <Separator />
-      <Text
-        style={
-          Object {
-            "alignSelf": "flex-start",
-            "color": "rgb(121, 121, 121)",
-            "fontSize": 16,
-            "fontWeight": "bold",
-          }
-        }
-      >
-        מפגש הבא
-      </Text>
-      <Text
-        style={
-          Object {
-            "alignSelf": "center",
-            "fontSize": 20,
-            "marginTop": 12,
-          }
-        }
-      >
-        אינך מלמד כעת. הפסקה נעימה!
-      </Text>
     </ShadowRect>
     <TouchableOpacity
       activeOpacity={0.2}

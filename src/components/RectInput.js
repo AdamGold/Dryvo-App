@@ -9,6 +9,7 @@ import {
 } from "react-native"
 import { Icon } from "react-native-elements"
 import { colors } from "../consts"
+import TouchInput from "./TouchInput"
 
 export default class RectInput extends React.Component {
 	constructor(props) {
@@ -52,16 +53,21 @@ export default class RectInput extends React.Component {
 			iconStyle = { marginBottom: 6 }
 			labelStyle = { marginTop: 6 }
 		} else if (!this.props.switch) {
+			let value = this.props.value
+			if (value) {
+				value = value.toString()
+			}
 			input = (
-				<TextInput
-					value={this.props.value.toString()}
+				<TouchInput
+					keyboardType={this.props.keyboardType || "default"}
+					value={value}
 					testID={this.props.testID}
 					style={{
 						...styles.input,
 						...this.props.style
 					}}
 					autoFocus={this.props.autoFocus || false}
-					ref={input => {
+					elem={input => {
 						this.input = input
 					}}
 					onSubmitEditing={this.props.onSubmitEditing}

@@ -36,6 +36,11 @@ export default class LessonParent extends AlertError {
 		}
 	}
 
+	clearPlaces() {
+		this["meetupRef"]._handleChangeText("")
+		this["dropoffRef"]._handleChangeText("")
+	}
+
 	renderPlaces = () => {
 		const places = ["meetup", "dropoff"]
 		return places.map((name, index) => {
@@ -44,7 +49,7 @@ export default class LessonParent extends AlertError {
 					textInputProps={{
 						onChangeText: text => {
 							if (text == "") {
-								this.setState({ [name]: "" })
+								this.setState({ [name]: {} })
 								this.renderHours()
 							}
 						}

@@ -48,25 +48,48 @@ exports[`RectInput view renders correctly 1`] = `
           }
         }
       />
-      <TextInput
-        allowFontScaling={true}
-        autoFocus={false}
-        onBlur={[Function]}
-        onChangeText={[MockFunction]}
-        onFocus={[Function]}
-        onSubmitEditing={[MockFunction]}
-        rejectResponderTermination={true}
-        secureTextEntry={false}
+      <View
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
         style={
           Object {
-            "marginTop": 20,
-            "padding": 6,
-            "textAlign": "right",
+            "opacity": 1,
+            "width": "100%",
           }
         }
-        underlineColorAndroid="transparent"
-        value="value"
-      />
+      >
+        <View
+          pointerEvents="none"
+        >
+          <TextInput
+            allowFontScaling={true}
+            autoFocus={false}
+            elem={[Function]}
+            keyboardType="default"
+            onBlur={[Function]}
+            onChangeText={[MockFunction]}
+            onFocus={[Function]}
+            onSubmitEditing={[MockFunction]}
+            rejectResponderTermination={true}
+            secureTextEntry={false}
+            style={
+              Object {
+                "marginTop": 20,
+                "padding": 6,
+                "textAlign": "right",
+              }
+            }
+            underlineColorAndroid="transparent"
+            value="value"
+          />
+        </View>
+      </View>
     </View>
     <View
       style={

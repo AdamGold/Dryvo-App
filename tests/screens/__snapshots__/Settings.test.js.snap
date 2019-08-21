@@ -173,6 +173,7 @@ exports[`Settings view renders correctly for student 1`] = `
         />
         <RectInput
           iconName="phone"
+          keyboardType="phone-pad"
           label="מספר נייד"
           onChangeText={[Function]}
           value="05501111"
@@ -503,6 +504,7 @@ exports[`Settings view renders correctly for teacher 1`] = `
         />
         <RectInput
           iconName="phone"
+          keyboardType="phone-pad"
           label="מספר נייד"
           onChangeText={[Function]}
           value="05501111"

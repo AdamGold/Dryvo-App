@@ -24,6 +24,7 @@ export default class EditProfile extends AlertError {
 		const student = this.props.navigation.getParam("student")
 		this.state = {
 			doctor_check: student.doctor_check,
+			id_number: student.id_number,
 			eyes_check: student.eyes_check,
 			theory: student.theory,
 			price: student.price,
@@ -140,6 +141,13 @@ export default class EditProfile extends AlertError {
 					</View>
 					<ShadowRect style={styles.rect}>
 						{extraForm}
+						<RectInput
+							label={strings("student_profile.id_number")}
+							value={this.state.id_number}
+							onChangeText={value =>
+								this.onChangeText("id_number", value)
+							}
+						/>
 						<RectInput
 							label={strings(
 								"student_profile.edit_screen.green_form"

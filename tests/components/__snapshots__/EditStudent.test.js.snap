@@ -238,6 +238,179 @@ exports[`EditStudent view renders correctly -> student's view 1`] = `
                     "color": "#adadad",
                     "fontSize": 14,
                     "fontWeight": "bold",
+                  }
+                }
+              >
+                תעודת זהות
+              </Text>
+              <View
+                accessible={true}
+                isTVSelectable={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "opacity": 1,
+                    "width": "100%",
+                  }
+                }
+              >
+                <View
+                  pointerEvents="none"
+                >
+                  <TextInput
+                    allowFontScaling={true}
+                    autoFocus={false}
+                    elem={[Function]}
+                    keyboardType="default"
+                    onBlur={[Function]}
+                    onChangeText={[Function]}
+                    onFocus={[Function]}
+                    rejectResponderTermination={true}
+                    secureTextEntry={false}
+                    style={
+                      Object {
+                        "padding": 6,
+                        "textAlign": "right",
+                      }
+                    }
+                    underlineColorAndroid="transparent"
+                  />
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "marginLeft": "auto",
+                  "marginTop": 8,
+                }
+              }
+            >
+              <View>
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "transparent",
+                      "justifyContent": "center",
+                    }
+                  }
+                  theme={
+                    Object {
+                      "colors": Object {
+                        "disabled": "hsl(208, 8%, 90%)",
+                        "divider": "#bcbbc1",
+                        "error": "#ff190c",
+                        "grey0": "#393e42",
+                        "grey1": "#43484d",
+                        "grey2": "#5e6977",
+                        "grey3": "#86939e",
+                        "grey4": "#bdc6cf",
+                        "grey5": "#e1e8ee",
+                        "greyOutline": "#bbb",
+                        "platform": Object {
+                          "android": Object {
+                            "error": "#f44336",
+                            "primary": "#2196f3",
+                            "secondary": "#9C27B0",
+                            "success": "#4caf50",
+                            "warning": "#ffeb3b",
+                          },
+                          "ios": Object {
+                            "error": "#ff3b30",
+                            "primary": "#007aff",
+                            "secondary": "#5856d6",
+                            "success": "#4cd964",
+                            "warning": "#ffcc00",
+                          },
+                        },
+                        "primary": "#2089dc",
+                        "searchBg": "#303337",
+                        "secondary": "#8F0CE8",
+                        "success": "#52c41a",
+                        "warning": "#faad14",
+                      },
+                    }
+                  }
+                  underlayColor="white"
+                >
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      Array [
+                        Object {
+                          "color": "#adadad",
+                          "fontSize": 24,
+                        },
+                        Object {
+                          "backgroundColor": "transparent",
+                        },
+                        Object {
+                          "fontFamily": "Material Icons",
+                          "fontStyle": "normal",
+                          "fontWeight": "normal",
+                        },
+                        Object {},
+                      ]
+                    }
+                    testID="iconIcon"
+                  >
+                    
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "borderBottomColor": "#f7f7f7",
+              "borderBottomWidth": 1,
+              "opacity": 1,
+              "paddingBottom": 6,
+              "paddingHorizontal": 20,
+              "paddingVertical": 12,
+              "width": "100%",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "flexDirection": "row",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "flex": 1,
+                  "flexDirection": "column",
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "#adadad",
+                    "fontSize": 14,
+                    "fontWeight": "bold",
                     "marginTop": 6,
                   }
                 }
@@ -1146,6 +1319,179 @@ exports[`EditStudent view renders correctly -> teacher's view 1`] = `
                 }
                 value={false}
               />
+            </View>
+          </View>
+        </View>
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "alignItems": "flex-start",
+              "borderBottomColor": "#f7f7f7",
+              "borderBottomWidth": 1,
+              "opacity": 1,
+              "paddingBottom": 6,
+              "paddingHorizontal": 20,
+              "paddingVertical": 12,
+              "width": "100%",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "flexDirection": "row",
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "flex-start",
+                  "flex": 1,
+                  "flexDirection": "column",
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "color": "#adadad",
+                    "fontSize": 14,
+                    "fontWeight": "bold",
+                  }
+                }
+              >
+                תעודת זהות
+              </Text>
+              <View
+                accessible={true}
+                isTVSelectable={true}
+                onResponderGrant={[Function]}
+                onResponderMove={[Function]}
+                onResponderRelease={[Function]}
+                onResponderTerminate={[Function]}
+                onResponderTerminationRequest={[Function]}
+                onStartShouldSetResponder={[Function]}
+                style={
+                  Object {
+                    "opacity": 1,
+                    "width": "100%",
+                  }
+                }
+              >
+                <View
+                  pointerEvents="none"
+                >
+                  <TextInput
+                    allowFontScaling={true}
+                    autoFocus={false}
+                    elem={[Function]}
+                    keyboardType="default"
+                    onBlur={[Function]}
+                    onChangeText={[Function]}
+                    onFocus={[Function]}
+                    rejectResponderTermination={true}
+                    secureTextEntry={false}
+                    style={
+                      Object {
+                        "padding": 6,
+                        "textAlign": "right",
+                      }
+                    }
+                    underlineColorAndroid="transparent"
+                  />
+                </View>
+              </View>
+            </View>
+            <View
+              style={
+                Object {
+                  "marginLeft": "auto",
+                  "marginTop": 8,
+                }
+              }
+            >
+              <View>
+                <View
+                  style={
+                    Object {
+                      "alignItems": "center",
+                      "backgroundColor": "transparent",
+                      "justifyContent": "center",
+                    }
+                  }
+                  theme={
+                    Object {
+                      "colors": Object {
+                        "disabled": "hsl(208, 8%, 90%)",
+                        "divider": "#bcbbc1",
+                        "error": "#ff190c",
+                        "grey0": "#393e42",
+                        "grey1": "#43484d",
+                        "grey2": "#5e6977",
+                        "grey3": "#86939e",
+                        "grey4": "#bdc6cf",
+                        "grey5": "#e1e8ee",
+                        "greyOutline": "#bbb",
+                        "platform": Object {
+                          "android": Object {
+                            "error": "#f44336",
+                            "primary": "#2196f3",
+                            "secondary": "#9C27B0",
+                            "success": "#4caf50",
+                            "warning": "#ffeb3b",
+                          },
+                          "ios": Object {
+                            "error": "#ff3b30",
+                            "primary": "#007aff",
+                            "secondary": "#5856d6",
+                            "success": "#4cd964",
+                            "warning": "#ffcc00",
+                          },
+                        },
+                        "primary": "#2089dc",
+                        "searchBg": "#303337",
+                        "secondary": "#8F0CE8",
+                        "success": "#52c41a",
+                        "warning": "#faad14",
+                      },
+                    }
+                  }
+                  underlayColor="white"
+                >
+                  <Text
+                    allowFontScaling={false}
+                    style={
+                      Array [
+                        Object {
+                          "color": "#adadad",
+                          "fontSize": 24,
+                        },
+                        Object {
+                          "backgroundColor": "transparent",
+                        },
+                        Object {
+                          "fontFamily": "Material Icons",
+                          "fontStyle": "normal",
+                          "fontWeight": "normal",
+                        },
+                        Object {},
+                      ]
+                    }
+                    testID="iconIcon"
+                  >
+                    
+                  </Text>
+                </View>
+              </View>
             </View>
           </View>
         </View>

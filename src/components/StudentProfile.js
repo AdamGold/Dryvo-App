@@ -314,6 +314,7 @@ export default class StudentProfile extends AlertError {
 										{student.lessons_done}{" "}
 										{strings("student_profile.lessons")}
 									</Text>
+									<Text>{student.id_number}</Text>
 									<TouchableOpacity
 										onPress={() =>
 											this.props.navigation.navigate(

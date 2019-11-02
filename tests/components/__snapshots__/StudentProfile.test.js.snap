@@ -45,6 +45,7 @@ exports[`StudentProfile view renders correctly -> student's view 1`] = `
                
               שיעורים
             </Text>
+            <Text />
             <TouchableOpacity
               activeOpacity={0.2}
               onPress={[Function]}
@@ -239,6 +240,7 @@ exports[`StudentProfile view renders correctly -> teacher's view 1`] = `
                
               שיעורים
             </Text>
+            <Text />
             <TouchableOpacity
               activeOpacity={0.2}
               onPress={[Function]}

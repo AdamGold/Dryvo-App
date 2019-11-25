@@ -84,16 +84,6 @@ class App extends Component {
 
 	async componentDidMount() {
 		this.createNotificationListeners()
-		if (packageJson.version != "0.0.8") {
-			Alert.alert(
-				strings("errors.title"),
-				strings("update_version"),
-				[{ text: "OK", onPress: () => BackHandler.exitApp() }],
-				{
-					cancelable: false
-				}
-			)
-		}
 	}
 
 	componentWillUnmount() {
